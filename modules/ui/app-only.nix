@@ -55,7 +55,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    activation.nixkraken-ui-config =
+    home.activation.nixkraken-ui-config =
       lib.hm.dag.entriesAfter "nixkraken"
         [ "nixkraken-top-level" ]
         [

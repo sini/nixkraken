@@ -50,7 +50,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    activation.nixkraken-graph-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
+    home.activation.nixkraken-graph-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
       gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
     '';
   };
