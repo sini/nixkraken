@@ -20,6 +20,72 @@ Since I am the main GitKraken maintainer on [nixpkgs][gitkraken-nixpkgs] and use
 
 Custom support will be provided on my free time and on a best effort basis. Everyone is very welcome to make PRs 🙂
 
+## 📥 Installation
+
+This module is meant to be used with [Home Manager][home-manager]. It can be installed through the methods listed below:
+
+### Flakes: NixOS system-wide Home Manager configuration
+
+```nix
+{
+  # Use unstable to get latest updates (may break!)
+  inputs.nixkraken.url = "github:nicolas-goudry/nixkraken";
+
+  # Pin to a given version
+  #inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/vX.Y.Z";
+
+  # You may optionally follow your own nixpkgs input
+  # ⚠️ Depending on the version of GitKraken available in your nixpkgs input, some features may not work or be broken ⚠️
+  #inputs.nixkraken.inputs.nixpkgs.follows = "nixpkgs";
+
+  outputs = { self, nixpkgs, home-manager, nixkraken }: {
+    nixosConfigurations.yourhostname = nixpkgs.lib.nixosSystem {
+      # Customize to your system
+      system = "x86_64-linux";
+      modules = [
+        ./configuration.nix
+        home-manager.nixosModules.home-manager {
+          home-manager.sharedModules = [
+            inputs.nixkraken.homeManagerModules.nixkraken
+          ];
+        }
+      ];
+    };
+  };
+}
+```
+
+### Flakes: Configuration via home.nix
+
+```nix
+{ inputs, ... }:
+
+{
+  imports = [
+    inputs.nixkraken.homeManagerModules.nixkraken
+  ];
+}
+```
+
+### `fetchTarball`: Configuration via home.nix
+
+```nix
+{ lib, ... }:
+
+{
+  imports = let
+    # Replace this with an actual commit or tag
+    rev = "<replace>";
+  in [
+    "${builtins.fetchTarball {
+      url = "https://github.com/nicolas-goudry/nixkraken/archive/${rev}.tar.gz";
+      # Replace this with an actual hash
+      sha256 = lib.fakeHash;
+    }}/modules/home-manager"
+  ];
+}
+```
+
 ## 📦 Packages
 
 Nixkraken packages are Bash scripts bundled using Nix's `writeShellApplication`, which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directory, provided all their dependencies are available in the shell environment.
