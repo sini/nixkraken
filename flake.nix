@@ -28,6 +28,8 @@
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
+      homeManagerModules.nixkraken = ./module.nix;
+
       # nix flake check
       checks = eachSystem (pkgs: {
         formatting = treefmtEval.${pkgs.system}.config.build.check self;

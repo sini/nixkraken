@@ -1,0 +1,515 @@
+{ config, lib, ... }:
+
+let
+  cfg = config.programs.nixkraken;
+
+  # From GitKraken's prettified main.bundle.js:
+  # ae = (re.ICONS = [
+  #   { name: "Keif, the Kraken", path: "Keif.png" },
+  #   /* ... */
+  # ]),
+  # NOTE: when updating, DO NOT delete the "gravatar" entry (even if it's not listed in GitKraken's code)
+  icons = [
+    "Aqua-Keif.png" # AquaKeif
+    "Architect-Keif.png" # Architect Keif
+    "Brainy-Keif.png" # Brainy Keif
+    "Butler-Keif.png" # Butler Keif
+    "Capt-FalKeif.png" # Captain FalKeif
+    "Developer-Keif1.png" # Developer Keif
+    "Developer-Keif2.png" # Developer Keif
+    "Dia-de-los-Muertos-Keif.png" # Dia de los Muertos
+    "Flash-Keif.png" # Flash Keif
+    "Git-Mage-Keif.png" # Git Mage
+    "Gitty-up.png" # Gitty Up
+    "Gourmet-Keif.png" # Gourmet Sh*t
+    "Headphones-Keif.png" # Headphones Keif
+    "Keif-Snow.png" # Keif Snow
+    "Keif-Stanz.png" # Dr. Keif Stanz
+    "Keif-the-Riveter.png" # Kefie the Riveter
+    "Keif.png" # Keif, the Kraken
+    "Keifa-Lovelace.png" # Keifa Lovelace
+    "Keifachu.png" # Detective Keifachu
+    "Keifer-Simpson.png" # Keifer Simpson
+    "Keiferella.png" # Keiferella
+    "Keiflo-Ren.png" # Keiflo Ren
+    "Keiflock-Holmes.png" # Keiflock Holmes
+    "Keifuto.png" # Keifuto
+    "Kraken-Hook.png" # Kraken Hook
+    "Kraken-who-lived.png" # The Kraken Who Lived
+    "Krakener-Things.png" # Stranger Krakens
+    "Kraknos.png" # Kraknos
+    "Leprekraken.png" # Leprekraken
+    "Link-Keif.png" # LinKeif
+    "Lumber-Keif.png" # LumberKeif
+    "Martian-Keif.png" # Martian Kraken
+    "Mother-of-Krakens.png" # Mother of Krakens
+    "Neo-Keif.png" # Neo Keif
+    "OG-Keif.png" # OG
+    "Power-Gitter.png" # Power Gitter
+    "Princess-Keifia.png" # Princess Keifia
+    "Pro-Keif.png" # Pro Keif
+    "Professor-Keif.png" # Albert Keifstein
+    "Rasta-Keif.png" # Rasta Keif
+    "Rise-of-SkyKraken.png" # Rise of SkyKraken
+    "Santa-Keif.png" # Kaken Claus
+    "Sir-Keif.png" # Sir Keif
+    "Snow-Kraken.png" # Snowkraken
+    "Space-Rocket-Keif.png" # Space Rocket Keif
+    "The-Bride-Keif.png" # Uma Kraken
+    "Thunder-Kraken.png" # Thunder Kraken
+    "Top-Git.png" # Top Git
+    "Vanilla-Keif.png" # Vanilla Keif
+    "Velma-Keif.png" # Velma Keif
+    "Wonder-Kraken.png" # Wonder Kraken
+    "Yoda-Keif.png" # Yoda Keif
+    "gravatar"
+  ];
+
+  # Function to get the value of an attribute in the given 'profile' at path 'attrPath' or fallback to "default" profile (top-level option)
+  # If the attribute is found but null, fallback to "default" profile too
+  fromProfileOrDefault =
+    profile: attrPath:
+    let
+      resolved = lib.attrByPath attrPath (lib.getAttrFromPath attrPath cfg) profile;
+    in
+    if (resolved == null || resolved == "") then lib.getAttrFromPath attrPath cfg else resolved;
+
+  # Function to generate a fake UUID string from a SHA512 hash of a seed string
+  # Generates a map with the first 32 characters of the hash split in groups of
+  # different size and concatenate them in a string, each group separated by dashes
+  # Note: using the same seed will always generate the same UUID
+  genFakeUuid =
+    seed:
+    lib.concatStringsSep "-" (
+      builtins.foldl'
+        (
+          acc: elem:
+          acc
+          ++ lib.singleton (
+            lib.substring (lib.elemAt elem 0) (lib.elemAt elem 1) (builtins.hashString "sha512" seed)
+          )
+        )
+        [ ]
+        [
+          [
+            0
+            8
+          ]
+          [
+            8
+            4
+          ]
+          [
+            12
+            4
+          ]
+          [
+            16
+            4
+          ]
+          [
+            20
+            12
+          ]
+        ]
+    );
+
+  buildProfile =
+    profile:
+    let
+      id =
+        if profile.isDefault then
+          # From GitKraken's prettified main.bundle.js:
+          # (re.defaultProfileGuid = "d6e5a8ca26e14325a4275fc33b17e16f"),
+          "d6e5a8ca26e14325a4275fc33b17e16f"
+        else
+          # Profile ids are random UUIDs with dashes removed
+          builtins.replaceStrings [ "-" "" ] (genFakeUuid profile.name);
+      terminal = fromProfileOrDefault profile [
+        "tools"
+        "terminal"
+      ];
+      defaultTerminal = if terminal.default == "gitkraken" then "Gitkraken Terminal" else "none";
+      hasCustomTerminal = terminal.default == "custom";
+      selectedTabId = genFakeUuid "selected-tab";
+    in
+    {
+      ${id} = lib.attrsets.mergeAttrsList [
+        {
+          inherit (cfg) deleteOrigAfterMerge rememberTabs;
+          inherit (cfg.ui) showProjectBreadcrumb;
+          inherit defaultTerminal;
+
+          autoFetchInterval = fromProfileOrDefault profile [
+            "git"
+            "autoFetchInterval"
+          ];
+          autoPrune = fromProfileOrDefault profile [
+            "git"
+            "autoPrune"
+          ];
+          autoUpdateSubmodules = fromProfileOrDefault profile [
+            "git"
+            "autoUpdateSubmodules"
+          ];
+          diffTool = fromProfileOrDefault profile [
+            "tools"
+            "diff"
+          ];
+          externalEditor = fromProfileOrDefault profile [
+            "tools"
+            "editor"
+          ];
+          git.selectedGitPath = "$packaged";
+          init.defaultBranch = fromProfileOrDefault profile [
+            "git"
+            "defaultBranch"
+          ];
+          mergeTool = fromProfileOrDefault profile [
+            "tools"
+            "merge"
+          ];
+          profileIcon = profile.icon;
+          useCustomTerminalCmd = hasCustomTerminal;
+          userEmail = fromProfileOrDefault profile [
+            "user"
+            "email"
+          ];
+          userName = fromProfileOrDefault profile [
+            "user"
+            "name"
+          ];
+
+          cli = {
+            cursorStyle = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "cursor"
+            ];
+            defaultPath = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "defaultPath"
+            ];
+            fontFamily = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "fontFamily"
+            ];
+            fontSize = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "fontSize"
+            ];
+            lineHeight = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "lineHeight"
+            ];
+            position = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "graph"
+              "position"
+            ];
+            showAutocompleteSuggestions = fromProfileOrDefault profile [
+              "ui"
+              "cli"
+              "autocomplete"
+              "enable"
+            ];
+
+            graphPanelVisibilityMode =
+              if
+                fromProfileOrDefault profile [
+                  "ui"
+                  "cli"
+                  "graph"
+                  "enable"
+                ]
+              then
+                "AUTO"
+              else
+                null;
+            tabBehavior =
+              let
+                value = fromProfileOrDefault profile [
+                  "ui"
+                  "cli"
+                  "autocomplete"
+                  "tabBehavior"
+                ];
+              in
+              if value == "ignore" then "DEFAULT" else lib.toUpper value;
+          };
+
+          editor = {
+            fontFamily = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "fontFamily"
+            ];
+            fontSize = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "fontSize"
+            ];
+            lineEnding = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "eol"
+            ];
+            tabSize = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "tabSize"
+            ];
+            showLineNumbers = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "showLineNumbers"
+            ];
+            syntaxHighlighting = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "syntaxHighlighting"
+            ];
+            wordWrap = fromProfileOrDefault profile [
+              "ui"
+              "editor"
+              "wrap"
+            ];
+          };
+
+          gpg = {
+            commitGpgSign = fromProfileOrDefault profile [
+              "gpg"
+              "signCommits"
+            ];
+            gpgFormat = "openpgp";
+            gpgProgram = fromProfileOrDefault profile [
+              "gpg"
+              "package"
+            ];
+            tagForceSignAnnotated = fromProfileOrDefault profile [
+              "gpg"
+              "signTags"
+            ];
+            userSigningKey = fromProfileOrDefault profile [
+              "gpg"
+              "signingKey"
+            ];
+            userSigningKeySsh = null;
+          };
+
+          ssh = {
+            appVersion = "${cfg.package.version}";
+            generated = false;
+            publicKey = fromProfileOrDefault profile [
+              "ssh"
+              "publicKey"
+            ];
+            privateKey = fromProfileOrDefault profile [
+              "ssh"
+              "privateKey"
+            ];
+            useLocalAgent = fromProfileOrDefault profile [
+              "ssh"
+              "useLocalAgent"
+            ];
+          };
+
+          tabInfo = {
+            inherit selectedTabId;
+
+            permanentTabs = {
+              FOCUS_VIEW.closed = cfg.collapsePermanentTabs;
+              PROJECTS.closed = cfg.collapsePermanentTabs;
+            };
+
+            tabs = [
+              {
+                id = selectedTabId;
+                type = "NEW";
+              }
+            ];
+          };
+
+          ui = {
+            highlightRowsOnRefHover = fromProfileOrDefault profile [
+              "commitGraph"
+              "highlightRowsOnRefHover"
+            ];
+            showGhostRefsOnHover = fromProfileOrDefault profile [
+              "commitGraph"
+              "showGhostRefsOnHover"
+            ];
+            useAuthorInitialsForAvatars = fromProfileOrDefault profile [
+              "commitGraph"
+              "useAuthorInitials"
+            ];
+            useGenericRemoteHostingServiceIconsInRefs = fromProfileOrDefault profile [
+              "commitGraph"
+              "useGenericRemoteIcon"
+            ];
+
+            theme =
+              let
+                value = fromProfileOrDefault profile [
+                  "ui"
+                  "theme"
+                ];
+              in
+              if value == "system" then "SYNC_WITH_SYSTEM" else value;
+
+            graphOptions.columns = {
+              commitAuthorZone.visible = fromProfileOrDefault profile [
+                "commitGraph"
+                "showAuthor"
+              ];
+              commitDateTimeZone.visible = fromProfileOrDefault profile [
+                "commitGraph"
+                "showDatetime"
+              ];
+              commitShaZone.visible = fromProfileOrDefault profile [
+                "commitGraph"
+                "showSha"
+              ];
+              commitZone.visible = fromProfileOrDefault profile [
+                "commitGraph"
+                "showTree"
+              ];
+              refZone.visible = fromProfileOrDefault profile [
+                "commitGraph"
+                "showRefs"
+              ];
+
+              commitMessageZone = {
+                visible = fromProfileOrDefault profile [
+                  "commitGraph"
+                  "showMessage"
+                ];
+
+                descDisplayMode =
+                  let
+                    value = fromProfileOrDefault profile [
+                      "commitGraph"
+                      "showDescription"
+                    ];
+                  in
+                  if value == "hover" then "ON_HOVER" else lib.toUpper value;
+              };
+            };
+          };
+        }
+        (if (profile.name != null) then { profileName = profile.name; } else { })
+        (
+          if hasCustomTerminal then
+            {
+              customTerminalCmd = lib.concatStringsSep " " (
+                [
+                  "${terminal.package}/bin/${if terminal.bin == null then terminal.package.pname else terminal.bin}"
+                ]
+                ++ terminal.extraOptions
+              );
+            }
+          else
+            { }
+        )
+      ];
+    };
+
+  profiles = lib.attrsets.mergeAttrsList (map buildProfile cfg.profiles);
+
+  profileSubmodule = lib.typessubmodule {
+    imports = [
+      ./git/common.nix
+      ./gpg.nix
+      ./graph/common.nix
+      ./ssh.nix
+      ./tools.nix
+      ./ui/common.nix
+      ./user.nix
+    ];
+
+    options = {
+      isDefault = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = ''
+          Set profile as default.
+          Only one profile can be the default one.
+          Only pro accounts can set multiple profiles.
+        '';
+      };
+
+      name = lib.mkOption {
+        type = with lib.types; nullOr str;
+        default = null;
+        description = ''
+          Name of the profile displayed in GitKraken.
+          Non-default profiles MUST define this.
+        '';
+      };
+
+      icon = lib.mkOption {
+        type = lib.types.enum icons;
+        default = "gravatar";
+        description = ''
+          Icon avatar displayed in GitKraken.
+        '';
+      };
+    };
+  };
+in
+{
+  options = {
+    profiles = lib.mkOption {
+      type = lib.types.listOf profileSubmodule;
+      default = [ { isDefault = true; } ];
+      description = ''
+        Profiles configuration.
+        All settings in a profile take precedence over global settings.
+        Example: if a profile defines the `ssh` option and the global `ssh` option is
+        defined, the profile-specific option will be used.
+      '';
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    assertions =
+      let
+        defaultProfileCount = lib.length (lib.filter (profile: profile.isDefault) cfg.profiles);
+        profilesWithoutNameCount = lib.length (
+          lib.filter (profile: !profile.isDefault && profile.name == null) cfg.profiles
+        );
+      in
+      [
+        {
+          assertion = defaultProfileCount == 1;
+          message =
+            if defaultProfileCount > 1 then
+              "Only one default profile must be defined"
+            else
+              "A default profile is required";
+        }
+        {
+          assertion = profilesWithoutNameCount == 0;
+          message = "Non-default profiles must have a name";
+        }
+      ];
+
+    home.activation.nixkraken-profiles =
+      lib.hm.dag.entryAfter
+        [ "nixkraken-top-level" ]
+        [
+          (lib.mapAttrsToList (id: profile: ''
+            gk-configure \
+              -c "${lib.strings.escapeNixString (builtins.toJSON profile)}" \
+              -p ${id}
+              --git-binary="${lib.boolToString cfg.gitBinaryEnabled}" \
+              --hm-profile="${config.home.profileDirectory}"
+          '') profiles)
+        ];
+  };
+}
