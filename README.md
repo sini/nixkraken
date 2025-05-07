@@ -81,7 +81,7 @@ This module is meant to be used with [Home Manager][home-manager]. It can be ins
       url = "https://github.com/nicolas-goudry/nixkraken/archive/${rev}.tar.gz";
       # Replace this with an actual hash
       sha256 = lib.fakeHash;
-    }}/modules/home-manager"
+    }}/module.nix"
   ];
 }
 ```
