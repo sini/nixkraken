@@ -463,7 +463,7 @@ let
   };
 in
 {
-  options = {
+  options.programs.nixkraken = {
     profiles = lib.mkOption {
       type = lib.types.listOf profileSubmodule;
       default = [ { isDefault = true; } ];

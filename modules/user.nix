@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  options = {
+  options.programs.nixkraken = {
     user = lib.mkOption {
       type = lib.types.submodule {
         options = {

@@ -9,7 +9,7 @@ let
   };
 in
 {
-  options = {
+  options.programs.nixkraken = {
     git = lib.mkOption {
       type = lib.types.submodule {
         options = {

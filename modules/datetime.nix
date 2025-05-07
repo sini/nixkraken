@@ -160,7 +160,7 @@ let
   };
 in
 {
-  options = {
+  options.programs.nixkraken = {
     datetime = lib.mkOption {
       type = lib.types.submodule {
         options = {

@@ -9,7 +9,7 @@ let
   cfg = config.programs.nixkraken;
 in
 {
-  options = {
+  options.programs.nixkraken = {
     gpg = lib.mkOption {
       type = lib.types.submodule {
         options = {

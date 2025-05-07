@@ -4,7 +4,7 @@ let
   cfg = config.programs.nixkraken;
 in
 {
-  options = {
+  options.programs.nixkraken = {
     commitGraph = lib.mkOption {
       type = lib.types.submodule {
         options = {
