@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.programs.gitkraken;
+  cfg = config.programs.nixkraken;
 
   settings = {
     hideCollapsedWorkspaceTab = cfg.ui.hideWorkspaceTab;

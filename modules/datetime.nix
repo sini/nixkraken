@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.programs.gitkraken;
+  cfg = config.programs.nixkraken;
 
   # From GitKraken's prettified main.bundle.js:
   # (re.getLocalesDescByKey = function () {

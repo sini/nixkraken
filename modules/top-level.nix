@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.programs.gitkraken;
+  cfg = config.programs.nixkraken;
 
   # TODO: where to find them
   logLevels = {
