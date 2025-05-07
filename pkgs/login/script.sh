@@ -17,6 +17,7 @@ declare -ar providers=(
   "gitlab"
   "bitbucket"
   "azure"
+  "google"
 )
 
 # Color codes
