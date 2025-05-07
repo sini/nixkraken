@@ -1,0 +1,187 @@
+[gitkraken-nixpkgs]: https://github.com/nixos/nixpkgs/tree/master/pkgs/by-name/gi/gitkraken/package.nix
+[gitkraken]: https://www.gitkraken.com
+[home-manager]: https://nix-community.github.io/home-manager
+
+# 🦑 nixkraken
+
+![Home Manager](https://img.shields.io/badge/home%20manager-EC733B?style=for-the-badge)
+
+Manage [GitKraken][gitkraken] configuration and profiles, the Nix way ❄️
+
+## 🚨 Disclaimer
+
+> [!IMPORTANT]
+>
+> **This project is NOT affiliated with Axosoft - _GitKraken’s editor_ - in any way.**
+
+GitKraken is a **proprietary** and **unfree** software, therefore the module is very likely to break with each and every update.
+
+Since I am the main GitKraken maintainer on [nixpkgs][gitkraken-nixpkgs] and use GitKraken daily, I’ll try to test the module with new versions of GitKraken and fix it as fast as possible when needed.
+
+Custom support will be provided on my free time and on a best effort basis. Everyone is very welcome to make PRs 🙂
+
+## 📦 Packages
+
+Nixkraken packages are Bash scripts bundled using Nix's `writeShellApplication`, which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directory, provided all their dependencies are available in the shell environment.
+
+Packages are exported by the [`default.nix`](./default.nix) file in a dynamic way: adding a directory with a `default.nix` will automatically make a package (named after the directory) available for consumption.
+
+Additionally, all packages can use other defined packages thanks to the `self` attribute passed to their lambda. For an example usage, look at the [`login`](./login/default.nix) package.
+
+> [!NOTE]
+>
+> When you enter a Nix development shell, the packages are available as their `gk-`-prefixed counterparts:
+>
+> ```sh
+> nix develop
+> gk-configure
+> gk-decrypt
+> gk-encrypt
+> gk-login
+> ```
+
+### `configure`
+
+This Bash script automates the creation and management of GitKraken's configuration files, especially in the context of a [Home Manager][home-manager] installation. While it's intended for use during Home Manager activation by the nixkraken module, it can also be used independently for testing.
+
+> [!IMPORTANT]
+>
+> **WE ARE NOT RESPONSIBLE FOR NUKING YOUR CONFIGURATION.**
+>
+> The script **will** modify GitKraken's configuration files, and loss of configuration is a possible outcome, although we strive to make it as safe as possible.
+>
+> Please backup your configuration before use.
+
+#### Usage
+
+All options are documented in the script's help output:
+
+```sh
+./configure/script.sh --help
+gk-configure --help
+```
+
+Since this script is typically run during Home Manager activation, it respects the following environment variables:
+
+- `DRY_RUN`: if set, commands are not executed, only logged
+- `VERBOSE`: if set, logs are enabled
+
+The script itself is extensively documented through comments.
+
+### `encrypt` / `decrypt`
+
+These Bash scripts are used to encrypt and decrypt GitKraken's `secFile`s, which contain sensitive data such as access tokens. They are primarily intended for use by the [`login`](./login/script.sh) script, but can also be used independently.
+
+Although their execution is considered safe (since they only read the `secFile`s and output results to stdout), they are provided as-is, with no warranty.
+
+#### Usage
+
+All options are documented in the scripts' help output:
+
+```sh
+./decrypt/script.sh --help
+gk-decrypt --help
+
+./encrypt/script.sh --help
+gk-encrypt --help
+```
+
+The script themself are extensively documented through comments.
+
+#### Encryption / Decryption methods
+
+The encryption and decryption methods are adapted from GitKraken's original code, reimplemented using Unix tools. The reference implementation below is prettified from main.bundle.js with comments manually added:
+
+```js
+// Arguments:
+// - I: path to secFile
+// - re: appId
+// - ne: input encoding
+//
+// External variables
+// - le: path module
+// - ae: crypto module
+// - ce: logging library
+// - se: seems to be a wrapper around fs module and fs-extra library
+I.exports = (I, re, ne) => {
+  const pe = re || "",
+    Ee = ne || "aes256",
+    ge = le.resolve(I),
+    doCrypto = (I, re) => {
+      ce("doing crypto: %s", re ? "decrypting" : "encrypting");
+      const ne = re ? "binary" : "utf8",
+        se = re ? ae.createDecipher(Ee, pe) : ae.createCipher(Ee, pe),
+        le = [new Buffer(se.update(I, ne)), new Buffer(se.final())],
+        ge = Buffer.concat(le);
+      return ce("done doing crypto"), ge;
+    };
+  return {
+    load: () => (
+      ce("attempting to load"),
+      Promise.resolve()
+        .then(() => se.readFileAsync(ge))
+        .then((I) => doCrypto(I, !0).toString())
+        .then((I) => JSON.parse(I))
+        .catch((I) => (ce("failed to load:"), ce(I), {}))
+    ),
+    save: (I) => (
+      ce("attempting to save"),
+      Promise.resolve()
+        .then(() => se.ensureFileAsync(ge))
+        .then(() => JSON.stringify(I, null, 2))
+        .then((I) => doCrypto(I, !1))
+        .then((I) => se.writeFileAsync(ge, I))
+        .catch((I) => {
+          throw (ce("failed to save:"), ce(I), I);
+        })
+    ),
+  };
+};
+```
+
+In summary, the secrets are JSON data encrypted with the `appId` as the passphrase.
+
+### `login`
+
+This Bash script enables you to log in to your GitKraken account from the command line, supporting multiple providers and GitKraken profiles. It securely handles OAuth tokens, updates the GitKraken configuration, and manages encrypted secrets for both global and profile-specific authentication.
+
+> [!IMPORTANT]
+>
+> **WE ARE NOT RESPONSIBLE FOR NUKING YOUR CONFIGURATION.**
+>
+> The script **will** modify GitKraken's configuration file as well as secret files (global and profile-specific), and loss of configuration is a possible outcome, although we strive to make it as safe as possible.
+>
+> Please backup your configuration before use.
+
+#### Usage
+
+All options are documented in the script's help output:
+
+```sh
+./login/script.sh --help
+gk-login --help
+```
+
+The script itself is extensively documented through comments.
+
+### `theme`
+
+This Bash script provides a command-line interface for a very basic management of GitKraken themes. It allows you to list available themes and install new ones by linking theme files into GitKraken's themes directory. While it’s intended for use during Home Manager activation by the nixkraken module, it can also be used independently for testing.
+
+Although its execution is considered safe, it is possible that theme files are overwritten, resulting in theme data loss. Please backup your themes before use.
+
+#### Usage
+
+All options are documented in the script's help output:
+
+```sh
+./theme/script.sh --help
+gk-theme --help
+```
+
+Since this script is typically run during Home Manager activation, it respects the following environment variables:
+
+- `DRY_RUN`: if set, commands are not executed, only logged
+- `VERBOSE`: if set, logs are enabled
+
+The script itself is extensively documented through comments.
