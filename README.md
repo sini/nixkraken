@@ -92,8 +92,6 @@ Nixkraken packages are Bash scripts bundled using Nix's `writeShellApplication`,
 
 Packages are exported by the [`default.nix`](./default.nix) file in a dynamic way: adding a directory with a `default.nix` will automatically make a package (named after the directory) available for consumption.
 
-Additionally, all packages can use other defined packages thanks to the `self` attribute passed to their lambda. For an example usage, look at the [`login`](./login/default.nix) package.
-
 > [!NOTE]
 >
 > When you enter a Nix development shell, the packages are available as their `gk-`-prefixed counterparts:

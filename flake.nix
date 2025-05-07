@@ -38,20 +38,18 @@
       # nix fmt
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
-      # Export packages to allow usage of self packages in other packages
-      # See ./pkgs/login/default.nix for usage example
+      # Packages
       packages = eachSystem (
         pkgs:
         import ./pkgs {
           inherit (pkgs) lib;
           inherit pkgs;
-          inherit self;
         }
       );
 
       # Development environment with packages used by the module available in PATH
       devShells = eachSystem (pkgs: {
-        default = pkgs.callPackage ./shell.nix { inherit self; };
+        default = pkgs.callPackage ./shell.nix { };
       });
     };
 }

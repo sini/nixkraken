@@ -1,12 +1,9 @@
-{
-  pkgs,
-  self,
-  system,
-  ...
-}:
+{ pkgs, ... }@args:
 
 let
   name = builtins.baseNameOf (builtins.toString ./.);
+  decrypt = import ../decrypt args;
+  encrypt = import ../encrypt args;
 in
 pkgs.writeShellApplication {
   name = "gk-${name}";
@@ -14,8 +11,8 @@ pkgs.writeShellApplication {
 
   runtimeInputs =
     [
-      self.packages.${system}.decrypt
-      self.packages.${system}.encrypt
+      decrypt
+      encrypt
     ]
     ++ (with pkgs; [
       coreutils

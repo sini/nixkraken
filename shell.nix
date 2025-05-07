@@ -1,13 +1,11 @@
 {
   pkgs ? import <nixpkgs> { },
-  self,
 }:
 
 let
   localPkgs = import ./pkgs {
-    inherit pkgs;
     inherit (pkgs) lib;
-    inherit self;
+    inherit pkgs;
   };
 in
 pkgs.mkShellNoCC {
