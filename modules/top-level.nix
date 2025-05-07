@@ -57,19 +57,19 @@ let
 in
 {
   imports = [
-    ./modules/datetime.nix
-    ./modules/git/common.nix
-    ./modules/git/app-only.nix
-    ./modules/gpg.nix
-    ./modules/graph/common.nix
-    ./modules/graph/app-only.nix
-    ./modules/notifications.nix
-    ./modules/profile.nix
-    ./modules/ssh.nix
-    ./modules/tools.nix
-    ./modules/ui/common.nix
-    ./modules/ui/app-only.nix
-    ./modules/user.nix
+    ./datetime.nix
+    ./git/common.nix
+    ./git/app-only.nix
+    ./gpg.nix
+    ./graph/common.nix
+    ./graph/app-only.nix
+    ./notifications.nix
+    ./profile.nix
+    ./ssh.nix
+    ./tools.nix
+    ./ui/common.nix
+    ./ui/app-only.nix
+    ./user.nix
   ];
 
   options.programs.nixkraken = {
