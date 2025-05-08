@@ -12,20 +12,20 @@ Manage [GitKraken][gitkraken] configuration and profiles, the Nix way ❄️
 
 > [!IMPORTANT]
 >
-> **This project is NOT affiliated with Axosoft - _GitKraken’s editor_ - in any way.**
+> This project is **not** affiliated with Axosoft (the makers of GitKraken) in any way.**
 
 ## 📥 Installation
 
-This module is meant to be used with [Home Manager][home-manager]. It can be installed through the methods listed below:
+This module is meant to be used with [Home Manager][home-manager]. It can be installed through the following methods:
 
 ### Flakes: NixOS system-wide Home Manager configuration
 
 ```nix
 {
-  # Use unstable to get latest updates (may break!)
+  # Use unstable to get the latest updates (may break!)
   inputs.nixkraken.url = "github:nicolas-goudry/nixkraken";
 
-  # Pin to a given version
+  # Pin to a specific version
   #inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/vX.Y.Z";
 
   outputs = { self, nixpkgs, home-manager, nixkraken }: {
@@ -45,7 +45,7 @@ This module is meant to be used with [Home Manager][home-manager]. It can be ins
 }
 ```
 
-### Flakes: Configuration via home.nix
+### Flakes: Configuration via `home.nix`
 
 ```nix
 { inputs, ... }:
@@ -57,7 +57,7 @@ This module is meant to be used with [Home Manager][home-manager]. It can be ins
 }
 ```
 
-### `fetchTarball`: Configuration via home.nix
+### `fetchTarball`: Configuration via `home.nix`
 
 ```nix
 { lib, ... }:
@@ -90,7 +90,7 @@ Finally, updates to this module are provided on a best-effort basis, in my free 
 
 Nixkraken packages are Bash scripts bundled using Nix's `writeShellApplication`, which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directory, provided all their dependencies are available in the shell environment.
 
-Packages are exported by the [`default.nix`](./default.nix) file in a dynamic way: adding a directory with a `default.nix` will automatically make a package (named after the directory) available for consumption.
+Packages are exported by the [`default.nix`](./default.nix) file dynamically: adding a directory with a `default.nix` will automatically make a package (named after the directory) available for use.
 
 > [!NOTE]
 >
@@ -114,7 +114,7 @@ This Bash script automates the creation and management of GitKraken's configurat
 >
 > The script **will** modify GitKraken's configuration files, and loss of configuration is a possible outcome, although we strive to make it as safe as possible.
 >
-> Please backup your configuration before use.
+> Please back up your configuration before use.
 
 #### Usage
 
@@ -150,11 +150,11 @@ gk-decrypt --help
 gk-encrypt --help
 ```
 
-The script themself are extensively documented through comments.
+The script themselves are extensively documented through comments.
 
 #### Encryption / Decryption methods
 
-The encryption and decryption methods are adapted from GitKraken's original code, reimplemented using Unix tools. The reference implementation below is prettified from main.bundle.js with comments manually added:
+The encryption and decryption methods are adapted from GitKraken's original code, reimplemented using Unix tools. The reference implementation below is prettified from `main.bundle.js` with comments manually added:
 
 ```js
 // Arguments:
@@ -215,7 +215,7 @@ This Bash script enables you to log in to your GitKraken account from the comman
 >
 > The script **will** modify GitKraken's configuration file as well as secret files (global and profile-specific), and loss of configuration is a possible outcome, although we strive to make it as safe as possible.
 >
-> Please backup your configuration before use.
+> Please back up your configuration before use.
 
 #### Usage
 
@@ -230,9 +230,9 @@ The script itself is extensively documented through comments.
 
 ### `theme`
 
-This Bash script provides a command-line interface for a very basic management of GitKraken themes. It allows you to list available themes and install new ones by linking theme files into GitKraken's themes directory. While it’s intended for use during Home Manager activation by the nixkraken module, it can also be used independently for testing.
+This Bash script provides a command-line interface for a very basic management of GitKraken themes. It allows you to list available themes and install new ones by linking theme files into GitKraken's themes directory. While it's intended for use during Home Manager activation by the nixkraken module, it can also be used independently for testing.
 
-Although its execution is considered safe, it is possible that theme files are overwritten, resulting in theme data loss. Please backup your themes before use.
+Although its execution is considered safe, it is possible that theme files are overwritten, resulting in theme data loss. **Please back up your themes before use.**
 
 #### Usage
 
