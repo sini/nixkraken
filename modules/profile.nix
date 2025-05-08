@@ -421,7 +421,7 @@ let
 
   profiles = lib.attrsets.mergeAttrsList (map buildProfile cfg.profiles);
 
-  profileSubmodule = lib.typessubmodule {
+  profileSubmodule = lib.types.submodule {
     imports = [
       ./git/common.nix
       ./gpg.nix
