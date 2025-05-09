@@ -12,7 +12,7 @@ Manage [GitKraken][gitkraken] configuration and profiles, the Nix way ❄️
 
 > [!IMPORTANT]
 >
-> This project is **not** affiliated with Axosoft (the makers of GitKraken) in any way.**
+> This project is **not** affiliated with Axosoft (the makers of GitKraken) in any way.
 
 ## 📥 Installation
 
@@ -88,7 +88,7 @@ Finally, updates to this module are provided on a best-effort basis, in my free 
 
 ## 📦 Packages
 
-Nixkraken packages are Bash scripts bundled using Nix's `writeShellApplication`, which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directory, provided all their dependencies are available in the shell environment.
+Nixkraken packages are Bash scripts bundled using Nix's `writeShellApplication`, which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directly, provided all their dependencies are available in the shell environment.
 
 Packages are exported by the [`default.nix`](./default.nix) file dynamically: adding a directory with a `default.nix` will automatically make a package (named after the directory) available for use.
 
