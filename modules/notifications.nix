@@ -25,61 +25,59 @@ let
   };
 in
 {
-  options.programs.nixkraken = {
-    notifications = lib.mkOption {
-      type = lib.types.submodule {
-        options = {
-          enable = lib.mkEnableOption "desktop notifications";
+  options.programs.nixkraken.notifications = lib.mkOption {
+    type = lib.types.submodule {
+      options = {
+        enable = lib.mkEnableOption "desktop notifications";
 
-          feature = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-            description = ''
-              Receive new features notifications.
-            '';
-          };
+        feature = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Receive new features notifications.
+          '';
+        };
 
-          help = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-            description = ''
-              Receive help notifications.
-            '';
-          };
+        help = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Receive help notifications.
+          '';
+        };
 
-          marketing = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-            description = ''
-              Receive marketing notifications.
-              Setting it to false may not work without a paid subscription.
-            '';
-          };
+        marketing = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Receive marketing notifications.
+            Setting it to false may not work without a paid subscription.
+          '';
+        };
 
-          position = lib.mkOption {
-            type = lib.types.enum [
-              "top-left"
-              "top-right"
-              "bottom-left"
-              "bottom-right"
-            ];
-            default = "bottom-left";
-            description = ''
-              Notification location within window.
-            '';
-          };
+        position = lib.mkOption {
+          type = lib.types.enum [
+            "top-left"
+            "top-right"
+            "bottom-left"
+            "bottom-right"
+          ];
+          default = "bottom-left";
+          description = ''
+            Notification location within window.
+          '';
+        };
 
-          system = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-          };
+        system = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
         };
       };
-      default = { };
-      description = ''
-        Notifications settings.
-      '';
     };
+    default = { };
+    description = ''
+      Notifications settings.
+    '';
   };
 
   config = lib.mkIf cfg.enable {

@@ -160,57 +160,55 @@ let
   };
 in
 {
-  options.programs.nixkraken = {
-    datetime = lib.mkOption {
-      type = lib.types.submodule {
-        options = {
-          format = lib.mkOption {
-            type = with lib.types; nullOr str;
-            default = null;
-            description = ''
-              Date and time format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-            '';
-          };
+  options.programs.nixkraken.datetime = lib.mkOption {
+    type = lib.types.submodule {
+      options = {
+        format = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
+          description = ''
+            Date and time format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+          '';
+        };
 
-          locale = lib.mkOption {
-            type = lib.types.nullOr (lib.types.enum dateTimeLocales);
-            default = null;
-            description = ''
-              Date/time locale.
-              Set to `null` to use system default locale.
-            '';
-          };
+        locale = lib.mkOption {
+          type = lib.types.nullOr (lib.types.enum dateTimeLocales);
+          default = null;
+          description = ''
+            Date/time locale.
+            Set to `null` to use system default locale.
+          '';
+        };
 
-          dateFormat = lib.mkOption {
-            type = with lib.types; nullOr str;
-            default = null;
-            description = ''
-              Date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-            '';
-          };
+        dateFormat = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
+          description = ''
+            Date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+          '';
+        };
 
-          dateWordFormat = lib.mkOption {
-            type = with lib.types; nullOr str;
-            default = null;
-            description = ''
-              Date word format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-            '';
-          };
+        dateWordFormat = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
+          description = ''
+            Date word format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+          '';
+        };
 
-          dateVerboseFormat = lib.mkOption {
-            type = with lib.types; nullOr str;
-            default = null;
-            description = ''
-              Verbose date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-            '';
-          };
+        dateVerboseFormat = lib.mkOption {
+          type = with lib.types; nullOr str;
+          default = null;
+          description = ''
+            Verbose date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+          '';
         };
       };
-      default = { };
-      description = ''
-        Date/time settings.
-      '';
     };
+    default = { };
+    description = ''
+      Date/time settings.
+    '';
   };
 
   config = lib.mkIf cfg.enable {

@@ -463,17 +463,15 @@ let
   };
 in
 {
-  options.programs.nixkraken = {
-    profiles = lib.mkOption {
-      type = lib.types.listOf profileSubmodule;
-      default = [ { isDefault = true; } ];
-      description = ''
-        Profiles configuration.
-        All settings in a profile take precedence over global settings.
-        Example: if a profile defines the `ssh` option and the global `ssh` option is
-        defined, the profile-specific option will be used.
-      '';
-    };
+  options.programs.nixkraken.profiles = lib.mkOption {
+    type = lib.types.listOf profileSubmodule;
+    default = [ { isDefault = true; } ];
+    description = ''
+      Profiles configuration.
+      All settings in a profile take precedence over global settings.
+      Example: if a profile defines the `ssh` option and the global `ssh` option is
+      defined, the profile-specific option will be used.
+    '';
   };
 
   config = lib.mkIf cfg.enable {
