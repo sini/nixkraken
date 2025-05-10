@@ -1,48 +1,17 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}:
+}@args:
 
 let
   cfg = config.programs.nixkraken;
+  options = import ./options.nix args;
 in
 {
   options.programs.nixkraken.gpg = lib.mkOption {
     type = lib.types.submodule {
-      options = {
-        package = lib.mkPackageOption pkgs "gnupg" { } // {
-          description = ''
-            Which program to use for GPG commit signing.
-          '';
-        };
-
-        signingKey = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          example = "EC6624FA72B9487E";
-          description = ''
-            GPG private key to sign commits.
-          '';
-        };
-
-        signCommits = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = ''
-            Enable GPG commit signature by default.
-          '';
-        };
-
-        signTags = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = ''
-            Enable GPG tag signature by default.
-          '';
-        };
-      };
+      inherit options;
     };
     default = { };
     description = ''

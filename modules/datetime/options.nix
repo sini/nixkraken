@@ -1,8 +1,6 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
-  cfg = config.programs.nixkraken;
-
   # From GitKraken's prettified main.bundle.js:
   # (re.getLocalesDescByKey = function () {
   #   return {
@@ -150,70 +148,46 @@ let
     "cy" # Welsh
     "yo" # Yoruba Nigeria
   ];
-
-  settings = {
-    appDateFormat = cfg.datetime.dateFormat;
-    appDateTimeFormat = cfg.datetime.format;
-    appDateVerboseFormat = cfg.datetime.dateVerboseFormat;
-    appDateWordFormat = cfg.datetime.dateWordFormat;
-    appLocale = cfg.datetime.locale;
-  };
 in
 {
-  options.programs.nixkraken.datetime = lib.mkOption {
-    type = lib.types.submodule {
-      options = {
-        format = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          description = ''
-            Date and time format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-          '';
-        };
-
-        locale = lib.mkOption {
-          type = lib.types.nullOr (lib.types.enum dateTimeLocales);
-          default = null;
-          description = ''
-            Date/time locale.
-            Set to `null` to use system default locale.
-          '';
-        };
-
-        dateFormat = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          description = ''
-            Date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-          '';
-        };
-
-        dateWordFormat = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          description = ''
-            Date word format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-          '';
-        };
-
-        dateVerboseFormat = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          description = ''
-            Verbose date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
-          '';
-        };
-      };
-    };
-    default = { };
+  format = lib.mkOption {
+    type = with lib.types; nullOr str;
+    default = null;
     description = ''
-      Date/time settings.
+      Date and time format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
     '';
   };
 
-  config = lib.mkIf cfg.enable {
-    home.activation.nixkraken-datetime-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-      gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+  locale = lib.mkOption {
+    type = lib.types.nullOr (lib.types.enum dateTimeLocales);
+    default = null;
+    description = ''
+      Date/time locale.
+      Set to `null` to use system default locale.
+    '';
+  };
+
+  dateFormat = lib.mkOption {
+    type = with lib.types; nullOr str;
+    default = null;
+    description = ''
+      Date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+    '';
+  };
+
+  dateWordFormat = lib.mkOption {
+    type = with lib.types; nullOr str;
+    default = null;
+    description = ''
+      Date word format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+    '';
+  };
+
+  dateVerboseFormat = lib.mkOption {
+    type = with lib.types; nullOr str;
+    default = null;
+    description = ''
+      Verbose date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
     '';
   };
 }
