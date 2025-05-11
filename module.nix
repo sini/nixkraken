@@ -122,9 +122,8 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "gitkraken" { } // {
-      description = ''
-        GitKraken package to install.
+    package = lib.mkPackageOption pkgs "gitkraken" {
+      extraDescription = ''
         Requires to allow unfree packages.
       '';
     };

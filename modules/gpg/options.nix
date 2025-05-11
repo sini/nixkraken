@@ -1,9 +1,9 @@
 { lib, pkgs, ... }:
 
 {
-  package = lib.mkPackageOption pkgs "gnupg" { } // {
-    description = ''
-      Which program to use for GPG commit signing.
+  package = lib.mkPackageOption pkgs "gnupg" {
+    extraDescription = ''
+      Used for GPG commit signing.
     '';
   };
 
