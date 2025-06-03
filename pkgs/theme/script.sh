@@ -65,6 +65,7 @@ _do() {
 }
 
 # Exit script
+# shellcheck disable=SC2120
 die() {
   if [ "$#" -gt 0 ]; then
     error "$*"
@@ -105,12 +106,6 @@ EOF
 ########################
 # CORE LOGIC FUNCTIONS #
 ########################
-
-check_gitkraken() {
-  if ! command -v gitkraken &> /dev/null; then
-    die "GitKraken not found - is it installed?"
-  fi
-}
 
 jsonc_to_json() {
   sed -e 's/\/\/.*$//' "$1"
@@ -229,8 +224,6 @@ main() {
   fi
 
   info "handling themes: ${themes[*]}"
-
-  check_gitkraken
 
   info "creating themes directory: ${themes_dir}"
   _do mkdir -p "${themes_dir}"
