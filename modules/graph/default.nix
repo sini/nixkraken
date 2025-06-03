@@ -1,4 +1,9 @@
-{ config, lib, localPkgs, ... }@args:
+{
+  config,
+  lib,
+  localPkgs,
+  ...
+}@args:
 
 let
   cfg = config.programs.nixkraken;

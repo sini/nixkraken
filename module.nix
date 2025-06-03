@@ -177,7 +177,7 @@ in
 
       # Activating has side effects and must therefore be placed after the write boundary
       activation.nixkraken-top-level = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        ${localPkgs.configure}/bin/gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+        ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
         echo "To login to your GitKraken account, run 'gk-login'."
       '';
     };
