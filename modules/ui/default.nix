@@ -34,11 +34,11 @@ in
       lib.concatLines (
         [
           ''
-            ${localPkgs.configure}/bin/gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+            ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
           ''
         ]
         ++ lib.optional (lib.length cfg.ui.extraThemes > 0) ''
-          ${localPkgs.theme}/bin/gk-theme -i "${lib.concatStringsSep "," cfg.ui.extraThemes}"
+          ${localPkgs.theme}/bin/gk-theme -i '${lib.concatStringsSep "," cfg.ui.extraThemes}'
         ''
       )
     );

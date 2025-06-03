@@ -407,10 +407,10 @@ in
     home.activation = lib.hm.dag.entriesAfter "nixkraken-profile" [ "nixkraken-top-level" ] (
       lib.mapAttrsToList (id: profile: ''
         ${localPkgs.configure}/bin/gk-configure \
-          -c "${lib.strings.escapeNixString (builtins.toJSON profile)}" \
+          -c '${builtins.toJSON profile}' \
           -p ${id}
-          --git-binary="${lib.boolToString cfg.git.useBundledGit}" \
-          --hm-profile="${config.home.profileDirectory}"
+          --git-binary='${lib.boolToString cfg.git.useBundledGit}' \
+          --hm-profile='${config.home.profileDirectory}'
       '') profiles
     );
   };

@@ -45,7 +45,7 @@ in
     ];
 
     home.activation.nixkraken-graph-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-      ${localPkgs.configure}/bin/gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+      ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
     '';
   };
 }

@@ -43,7 +43,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.activation.nixkraken-notifications-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-      ${localPkgs.configure}/bin/gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+      ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
     '';
   };
 }
