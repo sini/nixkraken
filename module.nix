@@ -54,21 +54,30 @@ let
       };
     };
   };
+
+  # `pkgs` is not passed down to modules imported from root module using `imports`, hence this function returns a lambda
+  # with original arguments merged with `pkgs` attribute from the root module.
+  mkSubmoduleWithPkgs =
+    submodulePath: args:
+    let
+      submodule = import submodulePath (args // { inherit pkgs; });
+    in
+    submodule;
 in
 {
   meta.maintainers = with lib.maintainers; [ nicolas-goudry ];
 
   imports = [
-    ./modules/datetime
-    ./modules/git
-    ./modules/gpg
-    ./modules/graph
-    ./modules/notifications
-    ./modules/profile
-    ./modules/ssh
-    ./modules/tools
-    ./modules/ui
-    ./modules/user
+    (mkSubmoduleWithPkgs ./modules/datetime)
+    (mkSubmoduleWithPkgs ./modules/git)
+    (mkSubmoduleWithPkgs ./modules/gpg)
+    (mkSubmoduleWithPkgs ./modules/graph)
+    (mkSubmoduleWithPkgs ./modules/notifications)
+    (mkSubmoduleWithPkgs ./modules/profile)
+    (mkSubmoduleWithPkgs ./modules/ssh)
+    (mkSubmoduleWithPkgs ./modules/tools)
+    (mkSubmoduleWithPkgs ./modules/ui)
+    (mkSubmoduleWithPkgs ./modules/user)
   ];
 
   options.programs.nixkraken = {

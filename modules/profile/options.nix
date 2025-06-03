@@ -71,14 +71,16 @@ let
     "gravatar"
   ];
 
-  mkSubmodule = options: description: lib.mkOption {
-    inherit description;
+  mkProfileSubmodule =
+    options: description:
+    lib.mkOption {
+      inherit description;
 
-    type = lib.types.submodule {
-      inherit options;
+      type = lib.types.submodule {
+        inherit options;
+      };
+      default = { };
     };
-    default = { };
-  };
 in
 {
   isDefault = lib.mkOption {
@@ -108,11 +110,11 @@ in
     '';
   };
 
-  commitGraph = mkSubmodule commitGraph.options "Commit graph settings for this profile.";
-  git = mkSubmodule git.options "Git settings for this profile.";
-  gpg = mkSubmodule gpg.options "GPG settings for this profile.";
-  ssh = mkSubmodule ssh.options "SSH settings for this profile.";
-  tools = mkSubmodule tools.options "External tools settings for this profile.";
-  ui = mkSubmodule ui.options "UI settings for this profile.";
-  user = mkSubmodule user.options "User settings for this profile.";
+  commitGraph = mkProfileSubmodule commitGraph.options "Commit graph settings for this profile.";
+  git = mkProfileSubmodule git.options "Git settings for this profile.";
+  gpg = mkProfileSubmodule gpg.options "GPG settings for this profile.";
+  ssh = mkProfileSubmodule ssh.options "SSH settings for this profile.";
+  tools = mkProfileSubmodule tools.options "External tools settings for this profile.";
+  ui = mkProfileSubmodule ui.options "UI settings for this profile.";
+  user = mkProfileSubmodule user.options "User settings for this profile.";
 }
