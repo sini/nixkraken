@@ -362,9 +362,11 @@ let
 in
 {
   options.programs.nixkraken.profiles = lib.mkOption {
-    type = with lib.types; listOf (submodule {
-      inherit options;
-    });
+    type =
+      with lib.types;
+      listOf (submodule {
+        inherit options;
+      });
     default = [ { isDefault = true; } ];
     description = ''
       Profiles configuration.
