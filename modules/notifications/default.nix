@@ -12,7 +12,7 @@ let
   settings = {
     notification = {
       settings = {
-        cloud = lib.optional cfg.notifications.enable {
+        cloud = lib.optionalAttrs cfg.notifications.enable {
           inherit (cfg.notifications)
             feature
             help

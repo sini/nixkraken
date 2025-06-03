@@ -52,7 +52,7 @@ let
         createASharedDraft = true;
       };
 
-    registration = lib.optional cfg.acceptEULA {
+    registration = lib.optionalAttrs cfg.acceptEULA {
       EULA = {
         status = "agree_unverified";
         version = eulaVersion;
