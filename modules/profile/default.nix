@@ -397,17 +397,14 @@ in
         }
       ];
 
-    home.activation.nixkraken-profiles =
-      lib.hm.dag.entryAfter
-        [ "nixkraken-top-level" ]
-        [
-          (lib.mapAttrsToList (id: profile: ''
-            gk-configure \
-              -c "${lib.strings.escapeNixString (builtins.toJSON profile)}" \
-              -p ${id}
-              --git-binary="${lib.boolToString cfg.gitBinaryEnabled}" \
-              --hm-profile="${config.home.profileDirectory}"
-          '') profiles)
-        ];
+    home.activation = lib.hm.dag.entriesAfter "nixkraken-profile" [ "nixkraken-top-level" ] (
+      lib.mapAttrsToList (id: profile: ''
+        gk-configure \
+          -c "${lib.strings.escapeNixString (builtins.toJSON profile)}" \
+          -p ${id}
+          --git-binary="${lib.boolToString cfg.gitBinaryEnabled}" \
+          --hm-profile="${config.home.profileDirectory}"
+      '') profiles
+    );
   };
 }
