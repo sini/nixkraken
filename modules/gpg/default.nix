@@ -35,8 +35,8 @@ in
         else
           warnings
       ) [ ] cfg.profiles)
-      ++ lib.optionals ((cfg.gpg.signCommits || cfg.gpg.signTags) && (cfg.gpg.signingKey == null)) [
-        "GPG commit/tag signature is enabled but no signing key was defined."
-      ];
+      ++ lib.optional (
+        (cfg.gpg.signCommits || cfg.gpg.signTags) && (cfg.gpg.signingKey == null)
+      ) "GPG commit/tag signature is enabled but no signing key was defined.";
   };
 }
