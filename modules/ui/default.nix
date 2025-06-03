@@ -25,18 +25,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.activation.nixkraken-ui-config =
-      lib.hm.dag.entriesAfter "nixkraken"
-        [ "nixkraken-top-level" ]
+    home.activation.nixkraken-ui-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] (
+      lib.concatLines (
         [
           ''
             gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
           ''
-          (lib.optionals (lib.length cfg.ui.extraThemes > 0) [
-            ''
-              gk-theme -i "${lib.concatStringsSep "," cfg.ui.extraThemes}"
-            ''
-          ])
-        ];
+        ]
+        ++ lib.optional (lib.length cfg.ui.extraThemes > 0) ''
+          gk-theme -i "${lib.concatStringsSep "," cfg.ui.extraThemes}"
+        ''
+      )
+    );
   };
 }
