@@ -402,7 +402,7 @@ in
         gk-configure \
           -c "${lib.strings.escapeNixString (builtins.toJSON profile)}" \
           -p ${id}
-          --git-binary="${lib.boolToString cfg.gitBinaryEnabled}" \
+          --git-binary="${lib.boolToString cfg.git.useBundledGit}" \
           --hm-profile="${config.home.profileDirectory}"
       '') profiles
     );
