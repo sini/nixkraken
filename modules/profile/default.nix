@@ -408,7 +408,7 @@ in
       lib.mapAttrsToList (id: profile: ''
         ${localPkgs.configure}/bin/gk-configure \
           -c '${builtins.toJSON profile}' \
-          -p ${id}
+          -p ${id} \
           --git-binary='${lib.boolToString cfg.git.useBundledGit}' \
           --hm-profile='${config.home.profileDirectory}'
       '') profiles
