@@ -34,7 +34,7 @@ let
         firstProfileCreated = true;
         completedNewUserOnboarding = true;
       }
-      // lib.optional cfg.skipTour {
+      // lib.optionalAttrs cfg.skipTour {
         firstAppOpen = true;
         firstRepoOpened = true;
         guideOpened = true;
