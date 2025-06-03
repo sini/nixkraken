@@ -8,6 +8,11 @@
 let
   cfg = config.programs.nixkraken;
 
+  localPkgs = import ./pkgs {
+    inherit (pkgs) lib;
+    inherit pkgs;
+  };
+
   # TODO: where to find them
   logLevels = {
     standard = 1;
@@ -60,7 +65,7 @@ let
   mkSubmoduleWithPkgs =
     submodulePath: args:
     let
-      submodule = import submodulePath (args // { inherit pkgs; });
+      submodule = import submodulePath (args // { inherit localPkgs pkgs; });
     in
     submodule;
 in
@@ -165,14 +170,14 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      # TODO: add gk-* packages?
       packages = [
         cfg.package
+        localPkgs.login
       ];
 
       # Activating has side effects and must therefore be placed after the write boundary
       activation.nixkraken-top-level = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+        ${localPkgs.configure}/bin/gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
         echo "To login to your GitKraken account, run 'gk-login'."
       '';
     };

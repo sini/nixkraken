@@ -1,4 +1,4 @@
-{ config, lib, ... }@args:
+{ config, lib, localPkgs, ... }@args:
 
 let
   cfg = config.programs.nixkraken;
@@ -401,7 +401,7 @@ in
 
     home.activation = lib.hm.dag.entriesAfter "nixkraken-profile" [ "nixkraken-top-level" ] (
       lib.mapAttrsToList (id: profile: ''
-        gk-configure \
+        ${localPkgs.configure}/bin/gk-configure \
           -c "${lib.strings.escapeNixString (builtins.toJSON profile)}" \
           -p ${id}
           --git-binary="${lib.boolToString cfg.git.useBundledGit}" \

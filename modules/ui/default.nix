@@ -1,4 +1,4 @@
-{ config, lib, ... }@args:
+{ config, lib, localPkgs, ... }@args:
 
 let
   cfg = config.programs.nixkraken;
@@ -29,11 +29,11 @@ in
       lib.concatLines (
         [
           ''
-            gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
+            ${localPkgs.configure}/bin/gk-configure -c "${lib.strings.escapeNixString (builtins.toJSON settings)}"
           ''
         ]
         ++ lib.optional (lib.length cfg.ui.extraThemes > 0) ''
-          gk-theme -i "${lib.concatStringsSep "," cfg.ui.extraThemes}"
+          ${localPkgs.theme}/bin/gk-theme -i "${lib.concatStringsSep "," cfg.ui.extraThemes}"
         ''
       )
     );
