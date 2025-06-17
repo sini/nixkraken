@@ -41,9 +41,11 @@
       # Packages
       packages = eachSystem (
         pkgs:
-        import ./pkgs {
+        (import ./pkgs {
           inherit (pkgs) lib;
           inherit pkgs;
+        }) // {
+          docs = pkgs.callPackage ./docs { };
         }
       );
 

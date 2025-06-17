@@ -1,0 +1,21 @@
+[book]
+title = "Nixkraken docs"
+authors = ["Nicolas Goudry"]
+description = "Documentation for Nixkraken Home Manager module"
+language = "en"
+# multilingual = false
+# src = "src"
+
+[preprocessor.alerts]
+[preprocessor.pagetoc]
+
+[output.html]
+additional-css = ["theme/pagetoc.css"]
+additional-js = ["theme/pagetoc.js"]
+git-repository-url = "https://github.com/nicolas-goudry/nixkraken"
+edit-url-template = "https://github.com/nicolas-goudry/nixkraken/edit/main/docs/{path}"
+hash-files = true
+
+[output.html.fold]
+enable = true
+level = 1
