@@ -14,6 +14,14 @@
 
 TODO
 
+# Implementation details
+
+- [Packages](./implementation/packages/index.md)
+  - [`gk-configure`](./implementation/packages/configure.md)
+  - [`gk-encrypt` and `gk-decrypt`](./implementation/packages/encrypt-decrypt.md)
+  - [`gk-login`](./implementation/packages/login.md)
+  - [`gk-theme`](./implementation/packages/theme.md)
+
 # Changelog
 
 TODO

@@ -1,0 +1,72 @@
+# `gk-encrypt` and `gk-decrypt`
+
+These Bash scripts are used to encrypt and decrypt GitKraken's `secFile`s, which contain sensitive data such as access tokens. They are primarily intended for use by the [`login`](./login/script.sh) script, but can also be used independently.
+
+Although their execution is considered safe (since they only read the `secFile`s and output results to stdout), they are provided as-is, with no warranty.
+
+## Usage
+
+All options are documented in the scripts' help output:
+
+```sh
+./decrypt/script.sh --help
+gk-decrypt --help
+
+./encrypt/script.sh --help
+gk-encrypt --help
+```
+
+The script themselves are extensively documented through comments.
+
+## Encryption / Decryption methods
+
+The encryption and decryption methods are adapted from GitKraken's original code, reimplemented using Unix tools. The reference implementation below is prettified from `main.bundle.js` with comments manually added:
+
+```js
+// Arguments:
+// - I: path to secFile
+// - re: appId
+// - ne: input encoding
+//
+// External variables
+// - le: path module
+// - ae: crypto module
+// - ce: logging library
+// - se: seems to be a wrapper around fs module and fs-extra library
+I.exports = (I, re, ne) => {
+  const pe = re || "",
+    Ee = ne || "aes256",
+    ge = le.resolve(I),
+    doCrypto = (I, re) => {
+      ce("doing crypto: %s", re ? "decrypting" : "encrypting");
+      const ne = re ? "binary" : "utf8",
+        se = re ? ae.createDecipher(Ee, pe) : ae.createCipher(Ee, pe),
+        le = [new Buffer(se.update(I, ne)), new Buffer(se.final())],
+        ge = Buffer.concat(le);
+      return ce("done doing crypto"), ge;
+    };
+  return {
+    load: () => (
+      ce("attempting to load"),
+      Promise.resolve()
+        .then(() => se.readFileAsync(ge))
+        .then((I) => doCrypto(I, !0).toString())
+        .then((I) => JSON.parse(I))
+        .catch((I) => (ce("failed to load:"), ce(I), {}))
+    ),
+    save: (I) => (
+      ce("attempting to save"),
+      Promise.resolve()
+        .then(() => se.ensureFileAsync(ge))
+        .then(() => JSON.stringify(I, null, 2))
+        .then((I) => doCrypto(I, !1))
+        .then((I) => se.writeFileAsync(ge, I))
+        .catch((I) => {
+          throw (ce("failed to save:"), ce(I), I);
+        })
+    ),
+  };
+};
+```
+
+In summary, the secrets are JSON data encrypted with the `appId` as the passphrase.
