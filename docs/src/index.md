@@ -12,10 +12,12 @@
 > [!IMPORTANT]
 >
 > This project is **NOT** affiliated with Axosoft (the makers of GitKraken) in any way.
+>
+> Nixkraken is only handling GitKraken's configuration, one still needs to purchase the product to benefit paid features. **This is not a cracked GitKraken app.**
 
 ## Contributing
 
-Unlike GitKraken, Nixkraken is free and open source, **contributions are welcome!** Note however that Nixkraken is only handling GitKraken's configuration, one still needs to purchase the product to benefit paid features. **This is not a cracked GitKraken app.**
+Unlike GitKraken, Nixkraken is free and open source: **contributions are welcome!**
 
 The source code can be found on [GitHub][gh] and issues and feature requests can be posted on the [GitHub issue tracker][gh-issues].
 
