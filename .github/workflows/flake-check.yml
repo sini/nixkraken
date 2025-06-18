@@ -1,0 +1,21 @@
+name: Check flake
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.nix'
+      - flake.lock
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+      - name: Check Flake
+        run: nix flake check
