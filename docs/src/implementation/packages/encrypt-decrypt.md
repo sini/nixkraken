@@ -1,14 +1,16 @@
 # `gk-encrypt` and `gk-decrypt`
 
-These Bash scripts are used to encrypt and decrypt GitKraken's `secFile`s, which contain sensitive data such as access tokens. They are primarily intended for use by the [`login`](./login/script.sh) script, but can also be used independently.
+These packages are used to encrypt and decrypt GitKraken's `secFile`s, which contain sensitive data such as access tokens.
+
+They are primarily intended for use by the [`gk-login`](./login.md) package, but can also be used independently.
 
 Although their execution is considered safe (since they only read the `secFile`s and output results to stdout), they are provided as-is, with no warranty.
 
 ## Usage
 
-All options are documented in the scripts' help output:
+All options are documented by the `--help` flag:
 
-```sh
+```bash
 ./decrypt/script.sh --help
 gk-decrypt --help
 
@@ -16,7 +18,7 @@ gk-decrypt --help
 gk-encrypt --help
 ```
 
-The script themselves are extensively documented through comments.
+The script are extensively documented through comments.
 
 ## Encryption / Decryption methods
 

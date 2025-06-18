@@ -6,7 +6,7 @@
 
 There has been reports of paid features configuration being reverted by the app on the first launch due to the user being signed out of their account.
 
-Although users can login to their GitKraken account from within the application, we recommend using the `gk-login` package — which comes with Nixkraken — to sign in with GitKraken.
+Although users can login to their GitKraken account from within the application, **we recommend using the [`gk-login` package](../implementation/packages/login.md)** — which comes with Nixkraken — **to sign in with GitKraken**.
 
 `gk-login` currently supports signing in to GitKraken through the following OAuth providers:
 
@@ -26,6 +26,6 @@ Contrary to lots of other application modules provided by Home Manager, Nixkrake
 
 This is due to GitKraken using the configuration files to store application state alongside options. Therefore, if the configuration files were not writable, the application would fail to work as expected.
 
-The module instead uses various Bash scripts to safely update the configuration files without overwriting application state.
+The module instead uses [various Bash scripts](../implementation/packages/index.md) to safely update the configuration files without overwriting application state.
 
-This also means that there can be a configuration drift between the application and the Nix code. This is a known issue which will require users to refrain updating the configuration in-app and instead use Nixkraken options.
+This also means that there can be a **configuration drift between the application and the Nix code**. This is a known issue which will require users to **refrain updating the configuration in-app** and instead use Nixkraken options.

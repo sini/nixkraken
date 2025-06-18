@@ -1,19 +1,23 @@
 # `gk-theme`
 
-This Bash script provides a command-line interface for a very basic management of GitKraken themes. It allows you to list available themes and install new ones by linking theme files into GitKraken's themes directory. While it's intended for use during Home Manager activation by the nixkraken module, it can also be used independently for testing.
+This package provides a command-line interface for a very basic management of GitKraken themes.
+
+It allows to list available themes and install new ones by linking theme files into GitKraken's themes directory.
+
+While it's intended for use during Home Manager activation by the Nixkraken module, it can also be used independently for testing.
 
 Although its execution is considered safe, it is possible that theme files are overwritten, resulting in theme data loss. **Please back up your themes before use.**
 
 ## Usage
 
-All options are documented in the script's help output:
+All options are documented by the `--help` flag:
 
-```sh
+```bash
 ./theme/script.sh --help
 gk-theme --help
 ```
 
-Since this script is typically run during Home Manager activation, it respects the following environment variables:
+Since the package is typically run during Home Manager activation, it respects the following environment variables:
 
 - `DRY_RUN`: if set, commands are not executed, only logged
 - `VERBOSE`: if set, logs are enabled
