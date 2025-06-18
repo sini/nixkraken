@@ -8,11 +8,20 @@ _:
 
   programs.shellcheck = {
     enable = true;
+
     excludes = [ ".envrc" ];
   };
 
   programs.prettier = {
     enable = true;
-    includes = [ "*.md" ];
+
+    includes = [
+      "*.md"
+      "*.js"
+    ];
+
+    excludes = [
+      "docs/theme/*"
+    ];
   };
 }
