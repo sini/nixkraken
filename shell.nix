@@ -9,10 +9,12 @@ let
   };
 in
 pkgs.mkShellNoCC {
-  nativeBuildInputs = (with pkgs; [
-    mdbook
-    mdbook-alerts
-    mdbook-pagetoc
-    nodejs
-  ]) ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
+  nativeBuildInputs =
+    (with pkgs; [
+      mdbook
+      mdbook-alerts
+      mdbook-pagetoc
+      nodejs
+    ])
+    ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
 }

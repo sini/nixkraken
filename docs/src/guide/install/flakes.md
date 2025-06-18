@@ -39,4 +39,3 @@ This method uses Home Manager's `sharedModules` attribute to make the `nixkraken
   };
 }
 ```
-
