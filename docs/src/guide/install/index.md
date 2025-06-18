@@ -1,9 +1,5 @@
-[considerations]: ./considerations.md
-[flakes]: ./flakes.md
-[non-flakes]: ./non-flakes.md
-
 # Installation
 
-- [Things to consider][considerations]
-- [Install Nixkraken with Flakes][flakes]
-- [Install Nixkraken without Flakes][non-flakes]
+- [Things to consider](./considerations.md)
+- [Install Nixkraken with Flakes](./flakes.md)
+- [Install Nixkraken without Flakes](./non-flakes.md)

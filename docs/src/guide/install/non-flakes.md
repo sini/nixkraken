@@ -1,8 +1,3 @@
-[jq]: https://jqlang.org/
-[nix-command-experimental-feature]: https://nix.dev/manual/nix/2.18/contributing/experimental-features#xp-feature-nix-command
-[nixpkgs-manual-obtain-hash-securely]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-fetchers-secure-hashes
-[noogle-lib-singleton]: https://noogle.dev/f/lib/singleton
-
 # Non-Flakes
 
 ## 1. Retrieve the release hash
@@ -18,7 +13,7 @@ Fake hash methods:
 - `lib.fakeSha256`
 - `lib.fakeSha512`
 
-Before using the fake hash methods, users should be aware of the [security implications of using them][nixpkgs-manual-obtain-hash-securely].
+Before using the fake hash methods, users should be aware of the [security implications of using them](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-fetchers-secure-hashes).
 
 ### `nix-prefetch-git`
 
@@ -44,7 +39,7 @@ nix-prefetch-git --url git@github.com:nicolas-goudry/nixkraken.git --quiet
 }
 ```
 
-Here, the relevant key is `hash`. Tools like [`jq`][jq] can be used to extract it directly from the JSON output of the command:
+Here, the relevant key is `hash`. Tools like [`jq`](https://jqlang.org/) can be used to extract it directly from the JSON output of the command:
 
 ```bash
 nix-prefetch-git \
@@ -61,7 +56,7 @@ nix-prefetch-git \
 
 ### `nix-prefetch-url`
 
-The following commands use `nix-prefetch-url` to get the Nix base32 hash from the unpacked sources archive retrieved from GitHub. The hash is then handed to `nix-hash` (or `nix hash convert`, which requires the `nix-command` [experimental feature][nix-command-experimental-feature] to be enabled) to get the final hash expected by fetchers.
+The following commands use `nix-prefetch-url` to get the Nix base32 hash from the unpacked sources archive retrieved from GitHub. The hash is then handed to `nix-hash` (or `nix hash convert`, which requires the `nix-command` [experimental feature](https://nix.dev/manual/nix/2.18/contributing/experimental-features#xp-feature-nix-command) to be enabled) to get the final hash expected by fetchers.
 
 ```bash
 nix-hash \
@@ -91,7 +86,7 @@ Once the sources hash has been computed, or a fake hash is to be used, a variety
 The fetchers are listed below in **order of preferences**.
 
 > [!WARNING]
-> All `imports` attributes below are assigned the result of the [`lib.singleton` lambda][noogle-lib-singleton], which generates a list consisting of a single element passed as argument.
+> All `imports` attributes below are assigned the result of the [`lib.singleton` lambda](https://noogle.dev/f/lib/singleton), which generates a list consisting of a single element passed as argument.
 >
 > It is very likely that this lambda is not needed in the final configuration. Furthermore, chances are an `imports` attribute already exists in the configuration, in such case just add the new element to it.
 

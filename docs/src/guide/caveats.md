@@ -1,5 +1,3 @@
-[gk-login-package]: https://github.com/nicolas-goudry/nixkraken/tree/main/pkgs/login/script.sh
-
 # Caveats
 
 ## Reverted paid features
@@ -16,7 +14,7 @@ Although users can login to their GitKraken account from within the application,
 - Azure
 - Google
 
-The security implications of using `gk-login` are the same as using the application, since it is replicating the code used by GitKraken. Also, the [code can easily be reviewed][gk-login-package] and is thoroughly documented.
+The security implications of using `gk-login` are the same as using the application, since it is replicating the code used by GitKraken. Also, the [code can easily be reviewed](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.sh) and is thoroughly documented.
 
 ## Mutability
 

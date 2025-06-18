@@ -1,5 +1,3 @@
-[gitkraken-nixpkgs]: https://github.com/nixos/nixpkgs/tree/master/pkgs/by-name/gi/gitkraken/package.nix
-
 # Considerations
 
 ## Compatibility
@@ -18,6 +16,6 @@ Development occurs on the `main` branch, which should be **considered unstable**
 
 ## Velocity
 
-As the main GitKraken maintainer on [nixpkgs][gitkraken-nixpkgs] and a daily GitKraken user, I strive to test the module with new versions and address issues as quickly as possible. Users are also encouraged to **report any issues** encountered - or even better: to **contribute fixes**! Pull requests are always welcome 🙂
+As the main GitKraken maintainer on [nixpkgs](https://github.com/nixos/nixpkgs/blob/master/pkgs/by-name/gi/gitkraken/package.nix) and a daily GitKraken user, I strive to test the module with new versions and address issues as quickly as possible. Users are also encouraged to **report any issues** encountered - or even better: to **contribute fixes**! Pull requests are always welcome 🙂
 
 Finally, updates to this module are provided on a best-effort basis, in my free time. While every attempt will be made to keep the module compatible with the latest GitKraken release, there is no strict update schedule. Users should be prepared for occasional delays in compatibility following new GitKraken releases.
