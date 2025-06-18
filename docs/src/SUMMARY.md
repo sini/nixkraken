@@ -12,7 +12,8 @@
 
 # Module Options
 
-TODO
+- [programs.nixkraken](./options/nixkraken.md)
+<!-- OPTS_GEN -->
 
 # Implementation details
 

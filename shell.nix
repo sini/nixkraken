@@ -13,5 +13,6 @@ pkgs.mkShellNoCC {
     mdbook
     mdbook-alerts
     mdbook-pagetoc
+    nodejs
   ]) ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
 }
