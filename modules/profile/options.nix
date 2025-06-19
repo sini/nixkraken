@@ -88,8 +88,10 @@ in
     default = false;
     description = ''
       Set profile as default.
-      Only one profile can be the default one.
-      Only pro accounts can set multiple profiles.
+
+      Note: there can be only one default profile.
+
+      **WARNING:** only paid accounts can set multiple profiles.
     '';
   };
 
@@ -98,7 +100,8 @@ in
     default = null;
     description = ''
       Name of the profile displayed in GitKraken.
-      Non-default profiles MUST define this.
+
+      **Non-default profiles MUST define this.**
     '';
   };
 

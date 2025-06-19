@@ -24,7 +24,8 @@
     default = true;
     description = ''
       Receive marketing notifications.
-      Setting it to false may not work without a paid subscription.
+
+      Note: setting this to false may not work without a paid subscription.
     '';
   };
 

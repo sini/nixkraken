@@ -163,7 +163,8 @@ in
     default = null;
     description = ''
       Date/time locale.
-      Set to `null` to use system default locale.
+
+      Note: set to `null` to use default system locale.
     '';
   };
 

@@ -104,8 +104,9 @@ in
       type = lib.types.bool;
       default = false;
       description = ''
-        Enable Cloud Patches.
-        Cloud Patch ToS will be automatically accepted when enabled.
+        Enable [Cloud Patches](https://www.gitkraken.com/solutions/cloud-patches).
+
+        Note: Cloud Patches ToS will be automatically accepted when enabled.
       '';
     };
 
@@ -123,8 +124,7 @@ in
       type = lib.types.bool;
       default = false;
       description = ''
-        GitKraken client will make `.orig` files during a merge.
-        When disabled, these before and after files will not be automatically deleted.
+        Automatically delete `.orig` files created by GitKraken client during a merge.
       '';
     };
 
@@ -144,7 +144,6 @@ in
       type = lib.types.package;
       default = gitkraken;
       defaultText = "pkgs.gitkraken";
-      # defaultText = "GitKraken package from nixpkgs commit [${nixpkgsCommit}](https://github.com/nixos/nixpkgs/blob/${nixpkgsCommit}/pkgs/by-name/gi/gitkraken/package.nix).";
       example = "pkgs.unstable.gitkraken";
       description = ''
         The GitKraken package to use. Requires to allow unfree packages.

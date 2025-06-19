@@ -375,9 +375,10 @@ in
     default = [ { isDefault = true; } ];
     description = ''
       Profiles configuration.
+
       All settings in a profile take precedence over global settings.
-      Example: if a profile defines the `ssh` option and the global `ssh` option is
-      defined, the profile-specific option will be used.
+
+      Example: if a profile defines the `ssh` option and the global `ssh` option is defined, the profile-specific option will be used.
     '';
   };
 

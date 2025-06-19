@@ -22,8 +22,11 @@
         default = "ignore";
         description = ''
           Behavior of the tab key in the integrated terminal when autocomplete is enabled.
+
           When set to `enter`, the highlighted suggestion will be entered.
+
           When set to `navigation`, the next suggestion will be selected.
+
           When set to `ignore`, the tab key will be sent to the shell.
         '';
       };
@@ -81,7 +84,8 @@
         default = true;
         description = ''
           Show graph panel by default.
-          This setting only affects terminal tabs when the current directory is a repository.
+
+          Note: this setting only affects terminal tabs when the current directory is a repository.
         '';
       };
 
@@ -97,7 +101,8 @@
         default = "bottom";
         description = ''
           Default graph panel position.
-          This setting only affects terminal tabs when the current directory is a repository.
+
+          Note: this setting only affects terminal tabs when the current directory is a repository.
         '';
       };
     };
@@ -181,7 +186,8 @@
     example = "dark";
     description = ''
       UI theme.
-      Extra themes are referenced by their meta.name, ie. `catppuccin-mocha`.
+
+      Note: extra themes are referenced by their `meta.name`, ie. `catppuccin-mocha`.
     '';
   };
 }

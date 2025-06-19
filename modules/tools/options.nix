@@ -16,7 +16,8 @@
     default = "use-configured-merge-tool";
     description = ''
       Set the preferred external diff tool.
-      This option will not install the selected tool.
+
+      Note: this option will not install the selected tool.
     '';
   };
 
@@ -32,7 +33,8 @@
     default = "none";
     description = ''
       Set the preferred external code/text editor.
-      This option will not install the selected editor.
+
+      Note: this option will not install the selected editor.
     '';
   };
 
@@ -50,7 +52,8 @@
     default = "git-config";
     description = ''
       Set the preferred external merge tool.
-      This option will not install the selected tool.
+
+      Note: this option will not install the selected tool.
     '';
   };
 
@@ -64,9 +67,10 @@
       default = "none";
       description = ''
         Set the preferred terminal.
+
         When `gitkraken` is selected, the bundled GitKraken terminal will be used.
-        When `custom` is selected, the package defined by `tools.terminal.package` will
-        be installed and used.
+
+        When `custom` is selected, the package defined by `tools.terminal.package` will be installed and used.
       '';
     };
 
@@ -76,7 +80,8 @@
       example = lib.literalExpression "pkgs.alacritty";
       description = ''
         Custom terminal package to use.
-        Must be defined only when `tools.terminal.default` is set to `custom`.
+
+        **Must be defined when `tools.terminal.default` is set to `custom`.**
       '';
     };
 
@@ -86,8 +91,12 @@
       example = "alacritty";
       description = ''
         Custom terminal binary name.
-        Defaults to `''${tools.terminal.package.pname}`.
-        Will be prepended by the Nix store path of the package.
+
+        Defaults to the `pname` attribute of the chosen `package`.
+
+        **This option has no effect unless `tools.terminal.package` is set.**
+
+        Note: the value will be prepended by the Nix store path of the chosen `package`.
       '';
     };
 

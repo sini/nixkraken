@@ -3,7 +3,8 @@
 {
   package = lib.mkPackageOption pkgs "gnupg" {
     extraDescription = ''
-      Used for GPG commit signing.
+
+      Used for GPG signing.
     '';
   };
 
@@ -12,7 +13,7 @@
     default = null;
     example = "EC6624FA72B9487E";
     description = ''
-      GPG private key to sign commits.
+      Private key to use for GPG signing.
     '';
   };
 
@@ -20,7 +21,7 @@
     type = lib.types.bool;
     default = false;
     description = ''
-      Enable GPG commit signature by default.
+      Enable GPG signature on commits.
     '';
   };
 
@@ -28,7 +29,7 @@
     type = lib.types.bool;
     default = false;
     description = ''
-      Enable GPG tag signature by default.
+      Enable GPG signature on tags.
     '';
   };
 }

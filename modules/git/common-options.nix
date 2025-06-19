@@ -5,9 +5,9 @@
     type = lib.types.ints.between 0 60;
     default = 1;
     description = ''
-      Set the number of minutes between auto-fetches.
-      It will fetch all visible remotes for the repository.
-      Setting the value to 0 will disable auto-fetch.
+      Set the number of minutes between auto-fetches, or 0 to disable them.
+
+      Note: all visible remotes for the repository will be fetched.
     '';
   };
 
@@ -15,8 +15,7 @@
     type = lib.types.bool;
     default = true;
     description = ''
-      Automatically remove any remote-tracking references that no longer exist on the
-      remote.
+      Automatically remove any remote-tracking references that no longer exist on the remote.
     '';
   };
 
@@ -32,7 +31,9 @@
     type = with lib.types; nullOr str;
     default = null;
     description = ''
-      Set the default name when initializing a new repo. The app defaults to `main`.
+      Set the default name when initializing a new repo.
+
+      Note: when not set, the app defaults to `main`.
     '';
   };
 }
