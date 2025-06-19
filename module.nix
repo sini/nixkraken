@@ -8,6 +8,10 @@
 let
   cfg = config.programs.nixkraken;
 
+  nixpkgsCommit = "1cb1c02a6b1b7cf67e3d7731cbbf327a53da9679";
+  nixpkgs = fetchTarball "https://github.com/nixos/nixpkgs/tarball/${nixpkgsCommit}";
+  gitkraken = (import nixpkgs { }).gitkraken;
+
   localPkgs = import ./pkgs {
     inherit (pkgs) lib;
     inherit pkgs;
@@ -136,9 +140,18 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "gitkraken" {
-      extraDescription = ''
-        Requires to allow unfree packages.
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = gitkraken;
+      defaultText = "pkgs.gitkraken";
+      # defaultText = "GitKraken package from nixpkgs commit [${nixpkgsCommit}](https://github.com/nixos/nixpkgs/blob/${nixpkgsCommit}/pkgs/by-name/gi/gitkraken/package.nix).";
+      example = "pkgs.unstable.gitkraken";
+      description = ''
+        The GitKraken package to use. Requires to allow unfree packages.
+
+        Note: Nixkraken automatically installs the correct GitKraken version which has been tested with the module. End users should refrain using this option, and if they do they should be aware that [compatibility is not guaranteed](/guide/install/considerations.html#compatibility).
+
+        Current default uses the GitKraken package from nixpkgs commit [${nixpkgsCommit}](https://github.com/nixos/nixpkgs/blob/${nixpkgsCommit}/pkgs/by-name/gi/gitkraken/package.nix).
       '';
     };
 
