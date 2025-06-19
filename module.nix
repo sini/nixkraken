@@ -9,7 +9,12 @@ let
   cfg = config.programs.nixkraken;
 
   nixpkgsCommit = "1cb1c02a6b1b7cf67e3d7731cbbf327a53da9679";
-  nixpkgs = fetchTarball "https://github.com/nixos/nixpkgs/tarball/${nixpkgsCommit}";
+  nixpkgs = pkgs.fetchFromGitHub {
+    owner = "nixos";
+    repo = "nixpkgs";
+    rev = nixpkgsCommit;
+    hash = "sha256-MiJ11L7w18S2G5ftcoYtcrrS0JFqBaj9d5rwJFpC5Wk=";
+  };
   gitkraken = (import nixpkgs { }).gitkraken;
 
   localPkgs = import ./pkgs {
