@@ -15,7 +15,11 @@ let
     rev = nixpkgsCommit;
     hash = "sha256-MiJ11L7w18S2G5ftcoYtcrrS0JFqBaj9d5rwJFpC5Wk=";
   };
-  gitkraken = (import nixpkgs { }).gitkraken;
+  gitkraken =
+    (import nixpkgs {
+      system = pkgs.system;
+      config.allowUnfree = true;
+    }).gitkraken;
 
   localPkgs = import ./pkgs {
     inherit (pkgs) lib;
