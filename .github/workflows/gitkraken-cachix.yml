@@ -26,7 +26,7 @@ jobs:
           - e1a3a64af950591b0e1fc019fefb100963053790 # v10.6.1
           - 480f1aa89744a656fcf4672d927c097bf3f39207 # v10.6.0
           - 6bb61e56d5616474a47675adbaa39e777fc901f1 # v10.5.0
-          - 3becc6bcb888beb0131aad0bf38aba4ec2d6b81f # v10.4.1
+          - fd5b39ad6e9ea714c41897e707b100b67137c1fa # v10.4.1
     steps:
     - uses: actions/checkout@v4
       with:
