@@ -8,8 +8,9 @@
   - [Considerations](./guide/install/considerations.md)
   - [Flakes](./guide/install/flakes.md)
   - [Non-Flakes](./guide/install/non-flakes.md)
-- [Caveats](./guide/caveats.md)
 - [Examples](./guide/examples.md)
+- [Caveats](./guide/caveats.md)
+- [Caching](./guide/caching.md)
 
 # Module Options
 

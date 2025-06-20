@@ -30,13 +30,12 @@ This also means that there can be a **configuration drift between the applicatio
 
 ## Long installation time
 
-Nixkraken uses a pinned version of [nixpkgs](https://github.com/nixos/nixpkgs) to set the default version of the GitKraken package to a given version. Therefore, on the first module install - and whenever the GitKraken version is updated by the module - the package will be built by the system.
+GitKraken being closed source, **end users will always have to build the package**. Although this process is usually not very long, since GitKraken is not built from sources, building the package is still longer than fetching a pre-built binary.
 
-This process is usually not very long since GitKraken is not built from sources (it being closed source), however there has been reports of "stuck" installations/builds. This is most often due to a bad internet connection and the fact that GitKraken's archive is around 200MB (whatever the platform is).
+Plus, there has been reports of "stuck" builds in the past. This is most often due to a combination of several factors:
 
-To speed up the installation process, specify the [`programs.nixkraken.package`](../options/nixkraken.md#package) option from your nixpkgs channel or Flake input.
+- a slow internet connection
+- GitKraken's archive being 200MB+
+- [`fetchUrl` not outputting its download progress](https://github.com/NixOS/nixpkgs/issues/156930)
 
-> [!WARNING]
-> To prevent incompatibility issues, make sure to use a nixpkgs revision which has the correct GitKraken version for the module.
->
-> Read more about [compatibility considerations](./install/considerations.md#compatibility).
+**To speed up the installation process, end users can [setup the Nixkraken binary cache](./caching.md).**
