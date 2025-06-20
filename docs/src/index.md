@@ -1,4 +1,8 @@
-# Introduction
+<center>
+
+![Nixkraken logo](./logo.svg)
+
+</center>
 
 **Nixkraken** provides a [Home Manager](https://nix-community.github.io/home-manager) module for managing [GitKraken](https://www.gitkraken.com) configuration files and profiles in a declarative and reproducible way.
 
