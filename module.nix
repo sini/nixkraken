@@ -8,7 +8,7 @@
 let
   cfg = config.programs.nixkraken;
 
-  nixpkgsCommit = "1cb1c02a6b1b7cf67e3d7731cbbf327a53da9679";
+  nixpkgsCommit = "37290199a6648a1e501839e07f6f9be95e4c58cc";
   nixpkgs = pkgs.fetchFromGitHub {
     owner = "nixos";
     repo = "nixpkgs";
