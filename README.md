@@ -1,10 +1,8 @@
-[gitkraken]: https://www.gitkraken.com
-
 # 🦑 nixkraken
 
 ![Home Manager](https://img.shields.io/badge/home%20manager-EC733B?style=for-the-badge)
 
-Manage [GitKraken][gitkraken] configuration and profiles, the Nix way ❄️
+Manage [GitKraken](https://www.gitkraken.com) configuration and profiles, the Nix way ❄️
 
 ## 🚨 Disclaimer
 
