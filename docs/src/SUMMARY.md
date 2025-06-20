@@ -9,6 +9,7 @@
   - [Flakes](./guide/install/flakes.md)
   - [Non-Flakes](./guide/install/non-flakes.md)
 - [Caveats](./guide/caveats.md)
+- [Examples](./guide/examples.md)
 
 # Module Options
 
