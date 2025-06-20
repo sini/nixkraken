@@ -1,0 +1,43 @@
+name: "Cache GitKraken"
+
+on:
+  push:
+    paths:
+      - .github/workflows/gitkraken-cachix.yml
+
+jobs:
+  gitkraken-cachix:
+    runs-on:
+      - ubuntu-latest
+      - ubuntu-24.04-arm
+      - macos-13
+      - macos-latest
+    strategy:
+      matrix:
+        commit:
+          - e861cf9b42ab0d556989528b8997eb0992844180 # v11.2.0
+          - 5017262d69299951c156042e7f64ba63760204c2 # v11.1.1
+          - 36dcda8c3ea1c6bd23770b711326625712460ba3 # v11.1.0
+          - 37290199a6648a1e501839e07f6f9be95e4c58cc # v11.0.0
+          - fd85e9405d38b57996a9f6caf4b12839a1e5642e # v10.8.0
+          - 17f5c2876228563a2029c7a20bc279b612dd3587 # v10.7.0
+          - 355f34d1529edce864a3b4f5be6e312f72383348 # v10.6.3
+          - 381484d4652d91195ea0e5d5c509fb48564600ec # v10.6.2
+          - e1a3a64af950591b0e1fc019fefb100963053790 # v10.6.1
+          - 480f1aa89744a656fcf4672d927c097bf3f39207 # v10.6.0
+          - 6bb61e56d5616474a47675adbaa39e777fc901f1 # v10.5.0
+          - 3becc6bcb888beb0131aad0bf38aba4ec2d6b81f # v10.4.1
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: 'nixos/nixpkgs'
+        ref: '${{ matrix.commit }}'
+    - uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v14
+      with:
+        name: nixkraken
+        # If you chose API tokens for write access OR if you have a private cache
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - run: NIXPKGS_ALLOW_UNFREE=1 nix-build -A gitkraken
