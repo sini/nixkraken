@@ -1,19 +1,141 @@
-# Non-Flakes
+# Install without Flakes
 
-## 1. Retrieve the release hash
+## Using Nix/nixpkgs fetchers
 
-Before fetching Nixkraken into the configuration, the hash of its sources should be retrieved.
+The preferred method to fetch Nixkraken is with `fetchFromGitHub`, as shown below.
 
-There are several ways to do that, two of them being advertised below. However, it is also possible (and very common) to just use one of the fake hash methods listed below, attempt to build and get the expected hash from the resulting error message.
+> [!WARNING]
+> Using `lib.fakeHash` will fail the configuration evaluation since the sources hash will not match the fake one (as expected).
+>
+> To avoid using `lib.fakeHash`, refer to the section to [retrieve the release hash](#retrieve-release-hash).
 
-Fake hash methods:
+```nix
+{ lib, pkgs, ... }:
 
-- empty string `""`
-- `lib.fakeHash`
-- `lib.fakeSha256`
-- `lib.fakeSha512`
+{
+  imports = [
+    "${pkgs.fetchFromGitHub {
+      owner = "nicolas-goudry";
+      repo = "nixkraken";
+      rev = "main";
+      # rev = "<branch-name|commit-sha>";
+      # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
+      hash = lib.fakeHash;
+    }}/module.nix"
+  ];
+}
+```
 
-Before using the fake hash methods, users should be aware of the [security implications of using them](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-fetchers-secure-hashes).
+There are other fetchers available:
+
+<details>
+
+<summary><code>fetchzip</code></summary>
+
+```nix
+{ lib, pkgs, ... }:
+
+{
+  imports = [
+    "${pkgs.fetchzip {
+      url = "https://github.com/nicolas-goudry/nixkraken/archive/main.zip";
+      # url = "https://github.com/nicolas-goudry/nixkraken/archive/<branch-name|commit-sha>.zip";
+      # url = "https://github.com/nicolas-goudry/nixkraken/archive/refs/tags/<tag-name>.zip";
+      hash = "<retrieved-hash>";
+      # hash = lib.fakeHash;
+    }}/module.nix"
+  ];
+}
+```
+
+</details>
+
+<details>
+
+<summary><code>fetchgit</code></summary>
+
+```nix
+{ lib, pkgs, ... }:
+
+{
+  imports = [
+    "${pkgs.fetchgit {
+      url = "https://github.com/nicolas-goudry/nixkraken.git";
+      rev = "main";
+      # rev = "<branch-name|commit-sha>";
+      # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
+      hash = "<retrieved-hash>";
+      # hash = lib.fakeHash;
+    }}/module.nix"
+  ];
+}
+```
+
+</details>
+
+<details>
+
+<summary><code>fetchTarball</code></summary>
+
+```nix
+{ lib, ... }:
+
+{
+  imports = [
+    "${builtins.fetchTarball {
+      url = "https://github.com/nicolas-goudry/nixkraken/archive/main.tar.gz";
+      # url = "https://github.com/nicolas-goudry/nixkraken/archive/<branch-name|commit-sha>.tar.gz";
+      # url = "https://github.com/nicolas-goudry/nixkraken/archive/refs/tags/<tag-name>.tar.gz";
+      sha256 = "<retrieved-hash>";
+      # sha256 = lib.fakeSha256;
+    }}/module.nix"
+  ];
+}
+```
+
+</details>
+
+## Using [niv](https://github.com/nmattia/niv)
+
+```shell
+niv add nicolas-goudry/nixkraken
+```
+
+```nix
+let
+  sources = import ./nix/sources.nix;
+in {
+  imports = [
+    sources.nixkraken + "/module.nix"
+  ];
+}
+```
+
+> [!CAUTION]
+> These instructions are untested. Please report an issue if they are not working, or suggest a PR fixing them.
+
+## Using [npins](https://github.com/andir/npins)
+
+```shell
+npins add github nicolas-goudry nixkraken
+```
+
+```nix
+let
+  sources = import ./npins;
+in {
+  imports = [
+    sources.nixkraken + "/module.nix"
+  ];
+}
+```
+
+> [!CAUTION]
+> These instructions are untested. Please report an issue if they are not working, or suggest a PR fixing them.
+
+## Retrieve release hash
+
+Users willing to avoid using `lib.fakeHash` can retrieve the release hash using either [`nix-prefetch-git`](#nix-prefetch-git) or [`nix-prefetch-url`](#nix-prefetch-url), as shown below.
 
 ### `nix-prefetch-git`
 
@@ -78,81 +200,3 @@ nix hash convert \
 > To retrieve the sources hash at a given tag, replace `main.tar.gz` by `refs/tags/<tag-name>.tar.gz`.
 >
 > To retrieve the sources hash at a given point in history (branch or commit), replace `main.tar.gz` by `<branch-name|commit-sha>.tar.gz`.
-
-## 2. Fetch sources in configuration
-
-Once the sources hash has been computed, or a fake hash is to be used, a variety of fetchers can fetch Nixkraken sources into your configuration.
-
-The fetchers are listed below in **order of preferences**.
-
-> [!WARNING]
-> All `imports` attributes below are assigned the result of the [`lib.singleton` lambda](https://noogle.dev/f/lib/singleton), which generates a list consisting of a single element passed as argument.
->
-> It is very likely that this lambda is not needed in the final configuration. Furthermore, chances are an `imports` attribute already exists in the configuration, in such case just add the new element to it.
-
-### `lib.fetchFromGitHub`
-
-```nix
-{ lib, pkgs, ... }:
-
-{
-  imports = lib.singleton "${pkgs.fetchFromGitHub {
-    owner = "nicolas-goudry";
-    repo = "nixkraken";
-    rev = "main";
-    # rev = "<branch-name|commit-sha>";
-    # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
-    hash = "<retrieved-hash>";
-    # hash = lib.fakeHash;
-  }}/module.nix";
-}
-```
-
-### `lib.fetchzip`
-
-```nix
-{ lib, pkgs, ... }:
-
-{
-  imports = lib.singleton "${pkgs.fetchzip {
-    url = "https://github.com/nicolas-goudry/nixkraken/archive/main.zip";
-    # url = "https://github.com/nicolas-goudry/nixkraken/archive/<branch-name|commit-sha>.zip";
-    # url = "https://github.com/nicolas-goudry/nixkraken/archive/refs/tags/<tag-name>.zip";
-    hash = "<retrieved-hash>";
-    # hash = lib.fakeHash;
-  }}/module.nix";
-}
-```
-
-### `lib.fetchgit`
-
-```nix
-{ lib, pkgs, ... }:
-
-{
-  imports = lib.singleton "${pkgs.fetchgit {
-    url = "https://github.com/nicolas-goudry/nixkraken.git";
-    rev = "main";
-    # rev = "<branch-name|commit-sha>";
-    # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
-    hash = "<retrieved-hash>";
-    # hash = lib.fakeHash;
-  }}/module.nix";
-}
-```
-
-### `builtins.fetchTarball`
-
-```nix
-{ lib, ... }:
-
-{
-  imports = lib.singleton "${builtins.fetchTarball {
-    url = "https://github.com/nicolas-goudry/nixkraken/archive/main.tar.gz";
-    # url = "https://github.com/nicolas-goudry/nixkraken/archive/<branch-name|commit-sha>.tar.gz";
-    # url = "https://github.com/nicolas-goudry/nixkraken/archive/refs/tags/<tag-name>.tar.gz";
-    sha256 = "<retrieved-hash>";
-    # sha256 = lib.fakeSha256;
-  }}/module.nix";
-}
-```

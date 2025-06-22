@@ -1,4 +1,4 @@
-# Flakes
+# Install with Flakes
 
 ### Home Manager
 
