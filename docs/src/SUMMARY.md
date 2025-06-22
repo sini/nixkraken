@@ -4,6 +4,7 @@
 
 # User Guide
 
+- [Quick Start](./guide/quick-start.md)
 - [Installation](./guide/install/index.md)
   - [Considerations](./guide/install/considerations.md)
   - [Flakes](./guide/install/flakes.md)
