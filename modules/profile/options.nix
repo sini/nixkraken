@@ -101,7 +101,7 @@ in
     description = ''
       Name of the profile displayed in GitKraken.
 
-      **Non-default profiles MUST define this.**
+      Note: this must be set to a string for any profile where `isDefault` is false.
     '';
   };
 
