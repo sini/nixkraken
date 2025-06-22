@@ -2,16 +2,16 @@
 
 [Introduction](./index.md)
 
-# User Guide
+# Getting Started
 
-- [Quick Start](./guide/quick-start.md)
-- [Installation](./guide/install/index.md)
-  - [Considerations](./guide/install/considerations.md)
-  - [Flakes](./guide/install/flakes.md)
-  - [Non-Flakes](./guide/install/non-flakes.md)
-- [Examples](./guide/examples.md)
-- [Caveats](./guide/caveats.md)
-- [Caching](./guide/caching.md)
+- [Quick Start](./getting-started/quick-start.md)
+- [Installation](./getting-started/install/index.md)
+  - [Considerations](./getting-started/install/considerations.md)
+  - [Flakes](./getting-started/install/flakes.md)
+  - [Non-Flakes](./getting-started/install/non-flakes.md)
+- [Examples](./getting-started/examples.md)
+- [Caveats](./getting-started/caveats.md)
+- [Caching](./getting-started/caching.md)
 
 # Module Options
 
