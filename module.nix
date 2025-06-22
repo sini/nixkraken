@@ -157,7 +157,7 @@ in
       description = ''
         The GitKraken package to use. Requires to allow unfree packages.
 
-        Note: Nixkraken automatically installs the correct GitKraken version which has been tested with the module. End users should refrain using this option, and if they do they should be aware that [compatibility is not guaranteed](/guide/install/considerations.html#compatibility).
+        Note: Nixkraken automatically installs the correct GitKraken version which has been tested with the module. End users should refrain using this option, and if they do they should be aware that [compatibility cannot be guaranteed](/guide/install/considerations.html#compatibility) and that the [binary cache](/guide/caching.html) might not apply.
 
         Current default uses the GitKraken package from nixpkgs commit [${nixpkgsCommit}](https://github.com/nixos/nixpkgs/blob/${nixpkgsCommit}/pkgs/by-name/gi/gitkraken/package.nix).
       '';
