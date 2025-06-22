@@ -5,9 +5,13 @@
 The preferred method to fetch Nixkraken is with `fetchFromGitHub`, as shown below.
 
 > [!WARNING]
-> Using `lib.fakeHash` will fail the configuration evaluation since the sources hash will not match the fake one (as expected).
+> **About `lib.fakeHash`**
 >
-> To avoid using `lib.fakeHash`, refer to the section to [retrieve the release hash](#retrieve-release-hash).
+> A common pattern in Nix is to use a fake hash like `lib.fakeHash` or an empty string (`""`) as a placeholder.
+>
+> When the configuration is built, the evaluation will fail. But the error message will output the expected hash, which can then be copied back into the configuration.
+>
+> To get the hash without a failed evaluation, refer to the section on how to [retrieve the release hash](#retrieve-release-hash).
 
 ```nix
 { lib, pkgs, ... }:
@@ -20,7 +24,7 @@ The preferred method to fetch Nixkraken is with `fetchFromGitHub`, as shown belo
       rev = "main";
       # rev = "<branch-name|commit-sha>";
       # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
-      hash = lib.fakeHash;
+      hash = lib.fakeHash; # Make sure to read the callout below
     }}/module.nix"
   ];
 }
