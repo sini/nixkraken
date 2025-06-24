@@ -1,11 +1,17 @@
-# 🦑 nixkraken
+# <p align="center">Nixkraken</p>
 
-![Home Manager](https://img.shields.io/badge/home%20manager-EC733B?style=for-the-badge)
+<p align="center">
+  <img width="500" height="500" src="https://github.com/nicolas-goudry/nixkraken/blob/main/docs/src/logo.svg">
+</p>
 
-Manage [GitKraken](https://www.gitkraken.com) configuration and profiles, the Nix way ❄️
+<p align="center">
+  <sub><i>Manage <a href="https://www.gitkraken.com">GitKraken</a> configuration and profiles, the Nix way ❄️</i></sub>
+</p>
 
-## 🚨 Disclaimer
+---
+
+## 📚 [Learn more about Nixkraken in its dedicated documentation](https://nicolas-goudry.github.io/nixkraken).
 
 > [!IMPORTANT]
 >
-> This project is **not** affiliated with Axosoft (the makers of GitKraken) in any way.
+> This project is **NOT** affiliated with Axosoft (the makers of GitKraken) in any way.
