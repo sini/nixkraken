@@ -2,6 +2,7 @@
   config,
   lib,
   localPkgs,
+  pkgs,
   ...
 }@args:
 
@@ -104,7 +105,7 @@ let
             "tools"
             "editor"
           ];
-          git.selectedGitPath = "$packaged";
+          git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe pkgs.git;
           init.defaultBranch = fromProfileOrDefault profile [
             "git"
             "defaultBranch"
@@ -409,9 +410,7 @@ in
       lib.mapAttrsToList (id: profile: ''
         ${localPkgs.configure}/bin/gk-configure \
           -c '${builtins.toJSON profile}' \
-          -p ${id} \
-          --git-binary='${lib.boolToString cfg.git.useBundledGit}' \
-          --hm-profile='${config.home.profileDirectory}'
+          -p ${id}
       '') profiles
     );
   };

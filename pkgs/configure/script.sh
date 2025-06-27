@@ -93,17 +93,12 @@ usage() {
   echo -e "    ${dim}\$${no_color} ${script_name} --config='<JSON>' [--dry-run] [--verbose] [--help]"
   echo
   echo -e "    ${dim}Configure profile${no_color}"
-  echo -e "    ${dim}\$${no_color} ${script_name} --config='<JSON>' --profile=<id> [--git-binary=true|false] [--hm-profile=<directory>] [--dry-run] [--verbose] [--help]"
+  echo -e "    ${dim}\$${no_color} ${script_name} --config='<JSON>' --profile=<id> [--dry-run] [--verbose] [--help]"
   echo
   echo -e "${bold}Options:${no_color}"
   cat <<EOF | column -ts '|'
     -c, --config|Configuration content in JSON format
     -p, --profile|Operate on given profile configuration
-    --git-binary|Use git executable
-    |Only with --profile
-    --hm-profile|Path to Home Manager profile
-    |Setting this option will add Home Manager profile directory to the git executable search path
-    |Only with --profile and --git-binary
     --dry-run|Only print what would be done
     -v, --verbose|Enable verbose output
     -h, --help|Show this help message
@@ -198,30 +193,6 @@ gen_appid() {
   echo "${generated_appid}"
 }
 
-# Detect git binary location, with fallback if not found
-detect_git() {
-  local git_paths=()
-
-  if [ -n "${hm_profile_directory}" ]; then
-    git_paths+=("${hm_profile_directory}/bin/git")
-  fi
-
-  git_paths+=(
-    "/run/current-system/sw/bin/git"
-    "$(command -v git 2>/dev/null || true)"
-  )
-
-  for path in "${git_paths[@]}"; do
-    if [ -x "${path}" ]; then
-      echo "${path}"
-      return 0
-    fi
-  done
-
-  warn "failed to detect git binary, falling back to bundled git"
-  echo "\$packaged"
-}
-
 # Create or merge JSON file with given content
 # Arguments:
 #   $1 - target file path (string)
@@ -265,10 +236,8 @@ create_or_merge_json() {
 
 main() {
   config_content=""
-  hm_profile_directory=""
   profile=""
   target="app"
-  use_git_exec=""
 
   # Parse command-line options
   while getopts 'c:hp:v-:' OPT; do
@@ -291,14 +260,6 @@ main() {
         needs_arg
         target="profile"
         profile="${OPTARG}"
-        ;;
-      "git-binary" )
-        needs_arg
-        [ "${OPTARG}" = "true" ] && use_git_exec=1
-        ;;
-      "hm-profile" )
-        needs_arg
-        hm_profile_directory="${OPTARG}"
         ;;
       "dry-run" )
         DRY_RUN=1
@@ -363,14 +324,6 @@ main() {
       _do create_or_merge_json "${config_file}" '{"appId":"'"${appid}"'"}'
     elif [ -e "${config_file}" ]; then
       info "keep existing app ID"
-    fi
-  else
-    if [ -n "${use_git_exec}" ]; then
-      local detected_git
-      detected_git="$(detect_git)"
-
-      info "updating profile configuration with detected git: ${detected_git}"
-      _do create_or_merge_json "${config_file}" '{"git":{"selectedGitPath":"'"${detected_git}"'"}}'
     fi
   fi
 
