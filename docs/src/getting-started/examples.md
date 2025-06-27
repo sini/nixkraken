@@ -1,8 +1,9 @@
 # Configuration examples
 
-## Basic setup
+> [!NOTE]
+> These examples cover some of the most common use cases. For a complete list of all available settings, please see the [module options reference](../options/nixkraken.md).
 
-This setup will install GitKraken and configure it with default values, as if it was installed directly in `home.packages`.
+## Basic setup
 
 ```nix
 {
@@ -12,18 +13,18 @@ This setup will install GitKraken and configure it with default values, as if it
 
 ## Get rid of initial distractions
 
-This setup will automatically:
-
-- accept GitKraken [End User License Agreement](https://www.gitkraken.com/eula)
-- mark the tour guide as done
-- disable all "irrelevant" notifications
-
 ```nix
 {
   programs.nixkraken = {
     enable = true;
+
+    # Accept the End User License Agreement
     acceptEULA = true;
+
+    # Don't show the introductory tour on first launch
     skipTour = true;
+
+    # Disable promotional and non-essential notifications
     notifications = {
       feature = false;
       help = false;
@@ -33,25 +34,58 @@ This setup will automatically:
 }
 ```
 
-## Follow Git configuration
+## Manage multiple profiles
 
-This setup will use the configuration from [`programs.git`](https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.enable) to setup relevant parts of GitKraken configuration.
-
-> [!NOTE]
-> Unless explicitly disabled by `ssh.useLocalAgent`, GitKraken is configured to use the local SSH agent by default.
+> [!IMPORTANT]
+> Only paid accounts can set profiles beyond the default one.
 
 ```nix
 {
   programs.nixkraken = {
     enable = true;
-    ssh.useLocalAgent = true; # This is the default
 
+    # Configure the default/personal profile
+    user = {
+      name = "Personal Name";
+      email = "personal@email.com"
+    };
+
+    # Configure a separate, named profile for work
+    profiles = [
+      {
+        name = "Work";
+
+        user = {
+          name = "Work Name";
+          email = "work@email.com";
+        };
+
+        # You can override default settings in profiles
+        ui.theme = "dark";
+      }
+    ];
+  };
+}
+```
+
+## Follow Git configuration
+
+```nix
+{
+  programs.nixkraken = {
+    enable = true;
+
+    # Use local SSH agent (this is the default)
+    ssh.useLocalAgent = true;
+
+    # Configure GPG signing settings to follow Git ones
     gpg = {
       signingKey = config.programs.git.signing.key;
       signCommits = config.programs.git.signing.signByDefault;
       signTags = config.programs.git.signing.signByDefault;
     };
 
+    # Configure user details to follow Git ones
     user = {
       email = config.programs.git.userEmail;
       name = config.programs.git.userName;
@@ -62,13 +96,12 @@ This setup will use the configuration from [`programs.git`](https://nix-communit
 
 ## Custom terminal
 
-This setup will configure the default external terminal to use.
-
 ```nix
 {
   programs.nixkraken = {
     enable = true;
 
+    # Define Ghostty as the default external terminal
     tools.terminal = {
       default = "custom";
       package = pkgs.ghostty;
@@ -79,15 +112,16 @@ This setup will configure the default external terminal to use.
 
 ## Custom theme
 
-This setup will install a given theme file in GitKraken's themes directory and use it by default.
-
 ```nix
 {
   programs.nixkraken = {
     enable = true;
 
     ui = {
+      # Add Mocha variant of Catppuccin theme for GitKraken
       extraThemes = [ "${pkgs.catppuccin-gitkraken}/catppuccin-mocha.jsonc" ];
+
+      # Enable extra theme
       theme = "catppuccin-mocha.jsonc";
     };
   };

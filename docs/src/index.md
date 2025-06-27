@@ -12,6 +12,13 @@
 >
 > Nixkraken is only handling GitKraken's configuration, one still needs to purchase the product to benefit paid features. **This is not a cracked GitKraken app.**
 
+## Features
+
+- **Declarative profiles**: manage GitKraken profiles using Nix
+- **Reproducible setup**: ensure GitKraken is configured identically across several machines
+- **Version control**: keep GitKraken configuration in Git, tracking every change
+- **Automated tooling**: includes command-line tools to help manage authentication and themes
+
 ## Contributing
 
 Unlike GitKraken, Nixkraken is free and open source: **contributions are welcome!**

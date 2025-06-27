@@ -1,23 +1,15 @@
 # Install without Flakes
 
-## Using Nix/nixpkgs fetchers
+## Recommended method: using `fetchFromGitHub`
 
-The preferred method to fetch Nixkraken is with `fetchFromGitHub`, as shown below.
-
-> [!WARNING]
-> **About `lib.fakeHash`**
->
-> A common pattern in Nix is to use a fake hash like `lib.fakeHash` or an empty string (`""`) as a placeholder.
->
-> When the configuration is built, the evaluation will fail. But the error message will output the expected hash, which can then be copied back into the configuration.
->
-> To get the hash without a failed evaluation, refer to the section on how to [retrieve the release hash](#retrieve-release-hash).
+The simplest way to use Nixkraken without Flakes is to fetch it directly from GitHub inside `home.nix`.
 
 ```nix
 { lib, pkgs, ... }:
 
 {
   imports = [
+    # Import the Nixkraken module from the fetched source (ie. "${fetcher}/module.nix")
     "${pkgs.fetchFromGitHub {
       owner = "nicolas-goudry";
       repo = "nixkraken";
@@ -30,7 +22,20 @@ The preferred method to fetch Nixkraken is with `fetchFromGitHub`, as shown belo
 }
 ```
 
-There are other fetchers available:
+> [!WARNING]
+> **About `lib.fakeHash`**
+>
+> A common pattern in Nix is to use a fake hash like `lib.fakeHash` or an empty string (`""`) as a placeholder.
+>
+> When the configuration is built, the evaluation will fail. But the error message will output the expected hash, which can then be copied back into the configuration.
+>
+> To get the hash without a failed evaluation, refer to the section on how to [retrieve the release hash](#retrieve-release-hash).
+
+## Alternative methods
+
+If other fetchers or a dependency pinning tool should be used, see the options below.
+
+### Using other Nix fetchers
 
 <details>
 
@@ -99,9 +104,11 @@ There are other fetchers available:
 
 </details>
 
-## Using [niv](https://github.com/nmattia/niv)
+### Using pinning tools
 
-```shell
+#### [niv](https://github.com/nmattia/niv)
+
+```bash
 niv add nicolas-goudry/nixkraken
 ```
 
@@ -118,9 +125,9 @@ in {
 > [!CAUTION]
 > These instructions are untested. Please report an issue if they are not working, or suggest a PR fixing them.
 
-## Using [npins](https://github.com/andir/npins)
+#### [npins](https://github.com/andir/npins)
 
-```shell
+```bash
 npins add github nicolas-goudry nixkraken
 ```
 

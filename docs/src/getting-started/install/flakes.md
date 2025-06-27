@@ -1,38 +1,91 @@
 # Install with Flakes
 
-### Home Manager
+There are two primary ways to use NixKraken with Flakes, depending on whether the home environment is managed as part of a NixOS system or as a standalone configuration.
 
-This method uses Home Manager's `modules` attribute to make the `nixkraken` option available to a specific Home Manager configuration.
+### Standalone Home Manager
+
+Use this method if the user environment is managed with Home Manager on any OS (including NixOS, macOS, or other Linux distributions) through its own `flake.nix`.
+
+Here is a complete, minimal `flake.nix` for a standalone setup:
 
 ```nix
 {
-  inputs.nixkraken.url = "github:nicolas-goudry/nixkraken";
+  description = "Standalone Home Manager setup with NixKraken";
 
-  outputs = { self, home-manager, nixkraken }: {
-    homeConfigurations.your-hm-config = home-manager.lib.homeManagerConfiguration {
-      modules = [
-        nixkraken.homeManagerModules.nixkraken
-      ];
-    };
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixkraken.url = "github:nicolas-goudry/nixkraken";
   };
+
+  outputs = { self, nixpkgs, home-manager, nixkraken }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      homeConfigurations."your-username" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          # 1. Import the NixKraken module
+          nixkraken.homeManagerModules.nixkraken
+
+          # 2. Add configuration
+          {
+            programs.nixkraken.enable = true;
+            # ... add other options here
+          }
+        ];
+      };
+    };
 }
 ```
 
-### NixOS
+### Integrated with NixOS
 
-This method uses Home Manager's `sharedModules` attribute to make the `nixkraken` option available to all Home Manager configurations.
+Use this method if the user environment is managed directly within the NixOS system's `flake.nix`.
+
+Here is a complete, minimal `flake.nix` for a NixOS setup:
 
 ```nix
 {
-  inputs.nixkraken.url = "github:nicolas-goudry/nixkraken";
+  description = "NixOS system with NixKraken for a user";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixkraken.url = "github:nicolas-goudry/nixkraken";
+  };
 
   outputs = { self, nixpkgs, home-manager, nixkraken }: {
-    nixosConfigurations.your-nixos-config = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."your-hostname" = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
       modules = [
-        home-manager.nixosModules.home-manager {
-          home-manager.sharedModules = [
-            nixkraken.homeManagerModules.nixkraken
-          ];
+        # Import the main Home Manager module for NixOS
+        home-manager.nixosModules.home-manager
+
+        # System configuration
+        {
+          users.users."your-username" = {
+            isNormalUser = true;
+            extraGroups = [ "wheel" ];
+          };
+
+          # Configure Home Manager for this user
+          home-manager.users."your-username" = {
+            imports = [
+              # 1. Import the NixKraken module
+              nixkraken.homeManagerModules.nixkraken
+            ];
+
+            # 2. Add configuration
+            programs.nixkraken.enable = true;
+            # ... add other options here
+          };
         }
       ];
     };

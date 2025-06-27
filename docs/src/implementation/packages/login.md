@@ -21,4 +21,4 @@ All options are documented by the `--help` flag:
 gk-login --help
 ```
 
-The script itself is extensively documented through comments.
+The script itself is extensively documented through comments in [the source file itself](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.sh).

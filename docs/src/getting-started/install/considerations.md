@@ -12,6 +12,18 @@ Development occurs on the `main` branch, which should be **considered unstable**
 
 **Users seeking stability should use aforementioned versioned tags** rather than the `main` branch. There's also the `stable` tag, which dynamically tracks the latest working release.
 
+To use a specific version tag, modify the `flake.nix` inputs like this:
+
+```nix
+{
+  # Use a specific version
+  inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/v11.1.0";
+
+  # Or, to always get the latest stable version
+  inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/stable";
+}
+```
+
 **Breakages may occur** from time to time, potentially resulting in **missing features**, **incomplete configuration**, or **general incompatibility** between the module and the installed version of GitKraken.
 
 ## Velocity

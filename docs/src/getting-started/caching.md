@@ -35,7 +35,27 @@ Thanks to this cache, installing GitKraken is faster than ever. Find below sever
 
 ## Non-NixOS users
 
-For users which use Home Manager without NixOS, the following configuration should be added to the `nix.conf` file _(usually located at `/etc/nix/nix.conf`)_:
+### Declarative with Flakes
+
+Users managing their configuration declaratively through a `flake.nix` can add the cache settings to the Flake's `nixConfig` attribute:
+
+```nix
+{
+  description = "Declarative Nix configuration";
+
+  nixConfig = {
+    extra-substituters = "https://pub-8eca3a11aed542be899dfd21df917e06.r2.dev";
+    extra-trusted-public-keys = "nixkraken-cache:hpaLSjsyPKPgITZzrdm9V+7eDDxYqC6eMw38Vo7cGcA=";
+  };
+
+  inputs = { /* ... */ };
+  outputs = { /* ... */ };
+}
+```
+
+### Imperative with `nix.conf`
+
+Alternatively, the `nix.conf` file _(usually located at `/etc/nix/nix.conf`)_ can be imperatively edited to add the following configuration:
 
 ```
 extra-substituters = https://pub-8eca3a11aed542be899dfd21df917e06.r2.dev
@@ -44,19 +64,13 @@ extra-trusted-public-keys = nixkraken-cache:hpaLSjsyPKPgITZzrdm9V+7eDDxYqC6eMw38
 
 ## NixOS users
 
-NixOS users can configure their Nix configuration file declaratively using the following options in their system configuration:
+NixOS users can configure the Nix configuration file declaratively, using the following option in their system configuration:
 
 ```nix
 {
-  nix = {
-    settings = {
-      substituters = [
-        "https://pub-8eca3a11aed542be899dfd21df917e06.r2.dev"
-      ];
-      trusted-public-keys = [
-        "nixkraken-cache:hpaLSjsyPKPgITZzrdm9V+7eDDxYqC6eMw38Vo7cGcA="
-      ];
-    };
-  };
+  nix.extraOptions = ''
+    extra-substituters = https://pub-8eca3a11aed542be899dfd21df917e06.r2.dev
+    extra-trusted-public-keys = nixkraken-cache:hpaLSjsyPKPgITZzrdm9V+7eDDxYqC6eMw38Vo7cGcA=
+  '';
 }
 ```

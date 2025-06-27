@@ -16,6 +16,10 @@ Although users can login to their GitKraken account from within the application,
 
 The security implications of using `gk-login` are the same as using the application, since it is replicating the code used by GitKraken. Also, the [code can easily be reviewed](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.sh) and is thoroughly documented.
 
+> ⚡ **Key takeaway**
+>
+> To prevent paid features to be reverted on first launch, use `gk-login`.
+
 ## Mutability
 
 Although Nixkraken allows to configure GitKraken using Nix language, the resulting configuration **is not immutable**.
@@ -28,6 +32,12 @@ The module instead uses [various Bash scripts](../implementation/packages/index.
 
 This also means that there can be a **configuration drift between the application and the Nix code**. This is a known issue which will require users to **refrain updating the configuration in-app** and instead use Nixkraken options.
 
+> ⚡ **Key takeaway**
+>
+> To avoid configuration drift, always make changes to the Nix configuration, not in the GitKraken UI.
+>
+> Let Nixkraken be the single source of truth for GitKraken settings.
+
 ## Long installation time
 
 GitKraken being closed source, **end users will always have to build the package**. Although this process is usually not very long, since GitKraken is not built from sources, building the package is still longer than fetching a pre-built binary.
@@ -38,4 +48,6 @@ Plus, there has been reports of "stuck" builds in the past. This is most often d
 - GitKraken's archive being 200MB+
 - [`fetchUrl` not outputting its download progress](https://github.com/NixOS/nixpkgs/issues/156930)
 
-**To speed up the installation process, end users can [setup the Nixkraken binary cache](./caching.md).**
+> ⚡ **Key takeaway**
+>
+> To dramatically speed up the installation process, we highly recommend to **[setup Nixkraken's binary cache](./caching.md)**.

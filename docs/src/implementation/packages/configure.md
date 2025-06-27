@@ -26,4 +26,4 @@ Since the package is typically run during Home Manager activation, it respects t
 - `DRY_RUN`: if set, commands are not executed, only logged
 - `VERBOSE`: if set, logs are enabled
 
-The script is extensively documented through comments.
+The script is extensively documented through comments in [the source file itself](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/configure/script.sh).

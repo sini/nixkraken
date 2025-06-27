@@ -18,7 +18,10 @@ gk-decrypt --help
 gk-encrypt --help
 ```
 
-The script are extensively documented through comments.
+The scripts are extensively documented through comments in the source files themselves:
+
+- [`gk-decrypt` source](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/decrypt/script.sh)
+- [`gk-encrypt` source](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.sh)
 
 ## Encryption / Decryption methods
 
