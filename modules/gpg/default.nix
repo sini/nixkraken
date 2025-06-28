@@ -38,5 +38,7 @@ in
       ++ lib.optional (
         (cfg.gpg.signCommits || cfg.gpg.signTags) && (cfg.gpg.signingKey == null)
       ) "GPG commit/tag signature is enabled but no signing key was defined.";
+
+    home.packages = [ cfg.gpg.package ];
   };
 }

@@ -1,6 +1,11 @@
-{ lib, ... }@args:
+{
+  config,
+  lib,
+  ...
+}@args:
 
 let
+  cfg = config.programs.nixkraken;
   options = import ./options.nix args;
 in
 {
@@ -12,5 +17,9 @@ in
     description = ''
       External tools settings.
     '';
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = [ cfg.tools.terminal.package ];
   };
 }
