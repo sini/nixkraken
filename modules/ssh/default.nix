@@ -1,6 +1,11 @@
-{ lib, ... }@args:
+{
+  config,
+  lib,
+  ...
+}@args:
 
 let
+  cfg = config.programs.nixkraken;
   options = import ./options.nix args;
 in
 {
@@ -12,5 +17,14 @@ in
     description = ''
       SSH settings.
     '';
+  };
+
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.ssh.useLocalAgent -> (cfg.ssh.privateKey == null && cfg.ssh.publicKey == null);
+        message = "SSH keys cannot be set when `useLocalAgent` is true";
+      }
+    ];
   };
 }

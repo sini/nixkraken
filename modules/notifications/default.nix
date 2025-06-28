@@ -45,5 +45,12 @@ in
     home.activation.nixkraken-notifications-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
       ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
     '';
+
+    assertions = [
+      {
+        assertion = cfg.notifications.enable -> (with cfg.notifications; feature || help || marketing || system);
+        message = "Notification topics cannot be enabled if notifications are disabled";
+      }
+    ];
   };
 }
