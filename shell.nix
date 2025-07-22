@@ -19,4 +19,12 @@ pkgs.mkShellNoCC {
       rustc
     ])
     ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
+
+  shellHook = ''
+    {
+      echo "#!/usr/bin/env bash"
+      echo "nix flake check"
+    } > .git/hooks/pre-commit
+    chmod +x .git/hooks/pre-commit
+  '';
 }
