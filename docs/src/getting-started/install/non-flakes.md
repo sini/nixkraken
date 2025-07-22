@@ -23,6 +23,7 @@ The simplest way to use Nixkraken without Flakes is to fetch it directly from Gi
 ```
 
 > [!WARNING]
+>
 > **About `lib.fakeHash`**
 >
 > A common pattern in Nix is to use a fake hash like `lib.fakeHash` or an empty string (`""`) as a placeholder.
