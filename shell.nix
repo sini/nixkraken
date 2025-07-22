@@ -14,7 +14,9 @@ pkgs.mkShellNoCC {
       mdbook
       mdbook-alerts
       mdbook-pagetoc
+      mdbook-linkcheck
       nodejs
+      rustc
     ])
     ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
 }

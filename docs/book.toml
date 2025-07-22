@@ -6,8 +6,10 @@ language = "en"
 # multilingual = false
 # src = "src"
 
-[preprocessor.alerts]
 [preprocessor.pagetoc]
+
+[preprocessor.alerts]
+renderers = ["html", "linkcheck"]
 
 [output.html]
 additional-css = ["theme/pagetoc.css"]
@@ -19,3 +21,7 @@ hash-files = true
 [output.html.fold]
 enable = true
 level = 1
+
+[output.linkcheck]
+follow-web-links = true
+warning-policy = "error"

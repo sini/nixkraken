@@ -57,7 +57,7 @@ Users managing their configuration declaratively through a `flake.nix` can add t
 
 Alternatively, the `nix.conf` file _(usually located at `/etc/nix/nix.conf`)_ can be imperatively edited to add the following configuration:
 
-```
+```plain
 extra-substituters = https://pub-8eca3a11aed542be899dfd21df917e06.r2.dev
 extra-trusted-public-keys = nixkraken-cache:hpaLSjsyPKPgITZzrdm9V+7eDDxYqC6eMw38Vo7cGcA=
 ```

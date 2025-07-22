@@ -4,8 +4,10 @@
   nixosOptionsDoc,
   mdbook,
   mdbook-alerts,
+  mdbook-linkcheck,
   mdbook-pagetoc,
   nodejs,
+  rustc,
 }:
 
 let
@@ -30,13 +32,16 @@ stdenvNoCC.mkDerivation {
     nodejs
     mdbook
     mdbook-alerts
+    mdbook-linkcheck
     mdbook-pagetoc
   ];
 
-  dontPatch = true;
   dontConfigure = true;
-  doCheck = false;
+  doCheck = true;
   dontFixup = true;
+
+  # Patch book configuration to disable web links checking since network is not available
+  patches = [ ./book.toml.nix-build.patch ];
 
   preBuild = ''
     node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
@@ -48,6 +53,22 @@ stdenvNoCC.mkDerivation {
     mdbook build
 
     runHook postBuild
+  '';
+
+  nativeCheckInputs = [
+    mdbook
+    mdbook-alerts
+    mdbook-linkcheck
+    mdbook-pagetoc
+    rustc
+  ];
+
+  checkPhase = ''
+    runHook preCheck
+
+    mdbook test
+
+    runHook postCheck
   '';
 
   installPhase = ''
