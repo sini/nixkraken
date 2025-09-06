@@ -71,7 +71,7 @@ let
         version = eulaVersion;
       };
     };
-  };
+  } // (lib.mergeAttrsList (lib.attrValues cfg._submoduleSettings));
 
   # `pkgs` is not passed down to modules imported from root module using `imports`, hence this function returns a lambda
   # with original arguments merged with `pkgs` attribute from the root module.
@@ -187,6 +187,12 @@ in
         Enable spell checking.
       '';
     };
+
+    _submoduleSettings = lib.mkOption {
+      internal = true;
+      type = with lib.types; attrsOf (attrsOf anything);
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -199,7 +205,10 @@ in
       # Activating has side effects and must therefore be placed after the write boundary
       activation.nixkraken-top-level = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
-        echo "To login to your GitKraken account, run 'gk-login'."
+        ${lib.optionalString (
+          lib.length cfg.ui.extraThemes > 0
+        ) "${localPkgs.theme}/bin/gk-theme -i '${lib.concatStringsSep "," cfg.ui.extraThemes}'"}
+        echo 'To login to your GitKraken account, run 'gk-login'.
       '';
     };
   };

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  localPkgs,
   ...
 }@args:
 
@@ -29,8 +28,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.activation.nixkraken-datetime-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-      ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
-    '';
+    programs.nixkraken._submoduleSettings.datetime = settings;
   };
 }

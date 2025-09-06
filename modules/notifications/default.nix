@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  localPkgs,
   ...
 }@args:
 
@@ -42,9 +41,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.activation.nixkraken-notifications-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-      ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
-    '';
 
     assertions = [
       {
@@ -53,5 +49,7 @@ in
         message = "Notification topics cannot be enabled if notifications are disabled";
       }
     ];
+
+    programs.nixkraken._submoduleSettings.notifications = settings;
   };
 }

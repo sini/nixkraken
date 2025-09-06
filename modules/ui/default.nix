@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  localPkgs,
   ...
 }@args:
 
@@ -30,17 +29,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.activation.nixkraken-ui-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] (
-      lib.concatLines (
-        [
-          ''
-            ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
-          ''
-        ]
-        ++ lib.optional (lib.length cfg.ui.extraThemes > 0) ''
-          ${localPkgs.theme}/bin/gk-theme -i '${lib.concatStringsSep "," cfg.ui.extraThemes}'
-        ''
-      )
-    );
+    programs.nixkraken._submoduleSettings.ui = settings;
   };
 }

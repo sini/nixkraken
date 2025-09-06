@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  localPkgs,
   pkgs,
   ...
 }@args:
@@ -28,12 +27,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home = {
-      packages = lib.mkIf (!cfg.git.useBundledGit) [ pkgs.git ];
-
-      activation.nixkraken-git-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-        ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
-      '';
-    };
+    home.packages = lib.mkIf (!cfg.git.useBundledGit) [ pkgs.git ];
+    programs.nixkraken._submoduleSettings.git = settings;
   };
 }

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  localPkgs,
   ...
 }@args:
 
@@ -44,8 +43,6 @@ in
       }
     ];
 
-    home.activation.nixkraken-graph-config = lib.hm.dag.entryAfter [ "nixkraken-top-level" ] ''
-      ${localPkgs.configure}/bin/gk-configure -c '${builtins.toJSON settings}'
-    '';
+    programs.nixkraken._submoduleSettings.graph = settings;
   };
 }
