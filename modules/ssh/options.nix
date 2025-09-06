@@ -1,11 +1,14 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   useLocalAgent = lib.mkOption {
     type = lib.types.bool;
-    default = true;
+    default = config.programs.ssh.enable;
+    defaultText = "config.programs.ssh.enable";
     description = ''
       Use local SSH agent instead of defining SSH key to use.
+
+      Defaults to the value of `programs.ssh.enable`.
     '';
   };
 
