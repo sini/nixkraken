@@ -1,5 +1,8 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
+let
+  cfg = config.programs.nixkraken;
+in
 {
   diff = lib.mkOption {
     type = lib.types.enum [
@@ -87,12 +90,12 @@
 
     bin = lib.mkOption {
       type = with lib.types; nullOr str;
-      default = null;
+      default =
+        if lib.isDerivation cfg.tools.terminal.package then lib.getExe cfg.tools.terminal.package else null;
+      defaultText = "null or lib.getExe cfg.tools.terminal.package";
       example = "alacritty";
       description = ''
         Custom terminal binary name.
-
-        Defaults to the `pname` attribute of the chosen `package`.
 
         **This option has no effect unless `tools.terminal.package` is set.**
 
