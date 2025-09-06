@@ -406,7 +406,7 @@ in
         }
       ];
 
-    home.activation = lib.hm.dag.entriesAfter "nixkraken-profile" [ "nixkraken-top-level" ] (
+    home.activation = lib.hm.dag.entriesAfter "nixkraken-profiles" [ "nixkraken-top-level" ] (
       lib.mapAttrsToList (id: profile: ''
         ${localPkgs.configure}/bin/gk-configure \
           -c '${builtins.toJSON profile}' \
