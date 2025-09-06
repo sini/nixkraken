@@ -7,8 +7,6 @@
     defaultText = "config.programs.ssh.enable";
     description = ''
       Use local SSH agent instead of defining SSH key to use.
-
-      Defaults to the value of `programs.ssh.enable`.
     '';
   };
 

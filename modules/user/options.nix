@@ -8,8 +8,6 @@
     example = "email@example.com";
     description = ''
       Email to use as commit author email.
-
-      Defaults to the value from `programs.git.userEmail`.
     '';
   };
 
@@ -20,8 +18,6 @@
     example = "John Doe";
     description = ''
       Name to use as commit author name.
-
-      Defaults to the value from `programs.git.userName`.
     '';
   };
 }
