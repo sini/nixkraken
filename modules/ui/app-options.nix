@@ -15,6 +15,8 @@
     example = lib.literalExpression "[ \"\${pkgs.catppuccin-gitkraken}/catppuccin-mocha.jsonc\" ]";
     description = ''
       Paths to extra themes to install.
+
+      Note: this option will not install the theme package.
     '';
   };
 
