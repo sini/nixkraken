@@ -12,7 +12,7 @@
   };
 
   max = lib.mkOption {
-    type = with lib.types; addCheck ints.positive (x: x >= 500);
+    type = with lib.types; nullOr (addCheck ints.positive (x: x >= 500));
     default = 2000;
     description = ''
       Maximum number of commits to show in the commit graph. **Minimum value is 500.**

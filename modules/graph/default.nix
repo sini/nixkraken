@@ -41,6 +41,10 @@ in
           || cfg.commitGraph.showTree;
         message = "Commit graph cannot be empty";
       }
+      {
+        assertion = cfg.commitGraph.showAll -> lib.isNull (cfg.commitGraph.max);
+        message = "Cannot set a maximum number of commits (commitGraph.max) to show in commit graph if all commits are shown (commitGraph.showAll)";
+      }
     ];
 
     programs.nixkraken._submoduleSettings.graph = settings;
