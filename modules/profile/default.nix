@@ -351,12 +351,12 @@ let
         (
           if hasCustomTerminal then
             {
-              customTerminalCmd = lib.concatStringsSep " " (
-                [
-                  "${terminal.package}/bin/${if terminal.bin == null then terminal.package.pname else terminal.bin}"
-                ]
-                ++ terminal.extraOptions
-              );
+              customTerminalCmd = lib.concatStringsSep " " [
+                "${
+                  if lib.isStorePath terminal.bin then terminal.bin else terminal.package + "/bin/" + terminal.bin
+                }"
+                terminal.extraOptions
+              ];
             }
           else
             { }
