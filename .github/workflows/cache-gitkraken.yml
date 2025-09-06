@@ -5,6 +5,7 @@ env:
   BUILD_COMMAND: NIXPKGS_ALLOW_UNFREE=1 nix-build --no-out-link -A gitkraken
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - .github/workflows/cache-gitkraken.yml
