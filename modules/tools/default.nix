@@ -30,7 +30,7 @@ in
         message = "Terminal package (`tools.terminal.package`) cannot be set if default terminal is not custom (`tools.terminal.default != \"custom\"`)";
       }
       {
-        assertion = cfg.tools.terminal.bin != null -> cfg.tools.terminal != null;
+        assertion = cfg.tools.terminal.bin != null -> cfg.tools.terminal.package != null;
         message = "Terminal binary (`tools.terminal.bin`) cannot be set if terminal package (`tools.terminal.package`) is not set";
       }
     ];
