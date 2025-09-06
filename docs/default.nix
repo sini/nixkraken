@@ -74,7 +74,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mv book $out
+    mv book/html $out
 
     runHook postInstall
   '';
