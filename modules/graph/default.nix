@@ -39,11 +39,11 @@ in
           || cfg.commitGraph.showRefs
           || cfg.commitGraph.showSha
           || cfg.commitGraph.showTree;
-        message = "Commit graph cannot be empty";
+        message = "Commit graph cannot be empty (`commitGraph.*`)";
       }
       {
         assertion = cfg.commitGraph.showAll -> lib.isNull (cfg.commitGraph.max);
-        message = "Cannot set a maximum number of commits (commitGraph.max) to show in commit graph if all commits are shown (commitGraph.showAll)";
+        message = "Cannot set a maximum number of commits (`commitGraph.max`) to show in commit graph if all commits are shown (`commitGraph.showAll`)";
       }
     ];
 

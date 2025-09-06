@@ -46,7 +46,7 @@ in
       {
         assertion =
           cfg.notifications.enable -> (with cfg.notifications; feature || help || marketing || system);
-        message = "Notification topics cannot be enabled if notifications are disabled";
+        message = "Notification topics (`notifications.*`) cannot be enabled if notifications are disabled (`notifications.enable = false`)";
       }
     ];
 

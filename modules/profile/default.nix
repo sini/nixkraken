@@ -396,13 +396,13 @@ in
           assertion = defaultProfileCount == 1;
           message =
             if defaultProfileCount > 1 then
-              "Only one default profile must be defined"
+              "Only one default profile (`profile.isDefault = true`) must be defined"
             else
-              "A default profile is required";
+              "A default profile (`profile.isDefault = true`) is required";
         }
         {
           assertion = profilesWithoutNameCount == 0;
-          message = "Non-default profiles must have a name";
+          message = "Non-default profiles (`profile.isDefault = false`) must have a name";
         }
       ];
 

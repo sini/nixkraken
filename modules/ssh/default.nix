@@ -23,7 +23,7 @@ in
     assertions = [
       {
         assertion = cfg.ssh.useLocalAgent -> (cfg.ssh.privateKey == null && cfg.ssh.publicKey == null);
-        message = "SSH keys cannot be set when `useLocalAgent` is true";
+        message = "SSH keys (`ssh.privateKey`, `ssh.publicKey`) cannot be set when local SSH agent is used (`ssh.useLocalAgent`)";
       }
     ];
   };
