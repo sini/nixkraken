@@ -18,6 +18,7 @@ _:
     includes = [
       "*.md"
       "*.js"
+      "*.yaml"
     ];
 
     excludes = [
