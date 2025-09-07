@@ -1,8 +1,11 @@
 builds:
   include:
+    # Build all packages for all available platforms
     - packages.*.*
-    - checks.*.*
+    # Only run checks from x86_64 Linux platform
+    - checks.x86_64-linux.*
   exclude:
+    # Do not build module packages
     - packages.*.configure
     - packages.*.decrypt
     - packages.*.docs
