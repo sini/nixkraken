@@ -1,0 +1,11 @@
+builds:
+  include:
+    - packages.*.*
+    - checks.*.*
+  exclude:
+    - packages.*.configure
+    - packages.*.decrypt
+    - packages.*.docs
+    - packages.*.encrypt
+    - packages.*.login
+    - packages.*.theme
