@@ -41,13 +41,17 @@
       # Packages
       packages = eachSystem (
         pkgs:
-        (import ./pkgs {
-          inherit (pkgs) lib;
-          inherit pkgs;
-        })
-        // {
+        let
+          args = {
+            inherit (pkgs) lib;
+            inherit pkgs;
+          };
+        in
+        {
           docs = pkgs.callPackage ./docs { };
         }
+        // (import ./pkgs args)
+        // (import ./gitkraken.nix args)
       );
 
       # Development environment with packages used by the module available in PATH
