@@ -3,10 +3,16 @@
 let
   fromNixpkgs =
     commit: hash:
-    (import (fetchTarball {
-      url = "https://github.com/nixos/nixpkgs/archive/${commit}.tar.gz";
-      sha256 = hash;
-    }) { inherit (pkgs) system; }).gitkraken;
+    (import
+      (fetchTarball {
+        url = "https://github.com/nixos/nixpkgs/archive/${commit}.tar.gz";
+        sha256 = hash;
+      })
+      {
+        inherit (pkgs) system;
+        config.allowUnfree = true;
+      }
+    ).gitkraken;
 
   commitList = [
     {
