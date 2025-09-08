@@ -52,7 +52,10 @@
         {
           docs = pkgs.callPackage ./docs { };
         }
-        // (import ./pkgs pkgs)
+        // (pkgs.lib.packagesFromDirectoryRecursive {
+          directory = ./pkgs;
+          callPackage = pkgs.callPackage;
+        })
         // (import ./gitkraken.nix pkgs)
       );
 

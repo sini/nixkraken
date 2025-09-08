@@ -21,9 +21,9 @@ let
       config.allowUnfree = true;
     }).gitkraken;
 
-  localPkgs = import ./pkgs {
-    inherit (pkgs) lib;
-    inherit pkgs;
+  localPkgs = pkgs.lib.packagesFromDirectoryRecursive {
+    directory = ./pkgs;
+    callPackage = pkgs.callPackage;
   };
 
   # TODO: where to find them

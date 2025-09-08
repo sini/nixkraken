@@ -3,7 +3,10 @@
 }:
 
 let
-  localPkgs = import ./pkgs pkgs;
+  localPkgs = pkgs.lib.packagesFromDirectoryRecursive {
+    directory = ./pkgs;
+    callPackage = pkgs.callPackage;
+  };
 in
 pkgs.mkShellNoCC {
   nativeBuildInputs =

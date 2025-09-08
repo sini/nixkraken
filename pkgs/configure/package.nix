@@ -1,13 +1,23 @@
-{ pkgs, ... }:
+{
+  writeShellApplication,
+  coreutils,
+  gawk,
+  gnugrep,
+  iproute2,
+  jq,
+  openssl,
+  unixtools,
+  util-linux,
+}:
 
 let
   name = builtins.baseNameOf (builtins.toString ./.);
 in
-pkgs.writeShellApplication {
+writeShellApplication {
   name = "gk-${name}";
   text = builtins.readFile ./script.sh;
 
-  runtimeInputs = with pkgs; [
+  runtimeInputs = [
     coreutils
     gawk
     gnugrep

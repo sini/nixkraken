@@ -1,13 +1,19 @@
-{ pkgs, ... }:
+{
+  writeShellApplication,
+  coreutils,
+  jq,
+  openssl,
+  unixtools,
+}:
 
 let
   name = builtins.baseNameOf (builtins.toString ./.);
 in
-pkgs.writeShellApplication {
+writeShellApplication {
   name = "gk-${name}";
   text = builtins.readFile ./script.sh;
 
-  runtimeInputs = with pkgs; [
+  runtimeInputs = [
     coreutils
     jq
     openssl
