@@ -3,10 +3,7 @@
 }:
 
 let
-  localPkgs = import ./pkgs {
-    inherit (pkgs) lib;
-    inherit pkgs;
-  };
+  localPkgs = import ./pkgs pkgs;
 in
 pkgs.mkShellNoCC {
   nativeBuildInputs =
