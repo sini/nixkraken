@@ -16,6 +16,11 @@ let
 
   commitList = [
     {
+      name = "gitkraken-v11-4-0";
+      commit = "fe7d341cfc40398f60a15cbf3d07459b4e3f3fde";
+      hash = "sha256:1619ylc4gh3ip0jkxp9v50nvcr0ybiyg9p6mja6x5z5ajaivl4h8";
+    }
+    {
       name = "gitkraken-v11-3-0";
       commit = "a8df292411e748f3e9855c6f929a7d46b5fa52ca";
       hash = "sha256:13pirlzxi16kwxfqhl1q4rjp445z5h8bs7qk49x4rhl7i7cia322";
