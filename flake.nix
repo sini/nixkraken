@@ -30,9 +30,18 @@
       homeManagerModules.nixkraken = ./module.nix;
 
       # nix flake check
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
-      });
+      checks = eachSystem (
+        pkgs:
+        let
+          checks = {
+            formatting = treefmtEval.${pkgs.system}.config.build.check self;
+          };
+        in
+        checks
+        // {
+          all = pkgs.runCommand "all-checks" { buildInputs = builtins.attrValues checks; } "touch $out";
+        }
+      );
 
       # nix fmt
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);

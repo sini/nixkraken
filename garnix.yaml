@@ -13,3 +13,5 @@ builds:
     - packages.*.encrypt
     - packages.*.login
     - packages.*.theme
+    # Do not run 'all' checks, since they are run individually
+    - checks.x86_64-linux.all
