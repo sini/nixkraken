@@ -56,7 +56,7 @@
           directory = ./pkgs;
           callPackage = pkgs.callPackage;
         })
-        // (import ./gitkraken.nix pkgs)
+        // (import ./gitkraken pkgs)
       );
 
       # Development environment with packages used by the module available in PATH
