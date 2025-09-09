@@ -12,6 +12,7 @@ let
     directory = ./pkgs;
     callPackage = pkgs.callPackage;
   };
+  gitkraken = import ./gitkraken pkgs;
   gitkrakenVersions = lib.attrNames (import ./gitkraken/versions.nix);
 
   # TODO: where to find them
@@ -206,7 +207,12 @@ in
 
     home = {
       packages = [
-        (if cfg.package != null then cfg.package else localPkgs.gitkraken.${cfg.version})
+        (
+          if cfg.package != null then
+            cfg.package
+          else
+            gitkraken.${lib.replaceStrings [ "." ] [ "-" ] cfg.version}
+        )
         localPkgs.login
       ];
 
