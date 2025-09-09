@@ -248,7 +248,7 @@ let
           };
 
           ssh = {
-            appVersion = "${cfg.package.version}";
+            appVersion = "${if cfg.package != null then cfg.package.version else cfg.version}";
             generated = false;
             publicKey = fromProfileOrDefault profile [
               "ssh"
