@@ -35,6 +35,6 @@ in
       }
     ];
 
-    home.packages = [ cfg.tools.terminal.package ];
+    home.packages = lib.mkIf (cfg.tools.terminal.package != null) [ cfg.tools.terminal.package ];
   };
 }
