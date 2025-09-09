@@ -8,23 +8,11 @@
 let
   cfg = config.programs.nixkraken;
 
-  nixpkgsCommit = "37290199a6648a1e501839e07f6f9be95e4c58cc";
-  nixpkgs = pkgs.fetchFromGitHub {
-    owner = "nixos";
-    repo = "nixpkgs";
-    rev = nixpkgsCommit;
-    hash = "sha256-MiJ11L7w18S2G5ftcoYtcrrS0JFqBaj9d5rwJFpC5Wk=";
-  };
-  gitkraken =
-    (import nixpkgs {
-      system = pkgs.system;
-      config.allowUnfree = true;
-    }).gitkraken;
-
   localPkgs = pkgs.lib.packagesFromDirectoryRecursive {
     directory = ./pkgs;
     callPackage = pkgs.callPackage;
   };
+  gitkrakenVersions = lib.attrNames (import ./gitkraken/versions.nix);
 
   # TODO: where to find them
   logLevels = {
@@ -150,16 +138,15 @@ in
     };
 
     package = lib.mkOption {
-      type = lib.types.package;
-      default = gitkraken;
-      defaultText = "pkgs.gitkraken";
+      type = with lib.types; nullOr package;
+      default = null;
       example = "pkgs.unstable.gitkraken";
       description = ''
         The GitKraken package to use. Requires to allow unfree packages.
 
-        Note: Nixkraken automatically installs the correct GitKraken version which has been tested with the module. End users should refrain using this option, and if they do they should be aware that [compatibility cannot be guaranteed](../getting-started/install/considerations.html#compatibility) and that the [binary cache](../getting-started/caching.html) might not apply.
+        **Only one of `package` or `version` must be set.**
 
-        Current default uses the GitKraken package from nixpkgs commit [${nixpkgsCommit}](https://github.com/nixos/nixpkgs/blob/${nixpkgsCommit}/pkgs/by-name/gi/gitkraken/package.nix).
+        Note: we advise users to use the `version` option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when this option is used. Also be aware that the [binary cache](../getting-started/caching.html) might not apply.
       '';
     };
 
@@ -188,6 +175,16 @@ in
       '';
     };
 
+    version = lib.mkOption {
+      type = lib.types.nullOr (lib.types.enum gitkrakenVersions);
+      default = "11.4.0";
+      description = ''
+        The GitKraken version to use. Requires to allow unfree packages.
+
+        **Only one of `package` or `version` must be set.**
+      '';
+    };
+
     _submoduleSettings = lib.mkOption {
       internal = true;
       type = with lib.types; attrsOf (attrsOf anything);
@@ -196,9 +193,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.package == null -> cfg.version != null;
+        message = "Either one of GitKraken version (`version`) or GitKraken package (`package`) must be set";
+      }
+      {
+        assertion = cfg.package != null -> cfg.version == null;
+        message = "GitKraken version (`version`) and GitKraken package (`package`) cannot be set at the same time";
+      }
+    ];
+
     home = {
       packages = [
-        cfg.package
+        (if cfg.package != null then cfg.package else localPkgs.gitkraken.${cfg.version})
         localPkgs.login
       ];
 
