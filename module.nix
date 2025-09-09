@@ -222,7 +222,7 @@ in
         ${lib.optionalString (
           lib.length cfg.ui.extraThemes > 0
         ) "${localPkgs.theme}/bin/gk-theme -i '${lib.concatStringsSep "," cfg.ui.extraThemes}'"}
-        echo 'To login to your GitKraken account, run 'gk-login'.
+        echo "To login to your GitKraken account, run 'gk-login'."
       '';
     };
   };
