@@ -18,18 +18,7 @@ Thanks to this cache, installing GitKraken is faster than ever. Find below sever
 >
 > <details><summary>List of cached commits</summary>
 >
-> - GitKraken v11.2.0: [`e861cf9b42ab0d556989528b8997eb0992844180`](https://github.com/nixos/nixpkgs/blob/e861cf9b42ab0d556989528b8997eb0992844180)
-> - GitKraken v11.1.1: [`5017262d69299951c156042e7f64ba63760204c2`](https://github.com/nixos/nixpkgs/blob/5017262d69299951c156042e7f64ba63760204c2)
-> - GitKraken v11.1.0: [`36dcda8c3ea1c6bd23770b711326625712460ba3`](https://github.com/nixos/nixpkgs/blob/36dcda8c3ea1c6bd23770b711326625712460ba3)
-> - GitKraken v11.0.0: [`37290199a6648a1e501839e07f6f9be95e4c58cc`](https://github.com/nixos/nixpkgs/blob/37290199a6648a1e501839e07f6f9be95e4c58cc)
-> - GitKraken v10.8.0: [`fd85e9405d38b57996a9f6caf4b12839a1e5642e`](https://github.com/nixos/nixpkgs/blob/fd85e9405d38b57996a9f6caf4b12839a1e5642e)
-> - GitKraken v10.7.0: [`17f5c2876228563a2029c7a20bc279b612dd3587`](https://github.com/nixos/nixpkgs/blob/17f5c2876228563a2029c7a20bc279b612dd3587)
-> - GitKraken v10.6.3: [`355f34d1529edce864a3b4f5be6e312f72383348`](https://github.com/nixos/nixpkgs/blob/355f34d1529edce864a3b4f5be6e312f72383348)
-> - GitKraken v10.6.2: [`381484d4652d91195ea0e5d5c509fb48564600ec`](https://github.com/nixos/nixpkgs/blob/381484d4652d91195ea0e5d5c509fb48564600ec)
-> - GitKraken v10.6.1: [`e1a3a64af950591b0e1fc019fefb100963053790`](https://github.com/nixos/nixpkgs/blob/e1a3a64af950591b0e1fc019fefb100963053790)
-> - GitKraken v10.6.0: [`480f1aa89744a656fcf4672d927c097bf3f39207`](https://github.com/nixos/nixpkgs/blob/480f1aa89744a656fcf4672d927c097bf3f39207)
-> - GitKraken v10.5.0: [`6bb61e56d5616474a47675adbaa39e777fc901f1`](https://github.com/nixos/nixpkgs/blob/6bb61e56d5616474a47675adbaa39e777fc901f1)
-> - GitKraken v10.4.1: [`fd5b39ad6e9ea714c41897e707b100b67137c1fa`](https://github.com/nixos/nixpkgs/blob/fd5b39ad6e9ea714c41897e707b100b67137c1fa)
+> @CACHED_COMMIT_LIST@
 >
 > </details>
 

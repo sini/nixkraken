@@ -23,6 +23,13 @@ let
   optionsDoc = nixosOptionsDoc {
     inherit (moduleEval) options;
   };
+
+  gitkrakenVersions = import ../gitkraken/versions.nix;
+  cachedCommitsList = lib.mapAttrsToList (
+    version:
+    { commit, ... }:
+    "> - GitKraken v${version}: [\\`${commit}\\`](https://github.com/nixos/nixpkgs/blob/${commit})"
+  ) gitkrakenVersions;
 in
 stdenvNoCC.mkDerivation {
   name = "nixkraken-docs";
@@ -45,6 +52,7 @@ stdenvNoCC.mkDerivation {
 
   preBuild = ''
     node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
+    substituteInPlace src/getting-started/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatStringsSep "\n" cachedCommitsList}"
   '';
 
   buildPhase = ''
