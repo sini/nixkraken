@@ -2,7 +2,7 @@
   description = "GitKraken configuration and profiles, the Nix way";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
