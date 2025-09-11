@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
   const headers = [...document.getElementsByClassName("header")];
   headers.forEach(header => {
     const link = Object.assign(document.createElement("a"), {
-      textContent: header.text,
+      textContent: [...header.parentElement.childNodes].map(({ textContent }) => textContent).join(''),
       href: header.href,
       className: `pagetoc-${header.parentElement.tagName}`
     });
