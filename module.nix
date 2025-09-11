@@ -35,24 +35,23 @@ let
       spellcheck = cfg.spellCheck;
     };
 
-    userMilestones =
-      {
-        firstAppOpen = true;
-        firstProfileCreated = true;
-        completedNewUserOnboarding = true;
-      }
-      // lib.optionalAttrs cfg.skipTour {
-        firstAppOpen = true;
-        firstRepoOpened = true;
-        guideOpened = true;
-        startATrial = true;
-        connectIntegration = true;
-        makeABranch = true;
-        createACommit = true;
-        pushSomeCode = true;
-        createAWorkspace = true;
-        createASharedDraft = true;
-      };
+    userMilestones = {
+      firstAppOpen = true;
+      firstProfileCreated = true;
+      completedNewUserOnboarding = true;
+    }
+    // lib.optionalAttrs cfg.skipTour {
+      firstAppOpen = true;
+      firstRepoOpened = true;
+      guideOpened = true;
+      startATrial = true;
+      connectIntegration = true;
+      makeABranch = true;
+      createACommit = true;
+      pushSomeCode = true;
+      createAWorkspace = true;
+      createASharedDraft = true;
+    };
 
     registration = lib.optionalAttrs cfg.acceptEULA {
       EULA = {
@@ -60,7 +59,8 @@ let
         version = eulaVersion;
       };
     };
-  } // (lib.mergeAttrsList (lib.attrValues cfg._submoduleSettings));
+  }
+  // (lib.mergeAttrsList (lib.attrValues cfg._submoduleSettings));
 
   # `pkgs` is not passed down to modules imported from root module using `imports`, hence this function returns a lambda
   # with original arguments merged with `pkgs` attribute from the root module.
