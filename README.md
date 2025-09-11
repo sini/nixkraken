@@ -1,4 +1,4 @@
-# <p align="center">Nixkraken</p>
+# <p align="center">NixKraken</p>
 
 <p align="center">
   <img width="500" height="500" src="https://github.com/nicolas-goudry/nixkraken/blob/main/docs/src/logo.svg">
@@ -10,7 +10,7 @@
 
 ---
 
-## 📚 [Learn more about Nixkraken in its dedicated documentation](https://nicolas-goudry.github.io/nixkraken).
+## 📚 [Learn more about NixKraken in its dedicated documentation](https://nicolas-goudry.github.io/nixkraken).
 
 > [!IMPORTANT]
 >

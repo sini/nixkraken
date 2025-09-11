@@ -3,7 +3,7 @@
 > [!NOTE]
 > Not using Flakes? Follow our [non-Flake installation guide](./install/non-flakes.md) instead.
 
-This guide showcases a basic, working Nixkraken configuration using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and Home Manager.
+This guide showcases a basic, working NixKraken configuration using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and Home Manager.
 
 1. **Create a `flake.nix` file** with the following content, which sets GitKraken username and email
 

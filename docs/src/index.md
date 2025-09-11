@@ -1,16 +1,16 @@
 <center>
 
-![Nixkraken logo](./logo.svg)
+![NixKraken logo](./logo.svg)
 
 </center>
 
-**Nixkraken** provides a [Home Manager](https://nix-community.github.io/home-manager) module for managing [GitKraken](https://www.gitkraken.com) configuration files and profiles in a declarative and reproducible way.
+**NixKraken** provides a [Home Manager](https://nix-community.github.io/home-manager) module for managing [GitKraken](https://www.gitkraken.com) configuration files and profiles in a declarative and reproducible way.
 
 > [!IMPORTANT]
 >
 > This project is **NOT** affiliated with Axosoft (the makers of GitKraken) in any way.
 >
-> Nixkraken is only handling GitKraken's configuration, one still needs to purchase the product to benefit paid features. **This is not a cracked GitKraken app.**
+> NixKraken is only handling GitKraken's configuration, one still needs to purchase the product to benefit paid features. **This is not a cracked GitKraken app.**
 
 ## Features
 
@@ -21,7 +21,7 @@
 
 ## Contributing
 
-Unlike GitKraken, Nixkraken is free and open source: **contributions are welcome!**
+Unlike GitKraken, NixKraken is free and open source: **contributions are welcome!**
 
 The source code can be found on [GitHub](https://github.com/nicolas-goudry/nixkraken) and issues and feature requests can be posted on the [GitHub issue tracker](https://github.com/nicolas-goudry/nixkraken/issues).
 
@@ -29,4 +29,4 @@ To add new options, improve documentation, or fix bugs, please open a [pull requ
 
 ## License
 
-The Nixkraken source and documentation are released under the [MIT License](https://github.com/nicolas-goudry/nixkraken/blob/main/LICENSE).
+The NixKraken source and documentation are released under the [MIT License](https://github.com/nicolas-goudry/nixkraken/blob/main/LICENSE).

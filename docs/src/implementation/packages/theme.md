@@ -4,7 +4,7 @@ This package provides a command-line interface for a very basic management of Gi
 
 It allows to list available themes and install new ones by linking theme files into GitKraken's themes directory.
 
-While it's intended for use during Home Manager activation by the Nixkraken module, it can also be used independently for testing.
+While it's intended for use during Home Manager activation by the NixKraken module, it can also be used independently for testing.
 
 Although its execution is considered safe, it is possible that theme files are overwritten, resulting in theme data loss. **Please back up your themes before use.**
 

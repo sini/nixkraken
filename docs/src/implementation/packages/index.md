@@ -1,6 +1,6 @@
 # Packages
 
-Nixkraken uses several packages to perform actions related to GitKraken configuration handling. Because GitKraken's configuration files also store mutable application state, they cannot be written directly by Nix. Instead, these packages are used to safely read, modify, and write to the JSON configuration files without destroying the state.
+NixKraken uses several packages to perform actions related to GitKraken configuration handling. Because GitKraken's configuration files also store mutable application state, they cannot be written directly by Nix. Instead, these packages are used to safely read, modify, and write to the JSON configuration files without destroying the state.
 
 These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`](https://nixos.org/manual/nixpkgs/unstable/#trivial-builder-writeShellApplication), which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directly, provided all their dependencies are available in the shell environment.
 

@@ -2,7 +2,7 @@
 
 As explained in the [caveats section](./caveats.md#long-installation-time), because GitKraken is an unfree package, its builds will not be cached in the default Nix cache (cache.nixos.org). This is expected and _somewhat_ [documented in nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#lib.licenses.unfree-unfree).
 
-For this reason, Nixkraken is using [Garnix](https://garnix.io)' public free cache for GitKraken builds. The cache is populated using Garnix' GitHub integration and uses dedicated Flake outputs to build and push the evaluated builds to the cache.
+For this reason, NixKraken is using [Garnix](https://garnix.io)' public free cache for GitKraken builds. The cache is populated using Garnix' GitHub integration and uses dedicated Flake outputs to build and push the evaluated builds to the cache.
 
 By using this cache, installing GitKraken is faster than ever. **A huge thanks to Garnix!**
 

@@ -1,7 +1,7 @@
 [book]
-title = "Nixkraken docs"
+title = "NixKraken docs"
 authors = ["Nicolas Goudry"]
-description = "Documentation for Nixkraken Home Manager module"
+description = "Documentation for NixKraken Home Manager module"
 language = "en"
 # multilingual = false
 # src = "src"

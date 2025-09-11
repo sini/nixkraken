@@ -1,6 +1,6 @@
 # Module options
 
-All Nixkraken options are available under the `programs.nixkraken` attribute.
+All NixKraken options are available under the `programs.nixkraken` attribute.
 
 This chapter provides a complete reference for every available option. For practical, real-world examples, refer to the [configuration examples](../getting-started/examples.md).
 

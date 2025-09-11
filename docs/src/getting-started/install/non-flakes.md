@@ -2,14 +2,14 @@
 
 ## Recommended method: using `fetchFromGitHub`
 
-The simplest way to use Nixkraken without Flakes is to fetch it directly from GitHub inside `home.nix`.
+The simplest way to use NixKraken without Flakes is to fetch it directly from GitHub inside `home.nix`.
 
 ```nix
 { lib, pkgs, ... }:
 
 {
   imports = [
-    # Import the Nixkraken module from the fetched source (ie. "${fetcher}/module.nix")
+    # Import the NixKraken module from the fetched source (ie. "${fetcher}/module.nix")
     "${pkgs.fetchFromGitHub {
       owner = "nicolas-goudry";
       repo = "nixkraken";
@@ -151,7 +151,7 @@ Users willing to avoid using `lib.fakeHash` can retrieve the release hash using 
 
 ### `nix-prefetch-git`
 
-The command below outputs various information about Nixkraken sources.
+The command below outputs various information about NixKraken sources.
 
 ```bash
 nix-prefetch-git --url git@github.com:nicolas-goudry/nixkraken.git --quiet
