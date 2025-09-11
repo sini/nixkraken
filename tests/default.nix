@@ -17,9 +17,13 @@ let
   pkgs = import nixpkgs {
     inherit system;
 
-    # GitKraken is unfree software, make sure to allow them
-    # TODO: use unfreePredicate instead?
-    config.allowUnfree = true;
+    # GitKraken is unfree software, make sure to allow it
+    config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (pkgs.lib.getName pkg) [
+        "gitkraken"
+      ];
+
     overlays = [ ];
   };
 

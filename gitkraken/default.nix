@@ -13,7 +13,11 @@ let
       {
         inherit system;
 
-        config.allowUnfree = true;
+        config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "gitkraken"
+          ];
       }
     ).gitkraken;
 in

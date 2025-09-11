@@ -1,6 +1,11 @@
 {
   pkgs ? import <nixpkgs> {
-    config.allowUnfree = true;
+    config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (pkgs.lib.getName pkg) [
+        "gitkraken"
+      ];
+
     overlays = [ ];
   },
 }:
