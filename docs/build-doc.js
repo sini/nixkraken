@@ -33,6 +33,12 @@ const OPTION_GROUPS = [
 const SUMMARY_MARKER = 'OPTS_GEN'
 
 /**
+ * Marker comment used to identify where groups should be inserted in options/nixkraken.md
+ * @type {string}
+ */
+const GROUPS_MARKER = 'GROUPS_GEN'
+
+/**
  * Prefix to remove from option names for cleaner documentation
  * @type {string}
  */
@@ -180,14 +186,14 @@ async function main() {
   try {
     // Validate command line arguments
     if (process.argv.length < 3) {
-      throw new Error('Usage: node build-doc.mjs <JSON-options-file-path>')
+      throw new Error('Usage: node build-doc.js <JSON-options-file-path>')
     }
 
     const opts = await loadOptionsFile(process.argv[2])
     const groupedMarkdown = processOptions(opts)
 
     await generateDocumentationFiles(groupedMarkdown)
-    await updateSummaryFile(groupedMarkdown)
+    await substituteInFile('./src/SUMMARY.md', SUMMARY_MARKER, generateSummaryEntries(groupedMarkdown).join('\n'))
 
     console.log('Documentation generation completed successfully!')
   } catch (error) {
@@ -266,7 +272,7 @@ function generateOptionMarkdown(optionName, { description, type, default: optDef
   }
 
   const content = [
-    `## ${optionName}`,
+    `### ${optionName}`,
     '',
     formatDescriptionValue(description),
     '',
@@ -336,25 +342,33 @@ function addToGroup(groupedMarkdown, groupName, content) {
  */
 async function generateDocumentationFiles(groupedMarkdown) {
   const writePromises = []
+  const groupOptions = []
+  const rootFilePath = path.resolve('./src/options/nixkraken.md')
 
   for (const [groupName, content] of Object.entries(groupedMarkdown)) {
     const finalContent = content.join('\n') + FOOTER
 
     if (groupName === 'root') {
       // Handle root options separately - append to main nixkraken.md file
-      const rootFilePath = path.resolve('./src/options/nixkraken.md')
       writePromises.push(fs.appendFile(rootFilePath, '\n\n' + finalContent))
+
       continue
     }
 
     const filePath = generateFilePath(groupName)
     const fullPath = path.resolve(`./src/${filePath}`)
 
+    if (!groupName.startsWith('profiles.*.')) {
+      groupOptions.push(`- [${groupName}](./${groupName}.md)`)
+    }
+
     // Ensure directory exists
     await fs.mkdir(path.dirname(fullPath), { recursive: true })
 
     writePromises.push(fs.writeFile(fullPath, finalContent))
   }
+
+  writePromises.push(substituteInFile(rootFilePath, GROUPS_MARKER, groupOptions.join('\n')))
 
   await Promise.all(writePromises)
 }
@@ -375,33 +389,33 @@ function generateFilePath(groupName) {
 }
 
 /**
- * Updates the SUMMARY.md file with links to generated documentation
+ * Substitute given marker in file
  * @async
- * @param {Object} groupedMarkdown - Grouped markdown content
+ * @param {String} destination - File to write to
+ * @param {String} marker - Marker to replace
+ * @param {String} string - String to replace marker with
  * @returns {Promise<void>}
- * @throws {Error} When marker line is not found in SUMMARY.md
+ * @throws {Error} When marker is not found in file
  */
-async function updateSummaryFile(groupedMarkdown) {
-  const summaryPath = path.resolve('./src/SUMMARY.md')
+async function substituteInFile(destination, marker, string) {
+  const resolvedPath = path.resolve(destination)
 
   try {
-    const summaryContent = await fs.readFile(summaryPath, { encoding: 'utf8' })
-    const summaryLines = summaryContent.split('\n')
-    const markerIndex = summaryLines.findIndex((line) => line.includes(SUMMARY_MARKER))
+    const fileContent = await fs.readFile(resolvedPath, { encoding: 'utf8' })
+    const fileLines = fileContent.split('\n')
+    const markerIndex = fileLines.findIndex((line) => line.includes(marker))
 
     if (markerIndex < 0) {
-      throw new Error(`No marker '${SUMMARY_MARKER}' found in SUMMARY.md`)
+      throw new Error(`No marker '${marker}' found in destination`)
     }
 
-    const summaryEntries = generateSummaryEntries(groupedMarkdown)
+    // Insert string at the marker position
+    fileLines.splice(markerIndex, 1, string)
 
-    // Insert new entries at the marker position
-    summaryLines.splice(markerIndex, 0, ...summaryEntries)
-
-    await fs.writeFile(summaryPath, summaryLines.join('\n'))
+    await fs.writeFile(resolvedPath, fileLines.join('\n'))
   } catch (error) {
     if (error.code === 'ENOENT') {
-      throw new Error(`SUMMARY.md file not found at: ${summaryPath}`)
+      throw new Error(`${destination} file not found at: ${resolvedPath}`)
     }
 
     throw error

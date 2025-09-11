@@ -4,12 +4,16 @@ All NixKraken options are available under the `programs.nixkraken` attribute.
 
 This chapter provides a complete reference for every available option. For practical, real-world examples, refer to the [configuration examples](../getting-started/examples.md).
 
-## Option groups
+## Group options
 
 Options are organized into logical groups exposed as children attributes to `programs.nixkraken` (ie. the `commitGraph` options are available at `programs.nixkraken.commitGraph`).
 
-Choose a group in the navigation menu to see its available settings.
+Find below the list of available groups:
 
-## Root options list
+<!-- GROUPS_GEN -->
 
-These options are available directly under `programs.nixkraken`.
+Additionally, groups can be found in the left navigation menu.
+
+## Root options
+
+The options below are available under `programs.nixkraken`.
