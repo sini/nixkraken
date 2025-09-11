@@ -1,32 +1,6 @@
-{
-  fetchFromGitHub,
-  lib,
-  system,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 let
-  # WARN: when updating this, remember to update home-manager in tests/common/nixkraken.nix too
-  nixpkgs = fetchFromGitHub {
-    owner = "nixos";
-    repo = "nixpkgs";
-    rev = "nixos-25.05";
-    # nix-prefetch-git --url git@github.com:nixos/nixpkgs.git --rev refs/heads/nixos-25.05 --quiet | jq -r .hash
-    hash = "sha256-aSgK4BLNFFGvDTNKPeB28lVXYqVn8RdyXDNAvgGq+k0=";
-  };
-  pkgs = import nixpkgs {
-    inherit system;
-
-    # GitKraken is unfree software, make sure to allow it
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
-        "gitkraken"
-      ];
-
-    overlays = [ ];
-  };
-
   # Load all tests files from current directory, excluding this file and the '_common' directory
   currentDir = ./.;
   tests = lib.filterAttrs (name: type: name != "default.nix" && name != "_common") (
