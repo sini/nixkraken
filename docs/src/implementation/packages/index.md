@@ -4,7 +4,7 @@ NixKraken uses several packages to perform actions related to GitKraken configur
 
 These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`](https://nixos.org/manual/nixpkgs/unstable/#trivial-builder-writeShellApplication), which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directly, provided all their dependencies are available in the shell environment.
 
-Packages are dynamically exported by the [`pkgs/default.nix`](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/default.nix) file: adding a directory under `pkgs` with a `default.nix` will automatically make a package (named after the directory) available for use.
+Packages are dynamically exported by using the [`packagesFromDirectoryRecursive` function](https://nixos.org/manual/nixpkgs/unstable/#function-library-lib.filesystem.packagesFromDirectoryRecursive). Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
 
 > [!NOTE]
 >
