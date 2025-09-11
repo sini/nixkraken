@@ -26,7 +26,7 @@ let
     rev = "main";
     # TODO: until release branches are used, change this when module is updated
     # nix-prefetch-git --url git@github.com:nicolas-goudry/nixkraken.git --quiet | jq -r .hash
-    hash = "sha256-gTKFgTXBmWOCr7A70s3y4gr4LMzi7YpKIZxdpLWf1h4=";
+    hash = "sha256-bvmQbvPymxAFee9MqLTGe46MMFira2ilyq6u21IbiWE=";
   };
 in
 {
