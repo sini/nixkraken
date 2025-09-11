@@ -63,5 +63,13 @@
       devShells = eachSystem (pkgs: {
         default = pkgs.callPackage ./shell.nix { };
       });
+
+      # Output tests as legacyPackages so that:
+      # - they are runnable/buildable with 'nix run/build'
+      # - they are not checked by 'nix flake check'
+      # - they are not built by Garnix
+      legacyPackages = eachSystem (pkgs: {
+        tests = import ./tests pkgs;
+      });
     };
 }
