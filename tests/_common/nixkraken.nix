@@ -34,6 +34,11 @@ in
     (import "${home-manager}/nixos")
   ];
 
+  nix.extraOptions = ''
+    extra-substituters = https://cache.garnix.io
+    extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+  '';
+
   home-manager.users.root = {
     imports = [
       (import "${nixkraken}/module.nix")
