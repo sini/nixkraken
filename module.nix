@@ -56,7 +56,7 @@ let
 
     registration = lib.optionalAttrs cfg.acceptEULA {
       EULA = {
-        status = "agree_unverified";
+        status = "agree_verified";
         version = eulaVersion;
       };
     };
