@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 let
   # WARN: this MUST be updated to match NixOS version defined in tests/default.nix
   home-manager = builtins.fetchTarball {
@@ -18,16 +16,6 @@ let
   #   # nix-prefetch-git --url git@github.com:nix-community/home-manager.git --rev refs/heads/release-25.05 --quiet | jq -r .hash
   #   hash = "sha256-Xd1vOeY9ccDf5VtVK12yM0FS6qqvfUop8UQlxEB+gTQ=";
   # };
-
-  nixkraken = pkgs.fetchFromGitHub {
-    owner = "nicolas-goudry";
-    repo = "nixkraken";
-    # TODO: this should ultimately target release branches
-    rev = "main";
-    # TODO: until release branches are used, change this when module is updated
-    # nix-prefetch-git --url git@github.com:nicolas-goudry/nixkraken.git --quiet | jq -r .hash
-    hash = "sha256-bvmQbvPymxAFee9MqLTGe46MMFira2ilyq6u21IbiWE=";
-  };
 in
 {
   imports = [
@@ -41,7 +29,7 @@ in
 
   home-manager.users.root = {
     imports = [
-      (import "${nixkraken}/module.nix")
+      (import ../../module.nix)
     ];
 
     home.stateVersion = "25.05";
