@@ -25,7 +25,7 @@
     description = ''
       Receive marketing notifications.
 
-      Note: setting this to false may not work without a paid subscription.
+      Note: disabling this option without a paid subscription will have no effect.
     '';
   };
 
