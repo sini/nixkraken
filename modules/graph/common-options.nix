@@ -1,6 +1,14 @@
 { lib, ... }:
 
 {
+  compact = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Enable compact graph columns.
+    '';
+  };
+
   highlightRowsOnRefHover = lib.mkOption {
     type = lib.types.bool;
     default = true;

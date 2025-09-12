@@ -318,14 +318,26 @@ let
                 "graph"
                 "showSHA"
               ];
-              graph.visible = fromProfileOrDefault profile [
-                "graph"
-                "showGraph"
-              ];
               ref.visible = fromProfileOrDefault profile [
                 "graph"
                 "showRefs"
               ];
+
+              graph = {
+                visible = fromProfileOrDefault profile [
+                  "graph"
+                  "showGraph"
+                ];
+
+                mode =
+                  let
+                    value = fromProfileOrDefault profile [
+                      "graph"
+                      "compact"
+                    ];
+                  in
+                  if value then "compact" else "text";
+              };
 
               message = {
                 visible = fromProfileOrDefault profile [
