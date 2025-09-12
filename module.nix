@@ -31,10 +31,6 @@ let
     cloudPatchTermsAccepted = cfg.enableCloudPatch;
     onboardingGuideDismissed = cfg.skipTour;
 
-    ui = {
-      spellcheck = cfg.spellCheck;
-    };
-
     userMilestones = {
       firstAppOpen = true;
       firstProfileCreated = true;
@@ -165,14 +161,6 @@ in
       default = false;
       description = ''
         Skip the onboarding guide.
-      '';
-    };
-
-    spellCheck = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = ''
-        Enable spell checking.
       '';
     };
 

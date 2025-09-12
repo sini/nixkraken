@@ -14,6 +14,7 @@ let
 
     ui = {
       showToolbarLabels = cfg.ui.enableToolbarLabels;
+      spellcheck = cfg.ui.spellCheck;
     };
   };
 in

@@ -28,6 +28,14 @@
     '';
   };
 
+  spellCheck = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = ''
+      Enable spell checking.
+    '';
+  };
+
   # Defined in app config but used by profiles
   showProjectBreadcrumb = lib.mkOption {
     type = lib.types.bool;
