@@ -14,7 +14,8 @@ with subtest("GitKraken launches"):
 
     # Check EULA popup is displayed on screen
     # This is a strong indicator that the app successfully launched in the right state
-    machine.wait_for_text("agree to our EULA")
+    ocr = machine.get_screen_text()
+    t.assertRegex(ocr, "agree to our EULA")
 
     # Take a screenshot of GitKraken
     machine.screenshot("gitkraken-enable")
@@ -23,6 +24,8 @@ with subtest("Config exists"):
     machine.succeed("stat ~/.gitkraken/config")
 
 with subtest("Default profile config exists"):
-    machine.succeed("stat ~/.gitkraken/d6e5a8ca26e14325a4275fc33b17e16f/profile")
+    machine.succeed(
+        "stat ~/.gitkraken/profiles/d6e5a8ca26e14325a4275fc33b17e16f/profile"
+    )
 
 machine.succeed("pkill -f gitkraken")
