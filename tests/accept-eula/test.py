@@ -11,7 +11,7 @@ with subtest("Configuration is reporting accepted EULA"):
     # Check EULA status is agreed and verified
     t.assertEqual(data["registration"]["EULA"]["status"], "agree_verified")
 
-with subtest("Popup is not displayed"):
+with subtest("EULA popup is not displayed"):
     # GitKraken won't launch unless '--no-sandbox' is set when running as root
     # Disable splashscreen with '--show-splashscreen' ('-s') set to false
     machine.succeed("gitkraken --no-sandbox -s false >&2 &")
@@ -27,6 +27,6 @@ with subtest("Popup is not displayed"):
     t.assertNotRegex(ocr, "agree to our EULA")
 
     # Take a screenshot of GitKraken
-    machine.screenshot("gitkraken")
+    machine.screenshot("gitkraken-accept-eula")
 
 machine.succeed("pkill -f gitkraken")
