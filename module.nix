@@ -48,13 +48,11 @@ let
       };
     };
 
-    userMilestones = {
+    userMilestones = lib.optionalAttrs cfg.skipTutorial {
       completedNewUserOnboarding = true;
       firstAppOpen = true;
       firstProfileCreated = true;
       introTutorialWelcomeStepSkipped = true;
-    }
-    // lib.optionalAttrs cfg.skipTutorial {
       createACommit = true;
       firstRepoOpened = true;
       firstTimeCommitSelected = true;

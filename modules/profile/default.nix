@@ -271,10 +271,10 @@ let
             # permanentTabs.FOCUS_VIEW.closed = cfg.collapsePermanentTabs;
 
             tabs = [
-              {
+              (lib.optionalAttrs (cfg.skipTutorial) {
                 id = selectedTabId;
                 type = "NEW";
-              }
+              })
             ];
           };
 

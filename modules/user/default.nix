@@ -25,12 +25,12 @@ in
       in
       [
         {
-          assertion = cfg.user.email != null || allProfilesHaveUserAttr "email";
-          message = "Either a default email (`user.email`) must be defined or all profiles must define a user email (`profile.user.email`)";
+          assertion = cfg.skipTutorial -> (cfg.user.email != null || allProfilesHaveUserAttr "email");
+          message = "When tutorial is skipped, either a default email (`user.email`) must be defined or all profiles must define a user email (`profile.user.email`)";
         }
         {
-          assertion = cfg.user.name != null || allProfilesHaveUserAttr "name";
-          message = "Either a default name (`user.name`) must be defined or all profiles must define a user name (`profile.user.name`)";
+          assertion = cfg.skipTutorial -> (cfg.user.name != null || allProfilesHaveUserAttr "name");
+          message = "When tutorial is skipped, either a default name (`user.name`) must be defined or all profiles must define a user name (`profile.user.name`)";
         }
       ];
   };
