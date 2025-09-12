@@ -119,15 +119,6 @@ in
       '';
     };
 
-    # Default from app config but can be overridden by profiles
-    deleteOrigAfterMerge = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-        Automatically delete `.orig` files created by GitKraken client during a merge.
-      '';
-    };
-
     logLevel = lib.mkOption {
       type = lib.types.enum [
         "standard"

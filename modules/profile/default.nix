@@ -81,7 +81,8 @@ let
     {
       ${id} = lib.attrsets.mergeAttrsList [
         {
-          inherit (cfg) deleteOrigAfterMerge rememberTabs;
+          inherit (cfg) rememberTabs;
+          inherit (cfg.git) deleteOrigAfterMerge;
           inherit (cfg.ui) showProjectBreadcrumb;
           inherit defaultTerminal;
 

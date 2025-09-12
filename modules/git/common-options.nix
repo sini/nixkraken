@@ -36,4 +36,12 @@
       Note: when not set, the app defaults to `main`.
     '';
   };
+
+  deleteOrigAfterMerge = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Automatically delete `.orig` files created by GitKraken client during a merge.
+    '';
+  };
 }
