@@ -73,7 +73,7 @@ in
 
         When `gitkraken` is selected, the bundled GitKraken terminal will be used.
 
-        When `custom` is selected, the package defined by `tools.terminal.package` will be installed and used.
+        When `custom` is selected, the package defined by [`tools.terminal.package`](#toolsterminalpackage) will be installed and used.
       '';
     };
 
@@ -84,7 +84,7 @@ in
       description = ''
         Custom terminal package to use.
 
-        **Must be defined when `tools.terminal.default` is set to `custom`.**
+        **Must be defined when [`tools.terminal.default`](#toolsterminaldefault) is set to `custom`.**
       '';
     };
 
@@ -97,9 +97,9 @@ in
       description = ''
         Custom terminal binary name.
 
-        **This option has no effect unless `tools.terminal.package` is set.**
+        **This option has no effect unless [`tools.terminal.package`](#toolsterminalpackage) is set.**
 
-        Note: the value will be prepended by the Nix store path of the chosen `package`.
+        Note: the value will be prepended by the Nix store path of the chosen [`package`](#toolsterminalpackage).
       '';
     };
 
