@@ -267,10 +267,8 @@ let
           tabInfo = {
             inherit selectedTabId;
 
-            permanentTabs = {
-              FOCUS_VIEW.closed = cfg.collapsePermanentTabs;
-              PROJECTS.closed = cfg.collapsePermanentTabs;
-            };
+            # TODO: enable back when ui.launchpad.collapsed exists
+            # permanentTabs.FOCUS_VIEW.closed = cfg.collapsePermanentTabs;
 
             tabs = [
               {

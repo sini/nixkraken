@@ -110,14 +110,14 @@ in
     #   '';
     # };
 
-    # Default from app config but can be overridden by profiles
-    collapsePermanentTabs = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-        Force collapse permanent tabs (Focus and Worspace views).
-      '';
-    };
+    # TODO: remove once ui.launchpad.collapsed exists
+    # collapsePermanentTabs = lib.mkOption {
+    #   type = lib.types.bool;
+    #   default = false;
+    #   description = ''
+    #     Force collapse permanent tabs (Focus and Worspace views).
+    #   '';
+    # };
 
     logLevel = lib.mkOption {
       type = lib.types.enum [
