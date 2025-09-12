@@ -306,28 +306,28 @@ let
               if value == "system" then "SYNC_WITH_SYSTEM" else value;
 
             graphOptions.columns = {
-              commitAuthorZone.visible = fromProfileOrDefault profile [
+              author.visible = fromProfileOrDefault profile [
                 "graph"
                 "showAuthor"
               ];
-              commitDateTimeZone.visible = fromProfileOrDefault profile [
+              datetime.visible = fromProfileOrDefault profile [
                 "graph"
                 "showDatetime"
               ];
-              commitShaZone.visible = fromProfileOrDefault profile [
+              sha.visible = fromProfileOrDefault profile [
                 "graph"
                 "showSHA"
               ];
-              commitZone.visible = fromProfileOrDefault profile [
+              graph.visible = fromProfileOrDefault profile [
                 "graph"
                 "showGraph"
               ];
-              refZone.visible = fromProfileOrDefault profile [
+              ref.visible = fromProfileOrDefault profile [
                 "graph"
                 "showRefs"
               ];
 
-              commitMessageZone = {
+              message = {
                 visible = fromProfileOrDefault profile [
                   "graph"
                   "showMessage"
