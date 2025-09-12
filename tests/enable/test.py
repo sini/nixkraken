@@ -19,7 +19,10 @@ with subtest("GitKraken launches"):
     # Take a screenshot of GitKraken
     machine.screenshot("gitkraken-enable")
 
-with subtest("GitKraken config exists"):
+with subtest("Config exists"):
     machine.succeed("stat ~/.gitkraken/config")
+
+with subtest("Default profile config exists"):
+    machine.succeed("stat ~/.gitkraken/d6e5a8ca26e14325a4275fc33b17e16f/profile")
 
 machine.succeed("pkill -f gitkraken")
