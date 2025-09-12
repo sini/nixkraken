@@ -22,11 +22,11 @@
     type = lib.types.bool;
     default = false;
     description = ''
-      Use bundled [NodeGit](https://www.nodegit.org/) for Git actions.
+      When this option is enabled, GitKraken will use the bundled NodeGit library.
 
-      When this option is disabled, the `git` package will be installed and set as the selected Git binary used by GitKraken.
+      When this option is disabled, GitKraken will use the `git` package instead of the NodeGit library for certain Git actions including fetching and committing. This may provide increased performance and compatibility with certain projects and development environments.
 
-      Note: since some Git actions in GitKraken are not implemented using `git`, the bundled NodeGit will still be used for some actions, even if this option is disabled.
+      If disabled, the [`git.package`](#gitpackage) option is used to install Git and set it as the selected Git binary used by GitKraken.
     '';
   };
 }
