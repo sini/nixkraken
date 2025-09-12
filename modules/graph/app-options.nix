@@ -11,7 +11,7 @@
     '';
   };
 
-  max = lib.mkOption {
+  maxCommits = lib.mkOption {
     type = with lib.types; nullOr (addCheck ints.positive (x: x >= 500));
     default = 2000;
     description = ''

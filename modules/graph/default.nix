@@ -14,7 +14,7 @@ let
       inherit (cfg.graph) showAll;
 
       enableCommitsLazyLoading = cfg.graph.lazy;
-      maxCommitsInGraph = cfg.graph.max;
+      maxCommitsInGraph = cfg.graph.maxCommits;
     };
   };
 in
@@ -42,8 +42,8 @@ in
         message = "Commit graph cannot be empty (`graph.*`)";
       }
       {
-        assertion = cfg.graph.showAll -> lib.isNull (cfg.graph.max);
-        message = "Cannot set a maximum number of commits (`graph.max`) to show in commit graph if all commits are shown (`graph.showAll`)";
+        assertion = cfg.graph.showAll -> lib.isNull (cfg.graph.maxCommits);
+        message = "Cannot set a maximum number of commits (`graph.maxCommits`) to show in commit graph if all commits are shown (`graph.showAll`)";
       }
     ];
 
