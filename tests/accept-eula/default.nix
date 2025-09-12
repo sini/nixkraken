@@ -24,6 +24,15 @@ pkgs.testers.runNixOSTest {
     home-manager.users.root.programs.nixkraken = {
       enable = true;
       acceptEULA = true;
+
+      # In order to check for EULA acceptance, we have to skip tutorial
+      skipTutorial = true;
+
+      # Because we skip tutorial, we have to set user info
+      user = {
+        email = "somebody@example.com";
+        name = "Somebody";
+      };
     };
   };
 
