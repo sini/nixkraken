@@ -19,6 +19,7 @@ pkgs.testers.runNixOSTest {
   nodes.machine = {
     imports = [
       ../_common
+      ../_common/dummy-user.nix
     ];
 
     home-manager.users.root.programs.nixkraken.enable = true;
