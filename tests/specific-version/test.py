@@ -4,4 +4,4 @@ with subtest("GitKraken version matches"):
     version = machine.wait_until_succeeds(
         "gitkraken --no-sandbox --version | tr -d '\n'"
     )
-    t.assertEqual(version, "11.1.0")
+    t.assertEqual(version, "11.3.0")

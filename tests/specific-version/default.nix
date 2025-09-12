@@ -23,7 +23,7 @@ pkgs.testers.runNixOSTest {
 
     home-manager.users.root.programs.nixkraken = {
       enable = true;
-      version = "11.1.0";
+      version = lib.mkForce "11.3.0";
     };
   };
 

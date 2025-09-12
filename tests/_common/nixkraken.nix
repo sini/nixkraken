@@ -32,6 +32,7 @@ in
       (import ../../module.nix)
     ];
 
+    programs.nixkraken.version = "11.1.0";
     home.stateVersion = "25.05";
   };
 }
