@@ -11,15 +11,15 @@ let
 
   settings = {
     commits = {
-      inherit (cfg.commitGraph) showAll;
+      inherit (cfg.graph) showAll;
 
-      enableCommitsLazyLoading = cfg.commitGraph.lazy;
-      maxCommitsInGraph = cfg.commitGraph.max;
+      enableCommitsLazyLoading = cfg.graph.lazy;
+      maxCommitsInGraph = cfg.graph.max;
     };
   };
 in
 {
-  options.programs.nixkraken.commitGraph = lib.mkOption {
+  options.programs.nixkraken.graph = lib.mkOption {
     type = lib.types.submodule {
       options = appOpts // commonOpts;
     };
@@ -33,17 +33,17 @@ in
     assertions = [
       {
         assertion =
-          cfg.commitGraph.showAuthor
-          || cfg.commitGraph.showDatetime
-          || cfg.commitGraph.showMessage
-          || cfg.commitGraph.showRefs
-          || cfg.commitGraph.showSha
-          || cfg.commitGraph.showTree;
-        message = "Commit graph cannot be empty (`commitGraph.*`)";
+          cfg.graph.showAuthor
+          || cfg.graph.showDatetime
+          || cfg.graph.showMessage
+          || cfg.graph.showRefs
+          || cfg.graph.showSha
+          || cfg.graph.showTree;
+        message = "Commit graph cannot be empty (`graph.*`)";
       }
       {
-        assertion = cfg.commitGraph.showAll -> lib.isNull (cfg.commitGraph.max);
-        message = "Cannot set a maximum number of commits (`commitGraph.max`) to show in commit graph if all commits are shown (`commitGraph.showAll`)";
+        assertion = cfg.graph.showAll -> lib.isNull (cfg.graph.max);
+        message = "Cannot set a maximum number of commits (`graph.max`) to show in commit graph if all commits are shown (`graph.showAll`)";
       }
     ];
 

@@ -6,7 +6,7 @@ This chapter provides a complete reference for every available option. For pract
 
 ## Group options
 
-Options are organized into logical groups exposed as children attributes to `programs.nixkraken` (ie. the `commitGraph` options are available at `programs.nixkraken.commitGraph`).
+Options are organized into logical groups exposed as children attributes to `programs.nixkraken` (ie. the `graph` options are available at `programs.nixkraken.graph`).
 
 Find below the list of available groups:
 

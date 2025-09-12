@@ -1,7 +1,7 @@
 { lib, ... }@args:
 
 let
-  commitGraph.options = import ../graph/common-options.nix args;
+  graph.options = import ../graph/common-options.nix args;
   git.options = import ../git/common-options.nix args;
   gpg.options = import ../gpg/options.nix args;
   ssh.options = import ../ssh/options.nix args;
@@ -113,7 +113,7 @@ in
     '';
   };
 
-  commitGraph = mkProfileSubmodule commitGraph.options "Commit graph settings for this profile.";
+  graph = mkProfileSubmodule graph.options "Commit graph settings for this profile.";
   git = mkProfileSubmodule git.options "Git settings for this profile.";
   gpg = mkProfileSubmodule gpg.options "GPG settings for this profile.";
   ssh = mkProfileSubmodule ssh.options "SSH settings for this profile.";

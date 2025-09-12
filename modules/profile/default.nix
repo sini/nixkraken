@@ -282,19 +282,19 @@ let
 
           ui = {
             highlightRowsOnRefHover = fromProfileOrDefault profile [
-              "commitGraph"
+              "graph"
               "highlightRowsOnRefHover"
             ];
             showGhostRefsOnHover = fromProfileOrDefault profile [
-              "commitGraph"
+              "graph"
               "showGhostRefsOnHover"
             ];
             useAuthorInitialsForAvatars = fromProfileOrDefault profile [
-              "commitGraph"
+              "graph"
               "useAuthorInitials"
             ];
             useGenericRemoteHostingServiceIconsInRefs = fromProfileOrDefault profile [
-              "commitGraph"
+              "graph"
               "useGenericRemoteIcon"
             ];
 
@@ -309,36 +309,36 @@ let
 
             graphOptions.columns = {
               commitAuthorZone.visible = fromProfileOrDefault profile [
-                "commitGraph"
+                "graph"
                 "showAuthor"
               ];
               commitDateTimeZone.visible = fromProfileOrDefault profile [
-                "commitGraph"
+                "graph"
                 "showDatetime"
               ];
               commitShaZone.visible = fromProfileOrDefault profile [
-                "commitGraph"
+                "graph"
                 "showSha"
               ];
               commitZone.visible = fromProfileOrDefault profile [
-                "commitGraph"
+                "graph"
                 "showTree"
               ];
               refZone.visible = fromProfileOrDefault profile [
-                "commitGraph"
+                "graph"
                 "showRefs"
               ];
 
               commitMessageZone = {
                 visible = fromProfileOrDefault profile [
-                  "commitGraph"
+                  "graph"
                   "showMessage"
                 ];
 
                 descDisplayMode =
                   let
                     value = fromProfileOrDefault profile [
-                      "commitGraph"
+                      "graph"
                       "showDescription"
                     ];
                   in
