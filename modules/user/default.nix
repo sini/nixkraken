@@ -21,7 +21,7 @@ in
     assertions =
       let
         allProfilesHaveUserAttr =
-          attr: lib.foldl' (acc: { user }: acc && user.${attr} != null) true cfg.profiles;
+          attr: lib.foldl' (acc: { user, ... }: acc && user.${attr} != null) true cfg.profiles;
       in
       [
         {
