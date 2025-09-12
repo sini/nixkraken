@@ -316,11 +316,11 @@ let
               ];
               commitShaZone.visible = fromProfileOrDefault profile [
                 "graph"
-                "showSha"
+                "showSHA"
               ];
               commitZone.visible = fromProfileOrDefault profile [
                 "graph"
-                "showTree"
+                "showGraph"
               ];
               refZone.visible = fromProfileOrDefault profile [
                 "graph"
@@ -337,7 +337,7 @@ let
                   let
                     value = fromProfileOrDefault profile [
                       "graph"
-                      "showDescription"
+                      "showDesc"
                     ];
                   in
                   if value == "hover" then "ON_HOVER" else lib.toUpper value;

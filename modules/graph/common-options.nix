@@ -25,7 +25,7 @@
     '';
   };
 
-  showDescription = lib.mkOption {
+  showDesc = lib.mkOption {
     type =
       with lib.types;
       nullOr (enum [
@@ -63,7 +63,7 @@
     '';
   };
 
-  showSha = lib.mkOption {
+  showSHA = lib.mkOption {
     type = lib.types.bool;
     default = false;
     description = ''
@@ -71,7 +71,7 @@
     '';
   };
 
-  showTree = lib.mkOption {
+  showGraph = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = ''

@@ -37,8 +37,8 @@ in
           || cfg.graph.showDatetime
           || cfg.graph.showMessage
           || cfg.graph.showRefs
-          || cfg.graph.showSha
-          || cfg.graph.showTree;
+          || cfg.graph.showSHA
+          || cfg.graph.showGraph;
         message = "Commit graph cannot be empty (`graph.*`)";
       }
       {
