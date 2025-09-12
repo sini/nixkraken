@@ -10,6 +10,7 @@ let
   #   };
   # }),
   # NOTE: search for "tzm-latn" in GitKraken's code
+  # TODO: check if up-to-date
   dateTimeLocales = [
     "af" # Afrikaans
     "sq" # Albanian

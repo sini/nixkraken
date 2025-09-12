@@ -22,6 +22,7 @@ let
     silly = 3;
   };
 
+  # TODO: replace by test
   # curl -fsSLH "Authorization: Bearer $(gk-decrypt $HOME/.gitkraken/secFile | jq -r '.GitKraken."api-accessToken"')" https://api.gitkraken.com/user | jq -r '.eulaVersion'
   eulaVersion = "8.3.1";
 
