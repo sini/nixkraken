@@ -12,6 +12,14 @@
     '';
   };
 
+  hideFocusStatus = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Hide Focus view related elements from status bar.
+    '';
+  };
+
   spellCheck = lib.mkOption {
     type = lib.types.bool;
     default = true;

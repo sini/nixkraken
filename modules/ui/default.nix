@@ -10,6 +10,8 @@ let
   commonOpts = import ./common-options.nix args;
 
   settings = {
+    hideFocusViewStatusBar = cfg.ui.hideFocusStatus;
+
     ui = {
       showToolbarLabels = cfg.ui.toolbarLabels;
       spellcheck = cfg.ui.spellCheck;
