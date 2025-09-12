@@ -1,14 +1,6 @@
 { lib, ... }:
 
 {
-  enableToolbarLabels = lib.mkOption {
-    type = lib.types.bool;
-    default = true;
-    description = ''
-      Show toolbar icon labels.
-    '';
-  };
-
   extraThemes = lib.mkOption {
     type = with lib.types; listOf path;
     default = [ ];
@@ -42,6 +34,14 @@
     default = true;
     description = ''
       Show workspace breadcrumb in toolbar.
+    '';
+  };
+
+  toolbarLabels = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = ''
+      Show toolbar icon labels.
     '';
   };
 }

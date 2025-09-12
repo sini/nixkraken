@@ -13,7 +13,7 @@ let
     hideCollapsedWorkspaceTab = cfg.ui.hideWorkspaceTab;
 
     ui = {
-      showToolbarLabels = cfg.ui.enableToolbarLabels;
+      showToolbarLabels = cfg.ui.toolbarLabels;
       spellcheck = cfg.ui.spellCheck;
     };
   };
