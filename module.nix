@@ -29,24 +29,30 @@ let
     activityLogLevel = logLevels.${cfg.logLevel};
     cloudPatchesEnabled = cfg.enableCloudPatch;
     cloudPatchTermsAccepted = cfg.enableCloudPatch;
-    onboardingGuideDismissed = cfg.skipTour;
+
+    tutorial = {
+      isLifecycleAlreadyTriggeredByTutorialKey = {
+        INTRO_TUTORIAL = {
+          TUTORIAL_OPENED = cfg.skipTutorial;
+          TUTORIAL_COMPLETED = cfg.skipTutorial;
+          TUTORIAL_CLOSED = cfg.skipTutorial;
+        };
+      };
+    };
 
     userMilestones = {
+      completedNewUserOnboarding = true;
       firstAppOpen = true;
       firstProfileCreated = true;
-      completedNewUserOnboarding = true;
+      introTutorialWelcomeStepSkipped = true;
     }
-    // lib.optionalAttrs cfg.skipTour {
-      firstAppOpen = true;
-      firstRepoOpened = true;
-      guideOpened = true;
-      startATrial = true;
-      connectIntegration = true;
-      makeABranch = true;
+    // lib.optionalAttrs cfg.skipTutorial {
       createACommit = true;
-      pushSomeCode = true;
-      createAWorkspace = true;
-      createASharedDraft = true;
+      firstRepoOpened = true;
+      firstTimeCommitSelected = true;
+      leftPanelToggled = true;
+      makeABranch = true;
+      mergeABranch = true;
     };
 
     registration = lib.optionalAttrs cfg.acceptEULA {
@@ -156,11 +162,11 @@ in
       '';
     };
 
-    skipTour = lib.mkOption {
+    skipTutorial = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = ''
-        Skip the onboarding guide.
+        Skip the introduction tutorial.
       '';
     };
 
