@@ -14,7 +14,7 @@ let
   lib = pkgs.lib;
 in
 pkgs.testers.runNixOSTest {
-  name = "enable";
+  name = "specific-version";
 
   nodes.machine = {
     imports = [
