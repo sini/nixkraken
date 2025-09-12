@@ -12,10 +12,9 @@ with subtest("GitKraken launches"):
     machine.wait_for_window("GitKraken Desktop")
     machine.sleep(15)
 
-    # Check EULA popup is displayed on screen
-    # This is a strong indicator that the app successfully launched in the right state
+    # Check if welcome screen is displayed
     ocr = machine.get_screen_text()
-    t.assertRegex(ocr, "agree to our EULA")
+    t.assertRegex(ocr, "Welcome to GitKraken Desktop")
 
     # Take a screenshot of GitKraken
     machine.screenshot("gitkraken-enable")
