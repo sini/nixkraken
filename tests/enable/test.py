@@ -17,7 +17,7 @@ with subtest("GitKraken launches"):
     t.assertRegex(ocr, "Welcome to GitKraken Desktop")
 
     # Take a screenshot of GitKraken
-    machine.screenshot("gitkraken-enable")
+    machine.screenshot("snapshot")
 
 with subtest("Config exists"):
     machine.succeed("stat ~/.gitkraken/config")

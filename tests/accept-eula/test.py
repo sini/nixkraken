@@ -27,6 +27,6 @@ with subtest("EULA popup is not displayed"):
     t.assertNotRegex(ocr, "agree to our EULA")
 
     # Take a screenshot of GitKraken
-    machine.screenshot("gitkraken-accept-eula")
+    machine.screenshot("snapshot")
 
 machine.succeed("pkill -f gitkraken")
