@@ -27,8 +27,8 @@ let
 
   settings = {
     activityLogLevel = logLevels.${cfg.logLevel};
-    cloudPatchesEnabled = cfg.enableCloudPatch;
-    cloudPatchTermsAccepted = cfg.enableCloudPatch;
+    # cloudPatchesEnabled = cfg.enableCloudPatch;
+    # cloudPatchTermsAccepted = cfg.enableCloudPatch;
 
     registration = lib.optionalAttrs cfg.acceptEULA {
       EULA = {
@@ -100,15 +100,15 @@ in
       '';
     };
 
-    enableCloudPatch = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-        Enable [Cloud Patches](https://www.gitkraken.com/solutions/cloud-patches).
-
-        Note: Cloud Patches ToS will be automatically accepted when enabled.
-      '';
-    };
+    # enableCloudPatch = lib.mkOption {
+    #   type = lib.types.bool;
+    #   default = false;
+    #   description = ''
+    #     Enable [Cloud Patches](https://www.gitkraken.com/solutions/cloud-patches).
+    #
+    #     Note: Cloud Patches ToS will be automatically accepted when enabled.
+    #   '';
+    # };
 
     # Default from app config but can be overridden by profiles
     collapsePermanentTabs = lib.mkOption {
