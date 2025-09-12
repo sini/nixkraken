@@ -144,15 +144,6 @@ in
       '';
     };
 
-    # Default from app config but can be overridden by profiles
-    rememberTabs = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = ''
-        Remember open tabs when exiting.
-      '';
-    };
-
     skipTutorial = lib.mkOption {
       type = lib.types.bool;
       default = false;

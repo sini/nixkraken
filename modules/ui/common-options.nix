@@ -1,6 +1,14 @@
 { lib, ... }:
 
 {
+  rememberTabs = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = ''
+      Remember open tabs when exiting.
+    '';
+  };
+
   cli = {
     autocomplete = {
       enable = lib.mkOption {
