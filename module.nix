@@ -138,9 +138,9 @@ in
       description = ''
         The GitKraken package to use. Requires to allow unfree packages.
 
-        **Only one of `package` or `version` must be set.**
+        **Only one of [`package`](#package) or [`version`](#version) must be set.**
 
-        Note: we advise users to use the `version` option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when this option is used. Also be aware that the [binary cache](../getting-started/caching.html) might not apply.
+        Note: we advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when this option is used. Also be aware that the [binary cache](../getting-started/caching.html) might not apply.
       '';
     };
 
@@ -158,7 +158,7 @@ in
       description = ''
         The GitKraken version to use. Requires to allow unfree packages.
 
-        **Only one of `package` or `version` must be set.**
+        **Only one of [`package`](#package) or [`version`](#version) must be set.**
       '';
     };
 
