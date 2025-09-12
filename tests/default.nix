@@ -14,8 +14,24 @@ in
 # Build attribute set of all tests and a custom derivation running all tests altogether
 allTests
 // {
-  all = pkgs.runCommand "all-tests" {
+  all = pkgs.stdenv.mkDerivation rec {
+    name = "all-tests";
+    src = ./.;
+
     # Using allTests attribute set values (actual imported tests) as buildInputs so they get build (i.e. tests are run as part of build)
     buildInputs = lib.attrValues allTests;
-  } "touch $out";
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out
+
+      # Retrieve tests snapshots
+      for build in ${lib.concatStringsSep " " (lib.map (b: b.out) buildInputs)}; do
+        cp $build/snapshot.png $out/$(basename $build).png || true
+      done
+
+      runHook postInstall
+    '';
+  };
 }
