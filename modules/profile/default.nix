@@ -105,7 +105,7 @@ let
             "tools"
             "editor"
           ];
-          git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe pkgs.git;
+          git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe cfg.git.package;
           init.defaultBranch = fromProfileOrDefault profile [
             "git"
             "defaultBranch"

@@ -1,6 +1,13 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
+  package = lib.mkPackageOption pkgs "git" {
+    extraDescription = ''
+      <br/><br/>
+      Note: this is only used if [`git.useBundledGit`](#gitusebundledgit) is disabled.
+    '';
+  };
+
   syncConfig = lib.mkOption {
     type = lib.types.bool;
     default = false;

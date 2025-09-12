@@ -27,7 +27,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf (!cfg.git.useBundledGit) [ pkgs.git ];
+    home.packages = lib.mkIf (!cfg.git.useBundledGit) [ cfg.git.package ];
     programs.nixkraken._submoduleSettings.git = settings;
   };
 }
