@@ -30,6 +30,13 @@ let
     cloudPatchesEnabled = cfg.enableCloudPatch;
     cloudPatchTermsAccepted = cfg.enableCloudPatch;
 
+    registration = lib.optionalAttrs cfg.acceptEULA {
+      EULA = {
+        status = "agree_verified";
+        version = eulaVersion;
+      };
+    };
+
     tutorial = {
       isLifecycleAlreadyTriggeredByTutorialKey = {
         INTRO_TUTORIAL = {
@@ -53,13 +60,6 @@ let
       leftPanelToggled = true;
       makeABranch = true;
       mergeABranch = true;
-    };
-
-    registration = lib.optionalAttrs cfg.acceptEULA {
-      EULA = {
-        status = "agree_verified";
-        version = eulaVersion;
-      };
     };
   }
   // (lib.mergeAttrsList (lib.attrValues cfg._submoduleSettings));
