@@ -27,4 +27,5 @@ with subtest("Default profile config exists"):
         "stat ~/.gitkraken/profiles/d6e5a8ca26e14325a4275fc33b17e16f/profile"
     )
 
+# Exit GitKraken
 machine.succeed("pkill -f gitkraken")
