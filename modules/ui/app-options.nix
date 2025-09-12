@@ -12,14 +12,6 @@
     '';
   };
 
-  hideWorkspaceTab = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = ''
-      Hide workspace tab when closed.
-    '';
-  };
-
   spellCheck = lib.mkOption {
     type = lib.types.bool;
     default = true;

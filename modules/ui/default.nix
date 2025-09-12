@@ -10,8 +10,6 @@ let
   commonOpts = import ./common-options.nix args;
 
   settings = {
-    hideCollapsedWorkspaceTab = cfg.ui.hideWorkspaceTab;
-
     ui = {
       showToolbarLabels = cfg.ui.toolbarLabels;
       spellcheck = cfg.ui.spellCheck;
