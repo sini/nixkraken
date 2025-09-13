@@ -20,7 +20,9 @@ in
     description = ''
       Set the preferred external diff tool.
 
-      Note: this option will not install the selected tool.
+      > [!WARNING]
+      >
+      > This option will not install the selected tool.
     '';
   };
 
@@ -37,7 +39,9 @@ in
     description = ''
       Set the preferred external code/text editor.
 
-      Note: this option will not install the selected editor.
+      > [!WARNING]
+      >
+      > This option will not install the selected tool.
     '';
   };
 
@@ -56,7 +60,9 @@ in
     description = ''
       Set the preferred external merge tool.
 
-      Note: this option will not install the selected tool.
+      > [!WARNING]
+      >
+      > This option will not install the selected tool.
     '';
   };
 
@@ -84,7 +90,9 @@ in
       description = ''
         Custom terminal package to use.
 
-        **Must be defined when [`tools.terminal.default`](#toolsterminaldefault) is set to `custom`.**
+        > [!IMPORTANT]
+        >
+        > This option must be defined when [`tools.terminal.default`](#toolsterminaldefault) is set to `custom`.
       '';
     };
 
@@ -99,7 +107,9 @@ in
 
         **This option has no effect unless [`tools.terminal.package`](#toolsterminalpackage) is set.**
 
-        Note: the value will be prepended by the Nix store path of the chosen [`package`](#toolsterminalpackage).
+        > [!NOTE]
+        >
+        > The value will be prepended by the Nix store path of the chosen [`package`](#toolsterminalpackage).
       '';
     };
 

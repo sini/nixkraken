@@ -7,7 +7,9 @@
     description = ''
       Set the number of minutes between auto-fetches, or 0 to disable them.
 
-      Note: all visible remotes for the repository will be fetched.
+      > [!NOTE]
+      >
+      > All visible remotes for the repository will be fetched.
     '';
   };
 
@@ -33,7 +35,9 @@
     description = ''
       Set the default name when initializing a new repo.
 
-      Note: when not set, the app defaults to `main`.
+      > [!NOTE]
+      >
+      > When not set, the app defaults to `main`.
     '';
   };
 

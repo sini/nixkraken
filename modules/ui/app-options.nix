@@ -8,7 +8,9 @@
     description = ''
       Paths to extra themes to install.
 
-      Note: this option will not install the theme package.
+      > [!WARNING]
+      >
+      > This option will not install the theme package.
     '';
   };
 

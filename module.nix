@@ -135,11 +135,20 @@ in
       default = null;
       example = "pkgs.unstable.gitkraken";
       description = ''
-        The GitKraken package to use. Requires to allow unfree packages.
+        The GitKraken package to use.
 
-        **Only one of [`package`](#package) or [`version`](#version) must be set.**
+        > [!IMPORTANT]
+        >
+        > This option:
+        >
+        > - requires to allow unfree packages
+        > - is mutually exclusive with [`version`](#version)
 
-        Note: we advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when this option is used. Also be aware that the [binary cache](../getting-started/caching.html) might not apply.
+        > [!NOTE]
+        >
+        > We advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when it is used.
+        >
+        > Also be aware that the [binary cache](../getting-started/caching.html) might not apply.
       '';
     };
 
@@ -157,7 +166,12 @@ in
       description = ''
         The GitKraken version to use. Requires to allow unfree packages.
 
-        **Only one of [`package`](#package) or [`version`](#version) must be set.**
+        > [!IMPORTANT]
+        >
+        > This option:
+        >
+        > - requires to allow unfree packages
+        > - is mutually exclusive with [`package`](#package)
       '';
     };
 

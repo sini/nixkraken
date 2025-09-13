@@ -93,7 +93,9 @@
         description = ''
           Show graph panel by default.
 
-          Note: this setting only affects terminal tabs when the current directory is a repository.
+          > [!NOTE]
+          >
+          > This setting only affects terminal tabs when the current directory is a repository.
         '';
       };
 
@@ -110,7 +112,9 @@
         description = ''
           Default graph panel position.
 
-          Note: this setting only affects terminal tabs when the current directory is a repository.
+          > [!NOTE]
+          >
+          > This setting only affects terminal tabs when the current directory is a repository.
         '';
       };
     };
@@ -195,7 +199,9 @@
     description = ''
       UI theme.
 
-      Note: extra themes are referenced by their `meta.name`, ie. `catppuccin-mocha`.
+      > [!NOTE]
+      >
+      > Extra themes are referenced by their `meta.name`, ie. `catppuccin-mocha`.
     '';
   };
 }

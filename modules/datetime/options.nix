@@ -165,7 +165,9 @@ in
     description = ''
       Date/time locale.
 
-      Note: set to `null` to use default system locale.
+      > [!NOTE]
+      >
+      > Set to `null` to use default system locale.
     '';
   };
 

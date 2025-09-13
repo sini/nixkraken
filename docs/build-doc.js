@@ -79,36 +79,6 @@ function wrapWith(str, char) {
 }
 
 /**
- * Wraps each line of a multiline string with specified characters
- * Trims whitespace from each line before wrapping
- * @param {string} str - The multiline string to process
- * @param {string} char - The character(s) to wrap each line with
- * @returns {string} String with each line wrapped, or original value if input is invalid
- * @example
- * wrapMultilinesWith('line1\nline2', '*') // returns '*line1*\n*line2*'
- * wrapMultilinesWith('  spaced  \n  content  ', '_') // returns '_spaced_\n_content_'
- */
-function wrapMultilinesWith(str, char) {
-  if (!str || typeof str !== 'string') {
-    return str
-  }
-
-  if (typeof char !== 'string') {
-    throw new TypeError('Character parameter must be a string')
-  }
-
-  const lines = str.split('\n')
-  const wrappedLines = lines.map((line) => {
-    const trimmedLine = line.trim()
-
-    // Only wrap non-empty lines to avoid wrapping whitespace-only lines
-    return trimmedLine ? wrapWith(trimmedLine, char) : trimmedLine
-  })
-
-  return wrappedLines.join('\n')
-}
-
-/**
  * Removes wrapping characters from the beginning and end of a string
  * Uses regex to match and extract content between the specified characters
  * @param {string} str - The string to unwrap
@@ -135,46 +105,6 @@ function unwrap(str, char) {
   const match = str.match(regex)
 
   return match?.[1] ?? str
-}
-
-/**
- * Helper function to format description values for markdown display
- * @private
- * @param {string} [descriptionText] - Raw description value text
- * @returns {string} Formatted description value
- */
-function formatDescriptionValue(descriptionText) {
-  if (!descriptionText) {
-    return wrapWith('No description provided', '_')
-  }
-
-  return wrapMultilinesWith(descriptionText, '_')
-}
-
-/**
- * Helper function to format default values for markdown display
- * @private
- * @param {string} [defaultText] - Raw default value text
- * @returns {string} Formatted default value
- */
-function formatDefaultValue(defaultText) {
-  if (!defaultText) {
-    return 'No default'
-  }
-
-  const unwrapped = unwrap(defaultText, '"')
-  return wrapWith(unwrapped, '`')
-}
-
-/**
- * Helper function to format example values for markdown display
- * @private
- * @param {string} exampleText - Raw example text
- * @returns {string} Formatted example value
- */
-function formatExampleValue(exampleText) {
-  const unwrapped = unwrap(exampleText, '"')
-  return wrapWith(unwrapped, '`')
 }
 
 /**
@@ -274,16 +204,16 @@ function generateOptionMarkdown(optionName, { description, type, default: optDef
   const content = [
     `### ${optionName}`,
     '',
-    formatDescriptionValue(description),
+    description || 'No description provided.',
     '',
     `**Type:** ${formatType(type)}`,
     '',
-    `**Default:** ${formatDefaultValue(optDefault?.text)}`,
+    `**Default:** ${optDefault?.text ? wrapWith(unwrap(optDefault.text, '"'), '`') : 'No default value'}`,
     '',
   ]
 
   if (example?.text) {
-    content.push(`**Example:** ${formatExampleValue(example.text)}`, '')
+    content.push(`**Example:** ${wrapWith(unwrap(example.text, '"'), '`')}`)
   }
 
   return content.join('\n')
