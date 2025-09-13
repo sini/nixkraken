@@ -81,7 +81,7 @@ in
     (mkSubmoduleWithPkgs ./modules/gpg)
     (mkSubmoduleWithPkgs ./modules/graph)
     (mkSubmoduleWithPkgs ./modules/notifications)
-    (mkSubmoduleWithPkgs ./modules/profile)
+    (mkSubmoduleWithPkgs ./modules/profiles)
     (mkSubmoduleWithPkgs ./modules/ssh)
     (mkSubmoduleWithPkgs ./modules/tools)
     (mkSubmoduleWithPkgs ./modules/ui)
