@@ -84,24 +84,16 @@ let
 in
 {
   isDefault = lib.mkOption {
+    internal = true;
     type = lib.types.bool;
     default = false;
-    description = ''
-      Set profile as default.
-
-      Note: there can be only one default profile.
-
-      **WARNING:** only paid accounts can set multiple profiles.
-    '';
   };
 
   name = lib.mkOption {
-    type = with lib.types; nullOr str;
+    type = lib.types.str;
     default = null;
     description = ''
       Name of this profile.
-
-      Note: this must be set to a string for any profile where [`isDefault`](#isdefault) is false.
     '';
   };
 
