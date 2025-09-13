@@ -79,6 +79,7 @@ let
           externalEditor = profile.tools.editor;
           git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe cfg.git.package;
           init.defaultBranch = profile.git.defaultBranch;
+          layout.RefPanel.open = profile.ui.showLeftPanel;
           mergeTool = profile.tools.merge;
           profileIcon = profile.icon;
           useCustomTerminalCmd = hasCustomTerminal;

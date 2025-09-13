@@ -9,6 +9,14 @@
     '';
   };
 
+  showLeftPanel = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = ''
+      Show left panel showing remotes, worktrees, stashes, …
+    '';
+  };
+
   cli = {
     autocomplete = {
       enable = lib.mkOption {
