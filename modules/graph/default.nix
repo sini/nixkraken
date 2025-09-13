@@ -41,20 +41,32 @@ in
           "showGraph"
         ];
       in
-      [
-        {
-          assertion = lib.findFirst (setting: setting) false (
-            lib.map (attr: cfg.graph.${attr}) columnAttrNames
-          );
-          message = "At least one graph column must be `true` (${
-            lib.concatStringsSep ", " (lib.map (col: "`graph.${col}`") columnAttrNames)
-          })";
-        }
-        {
-          assertion = cfg.graph.showAll -> lib.isNull (cfg.graph.maxCommits);
-          message = "Cannot set a maximum number of commits (`graph.maxCommits`) to show in commit graph if all commits are shown (`graph.showAll`)";
-        }
-      ];
+      lib.flatten (
+        lib.map (
+          attrset:
+          let
+            profileName =
+              if attrset ? "name" then
+                lib.getAttr "name" attrset
+              else
+                lib.getAttrFromPath [ "defaultProfile" "name" ] attrset;
+          in
+          [
+            {
+              assertion = lib.findFirst (setting: setting) false (
+                lib.map (column: lib.getAttr column attrset.graph) columnAttrNames
+              );
+              message = "[${profileName}] At least one graph column must be `true` (${
+                lib.concatStringsSep ", " (lib.map (col: "`graph.${col}`") columnAttrNames)
+              })";
+            }
+            {
+              assertion =
+                (lib.getAttr "showAll" attrset.graph) -> lib.isNull (lib.getAttr "maxCommits" attrset.graph);
+            }
+          ]
+        ) (cfg.profiles ++ [ cfg ])
+      );
 
     programs.nixkraken._submoduleSettings.graph = settings;
   };
