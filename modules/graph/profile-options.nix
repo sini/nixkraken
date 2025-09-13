@@ -2,32 +2,32 @@
 
 {
   compact = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = false;
     description = ''
       Enable compact graph columns.
     '';
   };
 
   highlightRowsOnRefHover = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = true;
     description = ''
       Highlight associated rows when hovering over a branch.
     '';
   };
 
   showAuthor = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = false;
     description = ''
       Show commit author.
     '';
   };
 
   showDatetime = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = false;
     description = ''
       Show commit date/time.
     '';
@@ -41,63 +41,63 @@
         "hover"
         "never"
       ]);
-    default = null;
+    default = "always";
     description = ''
       Show commit description.
     '';
   };
 
   showGhostRefsOnHover = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = true;
     description = ''
       Show ghost branch/tag when hovering over or selecting a commit.
     '';
   };
 
   showMessage = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = true;
     description = ''
       Show commit message.
     '';
   };
 
   showRefs = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = true;
     description = ''
       Show branches and tags.
     '';
   };
 
   showSHA = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = false;
     description = ''
       Show commit SHA.
     '';
   };
 
   showGraph = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = true;
     description = ''
       Show commit tree.
     '';
   };
 
   useAuthorInitials = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = false;
     description = ''
       Use author initials instead of avatars.
     '';
   };
 
   useGenericRemoteIcon = lib.mkOption {
-    type = with lib.types; nullOr bool;
-    default = null;
+    type = lib.types.bool;
+    default = false;
     description = ''
       Use generic remote icon instead of hosting service icon.
     '';
