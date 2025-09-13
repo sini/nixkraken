@@ -68,32 +68,6 @@
 }
 ```
 
-## Follow Git configuration
-
-```nix
-{
-  programs.nixkraken = {
-    enable = true;
-
-    # Use local SSH agent (this is the default)
-    ssh.useLocalAgent = true;
-
-    # Configure GPG signing settings to follow Git ones
-    gpg = {
-      signingKey = config.programs.git.signing.key;
-      signCommits = config.programs.git.signing.signByDefault;
-      signTags = config.programs.git.signing.signByDefault;
-    };
-
-    # Configure user details to follow Git ones
-    user = {
-      email = config.programs.git.userEmail;
-      name = config.programs.git.userName;
-    };
-  };
-}
-```
-
 ## Custom terminal
 
 ```nix
