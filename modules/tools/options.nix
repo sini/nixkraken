@@ -9,20 +9,10 @@ in
       "none"
       "use-configured-merge-tool"
       "git-config"
-      "araxis-merge"
-      "beyond-compare"
-      "file-merge"
-      "kaleidoscope"
-      "kdiff"
-      "p4merge"
     ];
     default = "use-configured-merge-tool";
     description = ''
       Set the preferred external diff tool.
-
-      > [!WARNING]
-      >
-      > This option will not install the selected tool.
     '';
   };
 
@@ -49,20 +39,10 @@ in
     type = lib.types.enum [
       "none"
       "git-config"
-      "araxis-merge"
-      "beyond-compare"
-      "file-merge"
-      "kaleidoscope"
-      "kdiff"
-      "p4merge"
     ];
     default = "git-config";
     description = ''
       Set the preferred external merge tool.
-
-      > [!WARNING]
-      >
-      > This option will not install the selected tool.
     '';
   };
 
