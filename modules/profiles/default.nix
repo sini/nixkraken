@@ -162,13 +162,8 @@ let
               ref.visible = profile.graph.showRefs;
 
               graph = {
+                mode = if profile.graph.compact then "compact" else "text";
                 visible = profile.graph.showGraph;
-
-                mode =
-                  let
-                    value = profile.graph.compact;
-                  in
-                  if value then "compact" else "text";
               };
 
               message = {
