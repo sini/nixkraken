@@ -149,7 +149,7 @@
       '';
     };
 
-    showLineNumbers = lib.mkOption {
+    lineNumbers = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = ''
@@ -157,7 +157,7 @@
       '';
     };
 
-    syntaxHighlighting = lib.mkOption {
+    syntaxHighlight = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = ''

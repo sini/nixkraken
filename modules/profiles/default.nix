@@ -107,8 +107,8 @@ let
             fontSize = profile.ui.editor.fontSize;
             lineEnding = profile.ui.editor.eol;
             tabSize = profile.ui.editor.tabSize;
-            showLineNumbers = profile.ui.editor.showLineNumbers;
-            syntaxHighlighting = profile.ui.editor.syntaxHighlighting;
+            showLineNumbers = profile.ui.editor.lineNumbers;
+            syntaxHighlighting = profile.ui.editor.syntaxHighlight;
             wordWrap = profile.ui.editor.wrap;
           };
 
