@@ -14,6 +14,7 @@ let
   };
   gitkraken = import ./gitkraken pkgs;
   gitkrakenVersions = lib.attrNames (import ./gitkraken/versions.nix);
+  profileOpts = import ./modules/profiles/options.nix { inherit lib; };
 
   # TODO: where to find them
   logLevels = {
@@ -117,6 +118,21 @@ in
     #     Force collapse permanent tabs (Focus and Worspace views).
     #   '';
     # };
+
+    defaultProfile = {
+      icon = profileOpts.icon // {
+        description = ''
+          Icon avatar for the default profile.
+        '';
+      };
+
+      name = profileOpts.name // {
+        default = "Default Profile";
+        description = ''
+          Name of the default profile.
+        '';
+      };
+    };
 
     logLevel = lib.mkOption {
       type = lib.types.enum [
