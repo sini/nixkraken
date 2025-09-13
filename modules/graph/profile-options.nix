@@ -9,7 +9,7 @@
     '';
   };
 
-  highlightRowsOnRefHover = lib.mkOption {
+  highlightRows = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = ''
@@ -47,7 +47,7 @@
     '';
   };
 
-  showGhostRefsOnHover = lib.mkOption {
+  showGhostRefs = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = ''

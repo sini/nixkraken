@@ -72,9 +72,9 @@ let
           inherit (cfg.ui) rememberTabs;
           inherit defaultTerminal;
 
-          autoFetchInterval = profile.git.autoFetchInterval;
+          autoFetchInterval = profile.git.fetchInterval;
           autoPrune = profile.git.autoPrune;
-          autoUpdateSubmodules = profile.git.autoUpdateSubmodules;
+          autoUpdateSubmodules = profile.git.updateSubmodules;
           diffTool = profile.tools.diff;
           externalEditor = profile.tools.editor;
           git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe cfg.git.package;
@@ -144,8 +144,8 @@ let
           };
 
           ui = {
-            highlightRowsOnRefHover = profile.graph.highlightRowsOnRefHover;
-            showGhostRefsOnHover = profile.graph.showGhostRefsOnHover;
+            highlightRowsOnRefHover = profile.graph.highlightRows;
+            showGhostRefsOnHover = profile.graph.showGhostRefs;
             useAuthorInitialsForAvatars = profile.graph.useAuthorInitials;
             useGenericRemoteHostingServiceIconsInRefs = profile.graph.useGenericRemoteIcon;
 
