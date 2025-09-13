@@ -213,7 +213,7 @@ function generateOptionMarkdown(optionName, { description, type, default: optDef
   ]
 
   if (example?.text) {
-    content.push(`**Example:** ${wrapWith(unwrap(example.text, '"'), '`')}`)
+    content.push(...[`**Example:** ${wrapWith(unwrap(example.text, '"'), '`')}`, ''])
   }
 
   return content.join('\n')
