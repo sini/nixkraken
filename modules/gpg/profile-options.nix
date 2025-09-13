@@ -9,7 +9,7 @@
 
       > [!WARNING]
       >
-      > This option can only be defined if [`format`](#format) is set to `ssh`.
+      > This option can only be defined if [`format`](#gpgformat) is set to `ssh`.
 
       > [!NOTE]
       >
@@ -36,9 +36,9 @@
     description = ''
       Private key to use for commit signing.
 
-      When using _openpgp_ [`format`](#format), this is the identifier of the GPG key used for signing.
+      When using _openpgp_ [`format`](#gpgformat), this is the identifier of the GPG key used for signing.
 
-      When using _ssh_ [`format`](#format), this is the path to the SSH private key used for signing.
+      When using _ssh_ [`format`](#gpgformat), this is the path to the SSH private key used for signing.
     '';
   };
 

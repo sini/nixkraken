@@ -8,7 +8,7 @@
 
       > [!WARNING]
       >
-      > When using _ssh_ [`format`](#format), this **must** be changed from the default.
+      > When using _ssh_ [`format`](#gpgformat), this **must** be changed from the default.
     '';
   };
 
@@ -18,7 +18,7 @@
     defaultText = "bin/${pkgs.gnupg.mainProgram}";
     example = "ssh-keygen";
     description = ''
-      Binary from the [`package`](#package) to use.
+      Binary from the [`package`](#gpgpackage) to use.
     '';
   };
 }
