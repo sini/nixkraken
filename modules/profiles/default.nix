@@ -115,7 +115,7 @@ let
           gpg = {
             commitGpgSign = profile.gpg.signCommits;
             gpgFormat = "openpgp";
-            gpgProgram = profile.gpg.package;
+            gpgProgram = cfg.gpg.package;
             tagForceSignAnnotated = profile.gpg.signTags;
             userSigningKey = profile.gpg.signingKey;
             userSigningKeySsh = null;
