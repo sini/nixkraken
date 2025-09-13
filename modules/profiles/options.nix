@@ -99,7 +99,7 @@ in
     type = with lib.types; nullOr str;
     default = null;
     description = ''
-      Name of the profile displayed in GitKraken.
+      Name of this profile.
 
       Note: this must be set to a string for any profile where [`isDefault`](#isdefault) is false.
     '';
@@ -109,7 +109,7 @@ in
     type = lib.types.enum icons;
     default = "gravatar";
     description = ''
-      Icon avatar displayed in GitKraken.
+      Icon avatar for this profile.
     '';
   };
 
