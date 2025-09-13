@@ -1,0 +1,13 @@
+{
+  "tabInfo": {
+    "selectedTabId": "d7d710b3-a562-8f1b-b8bc-13dd60f248d6",
+    "tabs": [
+      {
+        "id": "d7d710b3-a562-8f1b-b8bc-13dd60f248d6",
+        "type": "REPO",
+        "repoName": "test-repo",
+        "repoPath": "/root/test-repo"
+      }
+    ]
+  }
+}
