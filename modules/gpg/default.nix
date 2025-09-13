@@ -6,12 +6,13 @@
 
 let
   cfg = config.programs.nixkraken;
-  options = import ./options.nix args;
+  appOpts = import ./app-options.nix args;
+  profileOpts = import ./profile-options.nix args;
 in
 {
   options.programs.nixkraken.gpg = lib.mkOption {
     type = lib.types.submodule {
-      inherit options;
+      options = appOpts // profileOpts;
     };
     default = { };
     description = ''

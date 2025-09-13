@@ -1,13 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 {
-  package = lib.mkPackageOption pkgs "gnupg" {
-    extraDescription = ''
-      <br/><br/>
-      Used for GPG signing.
-    '';
-  };
-
   signingKey = lib.mkOption {
     type = with lib.types; nullOr str;
     default = null;
