@@ -208,7 +208,7 @@ function generateOptionMarkdown(optionName, { description, type, default: optDef
     '',
     `**Type:** ${formatType(type)}`,
     '',
-    `**Default:** ${optDefault?.text ? wrapWith(unwrap(optDefault.text, '"'), '`') : 'No default value'}`,
+    `**Default:** ${optDefault?.text ? wrapWith(unwrap(optDefault.text, '"'), '`').replace('\\$', '$') : 'No default value'}`,
     '',
   ]
 
