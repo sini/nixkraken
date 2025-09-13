@@ -113,6 +113,11 @@ let
             wordWrap = profile.ui.editor.wrap;
           };
 
+          fileNodeList = {
+            sort = "name_${profile.ui.sortOrder}";
+            viewMode = if profile.ui.treeView then "tree_view" else "full_path";
+          };
+
           gpg = {
             commitGpgSign = profile.gpg.signCommits != null && profile.gpg.signCommits;
             gpgFormat = profile.gpg.format;

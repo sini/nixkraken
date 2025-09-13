@@ -17,6 +17,25 @@
     '';
   };
 
+  sortOrder = lib.mkOption {
+    type = lib.types.enum [
+      "ascending"
+      "descending"
+    ];
+    default = "ascending";
+    description = ''
+      Sort files in right panel alphabetically.
+    '';
+  };
+
+  treeView = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Display files in tree view mode in right panel.
+    '';
+  };
+
   cli = {
     autocomplete = {
       enable = lib.mkOption {
