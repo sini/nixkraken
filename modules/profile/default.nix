@@ -336,7 +336,7 @@ let
                       "compact"
                     ];
                   in
-                  if value then "compact" else "text";
+                  if value == true then "compact" else "text";
               };
 
               message = {
@@ -352,7 +352,7 @@ let
                       "showDesc"
                     ];
                   in
-                  if value == "hover" then "ON_HOVER" else lib.toUpper value;
+                  if value == "hover" then "ON_HOVER" else lib.optional (value != null) (lib.toUpper value);
               };
             };
           };
