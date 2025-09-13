@@ -113,12 +113,18 @@ let
           };
 
           gpg = {
-            commitGpgSign = profile.gpg.signCommits;
-            gpgFormat = "openpgp";
-            gpgProgram = cfg.gpg.package;
-            tagForceSignAnnotated = profile.gpg.signTags;
+            commitGpgSign = profile.gpg.signCommits != null && profile.gpg.signCommits;
+            gpgFormat = profile.gpg.format;
+            tagForceSignAnnotated = profile.gpg.signTags != null && profile.gpg.signTags;
+          }
+          // lib.optionalAttrs (profile.gpg.format == "openpgp") {
+            gpgProgram = "${cfg.gpg.package}/${cfg.gpg.program}";
             userSigningKey = profile.gpg.signingKey;
-            userSigningKeySsh = null;
+          }
+          // lib.optionalAttrs (profile.gpg.format == "ssh") {
+            gpgSshProgram = "${cfg.gpg.package}/${cfg.gpg.program}";
+            sshAllowedSignersFile = profile.gpg.allowedSigners;
+            userSigningKeySsh = profile.gpg.signingKey;
           };
 
           ssh = {

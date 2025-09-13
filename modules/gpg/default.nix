@@ -21,23 +21,33 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion =
+          cfg.git.useBundledGit
+          -> (builtins.all (attrset: attrset.gpg.format != "ssh") (cfg.profiles ++ [ cfg ]));
+        message = "SSH signing (`gpg.format` = \"ssh\") is only supported with Git executable (`git.useBundledGit = false`).";
+      }
+    ];
+
     warnings =
+      let
+        cast = value: value != null && value;
+      in
       (builtins.foldl' (
         warnings: profile:
         if
-          (profile.gpg.signCommits || profile.gpg.signTags)
-          && (profile.gpg.signingKey == null)
-          && (cfg.gpg.signingKey == null)
+          (cast profile.gpg.signCommits || cast profile.gpg.signTags) && profile.gpg.signingKey == null
         then
           warnings
           ++ [
-            "Profile ${profile.id} has GPG commit/tag signature enabled, but no signing key was defined in the profile nor globally."
+            "Profile \"${profile.name}\" has commit/tag signing enabled, but no signing key was defined."
           ]
         else
           warnings
       ) [ ] cfg.profiles)
       ++ lib.optional (
-        (cfg.gpg.signCommits || cfg.gpg.signTags) && (cfg.gpg.signingKey == null)
+        (cast cfg.gpg.signCommits || cast cfg.gpg.signTags) && cfg.gpg.signingKey == null
       ) "GPG commit/tag signature is enabled but no signing key was defined.";
 
     home.packages = [ cfg.gpg.package ];

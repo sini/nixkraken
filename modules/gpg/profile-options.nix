@@ -1,31 +1,62 @@
 { config, lib, ... }:
 
 {
+  allowedSigners = lib.mkOption {
+    type = with lib.types; nullOr (oneOf str path);
+    default = null;
+    description = ''
+      File used for SSH signature verification.
+
+      > [!WARNING]
+      >
+      > This option can only be defined if [`format`](#format) is set to `ssh`.
+
+      > [!NOTE]
+      >
+      > When `null`, the global git configuration value is used.
+    '';
+  };
+
+  format = lib.mkOption {
+    type = lib.types.enum [
+      "openpgp"
+      "ssh"
+    ];
+    default = "openpgp";
+    description = ''
+      Format to use for commit signing.
+    '';
+  };
+
   signingKey = lib.mkOption {
-    type = with lib.types; nullOr str;
+    type = with lib.types; nullOr (either str path);
     default = config.programs.git.signing.key;
     defaultText = "config.programs.git.signing.key";
     example = "EC6624FA72B9487E";
     description = ''
-      Private key to use for GPG signing.
+      Private key to use for commit signing.
+
+      When using _openpgp_ [`format`](#format), this is the identifier of the GPG key used for signing.
+
+      When using _ssh_ [`format`](#format), this is the path to the SSH private key used for signing.
     '';
   };
 
   signCommits = lib.mkOption {
-    type = lib.types.bool;
+    type = with lib.types; nullOr bool;
     default = config.programs.git.signing.signByDefault;
     defaultText = "config.programs.git.signing.signByDefault";
     description = ''
-      Enable GPG signature on commits.
+      Enable commit signature.
     '';
   };
 
   signTags = lib.mkOption {
-    type = lib.types.bool;
+    type = with lib.types; nullOr bool;
     default = config.programs.git.signing.signByDefault;
     defaultText = "config.programs.git.signing.signByDefault";
     description = ''
-      Enable GPG signature on tags.
+      Enable tag signature.
     '';
   };
 }
