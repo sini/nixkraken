@@ -244,7 +244,7 @@ function determineOptionGroup(optionName) {
   }
 
   // Check for pattern match
-  const groupPattern = new RegExp(`^(${OPTION_GROUPS.join('|')})`)
+  const groupPattern = new RegExp(`^(${OPTION_GROUPS.join('|').replace('*', '\\*')})`)
   const match = optionName.match(groupPattern)
 
   return match ? match[0] : 'root'
