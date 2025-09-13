@@ -1,5 +1,11 @@
 # Considerations
 
+> [!IMPORTANT]
+>
+> The project is still in development. It's not _early stage_ per se, but still is not stable enough to be considered "production ready".
+>
+> Additionally, the branches and tags referenced inside this document may or may not exist at the time. This is expected.
+
 ## Compatibility
 
 Since GitKraken is a **proprietary** and **unfree** software, various aspects of this module's development rely on interacting with minified code that may change between releases. As a result, **compatibility cannot be guaranteed**, and the module is likely to break with each new GitKraken update.
@@ -23,6 +29,10 @@ To use a specific version tag, modify the `flake.nix` inputs like this:
   inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/stable";
 }
 ```
+
+> [!NOTE]
+>
+> The examples above use [Nix Flakes](https://nixos.wiki/wiki/Flakes), please refer to the [non-Flake installation guide](./non-flakes.md) to learn how to use a specific version of NixKraken.
 
 **Breakages may occur** from time to time, potentially resulting in **missing features**, **incomplete configuration**, or **general incompatibility** between the module and the installed version of GitKraken.
 
