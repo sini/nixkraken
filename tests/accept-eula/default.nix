@@ -1,3 +1,6 @@
+# This test checks that EULA acceptance is working as intended.
+# It also ensures that the tutorial can be skipped and that user info can be defined.
+
 {
   pkgs ? import <nixpkgs> {
     config.allowUnfreePredicate =
@@ -15,6 +18,8 @@ let
 in
 pkgs.testers.runNixOSTest {
   name = "accept-eula";
+  enableOCR = true;
+  testScript = lib.readFile ./test.py;
 
   nodes.machine = {
     imports = [
@@ -36,10 +41,5 @@ pkgs.testers.runNixOSTest {
     };
   };
 
-  enableOCR = true;
-  testScript = lib.readFile ./test.py;
-
-  meta = {
-    maintainers = with lib.maintainers; [ nicolas-goudry ];
-  };
+  meta.maintainers = with lib.maintainers; [ nicolas-goudry ];
 }

@@ -1,3 +1,5 @@
+# This test checks that a specific supported version of GitKraken can be installed.
+
 {
   pkgs ? import <nixpkgs> {
     config.allowUnfreePredicate =
@@ -15,6 +17,7 @@ let
 in
 pkgs.testers.runNixOSTest {
   name = "specific-version";
+  testScript = lib.readFile ./test.py;
 
   nodes.machine = {
     imports = [
@@ -27,9 +30,5 @@ pkgs.testers.runNixOSTest {
     };
   };
 
-  testScript = lib.readFile ./test.py;
-
-  meta = {
-    maintainers = with lib.maintainers; [ nicolas-goudry ];
-  };
+  meta.maintainers = with lib.maintainers; [ nicolas-goudry ];
 }

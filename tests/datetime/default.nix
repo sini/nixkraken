@@ -1,3 +1,6 @@
+# This test checks that a custom datetime format can be configured and is displayed as expected in the UI.
+# It also ensures that Git configuration is inherited from Home Manager settings and that graph columns customization is working.
+
 {
   pkgs ? import <nixpkgs> {
     config.allowUnfreePredicate =
@@ -15,6 +18,8 @@ let
 in
 pkgs.testers.runNixOSTest {
   name = "datetime";
+  enableOCR = true;
+  testScript = lib.readFile ./test.py;
 
   nodes.machine =
     { pkgs, ... }:
@@ -62,10 +67,5 @@ pkgs.testers.runNixOSTest {
       };
     };
 
-  enableOCR = true;
-  testScript = lib.readFile ./test.py;
-
-  meta = {
-    maintainers = with lib.maintainers; [ nicolas-goudry ];
-  };
+  meta.maintainers = with lib.maintainers; [ nicolas-goudry ];
 }
