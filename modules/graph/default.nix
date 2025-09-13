@@ -32,7 +32,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions =
       let
-        columnAttrs = [
+        columnAttrNames = [
           "showAuthor"
           "showDatetime"
           "showMessage"
@@ -40,18 +40,14 @@ in
           "showSHA"
           "showGraph"
         ];
-        columnSettings = lib.map (attr: cfg.graph.${attr}) columnAttrs;
-        # Expect graph column settings to either be all null values (use defaults from app) or at least one is true
-        # To account for the root-level versus profile-level usage, those values default to null so that when set at root-level
-        # they don't get overridden by default values at profile-level
-        allNull = builtins.all (setting: setting == null) columnSettings;
-        oneTrue = lib.findFirst (setting: setting == true) false columnSettings;
       in
       [
         {
-          assertion = allNull || oneTrue;
-          message = "At least one graph column must be `true` or all columns must be `null` (${
-            lib.concatStringsSep ", " (lib.map (col: "`graph.${col}`") columnAttrs)
+          assertion = lib.findFirst (setting: setting) false (
+            lib.map (attr: cfg.graph.${attr}) columnAttrNames
+          );
+          message = "At least one graph column must be `true` (${
+            lib.concatStringsSep ", " (lib.map (col: "`graph.${col}`") columnAttrNames)
           })";
         }
         {
