@@ -1,14 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }@args:
 
 let
   cfg = config.programs.nixkraken;
   appOpts = import ./app-options.nix args;
-  commonOpts = import ./common-options.nix args;
+  profileOpts = import ./profile-options.nix args;
 
   settings = {
     gitBinaryEnabled = !cfg.git.useBundledGit;
@@ -18,7 +17,7 @@ in
 {
   options.programs.nixkraken.git = lib.mkOption {
     type = lib.types.submodule {
-      options = appOpts // commonOpts;
+      options = appOpts // profileOpts;
     };
     default = { };
     description = ''

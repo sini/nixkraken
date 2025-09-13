@@ -1,12 +1,12 @@
 { lib, ... }@args:
 
 let
-  graph.options = import ../graph/common-options.nix args;
-  git.options = import ../git/common-options.nix args;
+  graph.options = import ../graph/profile-options.nix args;
+  git.options = import ../git/profile-options.nix args;
   gpg.options = import ../gpg/options.nix args;
   ssh.options = import ../ssh/options.nix args;
   tools.options = import ../tools/options.nix args;
-  ui.options = import ../ui/common-options.nix args;
+  ui.options = import ../ui/profile-options.nix args;
   user.options = import ../user/options.nix args;
 
   # From GitKraken's prettified main.bundle.js:

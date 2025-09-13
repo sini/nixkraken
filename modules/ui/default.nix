@@ -7,7 +7,7 @@
 let
   cfg = config.programs.nixkraken;
   appOpts = import ./app-options.nix args;
-  commonOpts = import ./common-options.nix args;
+  profileOpts = import ./profile-options.nix args;
 
   settings = {
     hideFocusViewStatusBar = cfg.ui.hideFocusStatus;
@@ -21,7 +21,7 @@ in
 {
   options.programs.nixkraken.ui = lib.mkOption {
     type = lib.types.submodule {
-      options = appOpts // commonOpts;
+      options = appOpts // profileOpts;
     };
     default = { };
     description = ''
