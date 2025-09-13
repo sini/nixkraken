@@ -15,7 +15,7 @@
   program = lib.mkOption {
     type = lib.types.str;
     default = "bin/${pkgs.gnupg.meta.mainProgram}";
-    defaultText = "bin/${pkgs.gnupg.mainProgram}";
+    defaultText = "bin/\${pkgs.gnupg.mainProgram}";
     example = "ssh-keygen";
     description = ''
       Binary from the [`package`](#gpgpackage) to use.
