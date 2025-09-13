@@ -59,7 +59,7 @@ let
           "d6e5a8ca26e14325a4275fc33b17e16f"
         else
           # Profile ids are random UUIDs with dashes removed
-          builtins.replaceStrings [ "-" "" ] (genFakeUuid profile.name);
+          builtins.replaceStrings [ "-" ] [ "" ] (genFakeUuid profile.name);
       terminal = profile.tools.terminal;
       defaultTerminal = if terminal.default == "gitkraken" then "Gitkraken Terminal" else "none";
       hasCustomTerminal = terminal.default == "custom";
