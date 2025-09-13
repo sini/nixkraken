@@ -3,9 +3,10 @@
 let
   cli = import ./cli-options.nix { inherit lib; };
   editor = import ./editor-options.nix { inherit lib; };
+  launchpad = import ./launchpad-options.nix { inherit lib; };
 in
 {
-  inherit cli editor;
+  inherit cli editor launchpad;
 
   rememberTabs = lib.mkOption {
     type = lib.types.bool;

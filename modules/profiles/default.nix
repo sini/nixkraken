@@ -118,6 +118,41 @@ let
             viewMode = if profile.ui.treeView then "tree_view" else "full_path";
           };
 
+          focusView = {
+            focusViewTabSettingsById = lib.listToAttrs (
+              lib.map
+                (
+                  id:
+                  lib.nameValuePair id {
+                    settings = {
+                      density = if profile.ui.launchpad.compact then "compact" else "standard";
+
+                      fields = {
+                        comments = profile.ui.launchpad.showComments;
+                        fixVersions = profile.ui.launchpad.showFixVersions;
+                        labels = profile.ui.launchpad.showLabels;
+                        likes = profile.ui.launchpad.showLikes;
+                        linesChanged = profile.ui.launchpad.showLinesChanged;
+                        mentions = profile.ui.launchpad.showMentions;
+                        milestones = profile.ui.launchpad.showMilestones;
+                        sprints = profile.ui.launchpad.showSprints;
+                        useInitials = profile.ui.launchpad.useAuthorInitials;
+                      };
+                    };
+                  }
+                )
+                [
+                  "personalPullRequest"
+                  "personalIssue"
+                  "personalWip"
+                  "personalAll"
+                  "personalSnoozed"
+                  "teamPullRequest"
+                  "teamIssue"
+                ]
+            );
+          };
+
           gpg = {
             commitGpgSign = profile.gpg.signCommits != null && profile.gpg.signCommits;
             gpgFormat = profile.gpg.format;
@@ -144,8 +179,7 @@ let
           tabInfo = {
             inherit selectedTabId;
 
-            # TODO: enable back when ui.launchpad.collapsed exists
-            # permanentTabs.FOCUS_VIEW.closed = cfg.collapsePermanentTabs;
+            permanentTabs.FOCUS_VIEW.closed = cfg.ui.launchpad.collapsed;
 
             tabs = [
               (lib.optionalAttrs (cfg.skipTutorial) {
