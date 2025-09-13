@@ -36,6 +36,21 @@
     '';
   };
 
+  zoom = lib.mkOption {
+    type = lib.types.enum [
+      0.8
+      0.9
+      1
+      1.1
+      1.2
+      1.3
+    ];
+    default = 1;
+    description = ''
+      UI zoom percentage.
+    '';
+  };
+
   cli = {
     autocomplete = {
       enable = lib.mkOption {

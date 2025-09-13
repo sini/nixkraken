@@ -69,7 +69,7 @@ let
       ${id} = lib.attrsets.mergeAttrsList [
         {
           inherit (cfg.git) deleteOrigAfterMerge;
-          inherit (cfg.ui) rememberTabs;
+          inherit (cfg.ui) rememberTabs zoom;
           inherit defaultTerminal;
 
           autoFetchInterval = profile.git.fetchInterval;
