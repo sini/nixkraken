@@ -1,7 +1,7 @@
 # Configuration examples
 
 > [!NOTE]
-> These examples cover some of the most common use cases. For a complete list of all available settings, please see the [module options reference](../options/nixkraken.md).
+> These examples cover some of the most common use cases. For a complete list of available settings, please see the [module options reference](../options/nixkraken.md).
 
 ## Basic setup
 
@@ -21,10 +21,11 @@
     # Accept the End User License Agreement
     acceptEULA = true;
 
-    # Don't show the introductory tour on first launch
-    skipTour = true;
+    # Don't show the introduction tutorial on first launch
+    skipTutorial = true;
 
     # Disable promotional and non-essential notifications
+    # WARNING: this will not work without a paid subscription
     notifications = {
       feature = false;
       help = false;
@@ -44,7 +45,7 @@
   programs.nixkraken = {
     enable = true;
 
-    # Configure the default/personal profile
+    # Configure the default profile
     user = {
       name = "Personal Name";
       email = "personal@email.com"
@@ -60,8 +61,39 @@
           email = "work@email.com";
         };
 
-        # You can override default settings in profiles
         ui.theme = "dark";
+      }
+    ];
+  };
+}
+```
+
+### Inherit options from default profile
+
+```nix
+{
+  # Notice the "rec" keyword? This is a recursive attribute set, allowing us to
+  # reuse previously defined keys anywhere inside this attribute set.
+  programs.nixkraken = rec {
+    enable = true;
+
+    # Configure graph columns
+    graph = {
+      compact = true;
+      showAuthor = true;
+      showDatetime = true;
+      showMessage = true;
+      showRefs = false;
+      showSHA = false;
+      showGraph = true;
+    };
+
+    profiles = [
+      {
+        # Use same graph settings as default profile
+        inherit graph;
+
+        name = "Other profile";
       }
     ];
   };

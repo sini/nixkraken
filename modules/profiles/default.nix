@@ -232,7 +232,7 @@ in
       >
       > Additional profiles do not inherit the default profile options.
       >
-      > Refer to [configuration example](../getting-started/examples.md) for details on how to implement inheritance from default profile.
+      > Refer to [configuration example](../getting-started/examples.md#inherit-options-from-default-profile) for details on how to implement inheritance from default profile.
     '';
   };
 
