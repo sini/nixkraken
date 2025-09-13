@@ -2,7 +2,7 @@
 
 {
   allowedSigners = lib.mkOption {
-    type = with lib.types; nullOr (oneOf str path);
+    type = with lib.types; nullOr (either str path);
     default = null;
     description = ''
       File used for SSH signature verification.
