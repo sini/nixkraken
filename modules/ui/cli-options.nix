@@ -62,7 +62,7 @@
   };
 
   fontSize = lib.mkOption {
-    type = lib.types.int;
+    type = lib.types.ints.positive;
     default = 12;
     description = ''
       Font size to use in the integrated terminal.
@@ -70,7 +70,7 @@
   };
 
   lineHeight = lib.mkOption {
-    type = lib.types.int;
+    type = lib.types.ints.positive;
     default = 1;
     description = ''
       Line height in the integrated terminal.

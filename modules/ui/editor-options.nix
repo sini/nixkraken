@@ -22,7 +22,7 @@
   };
 
   fontSize = lib.mkOption {
-    type = lib.types.int;
+    type = lib.types.ints.positive;
     default = 12;
     description = ''
       Font size to use in the editor.
@@ -46,7 +46,7 @@
   };
 
   tabSize = lib.mkOption {
-    type = lib.types.int;
+    type = lib.types.ints.positive;
     default = 4;
     description = ''
       Size of the indentation in the editor.
