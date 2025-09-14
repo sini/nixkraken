@@ -171,11 +171,10 @@ let
 
           ssh = {
             inherit (profile.git) useGitCredentialManager;
+            inherit (profile.ssh) publicKey privateKey;
 
             appVersion = "${if cfg.package != null then cfg.package.version else cfg.version}";
             generated = false;
-            publicKey = profile.ssh.publicKey;
-            privateKey = profile.ssh.privateKey;
             useLocalAgent = profile.ssh.useLocalAgent;
           };
 
