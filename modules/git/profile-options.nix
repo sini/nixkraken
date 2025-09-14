@@ -56,4 +56,12 @@
       Automatically keep submodules up to date when performing Git actions.
     '';
   };
+
+  useGitCredentialManager = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Use the [Git credential manager](https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage) to access Git repositories.
+    '';
+  };
 }

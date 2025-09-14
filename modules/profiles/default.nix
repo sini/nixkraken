@@ -170,6 +170,8 @@ let
           };
 
           ssh = {
+            inherit (profile.git) useGitCredentialManager;
+
             appVersion = "${if cfg.package != null then cfg.package.version else cfg.version}";
             generated = false;
             publicKey = profile.ssh.publicKey;
