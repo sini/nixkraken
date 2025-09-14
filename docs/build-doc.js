@@ -229,6 +229,25 @@ function formatType(type) {
     return 'attribute set of (submodule)'
   }
 
+  const allTypes = type
+    .match(/^(.*?")/)?.[0]
+    ?.split(' or ')
+    ?.map((str) => str.replace('"', '')?.trim())
+
+  if (allTypes?.includes('one of')) {
+    return [
+      allTypes
+        .map((t) => (t === 'one of' ? 'constrained string' : t === 'string' ? 'freeform string' : t))
+        .join(' or '),
+      '',
+      '**Valid values:**',
+      ...type
+        .replace(/^.*?"/, '"')
+        .split(', ')
+        .map((value) => `- ${wrapWith(unwrap(value, '"'), '`')}`),
+    ].join('\n')
+  }
+
   return type || 'unknown type'
 }
 
