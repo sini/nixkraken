@@ -75,17 +75,16 @@ in
   };
 
   zoom = lib.mkOption {
-    type = lib.types.enum [
-      0.8
-      0.9
-      1
-      1.1
-      1.2
-      1.3
-    ];
+    type = lib.types.numbers.between 0.8 1.3;
     default = 1;
     description = ''
       UI zoom percentage.
+
+      > [!NOTE]
+      >
+      > Zoom value is done in increment of 0.1 only. The value is truncated to a one decimal number.
+      >
+      > This means that setting this option to `0.96` will result in `0.9` being applied.
     '';
   };
 }

@@ -3,6 +3,7 @@
 let
   genUUID = import ./uuid.nix lib;
   profileIcons = import ./profile-icons.nix;
+  truncateFloat = import ./truncate-float.nix lib;
 in
 profile:
 let
@@ -35,6 +36,7 @@ in
       userEmail = profile.user.email;
       userName = profile.user.name;
       workDirSummary = profile.ui.showRepoSummary;
+      zoom = truncateFloat (profile.ui.zoom + 0.0) 1;
 
       cli = {
         cursorStyle = profile.ui.cli.cursor;
