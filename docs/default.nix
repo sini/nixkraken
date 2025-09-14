@@ -5,7 +5,6 @@
   mdbook,
   mdbook-alerts,
   mdbook-linkcheck,
-  mdbook-pagetoc,
   nodejs,
   rustc,
 }:
@@ -40,7 +39,6 @@ stdenvNoCC.mkDerivation {
     mdbook
     mdbook-alerts
     mdbook-linkcheck
-    mdbook-pagetoc
   ];
 
   dontConfigure = true;
@@ -72,7 +70,6 @@ stdenvNoCC.mkDerivation {
     mdbook
     mdbook-alerts
     mdbook-linkcheck
-    mdbook-pagetoc
     rustc
   ];
 

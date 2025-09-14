@@ -6,24 +6,11 @@ _:
 
   programs.nixfmt.enable = true;
   programs.black.enable = true;
+  programs.prettier.enable = true;
 
   programs.shellcheck = {
     enable = true;
 
     excludes = [ ".envrc" ];
-  };
-
-  programs.prettier = {
-    enable = true;
-
-    includes = [
-      "*.md"
-      "*.js"
-      "*.yaml"
-    ];
-
-    excludes = [
-      "docs/theme/*"
-    ];
   };
 }
