@@ -49,6 +49,8 @@
 
         > [!NOTE]
         >
+        > This option will not have any effect unless a custom external editor is set with [`tools.editor.package`](@OPTIONS_ROOT@/tools.md#toolseditorpackage).
+        >
         > The following variables are available:
         >
         > - `$REPO_PATH`: path to the repository on filesystem
@@ -63,6 +65,8 @@
         Extra options passed to the editor when opening a repository.
 
         > [!NOTE]
+        >
+        > This option will not have any effect unless a custom external editor is set with [`tools.editor.package`](@OPTIONS_ROOT@/tools.md#toolseditorpackage).
         >
         > The following variable is available:
         >
