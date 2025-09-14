@@ -75,6 +75,7 @@ let
           autoFetchInterval = profile.git.fetchInterval;
           autoPrune = profile.git.autoPrune;
           autoUpdateSubmodules = profile.git.updateSubmodules;
+          confictDetection.enabled = profile.git.detectConflicts;
           diffTool = profile.tools.diff;
           externalEditor = profile.tools.editor;
           git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe cfg.git.package;

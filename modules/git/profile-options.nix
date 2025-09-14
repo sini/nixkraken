@@ -29,6 +29,14 @@
     '';
   };
 
+  detectConflicts = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = ''
+      Enable proactive detection of merge conflicts with target branch.
+    '';
+  };
+
   fetchInterval = lib.mkOption {
     type = lib.types.ints.between 0 60;
     default = 1;
