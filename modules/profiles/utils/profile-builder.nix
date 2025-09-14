@@ -2,6 +2,7 @@
 
 let
   genUUID = import ./uuid.nix lib;
+  profileIcons = import ./profile-icons.nix;
 in
 profile:
 let
@@ -30,7 +31,7 @@ in
       init.defaultBranch = profile.git.defaultBranch;
       layout.RefPanel.open = profile.ui.showLeftPanel;
       mergeTool = profile.tools.merge;
-      profileIcon = profile.icon;
+      profileIcon = profileIcons.${profile.icon};
       userEmail = profile.user.email;
       userName = profile.user.name;
       workDirSummary = profile.ui.showRepoSummary;
