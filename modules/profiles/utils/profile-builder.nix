@@ -18,8 +18,8 @@ in
 {
   ${id} = lib.attrsets.mergeAttrsList [
     {
-      inherit (cfg.git) deleteOrigAfterMerge;
-      inherit (cfg.ui) rememberTabs zoom;
+      inherit (profile.git) deleteOrigAfterMerge;
+      inherit (profile.ui) rememberTabs;
 
       autoFetchInterval = profile.git.fetchInterval;
       autoPrune = profile.git.autoPrune;
