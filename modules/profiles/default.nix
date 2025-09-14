@@ -60,9 +60,6 @@ let
         else
           # Profile ids are random UUIDs with dashes removed
           builtins.replaceStrings [ "-" ] [ "" ] (genFakeUuid profile.name);
-      terminal = profile.tools.terminal;
-      defaultTerminal = if terminal.default == "gitkraken" then "Gitkraken Terminal" else "none";
-      hasCustomTerminal = terminal.default == "custom";
       selectedTabId = genFakeUuid "selected-tab";
     in
     {
@@ -70,20 +67,17 @@ let
         {
           inherit (cfg.git) deleteOrigAfterMerge;
           inherit (cfg.ui) rememberTabs zoom;
-          inherit defaultTerminal;
 
           autoFetchInterval = profile.git.fetchInterval;
           autoPrune = profile.git.autoPrune;
           autoUpdateSubmodules = profile.git.updateSubmodules;
           confictDetection.enabled = profile.git.detectConflicts;
           diffTool = profile.tools.diff;
-          externalEditor = profile.tools.editor;
           git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe cfg.git.package;
           init.defaultBranch = profile.git.defaultBranch;
           layout.RefPanel.open = profile.ui.showLeftPanel;
           mergeTool = profile.tools.merge;
           profileIcon = profile.icon;
-          useCustomTerminalCmd = hasCustomTerminal;
           userEmail = profile.user.email;
           userName = profile.user.name;
 
@@ -112,6 +106,38 @@ let
             showLineNumbers = profile.ui.editor.lineNumbers;
             syntaxHighlighting = profile.ui.editor.syntaxHighlight;
             wordWrap = profile.ui.editor.wrap;
+          };
+
+          externalTools = {
+            editor =
+              let
+                hasExternalEditor = profile.tools.editor.package != null;
+              in
+              {
+                externalEditorType = if hasExternalEditor then "custom" else "none";
+
+                customEditor = lib.optionalAttrs hasExternalEditor {
+                  path = lib.getExe profile.tools.editor.package;
+
+                  commands = {
+                    file = profile.tools.editor.fileExtraOptions;
+                    repo = profile.tools.editor.repoExtraOptions;
+                  };
+                };
+              };
+
+            terminal =
+              let
+                hasExternalTerminal = profile.tools.terminal.package != null;
+              in
+              {
+                externalTerminalType = if hasExternalTerminal then "custom" else "builtIn";
+
+                customTerminal = lib.optionalAttrs hasExternalTerminal {
+                  command = profile.tools.terminal.extraOptions;
+                  path = lib.getExe profile.tools.terminal.package;
+                };
+              };
           };
 
           fileNodeList = {
@@ -226,20 +252,6 @@ let
             };
           };
         }
-        (if (profile.name != null) then { profileName = profile.name; } else { })
-        (
-          if hasCustomTerminal then
-            {
-              customTerminalCmd = lib.concatStringsSep " " [
-                "${
-                  if lib.isStorePath terminal.bin then terminal.bin else terminal.package + "/bin/" + terminal.bin
-                }"
-                terminal.extraOptions
-              ];
-            }
-          else
-            { }
-        )
       ];
     };
 

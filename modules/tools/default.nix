@@ -6,12 +6,13 @@
 
 let
   cfg = config.programs.nixkraken;
-  options = import ./options.nix args;
+  appOpts = import ./app-options.nix args;
+  profileOpts = import ./profile-options.nix args;
 in
 {
   options.programs.nixkraken.tools = lib.mkOption {
     type = lib.types.submodule {
-      inherit options;
+      options = lib.recursiveUpdate appOpts profileOpts;
     };
     default = { };
     description = ''
@@ -20,21 +21,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.tools.terminal.default == "custom" -> cfg.tools.terminal.package != null;
-        message = "Terminal package (`tools.terminal.package`) must be set if default terminal is custom (`tools.terminal.default = \"custom\"`)";
-      }
-      {
-        assertion = cfg.tools.terminal.package != null -> cfg.tools.terminal.default != "custom";
-        message = "Terminal package (`tools.terminal.package`) cannot be set if default terminal is not custom (`tools.terminal.default != \"custom\"`)";
-      }
-      {
-        assertion = cfg.tools.terminal.bin != null -> cfg.tools.terminal.package != null;
-        message = "Terminal binary (`tools.terminal.bin`) cannot be set if terminal package (`tools.terminal.package`) is not set";
-      }
-    ];
-
-    home.packages = lib.mkIf (cfg.tools.terminal.package != null) [ cfg.tools.terminal.package ];
+    home.packages = lib.flatten (
+      (lib.optional (cfg.tools.editor.package != null) cfg.tools.editor.package)
+      ++ (lib.optional (cfg.tools.terminal.package != null) cfg.tools.terminal.package)
+    );
   };
 }
