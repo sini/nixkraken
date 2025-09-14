@@ -24,6 +24,14 @@ in
     '';
   };
 
+  showRepoSummary = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = ''
+      Display WIP summary (for uncommitted changes on files like delete, add, edit, move) for repositories in Repository Management view.
+    '';
+  };
+
   sortOrder = lib.mkOption {
     type = lib.types.enum [
       "ascending"

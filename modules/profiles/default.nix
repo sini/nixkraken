@@ -80,6 +80,7 @@ let
           profileIcon = profile.icon;
           userEmail = profile.user.email;
           userName = profile.user.name;
+          workDirSummary = profiles.ui.showRepoSummary;
 
           cli = {
             cursorStyle = profile.ui.cli.cursor;
