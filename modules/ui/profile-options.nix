@@ -43,29 +43,6 @@ in
     '';
   };
 
-  treeView = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = ''
-      Display files in tree view mode in right panel.
-    '';
-  };
-
-  zoom = lib.mkOption {
-    type = lib.types.enum [
-      0.8
-      0.9
-      1
-      1.1
-      1.2
-      1.3
-    ];
-    default = 1;
-    description = ''
-      UI zoom percentage.
-    '';
-  };
-
   theme = lib.mkOption {
     type =
       with lib.types;
@@ -86,6 +63,29 @@ in
       > [!NOTE]
       >
       > Extra themes are referenced by their `meta.name`, ie. `catppuccin-mocha`.
+    '';
+  };
+
+  treeView = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Display files in tree view mode in right panel.
+    '';
+  };
+
+  zoom = lib.mkOption {
+    type = lib.types.enum [
+      0.8
+      0.9
+      1
+      1.1
+      1.2
+      1.3
+    ];
+    default = 1;
+    description = ''
+      UI zoom percentage.
     '';
   };
 }
