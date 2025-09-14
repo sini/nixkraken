@@ -71,7 +71,7 @@ let
           autoFetchInterval = profile.git.fetchInterval;
           autoPrune = profile.git.autoPrune;
           autoUpdateSubmodules = profile.git.updateSubmodules;
-          confictDetection.enabled = profile.git.detectConflicts;
+          conflictDetection.enabled = profile.git.detectConflicts;
           diffTool = profile.tools.diff;
           git.selectedGitPath = if cfg.git.useBundledGit then "$packaged" else lib.getExe cfg.git.package;
           init.defaultBranch = profile.git.defaultBranch;
