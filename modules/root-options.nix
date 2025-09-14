@@ -65,8 +65,6 @@ in
       >
       > - requires to allow unfree packages
       > - is mutually exclusive with [`version`](#version)
-
-      > [!NOTE]
       >
       > We advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when it is used.
       >
@@ -86,14 +84,13 @@ in
     type = lib.types.nullOr (lib.types.enum gitkrakenVersions);
     default = "11.4.0";
     description = ''
-      The GitKraken version to use. Requires to allow unfree packages.
+      The GitKraken version to use.
 
       > [!IMPORTANT]
       >
-      > This option:
+      > When using this option, the GitKraken package will automatically be fetched from a commit of [nixpkgs](https://github.com/nixos/nixpkgs) known to be available in the cache. To benefit from the cache, users should first [configure it](../getting-started/caching.md).
       >
-      > - requires to allow unfree packages
-      > - is mutually exclusive with [`package`](#package)
+      > This option is mutually exclusive with [`package`](#package).
     '';
   };
 
