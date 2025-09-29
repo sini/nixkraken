@@ -2,15 +2,7 @@
 # It also ensures that the tutorial can be skipped and that user info can be defined.
 
 {
-  pkgs ? import <nixpkgs> {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
-        "gitkraken"
-      ];
-
-    overlays = [ ];
-  },
+  pkgs ? import <nixpkgs> { },
 }:
 
 let

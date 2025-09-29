@@ -1,15 +1,7 @@
 # This test checks that a specific supported version of GitKraken can be installed.
 
 {
-  pkgs ? import <nixpkgs> {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
-        "gitkraken"
-      ];
-
-    overlays = [ ];
-  },
+  pkgs ? import <nixpkgs> { },
 }:
 
 let

@@ -2,15 +2,7 @@
 # It also ensures that Git configuration is inherited from Home Manager settings and that graph columns customization is working.
 
 {
-  pkgs ? import <nixpkgs> {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
-        "gitkraken"
-      ];
-
-    overlays = [ ];
-  },
+  pkgs ? import <nixpkgs> { },
 }:
 
 let

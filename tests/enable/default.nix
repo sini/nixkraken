@@ -2,15 +2,7 @@
 # It also tests that application and profile-specific configuration files gets written to home directory.
 
 {
-  pkgs ? import <nixpkgs> {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
-        "gitkraken"
-      ];
-
-    overlays = [ ];
-  },
+  pkgs ? import <nixpkgs> { },
 }:
 
 let
