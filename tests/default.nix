@@ -14,24 +14,55 @@ in
 # Build attribute set of all tests and a custom derivation running all tests altogether
 allTests
 // {
-  all = pkgs.stdenv.mkDerivation rec {
-    name = "all-tests";
-    src = ./.;
+  all =
+    let
+      # Dummy binary to avoid simply failing on 'nix run .#tests.all', inform caller on how to actually run tests and list available tests
+      norun = pkgs.writeShellApplication {
+        name = "norun";
+        text = ''
+          >&2 echo
+          >&2 echo "===== NOTICE ====="
+          >&2 echo
+          >&2 echo "The test suite is not meant to be run directly."
+          >&2 echo
+          >&2 echo "To build all tests, use:"
+          >&2 echo -e "\t\$ nix build .#tests.all"
+          >&2 echo
+          >&2 echo "The tests have already been built, and the results are available here:"
+          >&2 echo -e "\t> $(realpath -m "''${BASH_SOURCE[0]}/../../share")"
+          >&2 echo
+          >&2 echo "You can also run individual interactive tests like this:"
+          >&2 echo -e "\t\$ nix run .#tests.<test-name>.driverInteractive"
+          >&2 echo
+          >&2 echo "Available tests:"
+          for test in ${lib.concatStringsSep " " (lib.attrNames tests)}; do
+            >&2 echo "  - $test"
+          done
+          >&2 echo
+          >&2 echo "=================="
+        '';
+      };
+    in
+    pkgs.stdenv.mkDerivation rec {
+      name = "all-tests";
+      src = ./.;
 
-    # Using allTests attribute set values (actual imported tests) as buildInputs so they get build (i.e. tests are run as part of build)
-    buildInputs = lib.attrValues allTests;
+      # Using allTests attribute set values (actual imported tests) as buildInputs so they get build (i.e. tests are run as part of build)
+      buildInputs = lib.attrValues allTests;
+      nativeBuildInputs = [ norun ];
 
-    installPhase = ''
-      runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-      mkdir -p $out
+        mkdir -p $out/bin $out/share
+        install -m 0755 ${lib.getExe norun} $out/bin/${name}
 
-      # Retrieve tests snapshots
-      for build in ${lib.concatStringsSep " " (lib.map (b: b.out) buildInputs)}; do
-        cp $build/snapshot.png $out/$(basename $build).png || true
-      done
+        # Retrieve tests snapshots
+        for build in ${lib.concatStringsSep " " (lib.map (b: b.out) buildInputs)}; do
+          cp $build/snapshot.png $out/share/$(basename $build).png || true
+        done
 
-      runHook postInstall
-    '';
-  };
+        runHook postInstall
+      '';
+    };
 }
