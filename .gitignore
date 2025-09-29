@@ -1,4 +1,4 @@
 .direnv
 docs/book
-result
+result*
 .nixos-test-history
