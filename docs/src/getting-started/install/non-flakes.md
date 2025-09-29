@@ -1,5 +1,11 @@
 # Install without Flakes
 
+> [!NOTE]
+>
+> Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion](https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a) if you are stuck integrating NixKraken within your configuration.
+>
+> Refer to [Home Manager installation documentation](https://nix-community.github.io/home-manager/index.xhtml#ch-installation) as well as the [NixOS manual](https://nixos.org/manual/nixos/stable/) for further details on each of these.
+
 ## Recommended method: using `fetchFromGitHub`
 
 The simplest way to use NixKraken without Flakes is to fetch it directly from GitHub inside `home.nix`.
@@ -15,7 +21,6 @@ The simplest way to use NixKraken without Flakes is to fetch it directly from Gi
       repo = "nixkraken";
       rev = "main";
       # rev = "<branch-name|commit-sha>";
-      # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
       hash = lib.fakeHash; # Make sure to read the callout below
     }}/module.nix"
   ];
@@ -50,9 +55,7 @@ If other fetchers or a dependency pinning tool should be used, see the options b
     "${pkgs.fetchzip {
       url = "https://github.com/nicolas-goudry/nixkraken/archive/main.zip";
       # url = "https://github.com/nicolas-goudry/nixkraken/archive/<branch-name|commit-sha>.zip";
-      # url = "https://github.com/nicolas-goudry/nixkraken/archive/refs/tags/<tag-name>.zip";
-      hash = "<retrieved-hash>";
-      # hash = lib.fakeHash;
+      hash = lib.fakeHash;
     }}/module.nix"
   ];
 }
@@ -73,9 +76,7 @@ If other fetchers or a dependency pinning tool should be used, see the options b
       url = "https://github.com/nicolas-goudry/nixkraken.git";
       rev = "main";
       # rev = "<branch-name|commit-sha>";
-      # tag = "<tag-name>"; # Use either `rev` or `tag`, not both!
-      hash = "<retrieved-hash>";
-      # hash = lib.fakeHash;
+      hash = lib.fakeHash;
     }}/module.nix"
   ];
 }
@@ -95,9 +96,7 @@ If other fetchers or a dependency pinning tool should be used, see the options b
     "${builtins.fetchTarball {
       url = "https://github.com/nicolas-goudry/nixkraken/archive/main.tar.gz";
       # url = "https://github.com/nicolas-goudry/nixkraken/archive/<branch-name|commit-sha>.tar.gz";
-      # url = "https://github.com/nicolas-goudry/nixkraken/archive/refs/tags/<tag-name>.tar.gz";
-      sha256 = "<retrieved-hash>";
-      # sha256 = lib.fakeSha256;
+      sha256 = lib.fakeSha256;
     }}/module.nix"
   ];
 }
@@ -111,6 +110,8 @@ If other fetchers or a dependency pinning tool should be used, see the options b
 
 ```bash
 niv add nicolas-goudry/nixkraken
+# niv add nicolas-goudry/nixkraken -b <branch-name>
+# niv add nicolas-goudry/nixkraken -r <commit-sha>
 ```
 
 ```nix
@@ -124,12 +125,14 @@ in {
 ```
 
 > [!CAUTION]
-> These instructions are untested. Please report an issue if they are not working, or suggest a PR fixing them.
+> These instructions are untested. Please [report an issue](https://github.com/nicolas-goudry/nixkraken/issues) if they are not working, or suggest a PR fixing them.
 
 #### [npins](https://github.com/andir/npins)
 
 ```bash
 npins add github nicolas-goudry nixkraken
+# npins add github -b <branch-name> nicolas-goudry nixkraken
+# npins add github --at <commit-sha> nicolas-goudry nixkraken
 ```
 
 ```nix
@@ -143,7 +146,7 @@ in {
 ```
 
 > [!CAUTION]
-> These instructions are untested. Please report an issue if they are not working, or suggest a PR fixing them.
+> These instructions are untested. Please [report an issue](https://github.com/nicolas-goudry/nixkraken/issues) if they are not working, or suggest a PR fixing them.
 
 ## Retrieve release hash
 
@@ -184,7 +187,7 @@ nix-prefetch-git \
 
 > 💡 **Tips**
 >
-> To retrieve the sources hash at a given point in history (tag or commit), use `--rev <tag-name|commit-sha>`.
+> To retrieve the sources hash at a given point in history, use `--rev <commit-sha>`.
 >
 > To retrieve the sources hash for a given branch, use `--rev refs/heads/<branch-name>`.
 
@@ -208,7 +211,5 @@ nix hash convert \
 ```
 
 > 💡 **Tips**
->
-> To retrieve the sources hash at a given tag, replace `main.tar.gz` by `refs/tags/<tag-name>.tar.gz`.
 >
 > To retrieve the sources hash at a given point in history (branch or commit), replace `main.tar.gz` by `<branch-name|commit-sha>.tar.gz`.

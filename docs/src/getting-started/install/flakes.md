@@ -2,6 +2,12 @@
 
 There are two primary ways to use NixKraken with Flakes, depending on whether the home environment is managed as part of a NixOS system or as a standalone configuration.
 
+> [!NOTE]
+>
+> Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion](https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a) if you are stuck integrating NixKraken within your configuration.
+>
+> Refer to [Home Manager installation documentation](https://nix-community.github.io/home-manager/index.xhtml#ch-installation) as well as the [NixOS manual](https://nixos.org/manual/nixos/stable/) for further details on each of these.
+
 ### Standalone Home Manager
 
 Use this method if the user environment is managed with Home Manager on any OS (including NixOS, macOS, or other Linux distributions) through its own `flake.nix`.
@@ -14,9 +20,16 @@ Here is a complete, minimal `flake.nix` for a standalone setup:
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixkraken.url = "github:nicolas-goudry/nixkraken";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixkraken = {
+      url = "github:nicolas-goudry/nixkraken";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nixkraken }:
@@ -25,6 +38,7 @@ Here is a complete, minimal `flake.nix` for a standalone setup:
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
+      # Home Manager configuration for 'your-username' user
       homeConfigurations."your-username" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
@@ -32,7 +46,7 @@ Here is a complete, minimal `flake.nix` for a standalone setup:
           # 1. Import the NixKraken module
           nixkraken.homeManagerModules.nixkraken
 
-          # 2. Add configuration
+          # 2. Configure NixKraken
           {
             programs.nixkraken.enable = true;
             # ... add other options here
@@ -55,12 +69,20 @@ Here is a complete, minimal `flake.nix` for a NixOS setup:
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixkraken.url = "github:nicolas-goudry/nixkraken";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixkraken = {
+      url = "github:nicolas-goudry/nixkraken";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nixkraken }: {
+    # NixOS configuration for 'your-hostname' host
     nixosConfigurations."your-hostname" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
@@ -75,14 +97,14 @@ Here is a complete, minimal `flake.nix` for a NixOS setup:
             extraGroups = [ "wheel" ];
           };
 
-          # Configure Home Manager for this user
+          # Home Manager configuration for 'your-username' user
           home-manager.users."your-username" = {
+            # 1. Import the NixKraken module
             imports = [
-              # 1. Import the NixKraken module
               nixkraken.homeManagerModules.nixkraken
             ];
 
-            # 2. Add configuration
+            # 2. Configure NixKraken
             programs.nixkraken.enable = true;
             # ... add other options here
           };

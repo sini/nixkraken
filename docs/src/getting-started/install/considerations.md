@@ -1,24 +1,24 @@
 # Considerations
 
-> [!IMPORTANT]
+> [!CAUTION]
 >
-> The project is still in development. It's not _early stage_ per se, but still is not stable enough to be considered "production ready".
+> This project is still in development. It's not _early stage_ per se, but still is not stable enough to be considered "production ready".
 >
-> Additionally, the branches and tags referenced inside this document may or may not exist at the time. This is expected.
+> Additionally, the Git references mentioned in this document may or may not exist at the time of reading. This **is** expected.
 
 ## Compatibility
 
 Since GitKraken is a **proprietary** and **unfree** software, various aspects of this module's development rely on interacting with minified code that may change between releases. As a result, **compatibility cannot be guaranteed**, and the module is likely to break with each new GitKraken update.
 
-When the module is confirmed to work with a specific GitKraken version, a tag matching that GitKraken version will be created. This process means that multiple tags may point to the same commit. For example, if a given commit works with version 11.0.0 and 11.1.0, both tags `v11.0.0` and `v11.1.0` will target this commit.
+When the module is confirmed to work with a specific GitKraken version, a release branch matching this version will be created (ie. branch `v11.1.0` is expected to be fully compatible with version 11.1.0 of GitKraken). Although release branches will most likely be considered feature-complete once created and won't see any further development, they still could introduce backports from newer versions as well as bug fixes.
 
 ## Stability
 
-Development occurs on the `main` branch, which should be **considered unstable** and may not always be compatible with any particular GitKraken release.
+Development occurs on the `main` branch, which should be **considered unstable** and incompatible with any version of GitKraken.
 
-**Users seeking stability should use aforementioned versioned tags** rather than the `main` branch. There's also the `stable` tag, which dynamically tracks the latest working release.
+**Users seeking stability should use aforementioned versioned branches** rather than the `main` branch. There's also the `stable` branch, which dynamically tracks the latest working release. No development will occur on the `stable` branch and it will never introduce a feature or bug fix which is not available on the latest available release branch.
 
-To use a specific version tag, modify the `flake.nix` inputs like this:
+To use a specific release branch, modify `flake.nix`' inputs like this:
 
 ```nix
 {
