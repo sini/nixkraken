@@ -1,29 +1,19 @@
 { lib, ... }:
 
 let
-  # WARN: this MUST be updated to match NixOS version defined in tests/default.nix
+  # WARN: this MUST be updated to match nixpkgs version defined in flake.nix
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
-    # TODO: how to get hash
-    sha256 = "sha256:0d41gr0c89a4y4lllzdgmbm54h9kn9fjnmavwpgw0w9xwqwnzpax";
+    # nix-prefetch-url --unpack https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz 2>/dev/null
+    sha256 = "0q3lv288xlzxczh6lc5lcw0zj9qskvjw3pzsrgvdh8rl8ibyq75s";
   };
-
-  # TODO: check why we cannot use 'pkgs.fetchFromGitHub' here due to an infinite recursion
-  # home-manager = pkgs.fetchFromGitHub {
-  #   owner = "nix-community";
-  #   repo = "home-manager";
-  #   # TODO: this should ultimately target release branches
-  #   rev = "release-25.05";
-  #   # TODO: until release branches are used, change this when module is updated
-  #   # nix-prefetch-git --url git@github.com:nix-community/home-manager.git --rev refs/heads/release-25.05 --quiet | jq -r .hash
-  #   hash = "sha256-Xd1vOeY9ccDf5VtVK12yM0FS6qqvfUop8UQlxEB+gTQ=";
-  # };
 in
 {
   imports = [
     (import "${home-manager}/nixos")
   ];
 
+  # TODO: this currently doesn't seem to work for some reason, fix it
   nix.extraOptions = ''
     extra-substituters = https://cache.garnix.io
     extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
