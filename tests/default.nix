@@ -51,18 +51,23 @@ allTests
       buildInputs = lib.attrValues allTests;
       nativeBuildInputs = [ norun ];
 
-      installPhase = ''
-        runHook preInstall
+      installPhase = lib.concatLines (
+        lib.flatten [
+          ''
+            runHook preInstall
 
-        mkdir -p $out/bin $out/share
-        install -m 0755 ${lib.getExe norun} $out/bin/${name}
-
-        # Retrieve tests snapshots
-        for build in ${lib.concatStringsSep " " (lib.map (b: b.out) buildInputs)}; do
-          cp $build/snapshot.png $out/share/$(basename $build).png || true
-        done
-
-        runHook postInstall
-      '';
+            mkdir -p $out/bin
+            install -m 0755 ${lib.getExe norun} $out/bin/${name}
+          ''
+          # Copy each test artifacts to a dedicated directory
+          (lib.map (build: ''
+            mkdir -p $out/share/${build.config.name}
+            cp ${build.out}/snapshot.png $out/share/${build.config.name} || true
+          '') buildInputs)
+          ''
+            runHook postInstall
+          ''
+        ]
+      );
     };
 }
