@@ -13,12 +13,23 @@ let
 in
 # Build attribute set of all tests and a custom derivation running all tests altogether
 allTests
-// {
+// rec {
+  show = pkgs.writeShellApplication {
+    name = "show-tests";
+    text = ''
+      echo "Available tests:"
+      for test in ${lib.concatStringsSep " " (lib.attrNames tests)}; do
+        echo "  - $test"
+      done
+    '';
+  };
+
   all =
     let
       # Dummy binary to avoid simply failing on 'nix run .#tests.all', inform caller on how to actually run tests and list available tests
       norun = pkgs.writeShellApplication {
         name = "norun";
+        runtimeInputs = [ show ];
         text = ''
           >&2 echo
           >&2 echo "===== NOTICE ====="
@@ -34,10 +45,7 @@ allTests
           >&2 echo "You can also run individual interactive tests like this:"
           >&2 echo -e "\t\$ nix run .#tests.<test-name>.driverInteractive"
           >&2 echo
-          >&2 echo "Available tests:"
-          for test in ${lib.concatStringsSep " " (lib.attrNames tests)}; do
-            >&2 echo "  - $test"
-          done
+          >&2 ${lib.getExe show}
           >&2 echo
           >&2 echo "=================="
         '';
