@@ -15,23 +15,27 @@ let
   # Build test using common conventions
   mkTest =
     name:
-    pkgs.testers.runNixOSTest {
-      inherit name;
+    let
+      testImport = import (currentDir + "/${name}");
+      test = if lib.isFunction testImport then testImport pkgs else testImport;
+      machine = if test ? machine then test.machine else test;
+      extraOpts = lib.optionalAttrs (test ? extraOpts) test.extraOpts;
+    in
+    pkgs.testers.runNixOSTest (
+      (lib.filterAttrs (attr: _: attr != "test") extraOpts)
+      // {
+        inherit name;
 
-      enableOCR = true;
-      testScript = lib.readFile ./${name}/test.py;
+        enableOCR = true;
+        testScript = lib.readFile ./${name}/test.py;
 
-      nodes.machine =
-        let
-          testMachine = import (currentDir + "/${name}") { inherit pkgs; };
-        in
-        {
-          imports = [
+        nodes.machine = machine // {
+          imports = (lib.optional (machine ? imports) machine.imports) ++ [
             ./_common
           ];
-        }
-        // testMachine;
-    };
+        };
+      }
+    );
 
   # Import all tests in an attribute set with tests name as attributes name
   allTests = lib.mapAttrs (name: _: mkTest name) tests;

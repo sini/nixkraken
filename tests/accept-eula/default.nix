@@ -1,8 +1,6 @@
 # This test checks that EULA acceptance is working as intended.
 # It also ensures that the tutorial can be skipped and that user info can be defined.
 
-_:
-
 {
   home-manager.users.root.programs.nixkraken = {
     enable = true;

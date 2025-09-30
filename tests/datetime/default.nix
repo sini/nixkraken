@@ -1,10 +1,10 @@
 # This test checks that a custom datetime format can be configured and is displayed as expected in the UI.
 # It also ensures that Git configuration is inherited from Home Manager settings and that graph columns customization is working.
 
-{ pkgs }:
+{ jq, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     jq
   ];
 
