@@ -1,11 +1,13 @@
 # Quick Start
 
+This guide showcases a basic, working NixKraken configuration using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [nixpkgs](https://github.com/nixos/nixpkgs)/[Home Manager](https://github.com/nix-community/home-manager) 25.05 on an x86-64 Linux host.
+
 > [!NOTE]
 > Not using Flakes? Follow our [non-Flake installation guide](./install/non-flakes.md) instead.
 
-This guide showcases a basic, working NixKraken configuration using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [nixpkgs](https://github.com/nixos/nixpkgs)/[Home Manager](https://github.com/nix-community/home-manager) 25.05 on an x86-64 Linux host.
+## 1. Create `flake.nix`
 
-1. **Create a `flake.nix` file** with the following content, which sets GitKraken username and email
+Use the following content, which sets GitKraken username and email.
 
 ```nix
 {
@@ -55,12 +57,20 @@ This guide showcases a basic, working NixKraken configuration using [Nix Flakes]
 }
 ```
 
-2. **Build and activate the configuration** by running the command below in the same directory as `flake.nix`
+## 2. Build and activate configuration
+
+Run the command below in the same directory as `flake.nix`:
 
 ```bash
 home-manager switch --flake '.#your-username'
 ```
 
+---
+
+<center>
+
 🎉 **That's it!** GitKraken will now be configured with the given name and email.
 
 _For more advanced options and non-Flake installation, see the [installation](./install/index.md) section._
+
+</center>
