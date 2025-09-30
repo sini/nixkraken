@@ -50,7 +50,7 @@
       packages = eachSystem (
         pkgs:
         {
-          docs = pkgs.callPackage ./docs { };
+          docs = pkgs.callPackage ./docs { gitRev = self.rev or self.dirtyRev or "dirty"; };
         }
         // (import ./pkgs pkgs)
         // (import ./gitkraken pkgs)

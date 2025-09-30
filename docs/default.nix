@@ -1,5 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
+  gitRev ? "dirty",
 }:
 
 let
@@ -53,7 +54,7 @@ stdenvNoCC.mkDerivation {
   patches = [ ./book.toml.nix-build.patch ];
 
   preBuild = ''
-    node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
+    GITREV="${gitRev}" node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
     substituteInPlace src/getting-started/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatStringsSep "\n" cachedCommitsList}"
     for f in $(find src/options -type f -name '*.md'); do
       fdir=$(dirname $f)

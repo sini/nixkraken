@@ -48,12 +48,21 @@ const OPTION_PREFIX = 'programs.nixkraken.'
  * Footer text to append to all generated documentation pages
  * @type {string}
  */
+const rev = process.env?.GITREV ?? 'dirty'
+const revText = rev.includes('dirty')
+  ? `*Revision: ${rev}.*`
+  : `*Revision: [\`${rev}\`](https://github.com/nicolas-goudry/nixkraken/blob/${rev}).*`
 const FOOTER = `
 ---
 
+<center>
+
 *This documentation was automatically generated from the NixKraken configuration options.*
 
-*Generated on: ${new Date().toISOString().split('T')[0]}*
+*Generated on ${new Date().toISOString().replace('T', ' at ').replace(/\..*$/, '')}.*<br/>
+ ${revText}
+
+</center>
 `
 
 /**
