@@ -3,8 +3,6 @@
 }:
 
 let
-  inherit (pkgs) lib;
-
   localPkgs = import ./pkgs pkgs;
 in
 pkgs.mkShellNoCC {
@@ -16,9 +14,7 @@ pkgs.mkShellNoCC {
       nodejs
       rustc
     ])
-    ++ lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) (
-      lib.filterAttrs (attr: _: attr != "default") localPkgs
-    );
+    ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
 
   shellHook = ''
     find .hooks \
