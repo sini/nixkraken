@@ -8,7 +8,7 @@ The tests rely on the [NixOS test framework](https://nixos.org/manual/nixos/stab
 >
 > Although we aim to test as many configuration outcomes as possible, these automated tests will never be able to cover every possible configuration.
 >
-> Specifically, we are not currently able to test paid features since the login process is interactive.
+> Specifically, we are not currently able to test paid features since the login process is interactive. Hence, we cannot test multi-profiles setups beyond Nix validation.
 
 ## Running tests
 
