@@ -3,10 +3,9 @@
 }:
 
 let
-  localPkgs = pkgs.lib.packagesFromDirectoryRecursive {
-    directory = ./pkgs;
-    callPackage = pkgs.callPackage;
-  };
+  inherit (pkgs) lib;
+
+  localPkgs = import ./pkgs pkgs;
 in
 pkgs.mkShellNoCC {
   nativeBuildInputs =
@@ -17,7 +16,9 @@ pkgs.mkShellNoCC {
       nodejs
       rustc
     ])
-    ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
+    ++ lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) (
+      lib.filterAttrs (attr: _: attr != "default") localPkgs
+    );
 
   shellHook = ''
     find .hooks \
