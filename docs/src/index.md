@@ -4,6 +4,8 @@
 
 </center>
 
+---
+
 **NixKraken** provides a [Home Manager](https://nix-community.github.io/home-manager) module for managing [GitKraken](https://www.gitkraken.com) configuration files and profiles in a declarative and reproducible way.
 
 > [!IMPORTANT]
@@ -11,6 +13,8 @@
 > This project is **NOT** affiliated with Axosoft (the makers of GitKraken) in any way.
 >
 > NixKraken is only handling GitKraken's configuration, one still needs to purchase the product to benefit paid features. **This is not a cracked GitKraken app.**
+
+---
 
 ## Features
 
