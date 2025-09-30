@@ -1,6 +1,11 @@
-{ lib, pkgs, ... }:
+{
+  pkgs ? import <nixpkgs> { },
+  ...
+}:
 
 let
+  inherit (pkgs) lib;
+
   # Load all tests files from current directory, excluding this file and the '_common' directory
   currentDir = ./.;
   tests = lib.filterAttrs (name: type: name != "default.nix" && name != "_common") (
