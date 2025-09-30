@@ -36,16 +36,16 @@ This also means that there can be a **configuration drift between the applicatio
 >
 > To avoid configuration drift, always make changes to the Nix configuration, not in the GitKraken UI.
 >
-> Let NixKraken be the single source of truth for GitKraken settings.
+> **Let NixKraken be the single source of truth for GitKraken settings.**
 
 ## Long installation time
 
-GitKraken being closed source, **end users will always have to build the package**. Although this process is usually not very long, since GitKraken is not built from sources, building the package is still longer than fetching a pre-built binary.
+GitKraken being closed source, **end users will always have to “build” the package** (by _build_, we mean to retrieve the artifacts and patch them for Nix). Although this process is usually not very long, it is still longer than fetching a pre-built binary.
 
 Plus, there has been reports of "stuck" builds in the past. This is most often due to a combination of several factors:
 
 - a slow internet connection
-- GitKraken's archive being 200MB+
+- GitKraken's artifacts being 200MB+
 - [`fetchUrl` not outputting its download progress](https://github.com/NixOS/nixpkgs/issues/156930)
 
 > ⚡ **Key takeaway**

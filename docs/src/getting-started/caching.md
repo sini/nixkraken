@@ -17,6 +17,19 @@ Find below several methods to enable this cache.
 >
 > </details>
 
+## NixOS users
+
+NixOS users can configure the Nix configuration file declaratively, using the following option in their system configuration:
+
+```nix
+{
+  nix.extraOptions = ''
+    extra-substituters = https://cache.garnix.io
+    extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+  '';
+}
+```
+
 ## Non-NixOS users
 
 ### Declarative with Flakes
@@ -44,17 +57,4 @@ Alternatively, the `nix.conf` file _(usually located at `/etc/nix/nix.conf`)_ ca
 ```plain
 extra-substituters = https://cache.garnix.io
 extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
-```
-
-## NixOS users
-
-NixOS users can configure the Nix configuration file declaratively, using the following option in their system configuration:
-
-```nix
-{
-  nix.extraOptions = ''
-    extra-substituters = https://cache.garnix.io
-    extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
-  '';
-}
 ```
