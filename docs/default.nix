@@ -1,15 +1,19 @@
 {
-  lib,
-  stdenvNoCC,
-  nixosOptionsDoc,
-  mdbook,
-  mdbook-alerts,
-  mdbook-linkcheck,
-  nodejs,
-  rustc,
+  pkgs ? import <nixpkgs> { },
 }:
 
 let
+  inherit (pkgs)
+    lib
+    stdenvNoCC
+    nixosOptionsDoc
+    mdbook
+    mdbook-alerts
+    mdbook-linkcheck
+    nodejs
+    rustc
+    ;
+
   moduleEval = lib.evalModules {
     modules = [
       (_: {
