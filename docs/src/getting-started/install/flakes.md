@@ -8,7 +8,7 @@ There are two primary ways to use NixKraken with Flakes, depending on whether th
 >
 > Refer to [Home Manager installation documentation](https://nix-community.github.io/home-manager/index.xhtml#ch-installation) as well as the [NixOS manual](https://nixos.org/manual/nixos/stable/) for further details on each of these.
 
-### Standalone Home Manager
+## Standalone Home Manager
 
 Use this method if the user environment is managed with Home Manager on any OS (including NixOS, macOS, or other Linux distributions) through its own `flake.nix`.
 
@@ -57,7 +57,7 @@ Here is a complete, minimal `flake.nix` for a standalone setup:
 }
 ```
 
-### Integrated with NixOS
+## Integrated with NixOS
 
 Use this method if the user environment is managed directly within the NixOS system's `flake.nix`.
 
