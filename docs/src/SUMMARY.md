@@ -25,6 +25,7 @@
   - [`gk-encrypt` and `gk-decrypt`](./implementation/packages/encrypt-decrypt.md)
   - [`gk-login`](./implementation/packages/login.md)
   - [`gk-theme`](./implementation/packages/theme.md)
+- [Tests](./implementation/tests/index.md)
 
 # Changelog
 
