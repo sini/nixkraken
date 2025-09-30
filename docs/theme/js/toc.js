@@ -16,13 +16,17 @@ const populateTOC = () => {
 
   // Iterate over the list of found headers following array index order
   for (const header of headers) {
-    // Get header anchor link (the href attribute contains the fragment identifier)
-    const headerAnchor = header.href
-
     // Get actual heading element (h1, h2, h3, ...) - the parent of the anchor
     const headingElement = header.parentElement
     // Extract the tag name (H1, H2, H3, etc.) for CSS class generation
     const headingTag = headingElement.tagName
+
+    if (headingTag === 'H1') {
+      continue
+    }
+
+    // Get header anchor link (the href attribute contains the fragment identifier)
+    const headerAnchor = header.href
 
     // Generate TOC link content from every child node text of heading element
     // This handles cases where headings contain multiple text nodes or inline elements
