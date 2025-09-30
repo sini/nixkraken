@@ -95,13 +95,12 @@ allTests
           ''
             runHook preInstall
 
-            mkdir -p $out/bin
+            mkdir -p $out/bin $out/share
             install -m 0755 ${lib.getExe norun} $out/bin/${name}
           ''
           # Copy each test artifacts to a dedicated directory
           (lib.map (build: ''
-            mkdir -p $out/share/${build.config.name}
-            cp ${build.out}/snapshot.png $out/share/${build.config.name} || true
+            cp -r ${build.out} $out/share/${build.config.name}
           '') buildInputs)
           ''
             runHook postInstall
