@@ -19,6 +19,23 @@ Packages are dynamically exported by using the [`packagesFromDirectoryRecursive`
 > gk-theme     # pkgs/theme/default.nix
 > ```
 
+## Build packages
+
+Packages are exposed as Flake outputs inside the `packages` output. To build them, use following commands:
+
+```bash
+# Build a package with new Nix commands and Flakes
+nix build .#<package-name>
+
+# ...or with classic Nix commands (from the root directory)
+nix-build ./pkgs -A <package-name>
+
+# You can also build all packages at once with classic Nix commands
+nix-build ./pkgs
+```
+
+To run the packages, either use `nix run` instead of `nix build` or execute the binary stored in `result/bin` after a successful build.
+
 ## Available packages
 
 - [`gk-configure`](./configure.md)
