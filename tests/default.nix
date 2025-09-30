@@ -7,13 +7,34 @@ let
     builtins.readDir currentDir
   );
 
+  # Build test using common conventions
+  mkTest =
+    name:
+    pkgs.testers.runNixOSTest {
+      inherit name;
+
+      enableOCR = true;
+      testScript = lib.readFile ./${name}/test.py;
+
+      nodes.machine =
+        let
+          testMachine = import (currentDir + "/${name}") { inherit pkgs; };
+        in
+        {
+          imports = [
+            ./_common
+          ];
+        }
+        // testMachine;
+    };
+
   # Import all tests in an attribute set with tests name as attributes name
-  # i.e. { enable = import ./enable; accept-eula = import ./accept-eula; /* ... */ }
-  allTests = lib.mapAttrs (name: type: import (currentDir + "/${name}") { inherit pkgs; }) tests;
+  allTests = lib.mapAttrs (name: _: mkTest name) tests;
 in
-# Build attribute set of all tests and a custom derivation running all tests altogether
+# Build attribute set of all tests and additional helper custom derivations
 allTests
 // rec {
+  # List available tests for discovery
   show = pkgs.writeShellApplication {
     name = "show-tests";
     text = ''
@@ -24,6 +45,7 @@ allTests
     '';
   };
 
+  # Build all tests altogether
   all =
     let
       # Dummy binary to avoid simply failing on 'nix run .#tests.all', inform caller on how to actually run tests and list available tests

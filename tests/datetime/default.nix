@@ -1,63 +1,44 @@
 # This test checks that a custom datetime format can be configured and is displayed as expected in the UI.
 # It also ensures that Git configuration is inherited from Home Manager settings and that graph columns customization is working.
 
+{ pkgs }:
+
 {
-  pkgs ? import <nixpkgs> { },
-}:
+  environment.systemPackages = with pkgs; [
+    jq
+  ];
 
-let
-  lib = pkgs.lib;
-in
-pkgs.testers.runNixOSTest {
-  name = "datetime";
-  enableOCR = true;
-  testScript = lib.readFile ./test.py;
+  home-manager.users.root = {
+    home.file."repoTab.json" = {
+      source = ./repoTab.json;
+    };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [
-        ../_common
-      ];
+    programs = {
+      git = {
+        enable = true;
+        userEmail = "somebody@example.com";
+        userName = "Somebody";
+      };
 
-      environment.systemPackages = with pkgs; [
-        jq
-      ];
+      nixkraken = {
+        enable = true;
+        acceptEULA = true;
+        skipTutorial = true;
 
-      home-manager.users.root = {
-        home.file."repoTab.json" = {
-          source = ./repoTab.json;
+        datetime = {
+          format = "\\c\\u\\s\\t\\o\\m \\t\\i\\m\\e";
         };
 
-        programs = {
-          git = {
-            enable = true;
-            userEmail = "somebody@example.com";
-            userName = "Somebody";
-          };
-
-          nixkraken = {
-            enable = true;
-            acceptEULA = true;
-            skipTutorial = true;
-
-            datetime = {
-              format = "\\c\\u\\s\\t\\o\\m \\t\\i\\m\\e";
-            };
-
-            # Only display commit datetime in graph
-            graph = {
-              showAuthor = false;
-              showDatetime = true;
-              showMessage = false;
-              showRefs = false;
-              showSHA = false;
-              showGraph = false;
-            };
-          };
+        # Only display commit datetime in graph
+        graph = {
+          showAuthor = false;
+          showDatetime = true;
+          showMessage = false;
+          showRefs = false;
+          showSHA = false;
+          showGraph = false;
         };
       };
     };
-
-  meta.maintainers = with lib.maintainers; [ nicolas-goudry ];
+  };
 }
