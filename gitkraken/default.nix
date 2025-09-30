@@ -1,6 +1,11 @@
-{ lib, system, ... }:
+{
+  pkgs ? import <nixpkgs> { },
+  ...
+}:
 
 let
+  inherit (pkgs) lib system;
+
   versions = import ./versions.nix;
 
   fromNixpkgs =
