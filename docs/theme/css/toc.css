@@ -111,7 +111,7 @@
 
 /* Hierarchical indentation for different heading levels */
 .toc-content > .toc-h2 {
-  padding-inline-start: 3rem;
+  padding-inline-start: 2rem;
 }
 
 .toc-content > .toc-h3 {
@@ -119,15 +119,15 @@
 }
 
 .toc-content > .toc-h4 {
-  padding-inline-start: 5rem;
-}
-
-.toc-content > .toc-h5 {
   padding-inline-start: 6rem;
 }
 
+.toc-content > .toc-h5 {
+  padding-inline-start: 8rem;
+}
+
 .toc-content > .toc-h6 {
-  padding-inline-start: 7rem;
+  padding-inline-start: 10rem;
 }
 
 /* Hide TOC on smaller screens where space is limited */
