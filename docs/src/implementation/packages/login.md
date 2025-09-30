@@ -17,7 +17,13 @@ It securely handles OAuth tokens, updates the GitKraken configuration, and manag
 All options are documented by the `--help` flag:
 
 ```bash
+# Using the raw Bash script
 ./login/script.sh --help
+
+# ...or using new Nix commands
+nix run '.#login' -- --help
+
+# ...or from the Nix development shell (nix develop / nix-shell)
 gk-login --help
 ```
 

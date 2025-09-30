@@ -11,11 +11,17 @@ Although their execution is considered safe (since they only read the `secFile`s
 All options are documented by the `--help` flag:
 
 ```bash
-./decrypt/script.sh --help
-gk-decrypt --help
-
+# Using the raw Bash script
 ./encrypt/script.sh --help
+./decrypt/script.sh --help
+
+# ...or using new Nix commands
+nix run '.#encrypt' -- --help
+nix run '.#decrypt' -- --help
+
+# ...or from the Nix development shell (nix develop / nix-shell)
 gk-encrypt --help
+gk-decrypt --help
 ```
 
 The scripts are extensively documented through comments in the source files themselves:

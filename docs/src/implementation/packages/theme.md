@@ -13,7 +13,13 @@ Although its execution is considered safe, it is possible that theme files are o
 All options are documented by the `--help` flag:
 
 ```bash
+# Using the raw Bash script
 ./theme/script.sh --help
+
+# ...or using new Nix commands
+nix run '.#theme' -- --help
+
+# ...or from the Nix development shell (nix develop / nix-shell)
 gk-theme --help
 ```
 

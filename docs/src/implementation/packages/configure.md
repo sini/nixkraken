@@ -17,7 +17,13 @@ While it's intended for use during Home Manager activation by the NixKraken modu
 All options are documented by the `--help` flag:
 
 ```bash
+# Using the raw Bash script
 ./configure/script.sh --help
+
+# ...or using new Nix commands
+nix run '.#configure' -- --help
+
+# ...or from the Nix development shell (nix develop / nix-shell)
 gk-configure --help
 ```
 
