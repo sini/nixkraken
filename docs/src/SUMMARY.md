@@ -26,6 +26,8 @@
   - [`gk-login`](./implementation/packages/login.md)
   - [`gk-theme`](./implementation/packages/theme.md)
 - [Tests](./implementation/tests/index.md)
+  - [Running tests](./implementation/tests/running.md)
+  - [Writing tests](./implementation/tests/writing.md)
 
 # Changelog
 
