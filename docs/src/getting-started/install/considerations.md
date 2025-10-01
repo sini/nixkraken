@@ -12,6 +12,8 @@ Since GitKraken is a **proprietary** and **unfree** software, various aspects of
 
 When the module is confirmed to work with a specific GitKraken version, a release branch matching this version will be created (ie. branch `v11.1.0` is expected to be fully compatible with version 11.1.0 of GitKraken). Although release branches will most likely be considered feature-complete once created and won't see any further development, they still could introduce backports from newer versions as well as bug fixes.
 
+Additionally, users should be aware that NixKraken will only actively support GitKraken versions present in current stable nixpkgs version branch as well as unstable branch. For example, at the time of writing (Oct. 2025), [nixpkgs 25.05 has GitKraken 11.1.0](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/gi/gitkraken/package.nix#L59), meaning that earlier versions will not be supported.
+
 ## Stability
 
 Development occurs on the `main` branch, which should be **considered unstable** and incompatible with any version of GitKraken.
