@@ -38,6 +38,6 @@ To use a specific release branch, modify `flake.nix`' inputs like this:
 
 ## Velocity
 
-As the main GitKraken maintainer on [nixpkgs](https://github.com/nixos/nixpkgs/blob/master/pkgs/by-name/gi/gitkraken/package.nix) and a daily GitKraken user, I strive to test the module with new versions and address issues as quickly as possible. Users are also encouraged to **report any issues** encountered - or even better: to **contribute fixes**! Pull requests are always welcome 🙂
+Although we strive to test NixKraken with new GitKraken versions and address issues as quickly as possible, updates are provided on a best-effort basis and there is no strict update schedule. Users should be prepared for occasional delays in compatibility following new GitKraken releases.
 
-Finally, updates to this module are provided on a best-effort basis, in my free time. While every attempt will be made to keep the module compatible with the latest GitKraken release, there is no strict update schedule. Users should be prepared for occasional delays in compatibility following new GitKraken releases.
+Users are also encouraged to **[report any issues](https://github.com/nicolas-goudry/nixkraken/issues)** encountered - or even better: to **contribute fixes**! Pull requests are always welcome 🙂
