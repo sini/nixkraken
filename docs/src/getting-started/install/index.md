@@ -1,12 +1,5 @@
 # Installation
 
-Before going further, please review the important information below.
-
-- [Things to consider](./considerations.md) \
-  _<sub>Important information about compatibility and setup you should read first.</sub>_
-
-Then, choose the right installation guide.
-
 - [Install NixKraken with Flakes](./flakes.md) \
   _<sub>The recommended method for users with a modern, Flake-based configuration.</sub>_
 

@@ -66,9 +66,9 @@ in
       > - requires to allow unfree packages
       > - is mutually exclusive with [`version`](#version)
       >
-      > We advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../getting-started/install/considerations.html#compatibility) when it is used.
+      > We advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../notes/compatibility.html) when it is used.
       >
-      > Also be aware that the [binary cache](../getting-started/caching.html) might not apply.
+      > Also be aware that the [binary cache](../guides/caching.html) might not apply.
     '';
   };
 
@@ -88,7 +88,7 @@ in
 
       > [!IMPORTANT]
       >
-      > When using this option, the GitKraken package will automatically be fetched from a commit of [nixpkgs](https://github.com/nixos/nixpkgs) known to be available in the cache. To benefit from the cache, users should first [configure it](../getting-started/caching.md).
+      > When using this option, the GitKraken package will automatically be fetched from a commit of [nixpkgs](https://github.com/nixos/nixpkgs) known to be available in the cache. To benefit from the cache, users should first [configure it](../guides/caching.md).
       >
       > This option is mutually exclusive with [`package`](#package).
     '';

@@ -34,7 +34,7 @@ nix-build ./pkgs -A <package-name>
 nix-build ./pkgs
 ```
 
-To run the packages, either use `nix run` instead of `nix build` or execute the binary stored in `result/bin` after a successful build.
+To run the packages, either execute the binary stored in `result/bin` after a successful build or use `nix run` instead of `nix build` and `nix-build`.
 
 ## Available packages
 

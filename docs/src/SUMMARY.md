@@ -6,28 +6,34 @@
 
 - [Quick Start](./getting-started/quick-start.md)
 - [Installation](./getting-started/install/index.md)
-  - [Considerations](./getting-started/install/considerations.md)
   - [Flakes](./getting-started/install/flakes.md)
   - [Non-Flakes](./getting-started/install/non-flakes.md)
 - [Examples](./getting-started/examples.md)
-- [Caveats](./getting-started/caveats.md)
-- [Caching](./getting-started/caching.md)
 
-# Module Options
+# Important notes
+
+- [Known caveats](./notes/caveats.md)
+- [Compatibility](./notes/compatibility.md)
+
+# Guides
+
+- [Binary cache](./guides/caching.md)
+
+# Reference
 
 - [programs.nixkraken](./options/nixkraken.md)
 <!-- OPTS_GEN -->
 
-# Implementation details
+# Developer guide
 
-- [Packages](./implementation/packages/index.md)
-  - [`gk-configure`](./implementation/packages/configure.md)
-  - [`gk-encrypt` and `gk-decrypt`](./implementation/packages/encrypt-decrypt.md)
-  - [`gk-login`](./implementation/packages/login.md)
-  - [`gk-theme`](./implementation/packages/theme.md)
-- [Tests](./implementation/tests/index.md)
-  - [Running tests](./implementation/tests/running.md)
-  - [Writing tests](./implementation/tests/writing.md)
+- [Packages](./dev/packages/index.md)
+  - [`gk-configure`](./dev/packages/configure.md)
+  - [`gk-encrypt` and `gk-decrypt`](./dev/packages/encrypt-decrypt.md)
+  - [`gk-login`](./dev/packages/login.md)
+  - [`gk-theme`](./dev/packages/theme.md)
+- [Tests](./dev/tests/index.md)
+  - [Running tests](./dev/tests/running.md)
+  - [Writing tests](./dev/tests/writing.md)
 
 # Changelog
 

@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation {
 
   preBuild = ''
     GITREV="${gitRev}" node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
-    substituteInPlace src/getting-started/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatStringsSep "\n" cachedCommitsList}"
+    substituteInPlace src/guides/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatStringsSep "\n" cachedCommitsList}"
     for f in $(find src/options -type f -name '*.md'); do
       fdir=$(dirname $f)
       rel_root=$(realpath --relative-to=$fdir src/options)

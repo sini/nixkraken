@@ -1,5 +1,7 @@
 # Install without Flakes
 
+There are various ways to use NixKraken without Flakes, depending on whether you rely on builtin Nix fetchers or a dedicated dependencies pinning tool.
+
 > [!NOTE]
 >
 > Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion](https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a) if you are stuck integrating NixKraken within your configuration.
