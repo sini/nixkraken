@@ -18,7 +18,7 @@ hash-files = true
 
 [output.html.fold]
 enable = true
-level = 1
+level = 0
 
 [output.linkcheck]
 follow-web-links = true
