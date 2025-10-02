@@ -3,6 +3,7 @@
 }:
 
 let
+  convco = import ./convco.nix { inherit pkgs; };
   localPkgs = import ./pkgs pkgs;
 in
 pkgs.mkShellNoCC {
@@ -14,6 +15,7 @@ pkgs.mkShellNoCC {
       nodejs
       rustc
     ])
+    ++ [ convco ]
     ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
 
   shellHook = ''
