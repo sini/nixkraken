@@ -15,7 +15,7 @@
 - [Known caveats](./notes/caveats.md)
 - [Compatibility](./notes/compatibility.md)
 
-# Guides
+# User guides
 
 - [Binary cache](./guides/caching.md)
 
