@@ -198,16 +198,19 @@ nix-prefetch-git \
 The following commands use `nix-prefetch-url` to get the Nix base32 hash from the unpacked sources archive retrieved from GitHub. The hash is then handed to `nix-hash` (or `nix hash convert`, which requires the `nix-command` [experimental feature](https://nix.dev/manual/nix/2.18/contributing/experimental-features#xp-feature-nix-command) to be enabled) to get the final hash expected by fetchers.
 
 ```bash
-nix-hash \
-  --to-sri \
-  --type sha256 \
-  "$(nix-prefetch-url \
-       --unpack "https://github.com/nicolas-goudry/nixkraken/archive/main.tar.gz")"
-
-# ...or using new nix commands
+# Using new Nix commands
 nix hash convert \
   --hash-algo sha256 \
   --from nix32 \
+  "$(nix-prefetch-url \
+       --unpack "https://github.com/nicolas-goudry/nixkraken/archive/main.tar.gz")"
+```
+
+```bash
+# ...or classic Nix commands
+nix-hash \
+  --to-sri \
+  --type sha256 \
   "$(nix-prefetch-url \
        --unpack "https://github.com/nicolas-goudry/nixkraken/archive/main.tar.gz")"
 ```

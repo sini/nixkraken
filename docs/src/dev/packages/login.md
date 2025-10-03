@@ -19,10 +19,19 @@ All options are documented by the `--help` flag:
 ```bash
 # Using the raw Bash script
 ./login/script.sh --help
+```
 
+```bash
 # ...or using new Nix commands
 nix run '.#login' -- --help
+```
 
+```bash
+# ...or using classic Nix commands
+nix-build ./pkgs -A login && ./result/bin/gk-login --help
+```
+
+```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
 gk-login --help
 ```

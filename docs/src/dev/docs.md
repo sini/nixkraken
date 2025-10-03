@@ -196,7 +196,9 @@ To build it, use the following command:
 ```bash
 # Using new Nix commands
 nix build '.#docs'
+```
 
+```bash
 # ...or classic Nix commands
 nix-build ./docs \
   -I nixpkgs=https://github.com/nixos/nixpkgs/archive/nixos-25.05.tar.gz \
@@ -229,7 +231,9 @@ For debugging purposes, here is how to generate the module options JSON represen
 ```bash
 # Using new Nix commands
 nix build --impure --include nixpkgs=https://github.com/nixos/nixpkgs/archive/nixos-25.05.tar.gz --expr 'let pkgs = import <nixpkgs> { }; moduleEval = pkgs.lib.evalModules { modules = [(_: { imports = [ ./module.nix ]; config._module.check = false; })]; }; in (pkgs.nixosOptionsDoc { inherit (moduleEval) options; }).optionsJSON'
+```
 
+```bash
 # ...or classic Nix commands
 nix-build --include nixpkgs=https://github.com/nixos/nixpkgs/archive/nixos-25.05.tar.gz --expr 'let pkgs = import <nixpkgs> { }; moduleEval = pkgs.lib.evalModules { modules = [(_: { imports = [ ./module.nix ]; config._module.check = false; })]; }; in (pkgs.nixosOptionsDoc { inherit (moduleEval) options; }).optionsJSON'
 ```

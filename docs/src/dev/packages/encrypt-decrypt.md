@@ -14,11 +14,21 @@ All options are documented by the `--help` flag:
 # Using the raw Bash script
 ./encrypt/script.sh --help
 ./decrypt/script.sh --help
+```
 
+```bash
 # ...or using new Nix commands
 nix run '.#encrypt' -- --help
 nix run '.#decrypt' -- --help
+```
 
+```bash
+# ...or using classic Nix commands
+nix-build ./pkgs -A encrypt && ./result/bin/gk-encrypt --help
+nix-build ./pkgs -A decrypt && ./result/bin/gk-decrypt --help
+```
+
+```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
 gk-encrypt --help
 gk-decrypt --help

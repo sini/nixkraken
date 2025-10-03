@@ -24,12 +24,16 @@ Packages are dynamically exported by using the [`packagesFromDirectoryRecursive`
 Packages are exposed as Flake outputs inside the `packages` output. To build them, use following commands:
 
 ```bash
-# Build a package with new Nix commands and Flakes
-nix build .#<package-name>
+# Using new Nix commands
+nix build '.#<package-name>'
+```
 
-# ...or with classic Nix commands (from the root directory)
+```bash
+# ...or with classic Nix commands
 nix-build ./pkgs -A <package-name>
+```
 
+```bash
 # You can also build all packages at once with classic Nix commands
 nix-build ./pkgs
 ```

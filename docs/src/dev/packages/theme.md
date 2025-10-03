@@ -15,10 +15,19 @@ All options are documented by the `--help` flag:
 ```bash
 # Using the raw Bash script
 ./theme/script.sh --help
+```
 
+```bash
 # ...or using new Nix commands
 nix run '.#theme' -- --help
+```
 
+```bash
+# ...or using classic Nix commands
+nix-build ./pkgs -A theme && ./result/bin/gk-theme --help
+```
+
+```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
 gk-theme --help
 ```

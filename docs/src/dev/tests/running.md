@@ -5,13 +5,19 @@ To run tests locally, use the following commands:
 ```bash
 # Run the entire test suite
 nix build '.#tests.all'
+```
 
+```bash
 # List all available tests
 nix run '.#tests.show'
+```
 
+```bash
 # Run a single test
 nix build '.#tests.<test-name>'
+```
 
+```bash
 # Run a test interactively (useful for debugging or crafting new tests)
 # This starts an interactive Python REPL with test framework symbols exposed
 # Read more about this in the official test framework documentation linked above
@@ -38,7 +44,9 @@ nix run '.#tests.<test-name>.driverInteractive'
 > ```bash
 > # List available tests
 > ./result/bin/show-tests
+> ```
 >
+> ```bash
 > # Run interactive test
 > ./result/bin/nixos-test-driver
 > ```

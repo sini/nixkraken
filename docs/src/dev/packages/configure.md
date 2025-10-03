@@ -19,10 +19,19 @@ All options are documented by the `--help` flag:
 ```bash
 # Using the raw Bash script
 ./configure/script.sh --help
+```
 
+```bash
 # ...or using new Nix commands
 nix run '.#configure' -- --help
+```
 
+```bash
+# ...or using classic Nix commands
+nix-build ./pkgs -A configure && ./result/bin/gk-configure --help
+```
+
+```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
 gk-configure --help
 ```

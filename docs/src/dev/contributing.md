@@ -111,10 +111,14 @@ Enabling the development shell can be done in various ways:
 ```bash
 # Using new Nix commands
 nix develop
+```
 
+```bash
 # ...or classic Nix commands
 nix-shell
+```
 
+```bash
 # ...or direnv
 direnv allow
 ```

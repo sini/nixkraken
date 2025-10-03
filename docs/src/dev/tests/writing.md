@@ -9,35 +9,47 @@
 All tests live inside the [tests](https://github.com/nicolas-goudry/nixkraken/blob/main/tests) directory and are automatically imported into the test suite using a [custom `mkTest` function](https://github.com/nicolas-goudry/nixkraken/blob/main/tests/default.nix) which allows various ways to define the tests:
 
 1. As a simple attribute set, which will be used as the [test machine NixOS module](https://nixos.org/manual/nixos/stable/#test-opt-nodes)
+   ```nix
+   {
+     home-manager.users.root.programs.nixkraken.enable = true;
+   }
+   ```
 2. As an attribute set with `machine` and `extraOptions` attributes, respectively used as the test machine NixOS module and additional [test options](https://nixos.org/manual/nixos/stable/#sec-test-options-reference)
+
+   ```nix
+   {
+     machine = {
+       home-manager.users.root.programs.nixkraken.enable = true;
+     };
+
+     extraOptions = {
+       skipTypeCheck = true;
+     };
+   }
+   ```
+
 3. As a single argument function called with the `pkgs` attribute set containing nixpkgs, which can return either of the previous attribute sets
 
-```nix
-# Simple NixOS module
-{
-  home-manager.users.root.programs.nixkraken.enable = true;
-}
+   ```nix
+   pkgs:
 
-# Attribute set allowing to add extra options to the test definition
-{
-  machine = {
-    home-manager.users.root.programs.nixkraken.enable = true;
-  };
+   {
+     environment.systemPackages = with pkgs; [
+       jq
+     ];
+   }
+   ```
 
-  extraOptions = {
-    skipTypeCheck = true;
-  };
-}
+   ```nix
+   # Variant
+   { jq, ... }:
 
-# Function to use packages in the test machine (can return either simple module or machine + extraOptions)
-{ jq, ... }:
-
-{
-  environment.systemPackages = [
-    jq
-  ];
-}
-```
+   {
+     environment.systemPackages = [
+       jq
+     ];
+   }
+   ```
 
 > [!NOTE]
 >

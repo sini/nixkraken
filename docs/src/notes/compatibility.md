@@ -21,11 +21,15 @@ Development occurs on the `main` branch, which should be **considered unstable**
 To use a specific release branch, modify `flake.nix`' inputs like this:
 
 ```nix
+# Use a specific version
 {
-  # Use a specific version
   inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/v11.1.0";
+}
+```
 
-  # Or, to always get the latest stable version
+```nix
+# ...or always get the latest stable version
+{
   inputs.nixkraken.url = "github:nicolas-goudry/nixkraken/stable";
 }
 ```
