@@ -10,12 +10,12 @@
   - [Non-Flakes](./getting-started/install/non-flakes.md)
 - [Examples](./getting-started/examples.md)
 
-# Important notes
+# Important Notes
 
 - [Known caveats](./notes/caveats.md)
 - [Compatibility](./notes/compatibility.md)
 
-# User guides
+# User Guides
 
 - [Binary cache](./guides/caching.md)
 
@@ -24,7 +24,7 @@
 - [programs.nixkraken](./options/nixkraken.md)
 <!-- OPTS_GEN -->
 
-# Developer guide
+# Developer Guide
 
 - [Contributing](./dev/contributing.md)
 - [Documentation](./dev/docs.md)
