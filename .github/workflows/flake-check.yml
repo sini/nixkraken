@@ -15,7 +15,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
+      - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: holster
+      - uses: DeterminateSystems/nix-installer-action@main
       - name: Check Flake
         run: nix flake check
