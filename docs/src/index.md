@@ -27,7 +27,7 @@ Unlike GitKraken, NixKraken is free and open source: **contributions are welcome
 
 The source code can be found on [GitHub](https://github.com/nicolas-goudry/nixkraken) and issues and feature requests can be posted on the [GitHub issue tracker](https://github.com/nicolas-goudry/nixkraken/issues).
 
-To add new options, improve documentation, or fix bugs, please open a [pull request](https://github.com/nicolas-goudry/nixkraken/pulls).
+To add new options, improve documentation, or fix bugs, please read the [contributing guide](./dev/contributing.md).
 
 ## Licenses
 
