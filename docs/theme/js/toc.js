@@ -1,5 +1,5 @@
 // Array of paths where the TOC should be hidden
-const hideOnPath = ['/', '/index.html', '/nixkraken/index.html']
+const hideOnPath = ['/', '/index.html', '/nixkraken/', '/nixkraken/index.html']
 // Array to store the generated table of contents elements
 const tocContent = []
 
