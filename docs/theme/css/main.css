@@ -1,6 +1,17 @@
+/* Custom horizontal rule */
 hr {
   border: none;
   border-top: 1px solid color-mix(in srgb, var(--fg) 50%, transparent);
   margin-block: 5rem;
   width: 50%;
+}
+
+/* Do not center tables */
+.table-wrapper table {
+  margin: 0;
+}
+
+/* Fix missing gap between alerts and tables */
+.table-wrapper:has(+ .mdbook-alerts) {
+  margin-block-end: 1em;
 }
