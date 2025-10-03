@@ -48,7 +48,7 @@ const OPTION_PREFIX = 'programs.nixkraken.'
  * Footer text to append to all generated documentation pages
  * @type {string}
  */
-const rev = process.env?.GITREV ?? 'dirty'
+const rev = process.env?.GIT_REV ?? 'dirty'
 const revText = rev.includes('dirty')
   ? `*Revision: ${rev}.*`
   : `*Revision: [\`${rev}\`](https://github.com/nicolas-goudry/nixkraken/blob/${rev}).*`

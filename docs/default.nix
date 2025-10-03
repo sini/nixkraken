@@ -54,7 +54,7 @@ stdenvNoCC.mkDerivation {
   patches = [ ./book.toml.nix-build.patch ];
 
   preBuild = ''
-    GITREV="${gitRev}" node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
+    GIT_REV="${gitRev}" node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
     substituteInPlace src/guides/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatStringsSep "\n" cachedCommitsList}"
     for f in $(find src/options -type f -name '*.md'); do
       fdir=$(dirname $f)
