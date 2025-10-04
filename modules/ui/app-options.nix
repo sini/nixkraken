@@ -8,6 +8,8 @@
     description = ''
       Paths to extra themes to install.
 
+      Refer to the [theming guide](../guides/themes.md) for real-world usage.
+
       > [!WARNING]
       >
       > This option will not install the theme package.

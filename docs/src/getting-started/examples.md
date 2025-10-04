@@ -116,6 +116,10 @@
 
 ## Custom theme
 
+> [!NOTE]
+>
+> Read the [dedicated theming guide](../guides/themes.md) for further details.
+
 ```nix
 {
   programs.nixkraken = {

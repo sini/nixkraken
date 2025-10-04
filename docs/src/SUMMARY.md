@@ -19,6 +19,7 @@
 
 - [Binary cache](./guides/caching.md)
 - [Authentication](./guides/auth.md)
+- [Theming](./guides/themes.md)
 
 # Reference
 
