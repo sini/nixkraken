@@ -130,7 +130,7 @@
       extraThemes = [ "${pkgs.catppuccin-gitkraken}/catppuccin-mocha.jsonc" ];
 
       # Enable extra theme
-      theme = "catppuccin-mocha.jsonc";
+      theme = "catppuccin-mocha";
     };
   };
 }

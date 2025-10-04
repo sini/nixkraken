@@ -16,7 +16,7 @@ GitKraken theme files are [JSONC files](https://jsonc.org/) that define the colo
 To show up in GitKraken, a theme file must:
 
 - be valid JSONC
-- define a unique `meta.name`, which is the identifier used inside GitKraken to reference themes
+- define a unique `meta.name`
 - define the theme's `meta.scheme` as `light` or `dark`
 
 If a theme file is invalid, GitKraken skips it and falls back to a default theme.
@@ -37,7 +37,7 @@ Following GitKraken's documentation, here are the steps to create a valid theme:
 ```json
 {
   "meta": {
-    "name": "my-custom-theme",
+    "name": "My Custom Theme",
     "scheme": "dark"
   },
   "themeValues": {
@@ -65,11 +65,7 @@ Example to use the light theme:
 
 ### Use a custom theme
 
-If you have a Nix package that contains theme files, reference the JSONC file(s) under `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to the theme's `meta.name`.
-
-> [!WARNING]
->
-> Do not use the Nix package's `meta.name`. This is not the same as the theme file's `meta.name` defined inside the JSONC file.
+If you have a Nix package that contains theme files, reference the JSONC file(s) under `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to the theme's filename without its extension.name`.
 
 Example using a packaged theme:
 
@@ -85,7 +81,7 @@ Example using a packaged theme:
       extraThemes = [ "${pkgs.catppuccin-gitkraken}/catppuccin-mocha.jsonc" ];
 
       # Activate the theme
-      theme = "Catppuccin Mocha";
+      theme = "catppuccin-mocha";
     };
   };
 }
@@ -133,11 +129,7 @@ stdenvNoCC.mkDerivation rec {
 
 You can replace the source with your theme repository or local files, ensuring the `.jsonc` gets installed in the derivation output (`$out`).
 
-Then, reference the packaged JSONC file in `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to its `meta.name`.
-
-> [!WARNING]
->
-> Again: use the theme file's `meta.name` (from inside the JSONC), not the Nix package's `meta.name`.
+Then, reference the packaged JSONC file in `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to filename without extension.
 
 ## Tips and gotchas
 
@@ -152,7 +144,3 @@ Because the `ui.extraThemes` option does not install the theme package itself, y
 ### JSONC validity
 
 If a theme doesn't appear in GitKraken, validate the theme file for JSON/JSONC errors.
-
-### Exact `meta.name`
-
-The value of `ui.theme` (and `profiles.*.ui.theme`) for custom themes must match the theme file's `meta.name` exactly.
