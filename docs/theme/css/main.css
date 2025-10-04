@@ -15,3 +15,25 @@ hr {
 .table-wrapper:has(+ .mdbook-alerts) {
   margin-block-end: 1em;
 }
+
+/* Images styling */
+img:not([alt~='logo']) {
+  border: 1px solid var(--fg);
+  border-radius: 1rem;
+}
+
+/* Image auto-generated title */
+p img[title] {
+  display: block;
+  position: relative;
+}
+
+p:has(img[title])::after {
+  content: attr(data-title);
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: var(--fg);
+  font-style: italic;
+}

@@ -11,7 +11,7 @@ renderers = ["html", "linkcheck"]
 
 [output.html]
 additional-css = ["theme/css/main.css", "theme/css/toc.css"]
-additional-js = ["theme/js/toc.js"]
+additional-js = ["theme/js/main.js", "theme/js/toc.js"]
 git-repository-url = "https://github.com/nicolas-goudry/nixkraken"
 edit-url-template = "https://github.com/nicolas-goudry/nixkraken/edit/main/docs/{path}"
 hash-files = true
