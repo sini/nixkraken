@@ -32,6 +32,30 @@ The `docs` directory defines several files and directories, each with unique res
 >
 > All paths referenced in the rest of this guide are relative to the `docs` directory, unless stated otherwise.
 
+## Local development
+
+To serve the documentation website locally, for development purposes, run the following command:
+
+```bash
+# From repository's root
+mdbook serve docs
+```
+
+```bash
+# ...or from the docs directory
+mdbook serve
+```
+
+The documentation will be served at: `http://localhost:3000`.
+
+Any change to the documentation files ([content](#content-authoring), [configuration](#configuration) and [customization](#customization)) will trigger a page reload.
+
+> [!NOTE]
+>
+> The `mdbook` command is available if the [Nix development shell](./contributing.md#nix-development-shell) is enabled.
+>
+> Otherwise, it has to be available globally.
+
 ## Content authoring
 
 ### Structure
