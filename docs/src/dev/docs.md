@@ -150,8 +150,6 @@ Beyond general metadata which defines the book title, description, language and 
 
 _Please refer to the [official mdBook documentation](https://rust-lang.github.io/mdBook/format/configuration/index.html) for further details about configuration options and behavior._
 
-In addition to the `book.toml` file, there is a `book.toml.nix-build.patch` file which is used when building using the [Nix derivation](#nix-derivation). This is required since the Nix build sandbox does not allow network access and the `linkcheck` renderer tries to check external links by default. Therefore, when building, the patch is applied against `book.toml` to disable external links checking (internal links are still validated).
-
 ### Customization
 
 mdBook allows to include arbitrary additional CSS and JS files using respectively the `additional-css` and `additional-js` options of the `html` renderer. These settings enable to further customize mdBook behavior without having to write Rust code.
@@ -276,6 +274,23 @@ As mentioned in the [generated content section](#generated-content), several mar
 > If you're wondering what is the use case for the `OPTIONS_ROOT` marker, it is useful to link to global module options documentation from profile-specific module options documentation.
 >
 > See [this example](https://github.com/nicolas-goudry/nixkraken/blob/3e3a59565da737ce53ab6c9c8312e55322d2a132/modules/tools/profile-options.nix#L35) to get a better grasp of its use.
+
+### Patching mdBook configuration
+
+mdBook's configuration, stored in `book.toml`, is intended to be used for [local development](#local-development).
+
+This configuration is however not suitable for use within the Nix derivation, because of the linkcheck preprocessor. Therefore, there's a patch file stored in [`book.toml.nix-build.patch`](https://github.com/nicolas-goudry/nixkraken/blob/main/docs/book.toml.nix-build.patch) which is responsible for updating the configuration to make it suitable for use.
+
+This patch does two things:
+
+1. Disable checking external links
+
+   Since the Nix build sandbox does not allow network access, we have to disable checking external links to avoid build failures.
+
+2. Enable checking internal links to generated content
+
+   By default, internal links to [generated content](#generated-content) are not checked, since such content does not exist when building outside the Nix derivation.\
+   When building the Nix derivation, this content is available and we must therefore check links to them.
 
 ### Build phases
 
