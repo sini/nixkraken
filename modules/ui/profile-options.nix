@@ -62,7 +62,9 @@ in
 
       > [!NOTE]
       >
-      > Extra themes are referenced by their `meta.name`, ie. `catppuccin-mocha`.
+      > Extra themes are referenced by their filename without extension.
+      >
+      > Refer to the [theming guide](@OPTIONS_ROOT@/../guides/themes.md) for real-world usage.
     '';
   };
 
