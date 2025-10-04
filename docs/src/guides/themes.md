@@ -50,7 +50,7 @@ Following GitKraken's documentation, here are the steps to create a valid theme:
 
 ### Use a built-in GitKraken theme
 
-If you simply want a stock GitKraken theme, set [`ui.theme`](../options/ui.md#uitheme) to one of the listed valid values.
+If you simply want a stock GitKraken theme, set [`ui.theme`](../options/ui.md#uitheme) (or [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme)) to one of its listed valid values.
 
 Example to use the light theme:
 
