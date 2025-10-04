@@ -18,6 +18,7 @@
 # User Guides
 
 - [Binary cache](./guides/caching.md)
+- [Authentication](./guides/auth.md)
 
 # Reference
 
