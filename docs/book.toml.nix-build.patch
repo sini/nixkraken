@@ -1,11 +1,30 @@
 diff --git a/book.toml b/book.toml
-index 31c209a..3b35576 100644
+index a67c7e1..41c1c42 100644
 --- a/book.toml
 +++ b/book.toml
-@@ -23,5 +23,5 @@ enable = true
- level = 1
+@@ -21,25 +21,4 @@ enable = true
+ level = 0
 
  [output.linkcheck]
 -follow-web-links = true
-+# follow-web-links = true
  warning-policy = "error"
+-# Exclude generated content link checks
+-exclude = [
+-  '../options/datetime.md',
+-  '../options/git.md',
+-  '../options/gpg.md',
+-  '../options/graph.md',
+-  '../options/notifications.md',
+-  '../options/profiles.md',
+-  '../options/profiles/git.md',
+-  '../options/profiles/gpg.md',
+-  '../options/profiles/graph.md',
+-  '../options/profiles/ssh.md',
+-  '../options/profiles/tools.md',
+-  '../options/profiles/ui.md',
+-  '../options/profiles/user.md',
+-  '../options/ssh.md',
+-  '../options/tools.md',
+-  '../options/ui.md',
+-  '../options/user.md'
+-]
