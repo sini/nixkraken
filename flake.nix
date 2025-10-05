@@ -51,6 +51,7 @@
         pkgs:
         {
           docs = pkgs.callPackage ./docs { gitRev = self.rev or self.dirtyRev or "dirty"; };
+          gitkraken-themes = pkgs.callPackage ./themes { };
         }
         // (import ./pkgs pkgs)
         // (import ./gitkraken pkgs)
@@ -61,11 +62,11 @@
         default = pkgs.callPackage ./shell.nix { };
       });
 
-      # Output tests as legacyPackages so that:
-      # - they are runnable/buildable with 'nix run/build'
-      # - they are not checked by 'nix flake check'
-      # - they are not built by Garnix
       legacyPackages = eachSystem (pkgs: {
+        # Output tests as legacyPackages so that:
+        # - they are runnable/buildable with 'nix run/build'
+        # - they are not checked by 'nix flake check'
+        # - they are not built by Garnix
         tests = import ./tests pkgs;
       });
     };

@@ -44,3 +44,5 @@ allowedScopes:
   - quickstart
   - readme
   - tests
+  - themes
+  - themes/.+
