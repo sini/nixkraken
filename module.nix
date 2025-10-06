@@ -12,7 +12,7 @@ let
     directory = ./pkgs;
     callPackage = pkgs.callPackage;
   };
-  gitkraken = import ./gitkraken pkgs;
+  gitkraken = pkgs.callPackage ./gitkraken { };
 
   # TODO: where to find them
   logLevels = {
@@ -102,12 +102,7 @@ in
 
     home = {
       packages = [
-        (
-          if cfg.package != null then
-            cfg.package
-          else
-            gitkraken.${lib.replaceStrings [ "." ] [ "-" ] cfg.version}
-        )
+        (if cfg.package != null then cfg.package else gitkraken.override { inherit (cfg) version; })
         localPkgs.login
       ];
 

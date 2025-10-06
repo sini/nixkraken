@@ -49,12 +49,18 @@
       # Packages
       packages = eachSystem (
         pkgs:
+        let
+          gitkraken = pkgs.callPackage ./gitkraken { };
+        in
         {
+          inherit gitkraken;
+
           docs = pkgs.callPackage ./docs { gitRev = self.rev or self.dirtyRev or "dirty"; };
           gitkraken-themes = pkgs.callPackage ./themes { };
         }
+        # This is used to cache GitKraken
+        // gitkraken.passthru
         // (import ./pkgs pkgs)
-        // (import ./gitkraken pkgs)
       );
 
       # Development environment with packages used by the module available in PATH
