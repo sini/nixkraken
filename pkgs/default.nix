@@ -4,11 +4,12 @@
 }:
 
 let
-  inherit (pkgs) lib;
+  inherit (pkgs) callPackage lib;
 
   localPkgs = lib.packagesFromDirectoryRecursive {
+    inherit callPackage;
+
     directory = ./.;
-    callPackage = pkgs.callPackage;
   };
 in
 lib.filterAttrs (name: _: name != "default") localPkgs
