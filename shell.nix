@@ -3,19 +3,18 @@
 }:
 
 let
-  convco = import ./convco.nix { inherit pkgs; };
   localPkgs = import ./pkgs pkgs;
 in
 pkgs.mkShellNoCC {
   nativeBuildInputs =
     (with pkgs; [
+      convco
       mdbook
       mdbook-alerts
       mdbook-linkcheck
       nodejs
       rustc
     ])
-    ++ [ convco ]
     ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;
 
   shellHook = ''

@@ -54,7 +54,7 @@ Please find below the lifecycle of a contribution to NixKraken:
 
 > [!NOTE]
 >
-> We use a [modified version](https://github.com/nicolas-goudry/convco/tree/feat/better-scope-validation) of [convco](https://convco.github.io) to enforce conventional commits.
+> We use [convco](https://convco.github.io) to enforce conventional commits.
 
 ## Repository layout
 
