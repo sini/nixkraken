@@ -45,11 +45,7 @@ in
         lib.map (
           attrset:
           let
-            profileName =
-              if attrset ? "name" then
-                lib.getAttr "name" attrset
-              else
-                lib.getAttrFromPath [ "defaultProfile" "name" ] attrset;
+            profileName = attrset.name or attrset.defaultProfile.name;
           in
           [
             {
@@ -60,13 +56,15 @@ in
                 lib.concatStringsSep ", " (lib.map (col: "`graph.${col}`") columnAttrNames)
               })";
             }
-            {
-              assertion =
-                (lib.getAttr "showAll" attrset.graph) -> lib.isNull (lib.getAttr "maxCommits" attrset.graph);
-            }
           ]
         ) (cfg.profiles ++ [ cfg ])
-      );
+      )
+      ++ [
+        {
+          assertion = cfg.graph.showAll -> cfg.graph.maxCommits == null;
+          message = "`graph.maxCommits` cannot be set if `graph.showAll` is enabled";
+        }
+      ];
 
     programs.nixkraken._submoduleSettings.graph = settings;
   };
