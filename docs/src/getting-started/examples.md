@@ -109,7 +109,6 @@
 
     # Define Ghostty as the default external terminal
     tools.terminal.package = pkgs.ghostty;
-    };
   };
 }
 ```

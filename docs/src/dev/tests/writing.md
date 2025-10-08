@@ -137,7 +137,7 @@ As previously noted, all tests must define a `test.py` file containing the Pytho
 
 ### GitKraken quirks
 
-- GitKraken being a graphical application, most tests require starting an X server
+- Because GitKraken is a graphical application, most tests require starting an X server
 - GitKraken will fail to run under `root` user unless `--no-sandbox` flag is used
 - waiting for GitKraken window succeeds before the window is actually drawn on screen, requiring a sleep workaround
 

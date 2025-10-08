@@ -2,7 +2,7 @@
 
 ## Reverted paid features
 
-There has been reports of paid features configuration being reverted by the app on the first launch due to the user being signed out of their account.
+There have been reports of paid features configuration being reverted by the app on the first launch due to the user being signed out of their account.
 
 Although users can login to their GitKraken account from within the application, **we recommend [using the dedicated process](../guides/auth.md) to sign in with GitKraken** using the [`gk-login` package](../dev/packages/login.md).
 
@@ -32,9 +32,9 @@ This also means that there can be a **configuration drift between the applicatio
 
 ## Long installation time
 
-GitKraken being closed source, **end users will always have to "build" the package** (by _build_, we mean to retrieve the artifacts and patch them for Nix). Although this process is usually not very long, it is still longer than fetching a pre-built binary.
+Because GitKraken is closed source, **end users will always have to "build" the package** (by _build_, we mean to retrieve the artifacts and patch them for Nix). Although this process is usually not very long, it is still longer than fetching a pre-built binary.
 
-Plus, there has been reports of "stuck" builds in the past. This is most often due to a combination of several factors:
+Plus, there have been reports of "stuck" builds in the past. This is most often due to a combination of several factors:
 
 - a slow internet connection
 - GitKraken's artifacts being 200MB+

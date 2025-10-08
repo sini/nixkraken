@@ -1,6 +1,6 @@
 # Install with Flakes
 
-There are two primary ways to use NixKraken with Flakes, depending on whether the home environment is managed as part of a NixOS system or as a standalone configuration.
+Using [Flakes](https://nixos.wiki/wiki/Flakes), there are two primary ways to use the NixKraken module, depending on whether the home environment is managed as part of a NixOS system or as a standalone Home Manager configuration.
 
 > [!NOTE]
 >

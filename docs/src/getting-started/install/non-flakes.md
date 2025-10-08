@@ -15,16 +15,19 @@ The simplest way to use NixKraken without Flakes is to fetch it directly from Gi
 ```nix
 { lib, pkgs, ... }:
 
+let
+  nixkraken = pkgs.fetchFromGitHub {
+    owner = "nicolas-goudry";
+    repo = "nixkraken";
+    rev = "main";
+    # rev = "<branch-name|commit-sha>";
+    hash = lib.fakeHash; # Make sure to read the callout below
+  };
+in
 {
   imports = [
-    # Import the NixKraken module from the fetched source (ie. "${fetcher}/module.nix")
-    "${pkgs.fetchFromGitHub {
-      owner = "nicolas-goudry";
-      repo = "nixkraken";
-      rev = "main";
-      # rev = "<branch-name|commit-sha>";
-      hash = lib.fakeHash; # Make sure to read the callout below
-    }}/module.nix"
+    # Import the NixKraken module from the fetched source
+    "${nixkraken}/module.nix"
   ];
 }
 ```

@@ -1,6 +1,6 @@
 # Binary cache
 
-GitKraken being an unfree package, its builds will not be cached in the default Nix cache (cache.nixos.org). This is expected and _somewhat_ [documented in nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#lib.licenses.unfree-unfree).
+Because GitKraken is an unfree package, its builds will not be cached in the default Nix cache (cache.nixos.org). This is expected and _somewhat_ [documented in nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#lib.licenses.unfree-unfree).
 
 For this reason, NixKraken is using [Garnix](https://garnix.io)' public free cache for GitKraken builds, with permission from GitKraken's legal team.
 
