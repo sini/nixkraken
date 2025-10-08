@@ -9,6 +9,71 @@ Using the aforementioned options, you can:
 
 This guide explains how to use these options, how they relate to GitKraken's theming model, and provides practical examples.
 
+## Common workflows
+
+### Use a built-in GitKraken theme
+
+![Tests](https://img.shields.io/badge/Tests-TODO-orange)
+
+If you simply want a stock GitKraken theme, set [`ui.theme`](../options/ui.md#uitheme) (or [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme)) to one of its listed valid values (see linked references).
+
+Example to use the light theme:
+
+```nix
+{
+  programs.nixkraken = {
+    enable = true;
+    ui.theme = "light";
+  };
+}
+```
+
+> [!NOTE]
+>
+> Due to the [mutability nature of GitKraken configuration](../notes/caveats.md#mutability), you can still change themes within GitKraken. NixKraken ensures that your declarative choices persist on rebuild.
+
+### Use a NixKraken theme
+
+![Tests](https://img.shields.io/badge/Tests-TODO-orange)
+
+NixKraken ships a variety of themes as packages available under `gitkraken-themes`:
+
+<!-- prettier-ignore-start -->
+| Theme set | Theme / Variant | Source | Attribute |
+| --------- | --------------- | ------ | --------- |
+@THEMES_LIST@
+<!-- prettier-ignore-end -->
+
+> [!TIP]
+>
+> Refer to the [installation guide about packages](../getting-started/install/packages.md) to learn how to make themes available to your configuration.
+
+To install themes for GitKraken, add them to [`ui.extraThemes`](../options/ui.md#uiextrathemes):
+
+```nix
+{
+  programs.nixkraken = {
+    enable = true;
+
+    ui.extraThemes = with pkgs.gitkraken-themes; [
+      catppuccin.mocha
+      dracula.default
+    ];
+  };
+}
+```
+
+To enable a theme in GitKraken, use [`ui.theme`](../options/ui.md#uitheme) (or [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme)):
+
+```nix
+{
+  programs.nixkraken = {
+    enable = true;
+    ui.theme = pkgs.gitkraken-themes.catppuccin.mocha.id
+  };
+}
+```
+
 ## How GitKraken themes work
 
 GitKraken theme files are [JSONC files](https://jsonc.org/) that define the colors used throughout the application.
@@ -46,50 +111,9 @@ Following GitKraken's documentation, here are the steps to create a valid theme:
 }
 ```
 
-## Common workflows
+### Packaging themes
 
-### Use a built-in GitKraken theme
-
-If you simply want a stock GitKraken theme, set [`ui.theme`](../options/ui.md#uitheme) (or [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme)) to one of its listed valid values.
-
-Example to use the light theme:
-
-```nix
-{
-  programs.nixkraken = {
-    enable = true;
-    ui.theme = "light";
-  };
-}
-```
-
-### Use a custom theme
-
-If you have a Nix package that contains theme files, reference the JSONC file(s) under `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to the theme's filename without its extension.name`.
-
-Example using a packaged theme:
-
-```nix
-{ pkgs, ... }:
-
-{
-  programs.nixkraken = {
-    enable = true;
-
-    ui = {
-      # Make the theme file available to GitKraken
-      extraThemes = [ "${pkgs.catppuccin-gitkraken}/catppuccin-mocha.jsonc" ];
-
-      # Activate the theme
-      theme = "catppuccin-mocha";
-    };
-  };
-}
-```
-
-## Packaging themes
-
-Here is an example derivation to package [Catppuccin's theme for GitKraken](https://github.com/catppuccin/gitkraken):
+Here is an example derivation to package [Catppuccin's themes for GitKraken](https://github.com/catppuccin/gitkraken):
 
 ```nix
 {
@@ -129,18 +153,19 @@ stdenvNoCC.mkDerivation rec {
 
 You can replace the source with your theme repository or local files, ensuring the `.jsonc` gets installed in the derivation output (`$out`).
 
-Then, reference the packaged JSONC file in `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to filename without extension.
+Then, reference the package in `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to the filename of a JSONC theme file, without extension:
 
-## Tips and gotchas
+```nix
+{ pkgs, ... }:
 
-### Coexistence with in-app selection
+{
+  programs.nixkraken = {
+    enable = true;
 
-Due to the [mutability nature of GitKraken configuration](../notes/caveats.md#mutability), you can still change themes within GitKraken. NixKraken ensures that your declarative choices persist on rebuild.
-
-### Non-installing behavior
-
-Because the `ui.extraThemes` option does not install the theme package itself, you must ensure the package providing the JSONC theme file is in scope of your configuration.
-
-### JSONC validity
-
-If a theme doesn't appear in GitKraken, validate the theme file for JSON/JSONC errors.
+    ui = {
+      extraThemes = [ pkgs.catppuccin-gitkraken ];
+      theme = "catppuccin-mocha";
+    };
+  };
+}
+```

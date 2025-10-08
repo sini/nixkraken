@@ -39,6 +39,27 @@ let
     "> - GitKraken v${version}: [\\`${commit}\\`](https://github.com/nixos/nixpkgs/blob/${commit})"
   ) gitkrakenVersions;
 
+  # List of details about individual themes as Markdown table rows
+  # Replacement of @THEMES_LIST@
+  themes = callPackage ../themes { };
+  themesList = lib.collect lib.isString (
+    lib.mapAttrs (
+      set: variants:
+      lib.mapAttrs' (
+        variant: drv:
+        let
+          src = drv.src.gitRepoUrl or drv.src.url;
+        in
+        lib.nameValuePair "${set}-${variant}" "| ${lib.toSentenceCase set} | ${
+          if drv.prettyName == null then lib.toSentenceCase variant else drv.prettyName
+        } | [Source](${src}) | `${set}.${variant}` |"
+      ) (lib.filterAttrs (name: _: name != "override" && name != "overrideDerivation") variants)
+    ) themes.passthru
+  );
+  themesListBuilder = ''
+    substituteInPlace src/guides/themes.md --subst-var-by THEMES_LIST '${lib.concatLines themesList}'
+  '';
+
   # Local packages
   # Used to replace command usages
   localPkgs = callPackage ../pkgs { };
@@ -89,6 +110,7 @@ stdenvNoCC.mkDerivation {
     # Handle other replacements
     substituteInPlace src/guides/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatLines cachedCommitsList}"
     ${commandUsagesBuilder}
+    ${themesListBuilder}
   '';
 
   buildPhase = ''

@@ -58,13 +58,13 @@ in
     default = "system";
     example = "dark";
     description = ''
-      UI theme.
+      UI theme to use.
 
       > [!NOTE]
       >
       > Extra themes are referenced by their filename without extension.
       >
-      > Refer to the [theming guide](@OPTIONS_ROOT@/../guides/themes.md) for real-world usage.
+      > Refer to the [theming guide](@OPTIONS_ROOT@/../guides/themes.md) for further details.
     '';
   };
 
