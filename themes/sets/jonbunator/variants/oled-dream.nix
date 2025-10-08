@@ -5,4 +5,5 @@
 pkgs.callPackage ../make-variant.nix {
   path = "Oled Dream/oled-dream";
   name = "oled-dream";
+  prettyName = "Oled Dream";
 }

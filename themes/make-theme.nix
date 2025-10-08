@@ -6,6 +6,7 @@
   path,
   meta,
   fetcher ? fetchFromGitHub,
+  prettyName ? null,
 }:
 
 runCommand name
@@ -13,6 +14,10 @@ runCommand name
     inherit meta;
 
     src = fetcher src;
+
+    passthru = {
+      inherit prettyName;
+    };
   }
   ''
     mkdir -p $out
