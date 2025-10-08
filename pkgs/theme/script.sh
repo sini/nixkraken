@@ -93,7 +93,8 @@ usage() {
   echo -e "${bold}Options:${no_color}"
   cat <<EOF | column -ts '|'
     -l, --list|List available themes
-    -i, --install|Install given themes (comma-separated list of paths to theme files)
+    -i, --install|Install themes
+    |This is a comma-separated list of paths to lookup for JSONC theme files
     |Note: paths must be absolute
     --dry-run|Only print what would be done
     -v, --verbose|Enable verbose output
@@ -153,18 +154,35 @@ list_themes() {
   fi
 }
 
+install_themes_from() {
+  local lookup_path="$1"
+
+  if ! [ -d "${lookup_path}" ]; then
+    error "lookup path is not a directory"
+  elif ! [ -r "${lookup_path}" ]; then
+    warn "lookup path is not readable (${lookup_path})"
+  else
+    local count=0
+    for theme in "${lookup_path}"/*.jsonc; do
+      install_theme "${theme}"
+      count=$((count + 1))
+    done
+    info "installed ${count} theme(s) from ${lookup_path}"
+  fi
+}
+
 install_theme() {
   local theme="$1"
-  local destination
+  local theme_file
 
-  destination="${themes_dir}/$(basename "${theme}")"
+  theme_file=$(basename "${theme}")
 
   if ! validate_theme "${theme}"; then
     die
   fi
 
-  info "installing theme '${theme}' at ${destination}"
-  _do ln -sf "${theme}" "${destination}"
+  info "installing theme '${theme_file}'"
+  _do ln -sf "${theme}" "${themes_dir}/${theme_file}"
 }
 
 ########
@@ -172,7 +190,7 @@ install_theme() {
 ########
 
 main() {
-  themes=()
+  lookup_paths=()
 
   # Parse command-line options
   while getopts 'hli:v-:' OPT; do
@@ -192,7 +210,7 @@ main() {
         ;;
       i | install )
         needs_arg
-        IFS="," read -ra themes <<< "${OPTARG}"
+        IFS="," read -ra lookup_paths <<< "${OPTARG}"
         ;;
       "dry-run" )
         DRY_RUN=1
@@ -216,19 +234,19 @@ main() {
     esac
   done
 
-  if [ "${#themes[@]}" -eq 0 ]; then
-    error "no option specified"
+  if [ "${#lookup_paths[@]}" -eq 0 ]; then
+    error "no lookup path provided"
     usage
     die
   fi
 
-  info "handling themes: ${themes[*]}"
+  info "lookup paths: ${lookup_paths[*]}"
 
   info "creating themes directory: ${themes_dir}"
   _do mkdir -p "${themes_dir}"
 
-  for theme in "${themes[@]}"; do
-    install_theme "${theme}"
+  for theme in "${lookup_paths[@]}"; do
+    install_themes_from "${theme}"
   done
 
   success "themes successfully installed"
