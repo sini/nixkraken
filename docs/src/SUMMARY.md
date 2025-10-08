@@ -8,6 +8,7 @@
 - [Installation](./getting-started/install/index.md)
   - [Flakes](./getting-started/install/flakes.md)
   - [Non-Flakes](./getting-started/install/non-flakes.md)
+  - [Additional packages](./getting-started/install/packages.md)
 - [Examples](./getting-started/examples.md)
 
 # Important Notes
