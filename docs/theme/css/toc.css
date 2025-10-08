@@ -24,7 +24,6 @@
 
 /* The clickable TOC toggle button (hamburger menu style) */
 .toc-btn {
-  border-radius: 0.3rem;
   border: 1px solid currentColor;
   color: var(--toc-color-mix);
   cursor: pointer;
@@ -58,15 +57,29 @@
 /* Individual lines of the hamburger menu icon */
 .toc-btn > .toc-btn__line {
   background-color: currentColor;
-  border-radius: 1rem;
   height: 2px;
   width: 1.5rem;
+  transition:
+    opacity 100ms ease-in,
+    transform 200ms ease-in-out;
+}
+
+/* Individual lines becomes an X cross when TOC is open */
+.toc-btn__open > .toc-btn__line:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.toc-btn__open > .toc-btn__line:nth-child(2) {
+  opacity: 0;
+}
+
+.toc-btn__open > .toc-btn__line:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
 }
 
 /* Dropdown content container that holds all TOC links */
 .toc-content {
   background: var(--bg);
-  border-radius: 0.3rem;
   border: 1px solid currentColor;
   display: none;
   flex-direction: column;
@@ -74,8 +87,8 @@
   overflow-y: auto;
   padding-block: 1rem;
   position: absolute;
-  right: 0;
-  top: 3rem;
+  right: -1px;
+  top: 2.75rem;
   /* Prevent text wrapping in TOC links */
   white-space: nowrap;
 }
