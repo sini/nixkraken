@@ -1,4 +1,5 @@
 {
+  lib,
   runCommand,
   fetchFromGitHub,
   name,
@@ -17,9 +18,11 @@ runCommand name
 
     passthru = {
       inherit prettyName;
+
+      id = lib.removeSuffix ".jsonc" (builtins.baseNameOf path);
     };
   }
   ''
     mkdir -p $out
-    cp "$src/${path}" $out/theme.jsonc
+    cp "$src/${path}" $out
   ''
