@@ -33,6 +33,7 @@ in
       layout.RefPanel.open = profile.ui.showLeftPanel;
       mergeTool = profile.tools.merge;
       profileIcon = profileIcons.${profile.icon};
+      profileName = profile.name;
       userEmail = profile.user.email;
       userName = profile.user.name;
       workDirSummary = profile.ui.showRepoSummary;
