@@ -58,6 +58,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions =
+      let
+        allProfileNames = [ defaultProfile.name ] ++ (lib.map (profile: profile.name) cfg.profiles);
+        duplicateProfiles = lib.attrNames (
+          lib.filterAttrs (_: count: count > 1) (lib.groupBy' (x: _: x + 1) 0 toString allProfileNames)
+        );
+      in
+      [
+        {
+          assertion = lib.length duplicateProfiles == 0;
+          message = "Profile names must be unique (offending profiles: ${lib.concatStringsSep ", " duplicateProfiles})";
+        }
+      ];
+
     home.activation = lib.hm.dag.entriesAfter "nixkraken-profiles" [ "nixkraken-top-level" ] (
       lib.mapAttrsToList (id: profile: ''
         ${localPkgs.configure}/bin/gk-configure \
