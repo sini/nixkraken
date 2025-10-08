@@ -74,7 +74,6 @@ needs_arg() {
 
 # Print usage
 usage() {
-  echo
   echo "Login to your GitKraken account from the command line."
   echo
   echo -e "${bold}Usage:${no_color}"

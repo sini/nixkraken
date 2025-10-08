@@ -8,30 +8,42 @@ Although their execution is considered safe (since they only read the `secFile`s
 
 ## Usage
 
-All options are documented by the `--help` flag:
+### `gk-encrypt`
+
+```plain
+@GK_ENCRYPT_USAGE@
+```
+
+### `gk-decrypt`
+
+```plain
+@GK_DECRYPT_USAGE@
+```
+
+## How to run
 
 ```bash
 # Using the raw Bash script
-./encrypt/script.sh --help
-./decrypt/script.sh --help
+./pkgs/encrypt/script.sh
+./pkgs/decrypt/script.sh
 ```
 
 ```bash
 # ...or using new Nix commands
-nix run '.#encrypt' -- --help
-nix run '.#decrypt' -- --help
+nix run '.#encrypt'
+nix run '.#decrypt'
 ```
 
 ```bash
 # ...or using classic Nix commands
-nix-build ./pkgs -A encrypt && ./result/bin/gk-encrypt --help
-nix-build ./pkgs -A decrypt && ./result/bin/gk-decrypt --help
+nix-build ./pkgs -A encrypt && ./result/bin/gk-encrypt
+nix-build ./pkgs -A decrypt && ./result/bin/gk-decrypt
 ```
 
 ```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
-gk-encrypt --help
-gk-decrypt --help
+gk-encrypt
+gk-decrypt
 ```
 
 The scripts are extensively documented through comments in the source files themselves:

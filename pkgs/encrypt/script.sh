@@ -34,7 +34,6 @@ die() {
 
 # Print usage
 usage() {
-  echo
   echo "Encrypt GitKraken secret file."
   echo
   echo -e "${bold}Usage:${no_color}"

@@ -14,26 +14,30 @@ While it's intended for use during Home Manager activation by the NixKraken modu
 
 ## Usage
 
-All options are documented by the `--help` flag:
+```plain
+@GK_CONFIGURE_USAGE@
+```
+
+## How to run
 
 ```bash
 # Using the raw Bash script
-./configure/script.sh --help
+./pkgs/configure/script.sh
 ```
 
 ```bash
 # ...or using new Nix commands
-nix run '.#configure' -- --help
+nix run '.#configure'
 ```
 
 ```bash
 # ...or using classic Nix commands
-nix-build ./pkgs -A configure && ./result/bin/gk-configure --help
+nix-build ./pkgs -A configure && ./result/bin/gk-configure
 ```
 
 ```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
-gk-configure --help
+gk-configure
 ```
 
 Since the package is typically run during Home Manager activation, it respects the following environment variables:

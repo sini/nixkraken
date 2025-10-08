@@ -85,7 +85,6 @@ needs_arg() {
 
 # Print usage
 usage() {
-  echo
   echo "GitKraken themes handler."
   echo
   echo -e "${bold}Usage:${no_color}"

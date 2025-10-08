@@ -10,26 +10,30 @@ Although its execution is considered safe, it is possible that theme files are o
 
 ## Usage
 
-All options are documented by the `--help` flag:
+```plain
+@GK_THEME_USAGE@
+```
+
+## How to run
 
 ```bash
 # Using the raw Bash script
-./theme/script.sh --help
+./pkgs/theme/script.sh
 ```
 
 ```bash
 # ...or using new Nix commands
-nix run '.#theme' -- --help
+nix run '.#theme'
 ```
 
 ```bash
 # ...or using classic Nix commands
-nix-build ./pkgs -A theme && ./result/bin/gk-theme --help
+nix-build ./pkgs -A theme && ./result/bin/gk-theme
 ```
 
 ```bash
 # ...or from the Nix development shell (nix develop / nix-shell)
-gk-theme --help
+gk-theme
 ```
 
 Since the package is typically run during Home Manager activation, it respects the following environment variables:
