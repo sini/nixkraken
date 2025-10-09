@@ -47,9 +47,9 @@ This is a collection of packages bundling various GitKraken themes which can be 
 
 Please refer to the [theming guide](../../guides/themes.md) for further details on their usage.
 
-## Usage with Flakes
+## Installation
 
-There are various ways to provide the packages to your Flake-based configuration.
+There are various ways to provide the packages to your configuration.
 
 The examples below showcase both [overlays](https://nixos.org/manual/nixpkgs/stable/#chap-overlays) and [Home Manager `extraSpecialArgs`](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module), but there might be other undocumented ways to make the packages available to your configuration.
 
@@ -63,7 +63,7 @@ Feel free to contribute additional ways to provide them!
 >
 > Please refer to prior art available online. A good starting point is the [official wiki article](https://wiki.nixos.org/wiki/Overlays).
 
-#### Top-level
+#### Flakes
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
