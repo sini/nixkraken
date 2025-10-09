@@ -28,9 +28,7 @@
     description = ''
       When this option is enabled, GitKraken will use the bundled [NodeGit](https://www.nodegit.org/) library.
 
-      When this option is disabled, GitKraken will use the `git` package instead of the NodeGit library for certain Git actions including fetching and committing. This may provide increased performance and compatibility with certain projects and development environments.
-
-      If disabled, the [`git.package`](#gitpackage) option is used to install Git and set it as the selected Git binary used by GitKraken.
+      When this option is disabled, GitKraken will use the [`git.package`](#gitpackage) option is used to install Git and set it as the selected Git binary used for certain Git actions including fetching and committing. This may provide increased performance and compatibility with certain projects and development environments.
     '';
   };
 }

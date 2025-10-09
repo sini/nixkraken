@@ -12,7 +12,7 @@
     description = ''
       File used for SSH signature verification.
 
-      Unless _ssh_ [`format`](#gpgformat) is used, this will not have any effect.
+      Unless [`gpg.format`](#gpgformat) is set to `ssh`, this will not have any effect.
 
       > [!NOTE]
       >
@@ -40,9 +40,9 @@
     description = ''
       Package to use for commit signing.
 
-      When using _openpgp_ [`format`](#gpgformat), this is set to [`pkgs.gnupg`](https://search.nixos.org/packages?show=gnupg&query=gnupg).
+      When [`gpg.format`](#gpgformat) is set to `openpgp`, this is set to [`pkgs.gnupg`](https://search.nixos.org/packages?show=gnupg&query=gnupg).
 
-      When using _ssh_ [`format`](#gpgformat), this is set to [`pkgs.openssh`](https://search.nixos.org/packages?show=openssh&query=openssh).
+      When [`gpg.format`](#gpgformat) is set to `ssh`, this is set to [`pkgs.openssh`](https://search.nixos.org/packages?show=openssh&query=openssh).
     '';
   };
 
@@ -54,14 +54,14 @@
     description = ''
       Binary to use for commit signing.
 
-      When unset, the default [`package`](#gpgpackage)'s program will be used.
+      When unset, the default [`gpg.package`](#gpgpackage)'s program will be used.
 
-      This is useful if the [`package`](#gpgpackage) exposes multiple programs and the one you wish
+      This is useful if the [`gpg.package`](#gpgpackage) exposes multiple programs and the one you wish
       to use for commit signing is not the default one.
 
       > [!WARNING]
       >
-      > Make sure that the selected program is exposed by the [`package`](#gpgpackage), since NixKraken
+      > Make sure that the selected program is exposed by the [`gpg.package`](#gpgpackage), since NixKraken
       > will not validate it.
     '';
   };
@@ -92,9 +92,9 @@
     description = ''
       Private key to use for commit signing.
 
-      When using _openpgp_ [`format`](#gpgformat), this is the identifier of the GPG key used for signing.
+      When [`gpg.format`](#gpgformat) is set to `openpgp`, this is the identifier of the GPG key used for signing.
 
-      When using _ssh_ [`format`](#gpgformat), this is the path to the SSH private key used for signing.
+      When [`gpg.format`](#gpgformat) is set to `ssh`, this is the path to the SSH private key used for signing.
     '';
   };
 }
