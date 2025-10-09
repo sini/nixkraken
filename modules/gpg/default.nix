@@ -35,6 +35,22 @@ in
         hasSigningWithoutKey =
           attrset:
           (cast attrset.gpg.signCommits || cast attrset.gpg.signTags) && attrset.gpg.signingKey == null;
+        validPkgsWithFormat = {
+          gpg = [
+            "gnupg"
+            "gnupg1compat"
+          ];
+          ssh = [
+            "openssh"
+            "openssh-with-hpn"
+            "openssh-test"
+            "openssh-with-gssapi"
+          ];
+        };
+        hasPkgIncompatibleWithFormat =
+          attrset:
+          (attrset.gpg.format == "ssh" && lib.elem attrset.gpg.package.pname validPkgsWithFormat.gpg)
+          || (attrset.gpg.format == "openpgp" && lib.elem attrset.gpg.package.pname validPkgsWithFormat.ssh);
       in
       (builtins.foldl' (
         warnings: profile:
@@ -42,8 +58,12 @@ in
         ++ (lib.optionals (hasSigningWithoutKey profile) [
           "Profile \"${profile.name}\" has commit/tag signing (`gpg.signCommits`, `gpg.signTags`) enabled, but no signing key (`gpg.signingKey`) was defined."
         ])
+        ++ (lib.optionals (hasPkgIncompatibleWithFormat profile) [
+          "Profile \"${profile.name}\" is potentially using an incompatible commit signing package (`gpg.package` => ${cfg.gpg.package.name}) for the selected commit signing format (`gpg.format` => ${cfg.gpg.format})."
+        ])
       ) [ ] cfg.profiles)
       ++ lib.optional (hasSigningWithoutKey cfg) "Commit/tag signature (`gpg.signCommits`, `gpg.signTags`) is enabled but no signing key (`gpg.signingKey`) was defined."
+      ++ lib.optional (hasPkgIncompatibleWithFormat cfg) "Selected commit signing package (`gpg.package` => ${cfg.gpg.package.name}) may be incompatible with commit signing format (`gpg.format` => ${cfg.gpg.format})";
 
     home.packages = [ cfg.gpg.package ];
   };
