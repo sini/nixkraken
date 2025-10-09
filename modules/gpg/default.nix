@@ -33,22 +33,18 @@ in
     warnings =
       let
         cast = value: value != null && value;
+        hasSigningWithoutKey =
+          attrset:
+          (cast attrset.gpg.signCommits || cast attrset.gpg.signTags) && attrset.gpg.signingKey == null;
       in
       (builtins.foldl' (
         warnings: profile:
-        if
-          (cast profile.gpg.signCommits || cast profile.gpg.signTags) && profile.gpg.signingKey == null
-        then
-          warnings
-          ++ [
-            "Profile \"${profile.name}\" has commit/tag signing enabled, but no signing key was defined."
-          ]
-        else
-          warnings
+        warnings
+        ++ (lib.optionals (hasSigningWithoutKey profile) [
+          "Profile \"${profile.name}\" has commit/tag signing (`gpg.signCommits`, `gpg.signTags`) enabled, but no signing key (`gpg.signingKey`) was defined."
+        ])
       ) [ ] cfg.profiles)
-      ++ lib.optional (
-        (cast cfg.gpg.signCommits || cast cfg.gpg.signTags) && cfg.gpg.signingKey == null
-      ) "GPG commit/tag signature is enabled but no signing key was defined.";
+      ++ lib.optional (hasSigningWithoutKey cfg) "Commit/tag signature (`gpg.signCommits`, `gpg.signTags`) is enabled but no signing key (`gpg.signingKey`) was defined."
 
     home.packages = [ cfg.gpg.package ];
   };
