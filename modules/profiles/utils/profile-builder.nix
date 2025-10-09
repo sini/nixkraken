@@ -144,11 +144,11 @@ in
         tagForceSignAnnotated = profile.gpg.signTags != null && profile.gpg.signTags;
       }
       // lib.optionalAttrs (profile.gpg.format == "openpgp") {
-        gpgProgram = "${cfg.gpg.package}/${cfg.gpg.program}";
+        gpgProgram = "${profile.gpg.package}/${profile.gpg.program}";
         userSigningKey = profile.gpg.signingKey;
       }
       // lib.optionalAttrs (profile.gpg.format == "ssh") {
-        gpgSshProgram = "${cfg.gpg.package}/${cfg.gpg.program}";
+        gpgSshProgram = "${profile.gpg.package}/${profile.gpg.program}";
         sshAllowedSignersFile = profile.gpg.allowedSigners;
         userSigningKeySsh = profile.gpg.signingKey;
       };

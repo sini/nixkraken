@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   allowedSigners = lib.mkOption {
@@ -25,6 +30,27 @@
     default = "openpgp";
     description = ''
       Format to use for commit signing.
+    '';
+  };
+
+  package = lib.mkPackageOption pkgs "gnupg" {
+    extraDescription = ''
+      <br/><br/>
+      Used for commit signing.
+
+      > [!WARNING]
+      >
+      > When using _ssh_ [`format`](#gpgformat), this **must** be changed from the default.
+    '';
+  };
+
+  program = lib.mkOption {
+    type = lib.types.str;
+    default = "bin/${pkgs.gnupg.meta.mainProgram}";
+    defaultText = "bin/\${pkgs.gnupg.mainProgram}";
+    example = "ssh-keygen";
+    description = ''
+      Binary from the [`package`](#gpgpackage) to use.
     '';
   };
 
