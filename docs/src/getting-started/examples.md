@@ -70,11 +70,8 @@
     enable = true;
 
     ui = {
-      # Add Mocha variant of Catppuccin theme for GitKraken
-      extraThemes = [ "${pkgs.catppuccin-gitkraken}/catppuccin-mocha.jsonc" ];
-
-      # Enable extra theme
-      theme = "catppuccin-mocha";
+      extraThemes = [ pkgs.gitkraken-themes.catppuccin.mocha ];
+      theme = pkgs.gitkraken-themes.catppuccin.mocha.id;
     };
   };
 }
