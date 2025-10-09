@@ -7,18 +7,16 @@
 
 {
   allowedSigners = lib.mkOption {
-    type = with lib.types; nullOr (either str path);
+    type = with lib.types; nullOr path;
     default = null;
     description = ''
       File used for SSH signature verification.
 
-      > [!WARNING]
-      >
-      > This option can only be defined if [`format`](#gpgformat) is set to `ssh`.
+      Unless _ssh_ [`format`](#gpgformat) is used, this will not have any effect.
 
       > [!NOTE]
       >
-      > When `null`, the global git configuration value is used.
+      > When unset, GitKraken will use the [global git configuration value](https://git-scm.com/docs/git-config#Documentation/git-config.txt-gpgsshallowedSignersFile).
     '';
   };
 
@@ -33,14 +31,18 @@
     '';
   };
 
-  package = lib.mkPackageOption pkgs "gnupg" {
-    extraDescription = ''
-      <br/><br/>
-      Used for commit signing.
+  package = lib.mkOption {
+    type = lib.types.package;
+    default = null;
+    defaultText = lib.literalExpression ''
+      if gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh
+    '';
+    description = ''
+      Package to use for commit signing.
 
-      > [!WARNING]
-      >
-      > When using _ssh_ [`format`](#gpgformat), this **must** be changed from the default.
+      When using _openpgp_ [`format`](#gpgformat), this is set to [`pkgs.gnupg`](https://search.nixos.org/packages?show=gnupg&query=gnupg).
+
+      When using _ssh_ [`format`](#gpgformat), this is set to [`pkgs.openssh`](https://search.nixos.org/packages?show=openssh&query=openssh).
     '';
   };
 
@@ -48,9 +50,19 @@
     type = lib.types.str;
     default = "bin/${pkgs.gnupg.meta.mainProgram}";
     defaultText = "bin/\${pkgs.gnupg.mainProgram}";
-    example = "ssh-keygen";
+    example = "bin/ssh-keygen";
     description = ''
-      Binary from the [`package`](#gpgpackage) to use.
+      Binary to use for commit signing.
+
+      When unset, the default [`package`](#gpgpackage)'s program will be used.
+
+      This is useful if the [`package`](#gpgpackage) exposes multiple programs and the one you wish
+      to use for commit signing is not the default one.
+
+      > [!WARNING]
+      >
+      > Make sure that the selected program is exposed by the [`package`](#gpgpackage), since NixKraken
+      > will not validate it.
     '';
   };
 
