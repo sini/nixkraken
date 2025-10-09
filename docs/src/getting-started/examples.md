@@ -37,68 +37,13 @@
 
 ## Manage multiple profiles
 
-> [!IMPORTANT]
+> [!NOTE]
+>
 > Only paid accounts can set profiles beyond the default one.
+>
+> Read the [dedicated profiles guide](../guides/profiles.md) for further details.
 
-```nix
-{
-  programs.nixkraken = {
-    enable = true;
-
-    # Configure the default profile
-    user = {
-      name = "Personal Name";
-      email = "personal@email.com"
-    };
-
-    # Configure a separate, named profile for work
-    profiles = [
-      {
-        name = "Work";
-
-        user = {
-          name = "Work Name";
-          email = "work@email.com";
-        };
-
-        ui.theme = "dark";
-      }
-    ];
-  };
-}
-```
-
-### Inherit options from default profile
-
-```nix
-{
-  # Notice the "rec" keyword? This is a recursive attribute set, allowing us to
-  # reuse previously defined keys anywhere inside this attribute set.
-  programs.nixkraken = rec {
-    enable = true;
-
-    # Configure graph columns
-    graph = {
-      compact = true;
-      showAuthor = true;
-      showDatetime = true;
-      showMessage = true;
-      showRefs = false;
-      showSHA = false;
-      showGraph = true;
-    };
-
-    profiles = [
-      {
-        # Use same graph settings as default profile
-        inherit graph;
-
-        name = "Other profile";
-      }
-    ];
-  };
-}
-```
+{{#include ../guides/profiles.md:profiles_inheritance}}
 
 ## Custom terminal
 
