@@ -16,22 +16,15 @@ in
   };
 
   config = lib.mkIf (cfg.enable) {
-    # Since the user submodule is shared by both top-level and profiles, we cannot rely on module type checks and
-    # must instead resort to use an assertion on the resolved configuration data
-    assertions =
-      let
-        allProfilesHaveUserAttr =
-          attr: lib.foldl' (acc: { user, ... }: acc && user.${attr} != null) true cfg.profiles;
-      in
-      [
-        {
-          assertion = cfg.skipTutorial -> (cfg.user.email != null || allProfilesHaveUserAttr "email");
-          message = "When tutorial is skipped, either a default email (`user.email`) must be defined or all profiles must define a user email (`profile.user.email`)";
-        }
-        {
-          assertion = cfg.skipTutorial -> (cfg.user.name != null || allProfilesHaveUserAttr "name");
-          message = "When tutorial is skipped, either a default name (`user.name`) must be defined or all profiles must define a user name (`profile.user.name`)";
-        }
-      ];
+    assertions = [
+      {
+        assertion = cfg.skipTutorial -> cfg.user.email != null;
+        message = "When tutorial is skipped, a default email (`user.email`) must be defined";
+      }
+      {
+        assertion = cfg.skipTutorial -> cfg.user.name != null;
+        message = "When tutorial is skipped, a default name (`user.name`) must be defined";
+      }
+    ];
   };
 }
