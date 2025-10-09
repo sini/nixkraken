@@ -84,9 +84,9 @@ in
 
       > [!NOTE]
       >
-      > Zoom value is done in increment of 0.1 only. The value is truncated to a one decimal number.
+      > GitKraken only supports zoom levels in 0.1 increments (0.8, 0.9, 1.0, etc.).
       >
-      > This means that setting this option to `0.96` will result in `0.9` being applied.
+      > Values are automatically rounded down to the nearest 0.1. For example, 0.96 becomes 0.9, and 1.23 becomes 1.2.
     '';
   };
 }
