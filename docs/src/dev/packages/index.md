@@ -1,14 +1,26 @@
+[doc-configure]: ./configure.md
+[doc-encrypt-decrypt]: ./encrypt-decrypt.md
+[doc-login]: ./login.md
+[doc-theme]: ./theme.md
+[flakes-outputs]: https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/outputs
+[gitkraken]: https://www.gitkraken.com/git-client
+[nix-manual]: https://nix.dev/manual/nix/stable
+[nixdev-shell]: https://nix.dev/tutorials/first-steps/declarative-shell#declarative-reproducible-envs
+[nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable/#preface
+[nixpkgs-packagesfromdirectoryrecursive]: https://nixos.org/manual/nixpkgs/unstable/#function-library-lib.filesystem.packagesFromDirectoryRecursive
+[nixpkgs-writeshellapplication]: https://nixos.org/manual/nixpkgs/stable/#trivial-builder-writeShellApplication
+
 # Packages
 
-NixKraken uses several packages to perform actions related to GitKraken configuration handling. Because GitKraken's configuration files also store mutable application state, they cannot be written directly by Nix. Instead, these packages are used to safely read, modify, and write to the JSON configuration files without destroying the state.
+NixKraken uses several packages to perform actions related to [GitKraken][gitkraken] configuration handling. Because GitKraken's configuration files also store mutable application state, they cannot be written directly by [Nix][nix-manual]. Instead, these packages are used to safely read, modify, and write to the JSON configuration files without destroying the state.
 
-These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`](https://nixos.org/manual/nixpkgs/unstable/#trivial-builder-writeShellApplication), which allows to define their runtime dependencies. This approach enables the scripts to be used as Nix packages while also being executable directly, provided all their dependencies are available in the shell environment.
+These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`][nixpkgs-writeshellapplication], which allows to define their runtime dependencies. This approach enables the scripts to be used as [Nix packages][nixpkgs-manual] while also being executable directly, provided all their dependencies are available in the shell environment.
 
-Packages are dynamically exported by using the [`packagesFromDirectoryRecursive` function](https://nixos.org/manual/nixpkgs/unstable/#function-library-lib.filesystem.packagesFromDirectoryRecursive). Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
+Packages are dynamically exported by using the [`packagesFromDirectoryRecursive` function][nixpkgs-packagesfromdirectoryrecursive]. Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
 
 > [!NOTE]
 >
-> When you enter a Nix development shell, the packages are available as their `gk-`-prefixed counterparts:
+> When you enter a [Nix development shell][nixdev-shell], the packages are available as their `gk-`-prefixed counterparts:
 >
 > ```bash
 > nix develop
@@ -21,7 +33,7 @@ Packages are dynamically exported by using the [`packagesFromDirectoryRecursive`
 
 ## Build packages
 
-Packages are exposed as Flake outputs inside the `packages` output. To build them, use following commands:
+Packages are exposed as [Flake outputs][flakes-outputs] inside the `packages` output. To build them, use following commands:
 
 ```bash
 # Using new Nix commands
@@ -42,7 +54,7 @@ To run the packages, either execute the binary stored in `result/bin` after a su
 
 ## Available packages
 
-- [`gk-configure`](./configure.md)
-- [`gk-encrypt` and `gk-decrypt`](./encrypt-decrypt.md)
-- [`gk-login`](./login.md)
-- [`gk-theme`](./theme.md)
+- [`gk-configure`][doc-configure]
+- [`gk-encrypt` and `gk-decrypt`][doc-encrypt-decrypt]
+- [`gk-login`][doc-login]
+- [`gk-theme`][doc-theme]

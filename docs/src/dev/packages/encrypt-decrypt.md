@@ -1,8 +1,14 @@
+[decrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/decrypt/script.sh
+[doc-login]: ./login.md
+[encrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.sh
+[gitkraken]: https://www.gitkraken.com/git-client
+[home-manager]: https://nix-community.github.io/home-manager
+
 # `gk-encrypt` and `gk-decrypt`
 
-These packages are used to encrypt and decrypt GitKraken's `secFile`s, which contain sensitive data such as access tokens.
+These packages are used to encrypt and decrypt [GitKraken][gitkraken]'s `secFile`s, which contain sensitive data such as access tokens.
 
-They are primarily intended for use by the [`gk-login`](./login.md) package, but can also be used independently.
+They are primarily intended for use by the [`gk-login`][doc-login] package, but can also be used independently.
 
 Although their execution is considered safe (since they only read the `secFile`s and output results to stdout), they are provided as-is, with no warranty.
 
@@ -48,12 +54,12 @@ gk-decrypt
 
 The scripts are extensively documented through comments in the source files themselves:
 
-- [`gk-decrypt` source](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/decrypt/script.sh)
-- [`gk-encrypt` source](https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.sh)
+- [`gk-decrypt` source][decrypt-pkg-source]
+- [`gk-encrypt` source][encrypt-pkg-source]
 
 ## Encryption / Decryption methods
 
-The encryption and decryption methods are adapted from GitKraken's original code, reimplemented using Unix tools. The reference implementation below is prettified from `main.bundle.js` with comments manually added:
+The encryption and decryption methods are adapted from [GitKraken][gitkraken]'s original code, reimplemented using Unix tools. The reference implementation below is prettified from `main.bundle.js` with comments manually added:
 
 ```js
 // Arguments:
