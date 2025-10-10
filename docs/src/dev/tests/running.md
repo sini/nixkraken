@@ -1,3 +1,8 @@
+[home-manager]: https://nix-community.github.io/home-manager
+[loc-shared-configuration]: #shared-configuration
+[nix-manual-lookup-path]: https://nix.dev/manual/nix/2.28/language/constructs/lookup-path
+[nix-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+
 # Running tests
 
 To run tests locally, use the following commands:
@@ -26,7 +31,7 @@ nix run '.#tests.<test-name>.driverInteractive'
 
 > [!NOTE]
 >
-> While running tests without Flakes is possible, we do not recommend it as it is not as user-friendly as with Flakes.
+> While running tests without [Flakes][nix-wiki-flakes] is possible, we do not recommend it as it is not as user-friendly as with Flakes.
 >
 > If you still want to avoid using Flakes, here is how to do it:
 >
@@ -37,9 +42,9 @@ nix run '.#tests.<test-name>.driverInteractive'
 >   -A '<all|show|test-name>'
 > ```
 >
-> The `nixpkgs` input **must be in sync** with the one expected by Home Manager (see [shared configuration](#shared-configuration) section).
+> The `nixpkgs` [lookup path][nix-manual-lookup-path] **must be in sync** with the one expected by [Home Manager][home-manager] (see [shared configuration][loc-shared-configuration] section).
 >
-> Additionally, commands that use `nix run` (when used with Flakes) will need to be executed manually after building:
+> Additionally, please note that `show` and interactive tests will need to be executed manually after building:
 >
 > ```bash
 > # List available tests
