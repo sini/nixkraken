@@ -26,7 +26,7 @@ nix run '.#tests.<test-name>.driverInteractive'
 
 > [!NOTE]
 >
-> While running tests without Flakes is possible, we don't recommend it as it's not as user-friendly as with Flakes.
+> While running tests without Flakes is possible, we do not recommend it as it is not as user-friendly as with Flakes.
 >
 > If you still want to avoid using Flakes, here is how to do it:
 >

@@ -5,7 +5,7 @@ NixKraken lets you manage GitKraken's UI theme declaratively using the [`ui.extr
 Using the aforementioned options, you can:
 
 - install custom GitKraken themes
-- select the active theme, including built-in ones and custom themes you've added
+- select the active theme, including built-in ones and custom themes you have added
 
 This guide explains how to use these options, how they relate to GitKraken's theming model, and provides practical examples.
 

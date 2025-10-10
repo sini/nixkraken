@@ -158,7 +158,7 @@ The documentation takes advantage of this to bring table of contents dedicated t
 
 This feature is implemented using raw [JavaScript](https://github.com/nicolas-goudry/nixkraken/blob/main/docs/theme/js/toc.js) and [CSS](https://github.com/nicolas-goudry/nixkraken/blob/main/docs/theme/css/toc.css) code, which together implement an auto-generated, collapsible table of contents sidebar for documentation pages.
 
-The JavaScript code, responsible for the page TOC generation, is heavily annotated, but here's what it does in short:
+The JavaScript code, responsible for the page TOC generation, is heavily annotated, but here is what it does in short:
 
 - build TOC items
   - scans all in-page headings (`h2-h6`) via their `a.header` anchors
@@ -168,8 +168,8 @@ The JavaScript code, responsible for the page TOC generation, is heavily annotat
   - adds accessibility functionality (keyboard navigation with <kbd>Enter</kbd>, automatically closes when scrolling or clicking outside)
   - note that the TOC is only injected if:
     - the page is scrollable
-    - the path isn't in the `hideOnPath` list
-    - and there's more than one heading
+    - the path is not in the `hideOnPath` list
+    - and there is more than one heading
 
 The companion CSS code is responsible for visual presentation of the TOC, specifically tailored to mdBook HTML:
 
@@ -271,7 +271,7 @@ As mentioned in the [generated content section](#generated-content), several mar
 
 > [!NOTE]
 >
-> If you're wondering what is the use case for the `OPTIONS_ROOT` marker, it is useful to link to global module options documentation from profile-specific module options documentation.
+> If you are wondering what is the use case for the `OPTIONS_ROOT` marker, it is useful to link to global module options documentation from profile-specific module options documentation.
 >
 > See [this example](https://github.com/nicolas-goudry/nixkraken/blob/3e3a59565da737ce53ab6c9c8312e55322d2a132/modules/tools/profile-options.nix#L35) to get a better grasp of its use.
 
@@ -279,7 +279,7 @@ As mentioned in the [generated content section](#generated-content), several mar
 
 mdBook's configuration, stored in `book.toml`, is intended to be used for [local development](#local-development).
 
-This configuration is however not suitable for use within the Nix derivation, because of the linkcheck preprocessor. Therefore, there's a patch file stored in [`book.toml.nix-build.patch`](https://github.com/nicolas-goudry/nixkraken/blob/main/docs/book.toml.nix-build.patch) which is responsible for updating the configuration to make it suitable for use.
+This configuration is however not suitable for use within the Nix derivation, because of the linkcheck preprocessor. Therefore, there is a patch file stored in [`book.toml.nix-build.patch`](https://github.com/nicolas-goudry/nixkraken/blob/main/docs/book.toml.nix-build.patch) which is responsible for updating the configuration to make it suitable for use.
 
 This patch does two things:
 

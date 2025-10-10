@@ -6,15 +6,15 @@ Development occurs solely on the [official GitHub repository](https://github.com
 
 ## Before starting
 
-### Don't waste your time
+### Do not waste your time
 
-Please make sure to read the current documentation as a whole before considering to contribute, something you're planning to contribute to may already be available.
+Please make sure to read the current documentation as a whole before considering to contribute, something you are planning to contribute to may already be available.
 
 Also take a look at currently [open issues](https://github.com/nicolas-goudry/nixkraken/issues) and [pull requests](https://github.com/nicolas-goudry/nixkraken/pulls) before starting to work on a feature or bug fix, as someone else may already be planning to or has already started working on something similar.
 
 ### Conform to the code of conduct
 
-Read our [code of conduct](https://github.com/nicolas-goudry/nixkraken/blob/main/CODE_OF_CONDUCT.md) and conform to it in all your interactions with others working on the project. However, don't stress yourself too much over this, everyone can make mistakes as long as they acknowledge and correct them.
+Read our [code of conduct](https://github.com/nicolas-goudry/nixkraken/blob/main/CODE_OF_CONDUCT.md) and conform to it in all your interactions with others working on the project. However, do not stress yourself too much over this, everyone can make mistakes as long as they acknowledge and correct them.
 
 ### Be polyglot?
 
@@ -30,7 +30,7 @@ Contributors are expected to be familiar, to some varying extent, with the follo
 - **GitKraken caching:** Nix language, nixpkgs, [Garnix](https://garnix.io)
 - **Documentation:** Nix language, nixpkgs, JavaScript, HTML, CSS, [Markdown](https://www.markdownguide.org/), [mdBook](https://rust-lang.github.io/mdBook/)
 
-Although this list could look quite daunting, don't run away yet. You will most likely be doing great just knowing a small bit of any of these, and can only get better at them while working on NixKraken.
+Although this list could look quite daunting, do not run away yet. You will most likely be doing great just knowing a small bit of any of these, and can only get better at them while working on NixKraken.
 
 ### Get familiar with our Git workflow
 
@@ -125,16 +125,16 @@ direnv allow
 
 #### About direnv
 
-[direnv](https://direnv.net) is quite a handy tool which will automatically load the development shell (using classic Nix) when navigating to the project root directory or any of its subdirectories, as long as it's trusted using `direnv allow`.
+[direnv](https://direnv.net) is quite a handy tool which will automatically load the development shell (using classic Nix) when navigating to the project root directory or any of its subdirectories, as long as it is trusted using `direnv allow`.
 
 > [!NOTE]
 >
-> If working on `shell.nix`, don't forget to run `direnv reload` to _re-apply_ the development shell, or use tools like [lorri](https://github.com/nix-community/lorri) to do this automatically for you.
+> If working on `shell.nix`, do not forget to run `direnv reload` to _re-apply_ the development shell, or use tools like [lorri](https://github.com/nix-community/lorri) to do this automatically for you.
 
 ### To Flake or not to Flake?
 
-_…that's the question!_
+_…that is the question!_
 
-The main distribution method for NixKraken is through Flakes. However, we don't want to alienate users who don't use Flakes, nor do we want to force its use on everyone. Our goal is to satisfy everyone.
+The main distribution method for NixKraken is through Flakes. However, we do not want to alienate users who do not use Flakes, nor do we want to force its use on everyone. Our goal is to satisfy everyone.
 
 For this reason, all Nix code in the repository **must be compatible with both Flakes and non Flakes setups**. This means that building any of the tools provided by the project should work either with `nix build` and `nix-build`. This also means that all documentation bits should provide instructions for both worlds.

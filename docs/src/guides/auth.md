@@ -48,4 +48,4 @@ Complete the authentication inside the browser. When it succeeds, copy the token
 
 Return to the terminal where `gk-login` is running, paste the token (input is hidden), and press <kbd>Enter</kbd>.
 
-That's it! On the next GitKraken launch, you will be authenticated to your account.
+That is it! On the next GitKraken launch, you will be authenticated to your account.

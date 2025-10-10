@@ -65,7 +65,7 @@ Run the command below in the same directory as `flake.nix`:
 home-manager switch --flake '.#your-username'
 ```
 
-🎉 **That's it!** GitKraken will now be configured with the given name and email.
+🎉 **That is it!** GitKraken will now be configured with the given name and email.
 
 _For other installation methods, see the [installation](./install/index.md) section._
 
@@ -86,6 +86,6 @@ _For other installation methods, see the [installation](./install/index.md) sect
 
 **Get involved**
 
-- [Contribute](../dev/contributing.md) to NixKraken, _it's fun!_
+- [Contribute](../dev/contributing.md) to NixKraken, _it is fun!_
 - Report bugs or request features on [GitHub](https://github.com/nicolas-goudry/nixkraken)
 - Suggest new [ideas](https://github.com/nicolas-goudry/nixkraken/discussions/categories/ideas) to improve the project

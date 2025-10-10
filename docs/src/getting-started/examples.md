@@ -21,7 +21,7 @@
     # Accept the End User License Agreement
     acceptEULA = true;
 
-    # Don't show the introduction tutorial on first launch
+    # Do not show the introduction tutorial on first launch
     skipTutorial = true;
 
     # Disable promotional and non-essential notifications

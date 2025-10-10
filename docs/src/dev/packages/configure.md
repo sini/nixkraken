@@ -2,7 +2,7 @@
 
 This package automates the creation and management of GitKraken's configuration files, especially in the context of a [Home Manager](https://nix-community.github.io/home-manager) installation.
 
-While it's intended for use during Home Manager activation by the NixKraken module, it can also be used independently for testing.
+While it is intended for use during Home Manager activation by the NixKraken module, it can also be used independently for testing.
 
 > [!IMPORTANT]
 >
