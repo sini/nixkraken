@@ -62,7 +62,7 @@
 
 > [!NOTE]
 >
-> Read the [dedicated theming guide](../guides/themes.md) for further details.
+> Read the [dedicated theming guide](../guides/theming.md) for further details.
 
 ```nix
 {

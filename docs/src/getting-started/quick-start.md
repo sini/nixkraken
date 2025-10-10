@@ -82,7 +82,7 @@ _For other installation methods, see the [installation](./install/index.md) sect
 
 - Setup the [binary cache](../guides/caching.md) for faster builds
 - Manage multiple [profiles](../guides/profiles.md) like a pro
-- Make GitKraken your own with [themes](../guides/themes.md)
+- Make GitKraken your own with [themes](../guides/theming.md)
 
 **Get involved**
 

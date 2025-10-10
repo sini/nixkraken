@@ -21,7 +21,7 @@
 - [Binary cache](./guides/caching.md)
 - [Authentication](./guides/auth.md)
 - [Profiles](./guides/profiles.md)
-- [Theming](./guides/themes.md)
+- [Theming](./guides/theming.md)
 
 # Reference
 

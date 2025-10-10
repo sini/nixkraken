@@ -45,7 +45,7 @@ This is a collection of packages bundling various GitKraken themes which can be 
 }
 ```
 
-Please refer to the [theming guide](../../guides/themes.md) for further details on their usage.
+Please refer to the [theming guide](../../guides/theming.md) for further details on their usage.
 
 ## Installation
 
