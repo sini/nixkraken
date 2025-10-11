@@ -198,7 +198,7 @@ nix-prefetch-git \
 
 ### `nix-prefetch-url`
 
-The following commands use `nix-prefetch-url` to get the Nix base32 hash from the unpacked sources archive retrieved from GitHub. The hash is then handed to `nix-hash` (or `nix hash convert`, which requires the `nix-command` [experimental feature](https://nix.dev/manual/nix/2.18/contributing/experimental-features#xp-feature-nix-command) to be enabled) to get the final hash expected by fetchers.
+The following commands use `nix-prefetch-url` to get the Nix base32 hash from the unpacked sources archive retrieved from GitHub. The hash is then handed to `nix-hash` (or `nix hash convert`, which requires the `nix-command` [experimental feature](https://nix.dev/manual/nix/stable/contributing/experimental-features#xp-feature-nix-command) to be enabled) to get the final hash expected by fetchers.
 
 ```bash
 # Using new Nix commands

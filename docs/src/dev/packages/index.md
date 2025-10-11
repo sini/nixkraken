@@ -7,7 +7,7 @@
 [nix-manual]: https://nix.dev/manual/nix/stable
 [nixdev-shell]: https://nix.dev/tutorials/first-steps/declarative-shell#declarative-reproducible-envs
 [nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable/#preface
-[nixpkgs-packagesfromdirectoryrecursive]: https://nixos.org/manual/nixpkgs/unstable/#function-library-lib.filesystem.packagesFromDirectoryRecursive
+[nixpkgs-packagesfromdirectoryrecursive]: https://nixos.org/manual/nixpkgs/stable/#function-library-lib.filesystem.packagesFromDirectoryRecursive
 [nixpkgs-writeshellapplication]: https://nixos.org/manual/nixpkgs/stable/#trivial-builder-writeShellApplication
 
 # Packages

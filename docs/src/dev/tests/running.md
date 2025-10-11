@@ -1,6 +1,6 @@
 [home-manager]: https://nix-community.github.io/home-manager
 [loc-shared-configuration]: #shared-configuration
-[nix-manual-lookup-path]: https://nix.dev/manual/nix/2.28/language/constructs/lookup-path
+[nix-manual-lookup-path]: https://nix.dev/manual/nix/stable/language/constructs/lookup-path
 [nix-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
 
 # Running tests
