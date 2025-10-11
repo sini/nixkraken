@@ -13,7 +13,7 @@
 [nixos-manual-test-option]: https://nixos.org/manual/nixos/stable/#test-opt-test
 [nixos-manual-tests-nodes]: https://nixos.org/manual/nixos/stable/#test-opt-nodes
 [nixos-manual-tests-ocr]: https://nixos.org/manual/nixos/stable/#test-opt-enableOCR
-[nixos-manual-tests-options]: https://nixos.org/manual/nixos/stable/#sec-test-options-reference
+[nixos-manual-tests-opts]: https://nixos.org/manual/nixos/stable/#sec-test-options-reference
 [nixos-manual-tests]: https://nixos.org/manual/nixos/stable/#sec-nixos-tests
 [nixos-manual-testscript-option]: https://nixos.org/manual/nixos/stable/#test-opt-testScript
 [nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable/#overview-of-nixpkgs
@@ -46,7 +46,7 @@ All tests live inside the [tests][repo-tests-root] directory and are automatical
    }
    ```
 
-2. As an attribute set with `machine` and `extraOptions` attributes, respectively used as the test machine NixOS module and additional [test options][nixos-manual-tests-options]
+2. As an attribute set with `machine` and `extraOptions` attributes, respectively used as the test machine NixOS module and additional [test options][nixos-manual-tests-opts]
 
    ```nix
    {
@@ -126,7 +126,7 @@ tests
 
 At a minimum, each test should define two files:
 
-- `default.nix`: defines the [machine module][nixos-manual-tests-nodes] and, optionally, extra [test options][nixos-manual-tests-options] beyond default ones
+- `default.nix`: defines the [machine module][nixos-manual-tests-nodes] and, optionally, extra [test options][nixos-manual-tests-opts] beyond default ones
 - `test.py`: contains the [Python][python] test logic (automatically loaded in [`testScript` test option][nixos-manual-testscript-option] - read the [dedicated section][loc-testpy] for further details)
 
 Additional files relevant to the test can be added in the test directory. Look at the [`datetime` test][repo-datetime-test] for a real-world example.

@@ -1,11 +1,11 @@
-[doc-options]: ../options/nixkraken.md
+[doc-opts]: ../options/nixkraken.md
 [doc-profiles]: ../guides/profiles.md
 [doc-theming]: ../guides/theming.md
 
 # Configuration examples
 
 > [!NOTE]
-> These examples cover some of the most common use cases. For a complete list of available settings, please see the [module options reference][doc-options].
+> These examples cover some of the most common use cases. For a complete list of available settings, please see the [module options reference][doc-opts].
 
 ## Basic setup
 

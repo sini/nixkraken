@@ -4,7 +4,7 @@
 [direnv]: https://direnv.net
 [doc-compat]: ../notes/compatibility.md
 [doc-docs]: ./docs.md
-[doc-options-reference]: ../options/nixkraken.md
+[doc-opts-reference]: ../options/nixkraken.md
 [doc-pkgs]: ./packages/index.md
 [doc-tests]: ./tests/index.md
 [doc-themes]: ./themes.md
@@ -45,7 +45,7 @@
 
 # Contributing
 
-Contributions are welcome across documentation, [module options][doc-options-reference], [helper packages][doc-pkgs], [tests][doc-tests], compatibility work and every other aspects related to NixKraken.
+Contributions are welcome across documentation, [module options][doc-opts-reference], [helper packages][doc-pkgs], [tests][doc-tests], compatibility work and every other aspects related to NixKraken.
 
 Development occurs solely on the [official GitHub repository][github].
 

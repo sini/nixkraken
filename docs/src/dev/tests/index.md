@@ -1,7 +1,7 @@
 [doc-running]: ./running.md
 [doc-writing]: ./writing.md
 [nixos-manual-modules]: https://nixos.org/manual/nixos/stable/#sec-writing-modules
-[nixos-manual-options]: https://nixos.org/manual/nixos/stable/#sec-option-types
+[nixos-manual-module-opts]: https://nixos.org/manual/nixos/stable/#sec-option-types
 [nixos-manual-tests]: https://nixos.org/manual/nixos/stable/#sec-nixos-tests
 [wikipedia-virtual-machine]: https://en.wikipedia.org/wiki/Virtual_machine
 
@@ -15,7 +15,7 @@ The tests rely on the [NixOS test framework][nixos-manual-tests], which spins up
 >
 > Although we aim to test as many configuration outcomes as possible, these automated tests will never be able to cover every possible configuration.
 >
-> Specifically, we are not currently able to test paid features since the login process is interactive. Hence, we cannot test multi-profile setups beyond [Nix options][nixos-manual-options] validation.
+> Specifically, we are not currently able to test paid features since the login process is interactive. Hence, we cannot test multi-profile setups beyond [Nix options][nixos-manual-module-opts] validation.
 
 ---
 

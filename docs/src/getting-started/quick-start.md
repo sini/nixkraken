@@ -5,7 +5,7 @@
 [doc-examples]: ./examples.md
 [doc-install]: ./install/index.md
 [doc-nonflake]: ./install/non-flakes.md
-[doc-options]: ../options/nixkraken.md
+[doc-opts]: ../options/nixkraken.md
 [doc-profiles]: ../guides/profiles.md
 [doc-theming]: ../guides/theming.md
 [gh-discuss-ideas]: https://github.com/nicolas-goudry/nixkraken/discussions/categories/ideas
@@ -90,7 +90,7 @@ _For other installation methods, see the [installation][doc-install] section._
 **Get to know NixKraken**
 
 - Learn by [example][doc-examples] for a quick overview of common use cases
-- Read the [reference][doc-options] for a complete picture
+- Read the [reference][doc-opts] for a complete picture
 - Understand [caveats][doc-caveats] about known issues and limitations
 - Check the [compatibility][doc-compat] notice
 
