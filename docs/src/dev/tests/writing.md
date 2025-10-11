@@ -1,31 +1,31 @@
 [flakes-outputs]: https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/outputs
 [garnix]: https://garnix.io
-[github-flake]: https://github.com/nicolas-goudry/nixkraken/blob/main/flake.nix
-[github-src-datetime-test]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/datetime
-[github-src-mktest]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/default.nix
-[github-src-tests-common-display]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/_common/display.nix
-[github-src-tests-common-nixkraken]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/_common/nixkraken.nix
-[github-src-tests-common]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/_common
-[github-src-tests]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests
 [gitkraken]: https://www.gitkraken.com/git-client
-[home-manager-nixos-sync]: https://nix-community.github.io/home-manager/index.xhtml#sec-upgrade-release-overview
-[loc-minimal-example]: #minimal-example
+[hm-nixos-sync]: https://nix-community.github.io/home-manager/index.xhtml#sec-upgrade-release-overview
+[loc-example]: #minimal-example
 [loc-rules]: #test-rules
-[loc-shared-configuration]: #shared-configuration
+[loc-shared-conf]: #shared-configuration
 [loc-testpy]: #about-testpy
 [nix-manual-attrs]: https://nix.dev/manual/nix/stable/language/syntax#attrs-literal
 [nix-manual-functions]: https://nix.dev/manual/nix/stable/language/syntax#functions
+[nixos-manual-machine-objects]: https://nixos.org/manual/nixos/stable/#ssec-machine-objects
 [nixos-manual-modules]: https://nixos.org/manual/nixos/stable/#sec-writing-modules
-[nixos-manual-tests-machine-objects]: https://nixos.org/manual/nixos/stable/#ssec-machine-objects
+[nixos-manual-test-option]: https://nixos.org/manual/nixos/stable/#test-opt-test
 [nixos-manual-tests-nodes]: https://nixos.org/manual/nixos/stable/#test-opt-nodes
-[nixos-manual-tests-ocr-option]: https://nixos.org/manual/nixos/stable/#test-opt-enableOCR
+[nixos-manual-tests-ocr]: https://nixos.org/manual/nixos/stable/#test-opt-enableOCR
 [nixos-manual-tests-options]: https://nixos.org/manual/nixos/stable/#sec-test-options-reference
-[nixos-manual-tests-test-option]: https://nixos.org/manual/nixos/stable/#test-opt-test
-[nixos-manual-tests-testscript-option]: https://nixos.org/manual/nixos/stable/#test-opt-testScript
 [nixos-manual-tests]: https://nixos.org/manual/nixos/stable/#sec-nixos-tests
+[nixos-manual-testscript-option]: https://nixos.org/manual/nixos/stable/#test-opt-testScript
 [nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable/#overview-of-nixpkgs
 [python-unittest-testcases]: https://docs.python.org/3/library/unittest.html#test-cases
 [python]: https://www.python.org
+[repo-common-display]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/_common/display.nix
+[repo-common-nixkraken]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/_common/nixkraken.nix
+[repo-datetime-test]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/datetime
+[repo-flake]: https://github.com/nicolas-goudry/nixkraken/blob/main/flake.nix
+[repo-mktest]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/default.nix
+[repo-tests-common]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests/_common
+[repo-tests-root]: https://github.com/nicolas-goudry/nixkraken/blob/main/tests
 [wikipedia-kebab-case]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case
 
 # Writing tests
@@ -36,7 +36,7 @@
 
 ## Overview
 
-All tests live inside the [tests][github-src-tests] directory and are automatically imported into the test suite using a [custom `mkTest` function][github-src-mktest] which allows various ways to define the tests:
+All tests live inside the [tests][repo-tests-root] directory and are automatically imported into the test suite using a [custom `mkTest` function][repo-mktest] which allows various ways to define the tests:
 
 1. As a simple [attribute set][nix-manual-attrs], which will be used as the [test machine NixOS module][nixos-manual-tests-nodes]
 
@@ -86,9 +86,9 @@ All tests live inside the [tests][github-src-tests] directory and are automatica
 > [!NOTE]
 >
 > - all tests use a single machine named `machine`
-> - all tests have [OCR capabilities][nixos-manual-tests-ocr-option] enabled (which cannot be disabled)
-> - all [test machines share default configuration][loc-shared-configuration] (which is not overwritable)
-> - using the [`test` option][nixos-manual-tests-test-option] is disallowed in favor of `testScript` (see [test rules about files][loc-rules] below)
+> - all tests have [OCR capabilities][nixos-manual-tests-ocr] enabled (which cannot be disabled)
+> - all [test machines share default configuration][loc-shared-conf] (which is not overwritable)
+> - using the [`test` option][nixos-manual-test-option] is disallowed in favor of `testScript` (see [test rules about files][loc-rules] below)
 
 ## Flake exposure
 
@@ -127,9 +127,9 @@ tests
 At a minimum, each test should define two files:
 
 - `default.nix`: defines the [machine module][nixos-manual-tests-nodes] and, optionally, extra [test options][nixos-manual-tests-options] beyond default ones
-- `test.py`: contains the [Python][python] test logic (automatically loaded in [`testScript` test option][nixos-manual-tests-testscript-option] - read the [dedicated section][loc-testpy] for further details)
+- `test.py`: contains the [Python][python] test logic (automatically loaded in [`testScript` test option][nixos-manual-testscript-option] - read the [dedicated section][loc-testpy] for further details)
 
-Additional files relevant to the test can be added in the test directory. Look at the [`datetime` test][github-src-datetime-test] for a real-world example.
+Additional files relevant to the test can be added in the test directory. Look at the [`datetime` test][repo-datetime-test] for a real-world example.
 
 ### Taking screenshots
 
@@ -151,7 +151,7 @@ with subtest("Test name"):
     # Actual test code
 ```
 
-See [minimal example][loc-minimal-example] for details.
+See [minimal example][loc-example] for details.
 
 ## About `test.py`
 
@@ -164,7 +164,7 @@ As previously noted, all tests must define a `test.py` file containing the [Pyth
   - send arbitrary typing sequences
   - simulate pressing keys
   - wait for various operations like X server start, window to appear, text to be displayed, …
-  - […and much more][nixos-manual-tests-machine-objects]
+  - […and much more][nixos-manual-machine-objects]
 - the `t` object exposes all assertions from [Python's `unittest.TestCase`][python-unittest-testcases]
 
 ### GitKraken quirks
@@ -204,7 +204,7 @@ machine.succeed("pkill -f gitkraken")
 
 ## Shared configuration
 
-The [`_common` directory][github-src-tests-common] holds [NixOS modules][nixos-manual-modules] shared across all tests to avoid repetition and ensure a consistent environment.
+The [`_common` directory][repo-tests-common] holds [NixOS modules][nixos-manual-modules] shared across all tests to avoid repetition and ensure a consistent environment.
 
 ```plain
 tests/_common
@@ -215,5 +215,5 @@ tests/_common
 
 > [!IMPORTANT]
 >
-> - [`display.nix`][github-src-tests-common-display] should remain mostly stable, updated only for compatibility with future NixOS versions
-> - [due to the way Home Manager works][home-manager-nixos-sync], [`nixkraken.nix`][github-src-tests-common-nixkraken] must be updated to pull in a version of Home Manager matching the [nixpkgs][nixpkgs-manual] version defined in [`flake.nix`][github-flake]
+> - [`display.nix`][repo-common-display] should remain mostly stable, updated only for compatibility with future NixOS versions
+> - [due to the way Home Manager works][hm-nixos-sync], [`nixkraken.nix`][repo-common-nixkraken] must be updated to pull in a version of Home Manager matching the [nixpkgs][nixpkgs-manual] version defined in [`flake.nix`][repo-flake]

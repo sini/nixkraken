@@ -2,7 +2,6 @@
 [doc-login]: ./login.md
 [encrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.sh
 [gitkraken]: https://www.gitkraken.com/git-client
-[home-manager]: https://nix-community.github.io/home-manager
 
 # `gk-encrypt` and `gk-decrypt`
 

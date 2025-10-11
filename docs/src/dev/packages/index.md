@@ -7,16 +7,16 @@
 [nix-manual]: https://nix.dev/manual/nix/stable
 [nixdev-shell]: https://nix.dev/tutorials/first-steps/declarative-shell#declarative-reproducible-envs
 [nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable/#preface
-[nixpkgs-packagesfromdirectoryrecursive]: https://nixos.org/manual/nixpkgs/stable/#function-library-lib.filesystem.packagesFromDirectoryRecursive
-[nixpkgs-writeshellapplication]: https://nixos.org/manual/nixpkgs/stable/#trivial-builder-writeShellApplication
+[nixpkgs-pkgsdirrec]: https://nixos.org/manual/nixpkgs/stable/#function-library-lib.filesystem.packagesFromDirectoryRecursive
+[nixpkgs-writeshellapp]: https://nixos.org/manual/nixpkgs/stable/#trivial-builder-writeShellApplication
 
 # Packages
 
 NixKraken uses several packages to perform actions related to [GitKraken][gitkraken] configuration handling. Because GitKraken's configuration files also store mutable application state, they cannot be written directly by [Nix][nix-manual]. Instead, these packages are used to safely read, modify, and write to the JSON configuration files without destroying the state.
 
-These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`][nixpkgs-writeshellapplication], which allows to define their runtime dependencies. This approach enables the scripts to be used as [Nix packages][nixpkgs-manual] while also being executable directly, provided all their dependencies are available in the shell environment.
+These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`][nixpkgs-writeshellapp], which allows to define their runtime dependencies. This approach enables the scripts to be used as [Nix packages][nixpkgs-manual] while also being executable directly, provided all their dependencies are available in the shell environment.
 
-Packages are dynamically exported by using the [`packagesFromDirectoryRecursive` function][nixpkgs-packagesfromdirectoryrecursive]. Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
+Packages are dynamically exported by using the [`packagesFromDirectoryRecursive` function][nixpkgs-pkgsdirrec]. Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
 
 > [!NOTE]
 >

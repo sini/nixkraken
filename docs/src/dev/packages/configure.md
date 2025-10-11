@@ -1,13 +1,13 @@
 [gitkraken]: https://www.gitkraken.com/git-client
-[home-manager-activation]: https://nix-community.github.io/home-manager/index.xhtml#sec-internals-activation
-[home-manager]: https://nix-community.github.io/home-manager
+[hm-activation]: https://nix-community.github.io/home-manager/index.xhtml#sec-internals-activation
+[hm]: https://nix-community.github.io/home-manager
 [pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/configure/script.sh
 
 # `gk-configure`
 
-This package automates the creation and management of [GitKraken][gitkraken]'s configuration files, especially in the context of a [Home Manager][home-manager] installation.
+This package automates the creation and management of [GitKraken][gitkraken]'s configuration files, especially in the context of a [Home Manager][hm] installation.
 
-While it is intended for use during [Home Manager activation][home-manager-activation] by the NixKraken module, it can also be used independently for testing.
+While it is intended for use during [Home Manager activation][hm-activation] by the NixKraken module, it can also be used independently for testing.
 
 > [!IMPORTANT]
 >
@@ -45,7 +45,7 @@ nix-build ./pkgs -A configure && ./result/bin/gk-configure
 gk-configure
 ```
 
-Since the package is typically run during [Home Manager activation][home-manager-activation], it respects the following environment variables:
+Since the package is typically run during [Home Manager activation][hm-activation], it respects the following environment variables:
 
 - `DRY_RUN`: if set, commands are not executed, only logged
 - `VERBOSE`: if set, logs are enabled

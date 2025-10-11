@@ -1,5 +1,5 @@
-[home-manager]: https://nix-community.github.io/home-manager
-[loc-shared-configuration]: #shared-configuration
+[hm]: https://nix-community.github.io/home-manager
+[loc-shared-conf]: #shared-configuration
 [nix-manual-lookup-path]: https://nix.dev/manual/nix/stable/language/constructs/lookup-path
 [nix-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
 
@@ -42,7 +42,7 @@ nix run '.#tests.<test-name>.driverInteractive'
 >   -A '<all|show|test-name>'
 > ```
 >
-> The `nixpkgs` [lookup path][nix-manual-lookup-path] **must be in sync** with the one expected by [Home Manager][home-manager] (see [shared configuration][loc-shared-configuration] section).
+> The `nixpkgs` [lookup path][nix-manual-lookup-path] **must be in sync** with the one expected by [Home Manager][hm] (see [shared configuration][loc-shared-conf] section).
 >
 > Additionally, please note that `show` and interactive tests will need to be executed manually after building:
 >
