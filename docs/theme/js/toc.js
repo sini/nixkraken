@@ -101,6 +101,14 @@ const injectTOC = () => {
     }
   })
 
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Escape' || e.code === 'Escape') {
+      if (tocBtnElement.classList.contains('toc-btn__open')) {
+        tocClose()
+      }
+    }
+  })
+
   // Toggle TOC when button is clicked
   tocBtnElement.addEventListener('mouseup', tocToggle)
 
