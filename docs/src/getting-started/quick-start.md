@@ -1,13 +1,29 @@
+[doc-caching]: ../guides/caching.md
+[doc-caveats]: ../notes/caveats.md
+[doc-compat]: ../notes/compatibility.md
+[doc-contrib]: ../dev/contributing.md
+[doc-examples]: ./examples.md
+[doc-install]: ./install/index.md
+[doc-nonflake]: ./install/non-flakes.md
+[doc-options]: ../options/nixkraken.md
+[doc-profiles]: ../guides/profiles.md
+[doc-theming]: ../guides/theming.md
+[gh-discuss-ideas]: https://github.com/nicolas-goudry/nixkraken/discussions/categories/ideas
+[gitkraken]: https://www.gitkraken.com/git-client
+[hm]: https://nix-community.github.io/home-manager
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[repo]: https://github.com/nicolas-goudry/nixkraken
+
 # Quick Start
 
-This guide showcases a basic, working NixKraken configuration using [Nix Flakes](https://nixos.wiki/wiki/Flakes) and [nixpkgs](https://github.com/nixos/nixpkgs)/[Home Manager](https://github.com/nix-community/home-manager) 25.05 on an x86-64 Linux host.
+This guide showcases a basic, working NixKraken configuration using [Nix Flakes][nixos-wiki-flakes] and [Home Manager][hm] 25.05 on an x86-64 Linux host.
 
 > [!NOTE]
-> Not using Flakes? Follow our [non-Flake installation guide](./install/non-flakes.md) instead.
+> Not using Flakes? Follow our [non-Flake installation guide][doc-nonflake] instead.
 
 ## 1. Create `flake.nix`
 
-Use the following content, which sets GitKraken username and email.
+Use the following content, which sets [GitKraken][gitkraken]'s username and email.
 
 ```nix
 {
@@ -67,25 +83,25 @@ home-manager switch --flake '.#your-username'
 
 🎉 **That is it!** GitKraken will now be configured with the given name and email.
 
-_For other installation methods, see the [installation](./install/index.md) section._
+_For other installation methods, see the [installation][doc-install] section._
 
 ## Next steps
 
 **Get to know NixKraken**
 
-- Learn by [example](./examples.md) for a quick overview of common use cases
-- Read the [reference](../options/nixkraken.md) for a complete picture
-- Understand [caveats](../notes/caveats.md) about known issues and limitations
-- Check the [compatibility](../notes/compatibility.md) notice
+- Learn by [example][doc-examples] for a quick overview of common use cases
+- Read the [reference][doc-options] for a complete picture
+- Understand [caveats][doc-caveats] about known issues and limitations
+- Check the [compatibility][doc-compat] notice
 
 **Explore advanced configuration**
 
-- Setup the [binary cache](../guides/caching.md) for faster builds
-- Manage multiple [profiles](../guides/profiles.md) like a pro
-- Make GitKraken your own with [themes](../guides/theming.md)
+- Setup the [binary cache][doc-caching] for faster builds
+- Manage multiple [profiles][doc-profiles] like a pro
+- Make GitKraken your own with [themes][doc-theming]
 
 **Get involved**
 
-- [Contribute](../dev/contributing.md) to NixKraken, _it is fun!_
-- Report bugs or request features on [GitHub](https://github.com/nicolas-goudry/nixkraken)
-- Suggest new [ideas](https://github.com/nicolas-goudry/nixkraken/discussions/categories/ideas) to improve the project
+- [Contribute][doc-contrib] to NixKraken, _it is fun!_
+- Report bugs or request features on [GitHub][repo]
+- Suggest new [ideas][gh-discuss-ideas] to improve the project

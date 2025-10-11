@@ -1,15 +1,32 @@
+[doc-caching]: ../../guides/caching.md
+[doc-theming]: ../../guides/theming.md
+[gh-nixpkgs]: https://github.com/nixos/nixpkgs
+[gitkraken]: https://www.gitkraken.com/git-client
+[hm-extraspecialargs]: https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module
+[hm-nixos-module]: https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
+[hm-nixpkgs-overlay]: https://nix-community.github.io/home-manager/options.xhtml#opt-nixpkgs.overlays
+[hm-standalone]: https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone
+[hm-useglobalpkgs]: https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
+[hm]: https://nix-community.github.io/home-manager
+[nixos-manual]: https://nixos.org/manual/nixos/stable
+[nixos-opt-nixpkgs-overlays]: https://search.nixos.org/options?channel=25.05&show=nixpkgs.overlays&query=nixpkgs.overlays&size=1
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[nixos-wiki-overlays]: https://wiki.nixos.org/wiki/Overlays
+[nixpkgs-manual-overlays]: https://nixos.org/manual/nixpkgs/stable/#chap-overlays
+[nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable
+
 # Additional packages
 
-NixKraken ships complementary packages which can be used alongside the Home Manager module:
+NixKraken ships complementary packages which can be used alongside the [Home Manager][hm] module:
 
-- `gitkraken`: GitKraken package used by the module
+- `gitkraken`: [GitKraken][gitkraken] package used by the module
 - `gitkraken-themes`: collection of bundled themes for GitKraken
 
 ## `gitkraken` package
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
-This package distributes unmodified GitKraken versions from [nixpkgs](https://github.com/nixos/nixpkgs) which are compatible with the Home Manager module.
+This package distributes unmodified [GitKraken][gitkraken] versions from [nixpkgs][gh-nixpkgs] which are compatible with the [Home Manager][hm] module.
 
 By default, it tracks the latest version, but it can also be used to install prior GitKraken versions:
 
@@ -25,13 +42,13 @@ By default, it tracks the latest version, but it can also be used to install pri
 }
 ```
 
-Internally, this package is used to cache GitKraken packages. See the [caching guide](../../guides/caching.md) for further details.
+Internally, this package is used to cache GitKraken packages. See the [caching guide][doc-caching] for further details.
 
 ## `gitkraken-themes` packages collection
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
-This is a collection of packages bundling various GitKraken themes which can be used with the relevant module options:
+This is a collection of packages bundling various [GitKraken][gitkraken] themes which can be used with the relevant module options:
 
 ```nix
 {
@@ -45,13 +62,13 @@ This is a collection of packages bundling various GitKraken themes which can be 
 }
 ```
 
-Please refer to the [theming guide](../../guides/theming.md) for further details on their usage.
+Please refer to the [theming guide][doc-theming] for further details on their usage.
 
 ## Installation
 
 There are various ways to provide the packages to your configuration.
 
-The examples below showcase both [overlays](https://nixos.org/manual/nixpkgs/stable/#chap-overlays) and [Home Manager `extraSpecialArgs`](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nixos-module), but there might be other undocumented ways to make the packages available to your configuration.
+The examples below showcase both [overlays][nixpkgs-manual-overlays] and [Home Manager `extraSpecialArgs`][hm-extraspecialargs], but there might be other undocumented ways to make the packages available to your configuration.
 
 Feel free to contribute additional ways to provide them!
 
@@ -61,13 +78,13 @@ Feel free to contribute additional ways to provide them!
 >
 > The goal of this documentation is not to cover every possible way to define overlays, nor to explain how they work neither to provide best-practices or golden paths to their usage.
 >
-> Please refer to prior art available online. A good starting point is the [official wiki article](https://wiki.nixos.org/wiki/Overlays).
+> Please refer to prior art available online. A good starting point is the [official wiki article][nixos-wiki-overlays].
 
 #### Flakes
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
-When creating the nixpkgs instance in your Flake, define an overlay to:
+When creating the [nixpkgs][nixpkgs-manual] instance in your [Flake][nixos-wiki-flakes], define an overlay to:
 
 1. Replace `gitkraken` by NixKraken's one
 2. Add the `gitkraken-themes` package
@@ -109,7 +126,7 @@ For example:
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
-Alternatively, [Home Manager's `nixpkgs.overlays` option](https://nix-community.github.io/home-manager/options.xhtml#opt-nixpkgs.overlays) can be used to define the overlay, whether using standalone Home Manager or Home Manager integrated with NixOS.
+Alternatively, [Home Manager's `nixpkgs.overlays` option][hm-nixpkgs-overlay] can be used to define the overlay, whether using [standalone Home Manager][hm-standalone] or [Home Manager integrated with NixOS][hm-nixos-module].
 
 > [!NOTE]
 >
@@ -157,15 +174,15 @@ nixosConfigurations."your-hostname" = nixpkgs.lib.nixosSystem {
 
 > [!WARNING]
 >
-> When integrated with NixOS, if Home Manager's [`useGlobalPackages` option](https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module) is enabled, the overlay will not have any effect.
+> When integrated with NixOS, if Home Manager's [`useGlobalPackages` option][hm-useglobalpkgs] is enabled, the overlay will not have any effect.
 >
-> In such case, the overlay **must** be defined in NixOS configuration, either from nixpkgs import, or using NixOS' [`nixpkgs.overlays` option]() as shown in the next section.
+> In such case, the overlay **must** be defined in [NixOS configuration][nixos-manual], either from nixpkgs import, or using NixOS' [`nixpkgs.overlays` option][nixos-opt-nixpkgs-overlays] as shown in the next section.
 
 #### NixOS
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
-When Home Manager is integrated with NixOS, it is possible to define the overlay in NixOS configuration so that Home Manager inherits it.
+When [Home Manager is integrated with NixOS][hm-nixos-module], it is possible to define the overlay in NixOS configuration so that Home Manager inherits it.
 
 ```nix
 nixosConfigurations."your-hostname" = nixpkgs.lib.nixosSystem {

@@ -1,7 +1,11 @@
+[doc-options]: ../options/nixkraken.md
+[doc-profiles]: ../guides/profiles.md
+[doc-theming]: ../guides/theming.md
+
 # Configuration examples
 
 > [!NOTE]
-> These examples cover some of the most common use cases. For a complete list of available settings, please see the [module options reference](../options/nixkraken.md).
+> These examples cover some of the most common use cases. For a complete list of available settings, please see the [module options reference][doc-options].
 
 ## Basic setup
 
@@ -41,7 +45,7 @@
 >
 > Only paid accounts can set profiles beyond the default one.
 >
-> Read the [dedicated profiles guide](../guides/profiles.md) for further details.
+> Read the [dedicated profiles guide][doc-profiles] for further details.
 
 {{#include ../guides/profiles.md:profiles_inheritance}}
 
@@ -62,7 +66,7 @@
 
 > [!NOTE]
 >
-> Read the [dedicated theming guide](../guides/theming.md) for further details.
+> Read the [dedicated theming guide][doc-theming] for further details.
 
 ```nix
 {

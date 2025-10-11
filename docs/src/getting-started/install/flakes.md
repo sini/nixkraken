@@ -1,16 +1,22 @@
+[gh-discuss]: https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a
+[hm-install]: https://nix-community.github.io/home-manager/index.xhtml#ch-installation
+[hm]: https://nix-community.github.io/home-manager
+[nixos-manual]: https://nixos.org/manual/nixos/stable
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+
 # Install with Flakes
 
-Using [Flakes](https://nixos.wiki/wiki/Flakes), there are two primary ways to use the NixKraken module, depending on whether the home environment is managed as part of a NixOS system or as a standalone Home Manager configuration.
+Using [Flakes][nixos-wiki-flakes], there are two primary ways to use the NixKraken module, depending on whether the home environment is managed as part of a [NixOS system][nixos-manual] or as a standalone [Home Manager][hm] configuration.
 
 > [!NOTE]
 >
-> Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion](https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a) if you are stuck integrating NixKraken within your configuration.
+> Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion][gh-discuss] if you are stuck integrating NixKraken within your configuration.
 >
-> Refer to [Home Manager installation documentation](https://nix-community.github.io/home-manager/index.xhtml#ch-installation) as well as the [NixOS manual](https://nixos.org/manual/nixos/stable/) for further details on each of these.
+> Refer to [Home Manager installation documentation][hm-install] as well as the [NixOS manual][nixos-manual] for further details on each of these.
 
 ## Standalone Home Manager
 
-Use this method if the user environment is managed with Home Manager on any OS (including NixOS, macOS, or other Linux distributions) through its own `flake.nix`.
+Use this method if the user environment is managed with [Home Manager][hm] on any OS (including NixOS, macOS, or other Linux distributions) through its own `flake.nix`.
 
 Here is a complete, minimal `flake.nix` for a standalone setup:
 
@@ -59,7 +65,7 @@ Here is a complete, minimal `flake.nix` for a standalone setup:
 
 ## Integrated with NixOS
 
-Use this method if the user environment is managed directly within the NixOS system's `flake.nix`.
+Use this method if the user environment is managed directly within the [NixOS system][nixos-manual]'s `flake.nix`.
 
 Here is a complete, minimal `flake.nix` for a NixOS setup:
 

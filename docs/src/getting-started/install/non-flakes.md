@@ -1,16 +1,39 @@
+[gh-discuss]: https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a
+[gh-issues]: https://github.com/nicolas-goudry/nixkraken/issues
+[gh-prs]: https://github.com/nicolas-goudry/nixkraken/pulls
+[hm-config]: https://nix-community.github.io/home-manager/index.xhtml#ch-usage
+[hm-install]: https://nix-community.github.io/home-manager/index.xhtml#ch-installation
+[jq]: https://jqlang.org
+[loc-retrieve-hash]: #retrieve-release-hash
+[niv]: https://github.com/nmattia/niv
+[nix-hash-new]: https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-hash-convert.html
+[nix-hash]: https://nix.dev/manual/nix/stable/command-ref/nix-hash.html
+[nix-manual-experimental-feat]: https://nix.dev/manual/nix/stable/contributing/experimental-features#xp-feature-nix-command
+[nix-manual-fetchtarball]: https://nix.dev/manual/nix/stable/language/builtins.html#builtins-fetchTarball
+[nix-prefetch-git]: https://search.nixos.org/packages?channel=25.05&show=nix-prefetch-git&query=nix-prefetch-git&size=1
+[nix-prefetch-url]: https://nix.dev/manual/nix/stable/command-ref/nix-prefetch-url.html
+[nixos-manual]: https://nixos.org/manual/nixos/stable
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[nixpkgs-manual-fetchers]: https://nixos.org/manual/nixpkgs/stable/#chap-pkgs-fetchers
+[nixpkgs-manual-fetchfromgh]: https://nixos.org/manual/nixpkgs/stable/#fetchfromgithub
+[nixpkgs-manual-fetchgit]: https://nixos.org/manual/nixpkgs/stable/#fetchgit
+[nixpkgs-manual-fetchzip]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-fetchers-fetchzip
+[nixpkgs-manual-src-hash]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-fetchers-updating-source-hashes
+[npins]: https://github.com/andir/npins
+
 # Install without Flakes
 
-There are various ways to use NixKraken without Flakes, depending on whether you rely on builtin Nix fetchers or a dedicated dependencies pinning tool.
+There are various ways to use NixKraken without [Flakes][nixos-wiki-flakes], depending on whether you rely on builtin [Nix fetchers][nixpkgs-manual-fetchers] or a dedicated dependencies pinning tool.
 
 > [!NOTE]
 >
-> Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion](https://github.com/nicolas-goudry/nixkraken/discussions/new?category=q-a) if you are stuck integrating NixKraken within your configuration.
+> Configuration code beyond those specific to NixKraken are provided as example only, your configuration may vary. Feel free to [open a discussion][gh-discuss] if you are stuck integrating NixKraken within your configuration.
 >
-> Refer to [Home Manager installation documentation](https://nix-community.github.io/home-manager/index.xhtml#ch-installation) as well as the [NixOS manual](https://nixos.org/manual/nixos/stable/) for further details on each of these.
+> Refer to [Home Manager installation documentation][hm-install] as well as the [NixOS manual][nixos-manual] for further details on each of these.
 
 ## Recommended method: using `fetchFromGitHub`
 
-The simplest way to use NixKraken without Flakes is to fetch it directly from GitHub inside `home.nix`.
+The simplest way to use NixKraken without [Flakes][nixos-wiki-flakes] is to fetch it directly from GitHub inside your [Home Manager configuration][hm-config].
 
 ```nix
 { lib, pkgs, ... }:
@@ -32,15 +55,17 @@ in
 }
 ```
 
+_See also: [fetcher reference][nixpkgs-manual-fetchfromgh]_
+
 > [!WARNING]
 >
 > **About `lib.fakeHash`**
 >
-> A common pattern in Nix is to use a fake hash like `lib.fakeHash` or an empty string (`""`) as a placeholder.
+> A common pattern in Nix is to [use a fake hash like `lib.fakeHash` or an empty string (`""`) as a placeholder][nixpkgs-manual-src-hash] to obtain a remote source hash.
 >
 > When the configuration is built, the evaluation will fail. But the error message will output the expected hash, which can then be copied back into the configuration.
 >
-> To get the hash without a failed evaluation, refer to the section on how to [retrieve the release hash](#retrieve-release-hash).
+> To get the hash without a failed evaluation, refer to the section on how to [retrieve the release hash][loc-retrieve-hash].
 
 ## Alternative methods
 
@@ -66,6 +91,8 @@ If other fetchers or a dependency pinning tool should be used, see the options b
 }
 ```
 
+_See also: [fetcher reference][nixpkgs-manual-fetchzip]_
+
 </details>
 
 <details>
@@ -87,6 +114,8 @@ If other fetchers or a dependency pinning tool should be used, see the options b
 }
 ```
 
+_See also: [fetcher reference][nixpkgs-manual-fetchgit]_
+
 </details>
 
 <details>
@@ -107,11 +136,13 @@ If other fetchers or a dependency pinning tool should be used, see the options b
 }
 ```
 
+_See also: [fetcher reference][nix-manual-fetchtarball]_
+
 </details>
 
 ### Using pinning tools
 
-#### [niv](https://github.com/nmattia/niv)
+#### [niv][niv]
 
 ```bash
 niv add nicolas-goudry/nixkraken
@@ -130,9 +161,9 @@ in {
 ```
 
 > [!CAUTION]
-> These instructions are untested. Please [report an issue](https://github.com/nicolas-goudry/nixkraken/issues) if they are not working, or suggest a PR fixing them.
+> These instructions are untested. Please [report an issue][gh-issues] if they are not working, or [send a PR][gh-prs] fixing them.
 
-#### [npins](https://github.com/andir/npins)
+#### [npins][npins]
 
 ```bash
 npins add github nicolas-goudry nixkraken
@@ -151,11 +182,11 @@ in {
 ```
 
 > [!CAUTION]
-> These instructions are untested. Please [report an issue](https://github.com/nicolas-goudry/nixkraken/issues) if they are not working, or suggest a PR fixing them.
+> These instructions are untested. Please [report an issue][gh-issues] if they are not working, or [send a PR][gh-prs] fixing them.
 
 ## Retrieve release hash
 
-Users willing to avoid using `lib.fakeHash` can retrieve the release hash using either [`nix-prefetch-git`](#nix-prefetch-git) or [`nix-prefetch-url`](#nix-prefetch-url), as shown below.
+Users willing to avoid using `lib.fakeHash` can retrieve the release hash using either [`nix-prefetch-git`][nix-prefetch-git] or [`nix-prefetch-url`][nix-prefetch-url], as shown below.
 
 ### `nix-prefetch-git`
 
@@ -181,7 +212,7 @@ nix-prefetch-git --url git@github.com:nicolas-goudry/nixkraken.git --quiet
 }
 ```
 
-Here, the relevant key is `hash`. Tools like [`jq`](https://jqlang.org/) can be used to extract it directly from the JSON output of the command:
+Here, the relevant key is `hash`. Tools like [`jq`][jq] can be used to extract it directly from the JSON output of the command:
 
 ```bash
 nix-prefetch-git \
@@ -198,7 +229,11 @@ nix-prefetch-git \
 
 ### `nix-prefetch-url`
 
-The following commands use `nix-prefetch-url` to get the Nix base32 hash from the unpacked sources archive retrieved from GitHub. The hash is then handed to `nix-hash` (or `nix hash convert`, which requires the `nix-command` [experimental feature](https://nix.dev/manual/nix/stable/contributing/experimental-features#xp-feature-nix-command) to be enabled) to get the final hash expected by fetchers.
+The commands below use [nix-prefetch-url][nix-prefetch-url] and either [nix-hash][nix-hash] or [Nix' `hash convert`][nix-hash-new] commands, depending on Nix [experimental feature][nix-manual-experimental-feat] being enabled.
+
+nix-prefetch-url will download NixKraken source archive from GitHub into the store, extract it and compute its Nix base32 hash.
+
+The hash is then handed to `nix-hash` / `nix hash convert` to get the final hash expected by fetchers.
 
 ```bash
 # Using new Nix commands
