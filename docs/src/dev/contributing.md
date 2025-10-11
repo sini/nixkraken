@@ -32,9 +32,9 @@
 [mdn-js]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [nix-github]: https://github.com/NixOS/nix
 [nix-manual-language]: https://nix.dev/manual/nix/stable/language/index.html
-[nix-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
 [nixdev-shell]: https://nix.dev/tutorials/first-steps/declarative-shell#declarative-reproducible-envs
 [nixos-manual]: https://nixos.org/manual/nixos/stable
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
 [nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable
 [nodejs]: https://nodejs.org
 [python]: https://python.org
@@ -195,6 +195,6 @@ direnv allow
 
 _…that is the question!_
 
-The main distribution method for NixKraken is through [Flakes][nix-wiki-flakes]. However, we do not want to alienate users who do not use them, nor do we want to force its use on everyone. Our goal is to satisfy everyone.
+The main distribution method for NixKraken is through [Flakes][nixos-wiki-flakes]. However, we do not want to alienate users who do not use them, nor do we want to force its use on everyone. Our goal is to satisfy everyone.
 
 For this reason, all [Nix][nix-manual-language] code in the repository **must be compatible with both Flakes and non Flakes setups**. This means that building any of the tools provided by the project should work either with `nix build` and `nix-build`. This also means that all documentation bits should provide instructions for both worlds.

@@ -1,7 +1,7 @@
 [hm]: https://nix-community.github.io/home-manager
 [loc-shared-conf]: #shared-configuration
 [nix-manual-lookup-path]: https://nix.dev/manual/nix/stable/language/constructs/lookup-path
-[nix-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
 
 # Running tests
 
@@ -31,7 +31,7 @@ nix run '.#tests.<test-name>.driverInteractive'
 
 > [!NOTE]
 >
-> While running tests without [Flakes][nix-wiki-flakes] is possible, we do not recommend it as it is not as user-friendly as with Flakes.
+> While running tests without [Flakes][nixos-wiki-flakes] is possible, we do not recommend it as it is not as user-friendly as with Flakes.
 >
 > If you still want to avoid using Flakes, here is how to do it:
 >
