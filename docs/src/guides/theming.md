@@ -1,6 +1,16 @@
+[catppuccin-gitkraken]: https://github.com/catppuccin/gitkraken
+[doc-caveats]: ../notes/caveats.md#mutability
+[doc-install-pkgs]: ../getting-started/install/packages.md
+[doc-opt-extrathemes]: ../options/ui.md#uiextrathemes
+[doc-opt-profile-theme]: ../options/profiles/ui.md#profilesuitheme
+[doc-opt-theme]: ../options/ui.md#uitheme
+[gitkraken-themes-doc]: https://help.gitkraken.com/gitkraken-desktop/themes
+[gitkraken]: https://www.gitkraken.com/git-client
+[jsonc]: https://jsonc.org
+
 # Theming
 
-NixKraken lets you manage GitKraken's UI theme declaratively using the [`ui.extraThemes`](../options/ui.md#uiextrathemes), [`ui.theme`](../options/ui.md#uitheme) and [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme) options.
+NixKraken lets you manage [GitKraken][gitkraken]'s UI theme declaratively using the [`ui.extraThemes`][doc-opt-extrathemes], [`ui.theme`][doc-opt-theme] and [`profiles.*.ui.theme`][doc-opt-profile-theme] options.
 
 Using the aforementioned options, you can:
 
@@ -15,7 +25,7 @@ This guide explains how to use these options, how they relate to GitKraken's the
 
 ![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
-If you simply want a stock GitKraken theme, set [`ui.theme`](../options/ui.md#uitheme) (or [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme)) to one of its listed valid values (see linked references).
+If you simply want a stock GitKraken theme, set [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]) to one of its listed valid values (see linked references).
 
 Example to use the light theme:
 
@@ -30,7 +40,7 @@ Example to use the light theme:
 
 > [!NOTE]
 >
-> Due to the [mutability nature of GitKraken configuration](../notes/caveats.md#mutability), you can still change themes within GitKraken. NixKraken ensures that your declarative choices persist on rebuild.
+> Due to the [mutability nature of GitKraken configuration][doc-caveats], you can still change themes within GitKraken. NixKraken ensures that your declarative choices persist on rebuild.
 
 ### Use a NixKraken theme
 
@@ -46,9 +56,9 @@ NixKraken ships a variety of themes as packages available under `gitkraken-theme
 
 > [!TIP]
 >
-> Refer to the [installation guide about packages](../getting-started/install/packages.md) to learn how to make themes available to your configuration.
+> Refer to the [installation guide about packages][doc-install-pkgs] to learn how to make themes available to your configuration.
 
-To install themes for GitKraken, add them to [`ui.extraThemes`](../options/ui.md#uiextrathemes):
+To install themes for GitKraken, add them to [`ui.extraThemes`][doc-opt-extrathemes]:
 
 ```nix
 {
@@ -63,7 +73,7 @@ To install themes for GitKraken, add them to [`ui.extraThemes`](../options/ui.md
 }
 ```
 
-To enable a theme in GitKraken, use [`ui.theme`](../options/ui.md#uitheme) (or [`profiles.*.ui.theme`](../options/profiles/ui.md#profilesuitheme)):
+To enable a theme in GitKraken, use [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]):
 
 ```nix
 {
@@ -76,7 +86,7 @@ To enable a theme in GitKraken, use [`ui.theme`](../options/ui.md#uitheme) (or [
 
 ## How GitKraken themes work
 
-GitKraken theme files are [JSONC files](https://jsonc.org/) that define the colors used throughout the application.
+GitKraken theme files are [JSONC files][jsonc] that define the colors used throughout the application.
 
 To show up in GitKraken, a theme file must:
 
@@ -88,7 +98,7 @@ If a theme file is invalid, GitKraken skips it and falls back to a default theme
 
 > [!NOTE]
 >
-> See [GitKraken's official theme documentation](https://help.gitkraken.com/gitkraken-desktop/themes) for further details.
+> See [GitKraken's official theme documentation][gitkraken-themes-doc] for further details.
 
 ### Create a theme
 
@@ -113,7 +123,7 @@ Following GitKraken's documentation, here are the steps to create a valid theme:
 
 ### Packaging themes
 
-Here is an example derivation to package [Catppuccin's themes for GitKraken](https://github.com/catppuccin/gitkraken):
+Here is an example derivation to package [Catppuccin's themes for GitKraken][catppuccin-gitkraken]:
 
 ```nix
 {
@@ -153,7 +163,7 @@ stdenvNoCC.mkDerivation rec {
 
 You can replace the source with your theme repository or local files, ensuring the `.jsonc` gets installed in the derivation output (`$out`).
 
-Then, reference the package in `ui.extraThemes` and set `ui.theme` (or `profiles.*.ui.theme`) to the filename of a JSONC theme file, without extension:
+Then, reference the package in [`ui.extraThemes`][doc-opt-extrathemes] and set [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]) to the filename of a JSONC theme file, without extension:
 
 ```nix
 { pkgs, ... }:

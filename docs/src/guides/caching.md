@@ -1,15 +1,24 @@
+[doc-opt-pkg]: ../options/nixkraken.md#package
+[garnix]: https://garnix.io
+[gitkraken]: https://www.gitkraken.com/git-client
+[nix-cache]: https://cache.nixos.org
+[nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[nixpkgs-manual-unfree]: https://nixos.org/manual/nixpkgs/stable/#lib.licenses.unfree-unfree
+
 # Binary cache
 
-Because GitKraken is an unfree package, its builds will not be cached in the default Nix cache (cache.nixos.org). This is expected and _somewhat_ [documented in nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#lib.licenses.unfree-unfree).
+Because [GitKraken][gitkraken] is an unfree package, its builds will not be cached in the [default Nix cache][nix-cache] (cache.nixos.org). This is expected and _somewhat_ [documented in nixpkgs manual][nixpkgs-manual-unfree].
 
-For this reason, NixKraken is using [Garnix](https://garnix.io)' public free cache for GitKraken builds, with permission from GitKraken's legal team.
+For this reason, NixKraken is using [Garnix][garnix]' public free cache for GitKraken builds, with permission from GitKraken:
 
-The cache is populated using Garnix' GitHub integration and uses dedicated Flake outputs to build and push the evaluated builds to the cache.
+![Screenshot of support email allowing caching of GitKraken](./assets/caching-permission-proof.png 'Screenshot of support email allowing caching of GitKraken')
+
+The cache is populated using Garnix' GitHub integration and uses dedicated [Flake][nixos-wiki-flakes] outputs to build and push the evaluated builds to the cache.
 
 By using this cache, installing GitKraken is faster than ever. **A huge thanks to Garnix!**
 
 > [!WARNING]
-> Users who wish to use the [`programs.nixkraken.package`](../options/nixkraken.md#package) option cannot benefit from the cache unless they use one of the nixpkgs commits listed below.
+> Users who wish to use the [`programs.nixkraken.package`][doc-opt-pkg] option cannot benefit from the cache unless they use one of the commits listed below.
 >
 > <details><summary>List of cached commits</summary>
 >

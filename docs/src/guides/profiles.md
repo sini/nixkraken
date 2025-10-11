@@ -1,11 +1,16 @@
+[doc-group-opts]: ../options/nixkraken.md#group-options
+[doc-opts-profiles]: ../options/profiles.md
+[doc-root-opts]: ../options/nixkraken.md#root-options
+[gitkraken]: https://www.gitkraken.com/git-client
+
 # Profiles
 
-In GitKraken, profiles are used to manage different app preferences, Tabs and Git config settings. This comes handy when working for several organizations, or to separate work and personal configurations.
+In [GitKraken][gitkraken], profiles are used to manage different app preferences, Tabs and Git config settings. This comes handy when working for several organizations, or to separate work and personal configurations.
 
 There are two _"types"_ of profiles in GitKraken, which can both be configured using NixKraken:
 
 - default profile, available out-of-the-box
-- additional profiles, available with a paid license<!--, configured through the [`profiles` module](../options/profiles.md)-->
+- additional profiles, available with a paid license
 
 > [!IMPORTANT]
 >
@@ -15,16 +20,16 @@ There are two _"types"_ of profiles in GitKraken, which can both be configured u
 
 ## Default profile
 
-The default profile is configured using all [group options](../options/nixkraken.md#group-options), excluding the `profiles` group.
+The default profile is configured using all [group options][doc-group-opts], excluding the `profiles` group.
 
-Additionally, there are [root options](../options/nixkraken.md#root-options) which only apply to the default profile:
+Additionally, there are [root options][doc-root-opts] which only apply to the default profile:
 
 - `defaultProfile.name`, to set the profile name
 - `defaultProfile.icon`, to set the profile avatar
 
 ## Additional profiles
 
-Additional profiles are configured using the [profiles group](../options/profiles.md), which will inherit all options from the default profile. Options from additional profiles will always have precedence over default profile options.
+Additional profiles are configured using the [profiles group][doc-opts-profiles], which will inherit all options from the default profile. Options from additional profiles will always have precedence over default profile options.
 
 The profiles group reuses most (but not all) of the groups used by the default profile, under the `programs.nixkraken.profiles` option. This option is a list of attribute sets defining profile-specific configuration.
 

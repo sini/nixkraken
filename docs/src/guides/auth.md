@@ -1,10 +1,16 @@
+[doc-caveats]: ../notes/caveats.md#reverted-paid-features
+[doc-opt-enable]: https://nicolas-goudry.github.io/nixkraken/options/nixkraken.html#enable
+[gitkraken]: https://www.gitkraken.com/git-client
+[hm-home-pkgs]: https://nix-community.github.io/home-manager/options.xhtml#opt-home.packages
+[oauth]: https://www.oauth.com
+
 # Authentication
 
-Beyond managing GitKraken application configuration, NixKraken also provides the `gk-login` utility to authenticate with your GitKraken account without launching the app first. This stores your token so GitKraken starts authenticated on next launch.
+Beyond managing [GitKraken][gitkraken] application configuration, NixKraken also provides the `gk-login` utility to authenticate with your GitKraken account without launching the app first. This stores your token so GitKraken starts authenticated on next launch.
 
 This is mainly useful when installing GitKraken for the first time and configuring paid features right away.
 
-As mentioned in the [known caveats](../notes/caveats.md#reverted-paid-features) section, if you configure paid features and launch the app while not authenticated, those features could be disabled or reset to their default values.
+As mentioned in the [known caveats][doc-caveats] section, if you configure paid features and launch the app while not authenticated, those features could be disabled or reset to their default values.
 
 > [!IMPORTANT]
 >
@@ -12,7 +18,7 @@ As mentioned in the [known caveats](../notes/caveats.md#reverted-paid-features) 
 
 ## Limitations
 
-Currently, only the OAuth flow is supported, with the following providers:
+Currently, only the [OAuth][oauth] flow is supported, with the following providers:
 
 - GitHub
 - GitLab
@@ -22,7 +28,7 @@ Currently, only the OAuth flow is supported, with the following providers:
 
 ## How it works
 
-When NixKraken is [enabled](https://nicolas-goudry.github.io/nixkraken/options/nixkraken.html#enable), the `gk-login` package is automatically added to [`home.packages`](https://nix-community.github.io/home-manager/options.xhtml#opt-home.packages), making it available globally for your user.
+When NixKraken is [enabled][doc-opt-enable], the `gk-login` package is automatically added to [`home.packages`][hm-home-pkgs], making it available globally for your user.
 
 The only required option is the `--provider` (or `-p`) option, which defines the OAuth provider to use:
 
