@@ -64,7 +64,7 @@ in
       >
       > Extra themes are referenced by their filename without extension.
       >
-      > Refer to the [theming guide](@OPTIONS_ROOT@/../guides/themes.md) for further details.
+      > Refer to the [theming guide](@OPTIONS_ROOT@/../guides/theming.md) for further details.
     '';
   };
 

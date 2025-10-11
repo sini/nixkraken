@@ -56,9 +56,6 @@ let
       ) (lib.filterAttrs (name: _: name != "override" && name != "overrideDerivation") variants)
     ) themes.passthru
   );
-  themesListBuilder = ''
-    substituteInPlace src/guides/themes.md --subst-var-by THEMES_LIST '${lib.concatLines themesList}'
-  '';
 
   # Local packages
   # Used to replace command usages
@@ -109,8 +106,8 @@ stdenvNoCC.mkDerivation {
 
     # Handle other replacements
     substituteInPlace src/guides/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatLines cachedCommitsList}"
+    substituteInPlace src/guides/theming.md --subst-var-by THEMES_LIST '${lib.concatLines themesList}'
     ${commandUsagesBuilder}
-    ${themesListBuilder}
   '';
 
   buildPhase = ''
