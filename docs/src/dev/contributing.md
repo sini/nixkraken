@@ -1,8 +1,53 @@
+[convco]: https://convco.github.io
+[conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/#specification
+[determinate-nix]: https://determinate.systems/nix
+[direnv]: https://direnv.net
+[doc-compat]: ../notes/compatibility.md
+[doc-docs]: ./docs.md
+[doc-options-reference]: ../options/nixkraken.md
+[doc-pkgs]: ./packages/index.md
+[doc-tests]: ./tests/index.md
+[doc-themes]: ./themes.md
+[garnix]: https://garnix.io
+[git-hooks]: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+[github-coc]: https://github.com/nicolas-goudry/nixkraken/blob/main/CODE_OF_CONDUCT.md
+[github-fork]: https://github.com/nicolas-goudry/nixkraken/fork
+[github-hooks]: https://github.com/nicolas-goudry/nixkraken/blob/main/.hooks
+[github-issues]: https://github.com/nicolas-goudry/nixkraken/issues
+[github-prs]: https://github.com/nicolas-goudry/nixkraken/pulls
+[github-shell]: https://github.com/nicolas-goudry/nixkraken/blob/main/shell.nix
+[github]: https://github.com/nicolas-goudry/nixkraken
+[gitkraken]: https://www.gitkraken.com/git-client
+[gnu-bash]: https://www.gnu.org/software/bash
+[home-manager]: https://nix-community.github.io/home-manager/index.xhtml
+[jq]: https://jqlang.org
+[lix]: https://lix.systems
+[lorri-github]: https://github.com/nix-community/lorri
+[markdown]: https://www.markdownguide.org
+[mdbook-alerts]: https://github.com/lambdalisue/rs-mdbook-alerts
+[mdbook-linkcheck]: https://github.com/Michael-F-Bryan/mdbook-linkcheck
+[mdbook]: https://rust-lang.github.io/mdBook
+[mdn-css]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[mdn-html]: https://developer.mozilla.org/en-US/docs/Web/HTML
+[mdn-js]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[nix-github]: https://github.com/NixOS/nix
+[nix-manual-language]: https://nix.dev/manual/nix/stable/language/index.html
+[nix-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[nixdev-shell]: https://nix.dev/tutorials/first-steps/declarative-shell#declarative-reproducible-envs
+[nixos-manual]: https://nixos.org/manual/nixos/stable
+[nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable
+[nodejs]: https://nodejs.org
+[python]: https://python.org
+[snix]: https://snix.dev
+[tvix-github]: https://github.com/tvlfyi/tvix
+[wikipedia-atomic-commits]: https://en.wikipedia.org/wiki/Atomic_commit#Revision_control
+[wikipedia-json]: https://en.wikipedia.org/wiki/JSON
+
 # Contributing
 
-Contributions are welcome across documentation, [module options](../options/nixkraken.md), [helper packages](./packages/index.md), [tests](./tests/index.md), compatibility work and every other aspects related to NixKraken.
+Contributions are welcome across documentation, [module options][doc-options-reference], [helper packages][doc-pkgs], [tests][doc-tests], compatibility work and every other aspects related to NixKraken.
 
-Development occurs solely on the [official GitHub repository](https://github.com/nicolas-goudry/nixkraken).
+Development occurs solely on the [official GitHub repository][github].
 
 ## Before starting
 
@@ -10,51 +55,65 @@ Development occurs solely on the [official GitHub repository](https://github.com
 
 Please make sure to read the current documentation as a whole before considering to contribute, something you are planning to contribute to may already be available.
 
-Also take a look at currently [open issues](https://github.com/nicolas-goudry/nixkraken/issues) and [pull requests](https://github.com/nicolas-goudry/nixkraken/pulls) before starting to work on a feature or bug fix, as someone else may already be planning to or has already started working on something similar.
+Also take a look at currently [open issues][github-issues] and [pull requests][github-prs] before starting to work on a feature or bug fix, as someone else may already be planning to or has already started working on something similar.
 
 ### Conform to the code of conduct
 
-Read our [code of conduct](https://github.com/nicolas-goudry/nixkraken/blob/main/CODE_OF_CONDUCT.md) and conform to it in all your interactions with others working on the project. However, do not stress yourself too much over this, everyone can make mistakes as long as they acknowledge and correct them.
+Read our [code of conduct][github-coc] and conform to it in all your interactions with others working on the project. However, do not stress yourself too much over this, everyone can make mistakes as long as they acknowledge and correct them.
 
 ### Be polyglot?
 
-NixKraken uses various languages, with the predominant one being the [Nix language](https://nixos.org).
+NixKraken uses various languages, with the predominant one being the [Nix language][nix-manual-language].
 
-Additionally, we use a fair bit of [Bash scripting](https://www.gnu.org/software/bash/) for [helper packages](./packages/index.md), some [Python](https://python.org) for [automated tests](./tests/index.md) and some [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) and [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) for the documentation.
+Additionally, we use a fair bit of [Bash scripting][gnu-bash] for [helper packages][doc-pkgs], some [Python][python] for [automated tests][doc-tests] and some [HTML][mdn-html], [CSS][mdn-css] and [JavaScript][mdn-js] for the [documentation][doc-docs].
 
 Contributors are expected to be familiar, to some varying extent, with the following languages and tools, depending on the topic involved:
 
-- **Module development:** Nix language, nixpkgs, NixOS, [Home Manager](https://nix-community.github.io/home-manager/index.xhtml), Bash scripting, JavaScript, GitKraken
-- **Module tests:** Nix language, nixpkgs, NixOS, Python, GitKraken
-- **Helper packages:** Nix language, nixpkgs, Bash scripting, JSON, GitKraken
-- **GitKraken caching:** Nix language, nixpkgs, [Garnix](https://garnix.io)
-- **Documentation:** Nix language, nixpkgs, JavaScript, HTML, CSS, [Markdown](https://www.markdownguide.org/), [mdBook](https://rust-lang.github.io/mdBook/)
+|                                     | Module | Tests | Packages | Caching | Documentation |
+| ----------------------------------- | :----: | :---: | :------: | :-----: | :-----------: |
+| [Nix language][nix-manual-language] |   ✅   |  ✅   |    ✅    |   ✅    |      ✅       |
+| [NixOS][nixos-manual]               |   ✅   |  ✅   |    ┊     |    ┊    |       ┊       |
+| [nixpkgs][nixpkgs-manual]           |   ✅   |  ✅   |    ✅    |   ✅    |      ✅       |
+| [Home Manager][home-manager]        |   ✅   |   ┊   |    ┊     |    ┊    |       ┊       |
+| [Bash scripting][gnu-bash]          |   ✅   |   ┊   |    ✅    |    ┊    |       ┊       |
+| [JSON][wikipedia-json]              |   ✅   |   ┊   |    ✅    |    ┊    |       ┊       |
+| [jq][jq]                            |   ✅   |   ┊   |    ┊     |    ┊    |       ┊       |
+| [GitKraken][gitkraken]              |   ✅   |  ✅   |    ✅    |    ┊    |       ┊       |
+| [Python][python]                    |   ┊    |  ✅   |    ┊     |    ┊    |       ┊       |
+| [Markdown][markdown]                |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
+| [mdBook][mdbook]                    |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
+| [HTML][mdn-html]                    |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
+| [CSS][mdn-css]                      |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
+| [JavaScript][mdn-js]                |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
+| [Garnix][garnix]                    |   ┊    |   ┊   |    ┊     |   ✅    |       ┊       |
 
 Although this list could look quite daunting, do not run away yet. You will most likely be doing great just knowing a small bit of any of these, and can only get better at them while working on NixKraken.
 
 ### Get familiar with our Git workflow
 
-As noted in the [compatibility section](../notes/compatibility.md), we use a variety of branches to conduct work on NixKraken:
+As noted in the [compatibility section][doc-compat], we use a variety of branches to conduct work on NixKraken:
 
 - `main`: this is the development branch, where all new (potentially unstable) features live
 - `stable`: this is a "dummy" branch which tracks the latest release branch commit
 - release branches: these are branches named after the GitKraken version they are known to be compatible with
 
-When contributing to NixKraken, you will either want to add something new or fix something broken. Your contribution could either target a specific release branch, or the development branch, or both. In the case of a fix or feature targeting both development and release branch(es), we prefer to first integrate the changes into the development branch, and only then backport them to the release branch(es).
+When contributing to NixKraken, you will either want to add something new or fix something broken. Your contribution could either target a specific release branch, or the development branch, or both.
+
+In the case of a fix or feature targeting both development and release branch(es), we prefer to first integrate the changes into the development branch, and only then backport them to the release branch(es).
 
 Please find below the lifecycle of a contribution to NixKraken:
 
-1. [Fork the repository](https://github.com/nicolas-goudry/nixkraken/fork)
+1. [Fork the repository][github-fork]
 2. Work on your feature/bugfix in whatever branch you wish
-3. Commit your changes using [atomic commits](https://en.wikipedia.org/wiki/Atomic_commit#Revision_control) and following [conventional commit style](https://www.conventionalcommits.org/en/v1.0.0/#specification)
-4. Open a pull request to either the `main` branch or a specific release branch
+3. Commit your changes using [atomic commits][wikipedia-atomic-commits] and following [conventional commit style][conventional-commits]
+4. Open a [pull request][github-prs] to either the `main` branch or a specific release branch
 5. PR is merged
 6. Backport to release branch(es) happens, if relevant
 7. `stable` branch is updated, if relevant
 
 > [!NOTE]
 >
-> We use [convco](https://convco.github.io) to enforce conventional commits.
+> We use [convco][convco] to enforce conventional commits.
 
 ## Repository layout
 
@@ -82,14 +141,14 @@ Admittedly this is a lot, but everything is covered in this documentation, so re
 
 ## Prerequisites
 
-NixKraken being mostly Nix, it is the only hard requirement. The only known version constraint being to have at least Nix 2.4, which is quite old anyway, so you should be good.
+Since NixKraken is mostly written in [Nix][nix-manual-language], it is the only hard requirement. There is however a known constraint on Nix version ≥ 2.4, which is quite old anyway, so you should be good.
 
-Additionally, NixKraken should be compatible with any Nix "flavor" (upstream Nix, [Determinate Nix](https://determinate.systems/nix/), [Lix](https://lix.systems/), [Tvix](https://github.com/tvlfyi/tvix), [Snix](https://snix.dev/), …) since it only uses basic Nix capabilities.
+Additionally, NixKraken should be compatible with any Nix "flavor" ([upstream Nix][nix-github], [Determinate Nix][determinate-nix], [Lix][lix], [Tvix][tvix-github], [Snix][snix], …) since it only uses basic Nix capabilities.
 
-Lastly, serving the documentation website locally for development purposes requires [mdBook](https://rust-lang.github.io/mdBook/) to be available with the following plugins:
+Lastly, serving the documentation website locally for development purposes requires [mdBook][mdbook] to be available with the following plugins:
 
-- [mdbook-alerts](https://github.com/lambdalisue/rs-mdbook-alerts)
-- [mdbook-linkcheck](https://github.com/Michael-F-Bryan/mdbook-linkcheck)
+- [mdbook-alerts][mdbook-alerts]
+- [mdbook-linkcheck][mdbook-linkcheck]
 
 Building the documentation website only requires Nix.
 
@@ -97,14 +156,15 @@ Building the documentation website only requires Nix.
 
 ### Nix development shell
 
-For a better developer experience, NixKraken provides a Nix development shell which source code can be viewed in the [`shell.nix` file](https://github.com/nicolas-goudry/nixkraken/blob/main/shell.nix).
+For a better developer experience, NixKraken provides a [Nix development shell][nixdev-shell] which source code can be viewed in the [`shell.nix` file][github-shell].
 
 This development shell does several things:
 
-- add mdBook and required plugins to the PATH
-- add [NodeJS](https://nodejs.org) to the PATH
-- add helper packages to the PATH
-- automatically install Git hooks located in the `.hooks` directory
+- add [mdBook][mdbook] package and required plugins, for building documentation
+- add [NodeJS][nodejs] package, for building options reference documentation
+- add [helper packages][doc-pkgs], for testing and debugging
+- add [convco][convco], for enforcing conventional commits
+- install [Git hooks][git-hooks] located in the [`.hooks` directory][github-hooks]
 
 Enabling the development shell can be done in various ways:
 
@@ -125,16 +185,16 @@ direnv allow
 
 #### About direnv
 
-[direnv](https://direnv.net) is quite a handy tool which will automatically load the development shell (using classic Nix) when navigating to the project root directory or any of its subdirectories, as long as it is trusted using `direnv allow`.
+[direnv][direnv] is quite a handy tool which will automatically load the development shell (using classic Nix) when navigating to the project root directory or any of its subdirectories, as long as it is trusted using `direnv allow`.
 
 > [!NOTE]
 >
-> If working on `shell.nix`, do not forget to run `direnv reload` to _re-apply_ the development shell, or use tools like [lorri](https://github.com/nix-community/lorri) to do this automatically for you.
+> If working on [`shell.nix`][github-shell], do not forget to run `direnv reload` to _re-apply_ the development shell, or use tools like [lorri][lorri-github] to do this automatically for you.
 
 ### To Flake or not to Flake?
 
 _…that is the question!_
 
-The main distribution method for NixKraken is through Flakes. However, we do not want to alienate users who do not use Flakes, nor do we want to force its use on everyone. Our goal is to satisfy everyone.
+The main distribution method for NixKraken is through [Flakes][nix-wiki-flakes]. However, we do not want to alienate users who do not use them, nor do we want to force its use on everyone. Our goal is to satisfy everyone.
 
-For this reason, all Nix code in the repository **must be compatible with both Flakes and non Flakes setups**. This means that building any of the tools provided by the project should work either with `nix build` and `nix-build`. This also means that all documentation bits should provide instructions for both worlds.
+For this reason, all [Nix][nix-manual-language] code in the repository **must be compatible with both Flakes and non Flakes setups**. This means that building any of the tools provided by the project should work either with `nix build` and `nix-build`. This also means that all documentation bits should provide instructions for both worlds.
