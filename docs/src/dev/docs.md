@@ -5,13 +5,16 @@
 [gitkraken]: https://www.gitkraken.com/git-client
 [loc-authoring]: #content-authoring
 [loc-config]: #configuration
+[loc-custom-css]: #custom-css
 [loc-customization]: #customization
 [loc-drv]: #nix-derivation
 [loc-gen-content]: #generated-content
 [loc-gitrev]: #providing-git-revision
+[loc-img-title]: #image-title-rendering
 [loc-json-representation]: #providing-json-module-options-representation
 [loc-local-dev]: #local-development
 [loc-opts-builder]: #options-documentation-builder
+[loc-page-toc]: #page-dedicated-toc
 [markdown]: https://www.markdownguide.org
 [mdbook-alerts]: https://github.com/lambdalisue/rs-mdbook-alerts
 [mdbook-config]: https://rust-lang.github.io/mdBook/format/configuration/index.html
@@ -20,6 +23,7 @@
 [mdbook-pagetoc]: https://github.com/slowsage/mdbook-pagetoc
 [mdbook-summary]: https://rust-lang.github.io/mdBook/format/summary.html
 [mdbook]: https://rust-lang.github.io/mdBook
+[mdn-after-pseudo]: https://developer.mozilla.org/en-US/docs/Web/CSS/::after
 [nix-manual-drv]: https://nix.dev/manual/nix/stable/language/derivations.html
 [nix-manual-sandbox]: https://nix.dev/manual/nix/stable/command-ref/conf-file#conf-sandbox
 [nixos-manual-module-opts]: https://nixos.org/manual/nixos/stable/#sec-option-declarations
@@ -197,11 +201,29 @@ _Please refer to the [official mdBook documentation][mdbook-config] for further 
 
 mdBook allows to include arbitrary additional CSS and JS files using respectively the `additional-css` and `additional-js` [options of the `html` renderer][mdbook-html-renderer]. These settings enable to further customize mdBook behavior without having to write Rust code.
 
-The documentation takes advantage of this to bring page-dedicated table of contents. Implementation-wise, this is heavily inspired by the [mdbook-pagetoc][mdbook-pagetoc] plugin, although it uses a completely different rendering.
+The documentation takes advantage of this to introduce several custom behaviors to mdBook:
 
-This feature is implemented using a [dedicated JavaScript script][repo-toc-js] and some [CSS styles][repo-toc-css], which together implement an auto-generated, collapsible floating table of contents for documentation pages.
+- [CSS customizations][loc-custom-css]
+- [page-dedicated table of contents][loc-page-toc]
+- [image title rendering][loc-img-title]
 
-The JavaScript code, responsible for the page TOC generation, is heavily annotated, but here is what it does in short:
+#### Custom CSS
+
+Some [minor CSS customizations][repo-main-css] are brought:
+
+- custom horizontal rule (`<hr/>` element)
+- left-aligned tables
+- missing gap fix between alerts and tables
+- images with rounded corners and borders
+- center-aligned images
+
+#### Page-dedicated TOC
+
+This feature implements an auto-generated, collapsible and floating table of contents for documentation pages.
+
+Implementation-wise, this is heavily inspired by the [mdbook-pagetoc][mdbook-pagetoc] plugin, although it uses a completely different rendering.
+
+The [JavaScript code][repo-toc-js], responsible for the page TOC generation, is heavily annotated, but here is what it does in short:
 
 - build TOC items
   - scans all in-page headings (`h2-h6`) via their `a.header` anchors
@@ -216,7 +238,7 @@ The JavaScript code, responsible for the page TOC generation, is heavily annotat
     - the path is not in the `hideOnPath` list
     - and there is more than one heading
 
-The companion CSS code is responsible for visual presentation of the TOC, specifically tailored to mdBook HTML:
+The [companion CSS code][repo-toc-css] is responsible for visual presentation of the TOC, specifically tailored to mdBook HTML:
 
 - positions the TOC button in a sticky container floating to the right side of the page content
 - defines visual styles of the main `.toc-content` block which holds actual heading links
@@ -225,7 +247,19 @@ The companion CSS code is responsible for visual presentation of the TOC, specif
   - links are styled with no underlines, padding for indentation (increasing per heading depth), and color states on hover/focus
 - hides the TOC entirely on small screens to avoid overlap with mdBook right navigation bar
 
-Beyond this feature, some more generalist CSS customizations can be found in the [`docs/theme/css/main.css` file][repo-main-css].
+#### Image title rendering
+
+This feature renders image titles as an actual element in the DOM, rather than only relying on the `title` attribute shown on image hover.
+
+It is implemented using some JavaScript code which discovers all images with a `title` attribute and copies it to a new `data-title` attribute. Then, a few line of CSS are responsible for rendering the title below the actual image, using the [`after` pseudo-element][mdn-after-pseudo].
+
+Example:
+
+```md
+![](https://cataas.com/cat 'A random cat image')
+```
+
+![](https://cataas.com/cat 'A random cat image')
 
 ## Options documentation builder
 

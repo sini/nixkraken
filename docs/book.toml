@@ -35,6 +35,7 @@ follow-web-links = true
 warning-policy = "error"
 # Exclude generated content link checks
 exclude = [
+  "cataas.com",
   "../options/datetime.md",
   "../options/git.md",
   "../options/gpg.md",
