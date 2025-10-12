@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  gitkrakenVersions = lib.attrNames (import ../gitkraken/versions.nix);
+  gitkrakenVersions = import ../gitkraken/versions.nix;
   profileOpts = import ./profiles/options.nix { inherit lib; };
 in
 {
@@ -81,8 +81,10 @@ in
   };
 
   version = lib.mkOption {
-    type = lib.types.nullOr (lib.types.enum gitkrakenVersions);
-    default = "11.4.0";
+    type = lib.types.nullOr (lib.types.enum (lib.attrNames gitkrakenVersions));
+    default = lib.elemAt (lib.attrNames (
+      lib.filterAttrs (version: spec: spec.latest or false) gitkrakenVersions
+    )) 0;
     description = ''
       The GitKraken version to use.
 
