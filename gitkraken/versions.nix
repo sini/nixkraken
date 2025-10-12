@@ -1,8 +1,13 @@
 {
+  "11.5.0" = {
+    commit = "799d2d581d3d46d0dfe5b8f812a99580f1ce1095";
+    hash = "sha256:1a1acr2x9ny5xdpgr8ikl9q6846j0x858q01pyxvgpjjpj6gd33b";
+    latest = true;
+  };
+
   "11.4.0" = {
     commit = "fe7d341cfc40398f60a15cbf3d07459b4e3f3fde";
     hash = "sha256:1619ylc4gh3ip0jkxp9v50nvcr0ybiyg9p6mja6x5z5ajaivl4h8";
-    latest = true;
   };
 
   "11.3.0" = {
