@@ -17,7 +17,7 @@ hr {
 }
 
 /* Images styling */
-img:not([alt~='logo']) {
+img:not([alt*='logo']):not([src*='shields.io']) {
   border: 1px solid var(--fg);
   border-radius: 1rem;
 }
