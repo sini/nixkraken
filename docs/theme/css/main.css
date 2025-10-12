@@ -22,9 +22,13 @@ img:not([alt*='logo']):not([src*='shields.io']) {
   border-radius: 1rem;
 }
 
+p:has(img:not([src*='shields.io'])) {
+  text-align: center;
+}
+
 /* Image auto-generated title */
 p img[title] {
-  display: block;
+  display: inline-block;
   position: relative;
 }
 
