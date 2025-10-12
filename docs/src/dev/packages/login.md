@@ -18,7 +18,7 @@ It securely handles [OAuth tokens][oauth-tokens], updates the GitKraken configur
 
 ## Usage
 
-```plain
+```txt
 @GK_LOGIN_USAGE@
 ```
 

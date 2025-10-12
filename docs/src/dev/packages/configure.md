@@ -19,7 +19,7 @@ While it is intended for use during [Home Manager activation][hm-activation] by 
 
 ## Usage
 
-```plain
+```txt
 @GK_CONFIGURE_USAGE@
 ```
 

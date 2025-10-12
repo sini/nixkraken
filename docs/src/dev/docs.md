@@ -276,7 +276,7 @@ The grouping logic uses pattern matching to determine which category each option
 
 For each group, the script generates a separate Markdown file in an organized directory structure under `src/options`. Root-level options are appended to the main `src/options/nixkraken.md` file, while profile-specific options (matching the pattern `profiles.*.*`) are placed in the `src/options/profiles` subdirectory.
 
-```plain
+```txt
 src/options
 ├── datetime.md
 ├── git.md

@@ -63,7 +63,7 @@ Users managing their configuration declaratively through a `flake.nix` can add t
 
 Alternatively, the `nix.conf` file _(usually located at `/etc/nix/nix.conf`)_ can be imperatively edited to define the cache settings:
 
-```plain
+```txt
 extra-substituters = https://cache.garnix.io
 extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
 ```

@@ -14,7 +14,7 @@ Although its execution is considered safe, it is possible that theme files are o
 
 ## Usage
 
-```plain
+```txt
 @GK_THEME_USAGE@
 ```
 

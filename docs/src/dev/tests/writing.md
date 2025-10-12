@@ -115,7 +115,7 @@ Each test has its own subdirectory, matching its name.
 
 Example:
 
-```plain
+```txt
 tests
 └── accept-eula
     ├── default.nix
@@ -206,7 +206,7 @@ machine.succeed("pkill -f gitkraken")
 
 The [`_common` directory][repo-tests-common] holds [NixOS modules][nixos-manual-modules] shared across all tests to avoid repetition and ensure a consistent environment.
 
-```plain
+```txt
 tests/_common
 ├── default.nix    # imports display.nix and nixkraken.nix
 ├── display.nix    # setup graphical capabilities (X11 server, IceWM, LightDM, root autologin)

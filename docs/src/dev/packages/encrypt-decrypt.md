@@ -15,13 +15,13 @@ Although their execution is considered safe (since they only read the `secFile`s
 
 ### `gk-encrypt`
 
-```plain
+```txt
 @GK_ENCRYPT_USAGE@
 ```
 
 ### `gk-decrypt`
 
-```plain
+```txt
 @GK_DECRYPT_USAGE@
 ```
 
