@@ -12,6 +12,7 @@ pkgs.mkShellNoCC {
       mdbook
       mdbook-alerts
       mdbook-linkcheck
+      mdbook-mermaid
       nodejs
       rustc
     ])

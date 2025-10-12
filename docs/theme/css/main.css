@@ -37,3 +37,8 @@ p:has(img[title])::after {
   color: var(--fg);
   font-style: italic;
 }
+
+/* Center mermaid charts */
+.mermaid {
+  text-align: center;
+}

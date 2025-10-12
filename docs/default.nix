@@ -13,6 +13,7 @@ let
     mdbook
     mdbook-alerts
     mdbook-linkcheck
+    mdbook-mermaid
     nodejs
     rustc
     ;
@@ -84,6 +85,7 @@ stdenvNoCC.mkDerivation {
     mdbook
     mdbook-alerts
     mdbook-linkcheck
+    mdbook-mermaid
   ];
 
   dontConfigure = true;
@@ -122,6 +124,7 @@ stdenvNoCC.mkDerivation {
     mdbook
     mdbook-alerts
     mdbook-linkcheck
+    mdbook-mermaid
     rustc
   ];
 
