@@ -45,17 +45,19 @@ let
   themes = callPackage ../themes { };
   themesList = lib.collect lib.isString (
     lib.mapAttrs (
-      set: variants:
+      theme: drv:
+      let
+        src = drv.src.gitRepoUrl or drv.src.url;
+        # To Title Case
+        prettyName = lib.concatStringsSep " " (
+          lib.map (word: lib.toSentenceCase word) (lib.splitString "-" theme)
+        );
+      in
       lib.mapAttrs' (
-        variant: drv:
-        let
-          src = drv.src.gitRepoUrl or drv.src.url;
-        in
-        lib.nameValuePair "${set}-${variant}" "| ${lib.toSentenceCase set} | ${
-          if drv.prettyName == null then lib.toSentenceCase variant else drv.prettyName
-        } | [Source](${src}) | `${set}.${variant}` |"
-      ) (lib.filterAttrs (name: _: name != "override" && name != "overrideDerivation") variants)
-    ) themes.passthru
+        variant: _:
+        lib.nameValuePair "${theme}-${variant}" "| ${prettyName} | ${lib.toSentenceCase variant} | [Source](${src}) | `${theme}.${variant}`"
+      ) drv.passthru
+    ) (lib.filterAttrs (theme: _: theme != "all") themes.passthru)
   );
 
   # Local packages
