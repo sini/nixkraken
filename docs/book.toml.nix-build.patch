@@ -1,30 +1,31 @@
 diff --git a/book.toml b/book.toml
-index a67c7e1..41c1c42 100644
+index 6de547a..eba7298 100644
 --- a/book.toml
 +++ b/book.toml
-@@ -21,25 +21,4 @@ enable = true
+@@ -31,26 +31,8 @@ enable = true
  level = 0
 
  [output.linkcheck]
 -follow-web-links = true
  warning-policy = "error"
--# Exclude generated content link checks
--exclude = [
--  '../options/datetime.md',
--  '../options/git.md',
--  '../options/gpg.md',
--  '../options/graph.md',
--  '../options/notifications.md',
--  '../options/profiles.md',
--  '../options/profiles/git.md',
--  '../options/profiles/gpg.md',
--  '../options/profiles/graph.md',
--  '../options/profiles/ssh.md',
--  '../options/profiles/tools.md',
--  '../options/profiles/ui.md',
--  '../options/profiles/user.md',
--  '../options/ssh.md',
--  '../options/tools.md',
--  '../options/ui.md',
--  '../options/user.md'
--]
+ # Exclude generated content link checks
+ exclude = [
+   "cataas.com",
+-  "../options/datetime.md",
+-  "../options/git.md",
+-  "../options/gpg.md",
+-  "../options/graph.md",
+-  "../options/notifications.md",
+-  "../options/profiles.md",
+-  "../options/profiles/git.md",
+-  "../options/profiles/gpg.md",
+-  "../options/profiles/graph.md",
+-  "../options/profiles/ssh.md",
+-  "../options/profiles/tools.md",
+-  "../options/profiles/ui.md",
+-  "../options/profiles/user.md",
+-  "../options/ssh.md",
+-  "../options/tools.md",
+-  "../options/ui.md",
+-  "../options/user.md"
+ ]
