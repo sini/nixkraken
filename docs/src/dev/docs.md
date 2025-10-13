@@ -3,6 +3,7 @@
 [gh-docs-alerts]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
 [gh-pages]: https://pages.github.com
 [gitkraken]: https://www.gitkraken.com/git-client
+[hljs]: https://highlightjs.org
 [loc-authoring]: #content-authoring
 [loc-config]: #configuration
 [loc-custom-css]: #custom-css
@@ -13,6 +14,7 @@
 [loc-img-title]: #image-title-rendering
 [loc-json-representation]: #providing-json-module-options-representation
 [loc-local-dev]: #local-development
+[loc-mermaid]: #mermaidjs-support
 [loc-opts-builder]: #options-documentation-builder
 [loc-page-toc]: #page-dedicated-toc
 [markdown]: https://www.markdownguide.org
@@ -20,10 +22,14 @@
 [mdbook-config]: https://rust-lang.github.io/mdBook/format/configuration/index.html
 [mdbook-html-renderer]: https://rust-lang.github.io/mdBook/format/configuration/renderers.html#html-renderer-options
 [mdbook-linkcheck]: https://github.com/Michael-F-Bryan/mdbook-linkcheck
+[mdbook-mermaid]: https://github.com/badboy/mdbook-mermaid
 [mdbook-pagetoc]: https://github.com/slowsage/mdbook-pagetoc
 [mdbook-summary]: https://rust-lang.github.io/mdBook/format/summary.html
 [mdbook]: https://rust-lang.github.io/mdBook
+[mdguide-syntax-highlight]: https://www.markdownguide.org/extended-syntax/#syntax-highlighting
 [mdn-after-pseudo]: https://developer.mozilla.org/en-US/docs/Web/CSS/::after
+[mermaid-tiny]: https://mermaid.js.org/config/usage.html#tiny-mermaid
+[mermaid]: https://mermaid.js.org
 [nix-manual-drv]: https://nix.dev/manual/nix/stable/language/derivations.html
 [nix-manual-sandbox]: https://nix.dev/manual/nix/stable/command-ref/conf-file#conf-sandbox
 [nixos-manual-module-opts]: https://nixos.org/manual/nixos/stable/#sec-option-declarations
@@ -38,7 +44,9 @@
 [repo-docs-drv]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/default.nix
 [repo-docs-root]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs
 [repo-gitkraken-versions]: https://github.com/nicolas-goudry/nixkraken/blob/main/gitkraken/versions.nix
+[repo-js-vendor]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/theme/js/vendor
 [repo-main-css]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/theme/css/main.css
+[repo-mermaid-init]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/theme/js/mermaid.js
 [repo-summary]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/src/SUMMARY.md
 [repo-themes]: https://github.com/nicolas-goudry/nixkraken/blob/main/themes
 [repo-toc-css]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/theme/css/toc.css
@@ -206,6 +214,7 @@ The documentation takes advantage of this to introduce several custom behaviors 
 - [CSS customizations][loc-custom-css]
 - [page-dedicated table of contents][loc-page-toc]
 - [image title rendering][loc-img-title]
+- [Mermaid.js support][loc-mermaid]
 
 #### Custom CSS
 
@@ -216,6 +225,7 @@ Some [minor CSS customizations][repo-main-css] are brought:
 - missing gap fix between alerts and tables
 - images with rounded corners and borders
 - center-aligned images
+- center-aligned Mermaid diagrams
 
 #### Page-dedicated TOC
 
@@ -260,6 +270,60 @@ Example:
 ```
 
 ![](https://cataas.com/cat 'A random cat image')
+
+#### Mermaid.js support
+
+[Mermaid.js][mermaid] is a JavaScript library that renders diagrams from markdown-like text. This documentation uses Mermaid to illustrate NixKraken concepts.
+
+To add a Mermaid diagram to the documentation, use a [fenced code block with the `mermaid` syntax][mdguide-syntax-highlight]:
+
+```txt,ignore
+---
+config:
+      theme: redux
+---
+flowchart TD
+    start["Is NixKraken awesome?"]
+    yes["Yes it is!"]
+    what["Say what?"]
+
+    start --->|yes| yes
+    start --->|no| what
+```
+
+Which renders:
+
+```mermaid
+---
+config:
+      theme: redux
+---
+flowchart TD
+    start["Is NixKraken awesome?"]
+    yes["Yes it is!"]
+    what["Say what?"]
+
+    start --->|yes| yes
+    start --->|no| what
+```
+
+Mermaid code blocks are preprocessed by the [mdbook-mermaid][mdbook-mermaid] plugin, which outputs the diagrams source code as `<pre>` HTML tags with the `.mermaid` class in the final page HTML. This allows Mermaid to render the diagrams without further customizations to code fences.
+
+We do not use the Mermaid library or initializer script bundled with mdbook-mermaid. Instead, we:
+
+- vendor the [Mermaid Tiny][mermaid-tiny] library ourselves to keep versions current and reduce page size
+- provide a [custom initialization script][repo-mermaid-init] that supports seamless mdBook theme switching by re-rendering diagrams on the fly
+
+As a high-level reference, here is the initialization script behavior:
+
+- preserve source
+  - base64-encode each diagram's original source and store it in the `data-content` attribute on the corresponding `pre.mermaid` element
+- initialize and render
+  - detect the current mdBook theme and map it to a Mermaid theme
+  - initialize Mermaid with the mapped theme, which renders all `.mermaid` elements
+- handle theme changes
+  - listen for mdBook theme change and only react when the effective color scheme changes
+  - reset each diagram by restoring the original source from `data-content`, clear Mermaid's processed flags, and re-render
 
 ## Options documentation builder
 
