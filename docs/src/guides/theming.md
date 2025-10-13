@@ -23,8 +23,6 @@ This guide explains how to use these options, how they relate to GitKraken's the
 
 ### Use a built-in GitKraken theme
 
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
-
 If you simply want a stock GitKraken theme, set [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]) to one of its listed valid values (see linked references).
 
 Example to use the light theme:
@@ -44,13 +42,11 @@ Example to use the light theme:
 
 ### Use a NixKraken theme
 
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
-
 NixKraken ships a variety of themes as packages available under `gitkraken-themes`:
 
 <!-- prettier-ignore-start -->
-| Theme set | Theme / Variant | Source | Attribute |
-| --------- | --------------- | ------ | --------- |
+| Theme | Variant | Source | `ui.theme` key |
+| ----- | ------- | ------ | -------------- |
 @THEMES_LIST@
 <!-- prettier-ignore-end -->
 
@@ -58,31 +54,35 @@ NixKraken ships a variety of themes as packages available under `gitkraken-theme
 >
 > Refer to the [installation guide about packages][doc-install-pkgs] to learn how to make themes available to your configuration.
 
-To install themes for GitKraken, add them to [`ui.extraThemes`][doc-opt-extrathemes]:
+To install themes for GitKraken, add them to [`ui.extraThemes`][doc-opt-extrathemes] and use them with [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]):
 
 ```nix
 {
   programs.nixkraken = {
     enable = true;
 
-    ui.extraThemes = with pkgs.gitkraken-themes; [
-      catppuccin.mocha
-      dracula.default
-    ];
+    ui = {
+      theme = pkgs.gitkraken-themes.catppuccin.mocha;
+      extraThemes = with pkgs.gitkraken-themes; [
+        catppuccin
+        dracula
+      ];
+    };
   };
 }
 ```
 
-To enable a theme in GitKraken, use [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]):
-
-```nix
-{
-  programs.nixkraken = {
-    enable = true;
-    ui.theme = pkgs.gitkraken-themes.catppuccin.mocha.id
-  };
-}
-```
+> [!NOTE]
+>
+> When adding a theme to `ui.extraThemes`, every variant of the theme is installed (eg. "frappe", "latte", "macchiato" and "mocha" for catppuccin theme).
+>
+> Although the theme files are lightweight, you may not want to have all variants available in GitKraken. Therefore, we provide the following way to only select some variants:
+>
+> ```nix
+> pkgs.gitkraken-themes.catppuccin.override { withVariants = [ "frappe" "mocha" ]; }
+> ```
+>
+> The example above will only install the "frappe" and "mocha" variants of Catppuccin.
 
 ## How GitKraken themes work
 

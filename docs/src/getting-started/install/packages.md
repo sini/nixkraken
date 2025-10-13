@@ -24,8 +24,6 @@ NixKraken ships complementary packages which can be used alongside the [Home Man
 
 ## `gitkraken` package
 
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
-
 This package distributes unmodified [GitKraken][gitkraken] versions from [nixpkgs][gh-nixpkgs] which are compatible with the [Home Manager][hm] module.
 
 By default, it tracks the latest version, but it can also be used to install prior GitKraken versions:
@@ -46,8 +44,6 @@ Internally, this package is used to cache GitKraken packages. See the [caching g
 
 ## `gitkraken-themes` packages collection
 
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
-
 This is a collection of packages bundling various [GitKraken][gitkraken] themes which can be used with the relevant module options:
 
 ```nix
@@ -56,7 +52,7 @@ This is a collection of packages bundling various [GitKraken][gitkraken] themes 
     enable = true;
 
     ui.extraThemes = with pkgs; [
-      gitkraken-themes.catppuccin.mocha
+      gitkraken-themes.catppuccin
     ];
   };
 }
@@ -81,8 +77,6 @@ Feel free to contribute additional ways to provide them!
 > Please refer to prior art available online. A good starting point is the [official wiki article][nixos-wiki-overlays].
 
 #### Flakes
-
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
 When creating the [nixpkgs][nixpkgs-manual] instance in your [Flake][nixos-wiki-flakes], define an overlay to:
 
@@ -123,8 +117,6 @@ For example:
 ```
 
 #### Home Manager
-
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
 Alternatively, [Home Manager's `nixpkgs.overlays` option][hm-nixpkgs-overlay] can be used to define the overlay, whether using [standalone Home Manager][hm-standalone] or [Home Manager integrated with NixOS][hm-nixos-module].
 
@@ -180,8 +172,6 @@ nixosConfigurations."your-hostname" = nixpkgs.lib.nixosSystem {
 
 #### NixOS
 
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
-
 When [Home Manager is integrated with NixOS][hm-nixos-module], it is possible to define the overlay in NixOS configuration so that Home Manager inherits it.
 
 ```nix
@@ -198,8 +188,6 @@ nixosConfigurations."your-hostname" = nixpkgs.lib.nixosSystem {
 ```
 
 ### `extraSpecialArgs`
-
-![Tests](https://img.shields.io/badge/Tests-TODO-orange)
 
 ```nix
 # Standalone Home Manager configuration
