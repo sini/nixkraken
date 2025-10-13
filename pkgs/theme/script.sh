@@ -107,10 +107,6 @@ EOF
 # CORE LOGIC FUNCTIONS #
 ########################
 
-jsonc_to_json() {
-  sed -e 's/\/\/.*$//' "$1"
-}
-
 validate_theme() {
   local theme="${1:-}"
 
@@ -123,7 +119,7 @@ validate_theme() {
   elif ! [[ "${theme}" =~ \.jsonc(-default)*$ ]]; then
     error "theme file must use jsonc extension: ${theme}"
     return 1
-  elif ! jq '.' <<<"$(jsonc_to_json "${theme}")" >/dev/null 2>&1; then
+  elif ! jsonlint -Sf "${theme}" >/dev/null 2>&1; then
     error "theme file is not using valid JSON format: ${theme}"
     return 1
   fi
@@ -142,7 +138,7 @@ list_themes() {
         continue
       fi
 
-      theme_name="$(jq -r '.meta.name' <<<"$(jsonc_to_json "${theme}")")"
+      theme_name="$(jq -r '.meta.name' <<<"$(jsonlint -Sf "${theme}")")"
 
       if [ "${theme_name}" = "null" ] || [ -z "${theme_name}" ]; then
         warn "theme file is not setting '.meta.name': ${theme}"

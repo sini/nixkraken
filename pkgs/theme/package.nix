@@ -2,6 +2,7 @@
   writeShellApplication,
   coreutils,
   unixtools,
+  python313Packages,
 }:
 
 let
@@ -14,5 +15,6 @@ writeShellApplication {
   runtimeInputs = [
     coreutils
     unixtools.column
+    python313Packages.demjson3
   ];
 }
