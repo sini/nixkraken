@@ -4,7 +4,7 @@
   extraThemes = lib.mkOption {
     type = with lib.types; listOf path;
     default = [ ];
-    example = "[ gitkraken-themes.catppuccin.mocha ]";
+    example = "[ gitkraken-themes.catppuccin ]";
     description = ''
       Paths to extra themes to install.
 
