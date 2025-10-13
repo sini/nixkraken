@@ -4,20 +4,9 @@
 _:
 
 {
-  home-manager.users.root = {
-    programs = {
-      git = {
-        enable = true;
-        userEmail = "somebody@example.com";
-        userName = "Somebody";
-      };
+  imports = [
+    ../_common/base-config.nix
+  ];
 
-      nixkraken = {
-        enable = true;
-        acceptEULA = true;
-        skipTutorial = true;
-        defaultProfile.name = "NixKraken rocks";
-      };
-    };
-  };
+  home-manager.users.root.programs.nixkraken.defaultProfile.name = "NixKraken rocks";
 }

@@ -4,6 +4,10 @@
 { jq, ... }:
 
 {
+  imports = [
+    ../_common/base-config.nix
+  ];
+
   environment.systemPackages = [
     jq
   ];
@@ -13,31 +17,19 @@
       source = ./repoTab.json;
     };
 
-    programs = {
-      git = {
-        enable = true;
-        userEmail = "somebody@example.com";
-        userName = "Somebody";
+    programs.nixkraken = {
+      datetime = {
+        format = "\\c\\u\\s\\t\\o\\m \\t\\i\\m\\e";
       };
 
-      nixkraken = {
-        enable = true;
-        acceptEULA = true;
-        skipTutorial = true;
-
-        datetime = {
-          format = "\\c\\u\\s\\t\\o\\m \\t\\i\\m\\e";
-        };
-
-        # Only display commit datetime in graph
-        graph = {
-          showAuthor = false;
-          showDatetime = true;
-          showMessage = false;
-          showRefs = false;
-          showSHA = false;
-          showGraph = false;
-        };
+      # Only display commit datetime in graph
+      graph = {
+        showAuthor = false;
+        showDatetime = true;
+        showMessage = false;
+        showRefs = false;
+        showSHA = false;
+        showGraph = false;
       };
     };
   };
