@@ -23,9 +23,9 @@ in
           acceptEULA = true;
           skipTutorial = true;
 
-          ui = with gitkraken-themes; {
-            extraThemes = [ catppuccin.mocha ];
-            theme = catppuccin.mocha.id;
+          ui = {
+            extraThemes = gitkraken-themes.all;
+            theme = gitkraken-themes.catppuccin.mocha;
           };
         };
       };
