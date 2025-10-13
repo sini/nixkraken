@@ -5,17 +5,22 @@
   prettyName ? null,
 }:
 
-let
-  src = import ./source.nix;
-  meta = import ./meta.nix pkgs.lib;
-in
 pkgs.callPackage ../../make-theme.nix {
-  inherit
-    src
-    meta
-    name
-    prettyName
-    ;
+  inherit name prettyName;
+
+  src = pkgs.fetchFromGitHub {
+    owner = "owainwilliams";
+    repo = "gitkrakenthemes";
+    rev = "8.3.0";
+    hash = "sha256-W65IkaerLBpWWUvYtfr/ESKVTvWyqXWwgcVJaiU9aW4=";
+  };
 
   path = "${path}.jsonc";
+
+  meta = with pkgs.lib; {
+    description = "Custom theme for GitKraken";
+    homepage = "https://github.com/jonbunator/gitkraken-custom-themes";
+    license = licenses.mit;
+    maintainers = [ maintainers.nicolas-goudry ];
+  };
 }

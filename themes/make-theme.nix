@@ -1,20 +1,16 @@
 {
   lib,
   runCommand,
-  fetchFromGitHub,
   name,
   src,
   path,
   meta,
-  fetcher ? fetchFromGitHub,
   prettyName ? null,
 }:
 
 runCommand name
   {
-    inherit meta;
-
-    src = fetcher src;
+    inherit meta src;
 
     passthru = {
       inherit prettyName;
