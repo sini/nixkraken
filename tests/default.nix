@@ -18,7 +18,7 @@ let
     let
       testImport = import (currentDir + "/${name}");
       test = if lib.isFunction testImport then testImport pkgs else testImport;
-      machine = if test ? machine then test.machine else test;
+      machines = if test ? machine then lib.toList test.machine else lib.toList test;
       extraOpts = lib.optionalAttrs (test ? extraOpts) test.extraOpts;
     in
     pkgs.testers.runNixOSTest (
@@ -29,11 +29,19 @@ let
         enableOCR = true;
         testScript = lib.readFile ./${name}/test.py;
 
-        nodes.machine = machine // {
-          imports = (lib.optional (machine ? imports) machine.imports) ++ [
-            ./_common
-          ];
-        };
+        nodes = lib.listToAttrs (
+          lib.imap (
+            i: machine:
+            lib.nameValuePair "machine${builtins.toString i}" (
+              machine
+              // {
+                imports = (lib.optionals (machine ? imports) machine.imports) ++ [
+                  ./_common
+                ];
+              }
+            )
+          ) machines
+        );
       }
     );
 
