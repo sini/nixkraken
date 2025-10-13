@@ -1,4 +1,9 @@
-{ cfg, lib, ... }:
+{
+  cfg,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   genUUID = import ./uuid.nix lib;
@@ -138,20 +143,26 @@ in
         );
       };
 
-      gpg = {
-        commitGpgSign = profile.gpg.signCommits != null && profile.gpg.signCommits;
-        gpgFormat = profile.gpg.format;
-        tagForceSignAnnotated = profile.gpg.signTags != null && profile.gpg.signTags;
-      }
-      // lib.optionalAttrs (profile.gpg.format == "openpgp") {
-        gpgProgram = "${profile.gpg.package}/${profile.gpg.program}";
-        userSigningKey = profile.gpg.signingKey;
-      }
-      // lib.optionalAttrs (profile.gpg.format == "ssh") {
-        gpgSshProgram = "${profile.gpg.package}/${profile.gpg.program}";
-        sshAllowedSignersFile = profile.gpg.allowedSigners;
-        userSigningKeySsh = profile.gpg.signingKey;
-      };
+      gpg =
+        let
+          signPkg = lib.defaultTo profile.gpg.package (
+            if profile.gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh
+          );
+        in
+        {
+          commitGpgSign = profile.gpg.signCommits != null && profile.gpg.signCommits;
+          gpgFormat = profile.gpg.format;
+          tagForceSignAnnotated = profile.gpg.signTags != null && profile.gpg.signTags;
+        }
+        // lib.optionalAttrs (profile.gpg.format == "openpgp") {
+          gpgProgram = "${signPkg}/${lib.defaultTo profile.gpg.program "bin/${pkgs.gnupg.meta.mainProgram}"}";
+          userSigningKey = profile.gpg.signingKey;
+        }
+        // lib.optionalAttrs (profile.gpg.format == "ssh") {
+          gpgSshProgram = "${signPkg}/${lib.defaultTo profile.gpg.program "bin/ssh-keygen"}";
+          sshAllowedSignersFile = profile.gpg.allowedSigners;
+          userSigningKeySsh = profile.gpg.signingKey;
+        };
 
       ssh = {
         inherit (profile.git) useGitCredentialManager;

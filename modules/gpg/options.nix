@@ -32,7 +32,7 @@
   };
 
   package = lib.mkOption {
-    type = lib.types.package;
+    type = with lib.types; nullOr package;
     default = null;
     defaultText = lib.literalExpression ''
       if gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh
@@ -40,24 +40,27 @@
     description = ''
       Package to use for commit signing.
 
-      When [`gpg.format`](#gpgformat) is set to `openpgp`, this is set to [`pkgs.gnupg`](https://search.nixos.org/packages?show=gnupg&query=gnupg).
+      When unset, the selected package defaults to:
 
-      When [`gpg.format`](#gpgformat) is set to `ssh`, this is set to [`pkgs.openssh`](https://search.nixos.org/packages?show=openssh&query=openssh).
+      - [`pkgs.gnupg`](https://search.nixos.org/packages?show=gnupg&query=gnupg) when [`gpg.format`](#gpgformat) is set to `openpgp`
+      - [`pkgs.openssh`](https://search.nixos.org/packages?show=openssh&query=openssh) when [`gpg.format`](#gpgformat) is set to `ssh`
     '';
   };
 
   program = lib.mkOption {
-    type = lib.types.str;
-    default = "bin/${pkgs.gnupg.meta.mainProgram}";
-    defaultText = "bin/\${pkgs.gnupg.mainProgram}";
+    type = with lib.types; nullOr str;
+    default = null;
     example = "bin/ssh-keygen";
     description = ''
       Binary to use for commit signing.
 
-      When unset, the default [`gpg.package`](#gpgpackage)'s program will be used.
-
       This is useful if the [`gpg.package`](#gpgpackage) exposes multiple programs and the one you wish
       to use for commit signing is not the default one.
+
+      When unset, the selected program defaults to:
+
+      - [`gpg.package`](#gpgpackage)'s main program when [`gpg.format`](#gpgformat) is set to `openpgp`
+      - `bin/ssh-keygen` when [`gpg.format`](#gpgformat) is set to `ssh`
 
       > [!WARNING]
       >

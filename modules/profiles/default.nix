@@ -8,7 +8,7 @@
 let
   cfg = config.programs.nixkraken;
   options = import ./options.nix args;
-  profileBuilder = import ./utils/profile-builder.nix { inherit cfg lib; };
+  profileBuilder = import ./utils/profile-builder.nix ({ inherit cfg; } // args);
 
   # Build default profile using same attributes as additional profiles, with values coming from top-level modules
   defaultProfile =

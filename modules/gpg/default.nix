@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }@args:
 
@@ -49,8 +50,14 @@ in
         };
         hasPkgIncompatibleWithFormat =
           attrset:
-          (attrset.gpg.format == "ssh" && lib.elem attrset.gpg.package.pname validPkgsWithFormat.gpg)
-          || (attrset.gpg.format == "openpgp" && lib.elem attrset.gpg.package.pname validPkgsWithFormat.ssh);
+          # Only check for compatibility with format if package is explicitly set
+          # When unset, it defaults to either gnupg or openssh, depending on format
+          # See home.packages
+          if attrset.gpg.package != null then
+            (attrset.gpg.format == "ssh" && lib.elem attrset.gpg.package.pname validPkgsWithFormat.gpg)
+            || (attrset.gpg.format == "openpgp" && lib.elem attrset.gpg.package.pname validPkgsWithFormat.ssh)
+          else
+            false;
       in
       (builtins.foldl' (
         warnings: profile:
@@ -65,6 +72,11 @@ in
       ++ lib.optional (hasSigningWithoutKey cfg) "Commit/tag signature (`gpg.signCommits`, `gpg.signTags`) is enabled but no signing key (`gpg.signingKey`) was defined."
       ++ lib.optional (hasPkgIncompatibleWithFormat cfg) "Selected commit signing package (`gpg.package` => ${cfg.gpg.package.name}) may be incompatible with commit signing format (`gpg.format` => ${cfg.gpg.format})";
 
-    home.packages = [ cfg.gpg.package ];
+    home.packages = lib.unique (
+      lib.map (
+        conf:
+        lib.defaultTo conf.gpg.package (if conf.gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh)
+      ) (cfg.profiles ++ [ { inherit (cfg) gpg; } ])
+    );
   };
 }
