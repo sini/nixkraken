@@ -15,7 +15,7 @@ runCommand name
     passthru = {
       inherit prettyName;
 
-      id = lib.removeSuffix ".jsonc" (builtins.baseNameOf path);
+      id = builtins.baseNameOf path;
     };
   }
   ''

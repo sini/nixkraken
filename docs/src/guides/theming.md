@@ -163,7 +163,7 @@ stdenvNoCC.mkDerivation rec {
 
 You can replace the source with your theme repository or local files, ensuring the `.jsonc` gets installed in the derivation output (`$out`).
 
-Then, reference the package in [`ui.extraThemes`][doc-opt-extrathemes] and set [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]) to the filename of a JSONC theme file, without extension:
+Then, reference the package in [`ui.extraThemes`][doc-opt-extrathemes] and set [`ui.theme`][doc-opt-theme] (or [`profiles.*.ui.theme`][doc-opt-profile-theme]) to the filename of a JSONC theme file:
 
 ```nix
 { pkgs, ... }:
@@ -174,7 +174,7 @@ Then, reference the package in [`ui.extraThemes`][doc-opt-extrathemes] and set [
 
     ui = {
       extraThemes = [ pkgs.catppuccin-gitkraken ];
-      theme = "catppuccin-mocha";
+      theme = "catppuccin-mocha.jsonc";
     };
   };
 }
