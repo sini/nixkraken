@@ -55,7 +55,11 @@ let
       in
       lib.mapAttrs' (
         variant: _:
-        lib.nameValuePair "${theme}-${variant}" "| ${prettyName} | ${lib.toSentenceCase variant} | [Source](${src}) | `${theme}.${variant}`"
+        lib.nameValuePair "${theme}-${variant}" "| ${
+          if theme == "nineteen-eighty-four" then "1984" else prettyName
+        } | ${
+          if variant == "default" then "_N/A_" else lib.toSentenceCase variant
+        } | `${theme}` | `${variant}` | [Source](${src}) |"
       ) drv.passthru
     ) (lib.filterAttrs (theme: _: theme != "all") themes.passthru)
   );

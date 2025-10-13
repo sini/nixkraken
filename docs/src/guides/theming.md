@@ -45,8 +45,8 @@ Example to use the light theme:
 NixKraken ships a variety of themes as packages available under `gitkraken-themes`:
 
 <!-- prettier-ignore-start -->
-| Theme | Variant | Source | `ui.theme` key |
-| ----- | ------- | ------ | -------------- |
+| Theme | Variant | Attribute | `ui.theme` key | Source |
+| ----- | ------- | --------- | -------------- | ------ |
 @THEMES_LIST@
 <!-- prettier-ignore-end -->
 
