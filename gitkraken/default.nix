@@ -27,6 +27,7 @@ let
       }
     ).gitkraken;
 in
+
 if version != null then
   if lib.hasAttr version versions then
     let
@@ -37,9 +38,10 @@ if version != null then
     throw "Invalid version provided: ${version}. Valid versions: ${lib.concatStringsSep ", " (lib.attrNames versions)}."
 else
   let
-    latest = lib.findFirst (version: version ? latest) (throw "No latest version defined") (
-      lib.attrValues versions
-    );
+    latest =
+      lib.findSingle (version: version ? latest) (throw "No latest version defined")
+        (throw "Multiple latest versions defined")
+        (lib.attrValues versions);
   in
   (fromNixpkgs latest.commit latest.hash).overrideAttrs {
     passthru = lib.mapAttrs' (
