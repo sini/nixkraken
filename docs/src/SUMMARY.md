@@ -40,6 +40,7 @@
 - [Tests](./dev/tests/index.md)
   - [Running tests](./dev/tests/running.md)
   - [Writing tests](./dev/tests/writing.md)
+- [GitKraken](./dev/gitkraken.md)
 - [Documentation](./dev/docs.md)
 
 # Changelog
