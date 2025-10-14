@@ -145,9 +145,11 @@ in
 
       gpg =
         let
-          signPkg = lib.defaultTo profile.gpg.package (
-            if profile.gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh
-          );
+          signPkg =
+            if profile.gpg.package == null then
+              (if profile.gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh)
+            else
+              profile.gpg.package;
         in
         {
           commitGpgSign = profile.gpg.signCommits != null && profile.gpg.signCommits;
@@ -155,11 +157,15 @@ in
           tagForceSignAnnotated = profile.gpg.signTags != null && profile.gpg.signTags;
         }
         // lib.optionalAttrs (profile.gpg.format == "openpgp") {
-          gpgProgram = "${signPkg}/${lib.defaultTo profile.gpg.program "bin/${pkgs.gnupg.meta.mainProgram}"}";
+          gpgProgram = "${signPkg}/${
+            if profile.gpg.program == null then "bin/${pkgs.gnupg.meta.mainProgram}" else profile.gpg.package
+          }";
           userSigningKey = profile.gpg.signingKey;
         }
         // lib.optionalAttrs (profile.gpg.format == "ssh") {
-          gpgSshProgram = "${signPkg}/${lib.defaultTo profile.gpg.program "bin/ssh-keygen"}";
+          gpgSshProgram = "${signPkg}/${
+            if profile.gpg.program == null then "bin/ssh-keygen" else profile.gpg.program
+          }";
           sshAllowedSignersFile = profile.gpg.allowedSigners;
           userSigningKeySsh = profile.gpg.signingKey;
         };

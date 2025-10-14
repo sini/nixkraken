@@ -75,7 +75,10 @@ in
     home.packages = lib.unique (
       lib.map (
         conf:
-        lib.defaultTo conf.gpg.package (if conf.gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh)
+        if conf.gpg.package == null then
+          (if conf.gpg.format == "openpgp" then pkgs.gnupg else pkgs.openssh)
+        else
+          conf.gpg.package
       ) (cfg.profiles ++ [ { inherit (cfg) gpg; } ])
     );
   };

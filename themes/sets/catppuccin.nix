@@ -13,7 +13,7 @@ let
     mocha = "catppuccin-mocha.jsonc";
   };
   variantNames = lib.attrNames defaultVariants;
-  variants = lib.defaultTo variantNames withVariants;
+  variants = if withVariants == null then variantNames else withVariants;
 in
 
 assert lib.assertMsg (lib.isList variants) "withVariants must be a list";
