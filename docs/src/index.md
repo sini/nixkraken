@@ -16,9 +16,11 @@
 
 ## Features
 
-- **Declarative profiles**: manage GitKraken profiles using Nix
-- **Reproducible setup**: ensure GitKraken is configured identically across several machines
-- **Version control**: keep GitKraken configuration in Git, tracking every change
+- **Declarative profiles**: manage multiple profiles using Nix
+- **Builtin themes**: personalize GitKraken with pre-packaged themes
+- **Fast install**: benefit from cached artifacts, speeding installation time
+- **Reproducible setup**: ensure identical configurations across several machines
+- **Version control**: keep configuration in Git, tracking every change
 - **Automated tooling**: includes command-line tools to help manage authentication and themes
 
 ## Contributing
