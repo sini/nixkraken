@@ -1,34 +1,34 @@
 [doc-contrib-gitflow]: ./contributing.md#get-familiar-with-our-git-workflow
+[doc-opt-extrathemes]: ../options/ui.md#uiextrathemes
 [doc-theme-pkg]: ./packages/theme.md
 [doc-theming]: ../guides/theming.md#use-a-nixkraken-theme
 [gitkraken]: https://www.gitkraken.com/git-client
-[hm-activation]: https://nix-community.github.io/home-manager/index.xhtml#sec-internals-activation
 [hm]: https://nix-community.github.io/home-manager/index.xhtml
 [jsonc]: https://jsonc.org
-[loc-dummy-drv]: #dummy-derivation
-[loc-make-set-variants]: #make-set-variants
-[loc-theme-sets]: #theme-sets
-[loc-theme-variants]: #theme-variants
+[loc-build]: #build
+[loc-multiple-variants]: #multiple-variants
+[loc-single-variant]: #single-variant
 [nix-manual-drv]: https://nix.dev/manual/nix/stable/language/derivations.html
 [nix-manual-functions]: https://nix.dev/manual/nix/stable/language/syntax#functions
+[nix-store]: https://nix.dev/manual/nix/stable/store/index.html
 [nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[nixpkgs-manual-fetchfromgh]: https://nixos.org/manual/nixpkgs/stable/#fetchfromgithub
 [nixpkgs-manual-passthru]: https://nixos.org/manual/nixpkgs/stable/#chap-passthru
 [nixpkgs-manual-src-hash]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-fetchers-updating-source-hashes
-[nixpkgs-pkgsdirrec]: https://nixos.org/manual/nixpkgs/stable/#function-library-lib.filesystem.packagesFromDirectoryRecursive
 [repo-themes-default]: https://github.com/nicolas-goudry/nixkraken/blob/main/themes/default.nix
 [repo-themes-root]: https://github.com/nicolas-goudry/nixkraken/blob/main/themes
 
 # Themes
 
-Beyond the [Home Manager][hm] module, NixKraken provides complementary packages for [GitKraken][gitkraken] themes. Such packages are stored in the [`themes` directory][repo-themes-root] and are exposed in the `packages.gitkraken-themes` [Flake][nixos-wiki-flakes] output.
+Beyond the [Home Manager][hm] module, NixKraken provides complementary packages for [GitKraken][gitkraken] themes. These reside under the [`themes` directory][repo-themes-root] and are exposed via the `packages.gitkraken-themes` [Flake][nixos-wiki-flakes] output.
 
-For usage within NixKraken and a list of currently available themes, please refer to the [theming guide][doc-theming].
+For end-user usage within NixKraken and the list of available themes, see the [theming guide][doc-theming].
 
 ## Build
 
-The main entrypoint to build the themes is the [`default.nix` file][repo-themes-default], which is a "dummy" [derivation][nix-manual-drv] that exposes all themes through the [`passthru` attribute][nixpkgs-manual-passthru]:
+The main entry point for building themes is [`themes/default.nix`][repo-themes-default]. It defines a "dummy" [derivation][nix-manual-drv] that exposes all theme sets as attributes of its [`passthru` attribute][nixpkgs-manual-passthru].
 
-This allows for easy theme selection by referring to their attribute name:
+Example builds:
 
 ```bash
 # Build Catppuccin theme set using new Nix commands
@@ -54,25 +54,26 @@ themes
 └── default.nix
 ```
 
-All themes are located under `themes/sets` in `.nix` files named after the theme. The filename will be used (without its extension) to identify the themes in the main entrypoint.
+All themes lives in `themes/sets` in `.nix` files named after the theme. The basename (without `.nix`) is the attribute used for theme selection in the entry point.
 
 ## Internals
 
-Each theme is a valid [Nix function][nix-manual-functions] which must return a [Nix derivation][nix-manual-drv]. Theme derivations should comply with the following rules:
+Each theme is a [Nix function][nix-manual-functions] that returns a [derivation][nix-manual-drv]. Theme derivations must:
 
-1. Install [JSONC][jsonc] theme variants files in the `$out` directory
+1. Install [JSONC][jsonc] files to the derivation output root (`$out`)
 
-   This is needed because themes are used in conjunction with the [`gk-theme` package][doc-theme-pkg], which looks for JSONC files at the root of the lookup paths it is given.
+   - required because the [`ui.extraThemes` option][doc-opt-extrathemes] passes the [Nix store][nix-store] path to the [`gk-theme` package][doc-theme-pkg], which expects JSONC files at the directory root.
 
-2. Define a [`passthru` attribute][nixpkgs-manual-passthru] which exposes the filename used by each theme variant
+2. Expose variant filenames via [`passthru` attribute][nixpkgs-manual-passthru]
 
-   This is needed because [GitKraken][gitkraken] expects the `ui.theme` configuration setting to be set to the theme filename. If the theme has no variants, it should use the `passthru.default` attribute.
+   - define a `passthru` attribute that maps the logical variant to the exact JSONC filename GitKraken expects in `ui.theme`
+   - for single-variant themes, set `passthru.default` to the filename
 
-There are currently two ways to define themes, depending on if the theme has multiple variants or not.
+There are two common patterns, depending on whether the theme has a [single variant][loc-single-variant] or [multiple variants][loc-multiple-variants].
 
 ### Single variant
 
-For single variant themes, the derivation should look something like this:
+For single variant themes, the derivation is straightforward:
 
 ```nix
 {{#include ../../../themes/sets/tokyo-night.nix}}
@@ -80,9 +81,9 @@ For single variant themes, the derivation should look something like this:
 
 ### Multiple variants
 
-As for multiple variants themes, the derivation is a bit more complicated, since it allows an optional `withVariants` argument and must validate it against valid variants.
+Multi-variant themes typically accept an optional `withVariants` argument, validate it against supported variants, and output multiple JSONC files accordingly.
 
-Find below an example implementation for the Catppuccin theme:
+Example (Catppuccin):
 
 ```nix
 {{#include ../../../themes/sets/catppuccin.nix}}
@@ -92,23 +93,32 @@ Find below an example implementation for the Catppuccin theme:
 
 ### Add new themes
 
-To add a new theme, the most simple way is to copy one of the existing themes (single or multiple variants, based on your needs), and modify it for the new theme.
+The simplest approach is to copy an existing theme with a similar variant pattern (single vs multiple) and adapt it.
 
 > [!WARNING]
 >
-> Be aware that multiple GitKraken themes cannot use the same filename, since when installed together they will overwrite each other.
+> GitKraken theme filenames must be unique across installed themes. If two themes install the same filename, they will overwrite each other.
+
+Recommended checklist:
+
+- [ ] Choose a base (single or multiple variants) theme as template
+- [ ] Update `name`, `version`, `src` and `meta`
+- [ ] Update `themePath` (single variant themes only)
+- [ ] Update `defaultVariants` list (multiple variants themes only)
+- [ ] Ensure the JSONC files are copied from the correct source location to `$out`
+- [ ] [Build the themes][loc-build] to validate your theme
 
 ### Updating themes
 
-When a theme has a new release, here are the steps to follow:
+When a theme releases a new version:
 
-- ensure that the location of the theme files didn't change within the source repository
-  - in such case, the theme derivation should be updated accordingly
-- ensure that the name of the theme files didn't change within the source repository
-  - in such case, the theme derivation should be updated accordingly
-- update the `version` attribute of the theme derivation
-- update the `hash` attribute used by the `src` fetcher (most likely `fetchFromGitHub`):
-  - the most simple way is to [set the `hash` to an empty string][nixpkgs-manual-src-hash]
-  - build the theme (it will fail, this is expected)
-  - copy the expected hash provided by the error message into the derivation
-- [commit, push, PR][doc-contrib-gitflow]
+- bump the version attribute
+- update the src fetcher hash (e.g., for [`fetchFromGitHub`][nixpkgs-manual-fetchfromgh])
+  - easiest path: set `hash = ""` per the [manual][nixpkgs-manual-src-hash]
+  - build once (expected to fail), copy the reported hash into the derivation
+- verify file locations in the source repository
+  - if paths changed, update the derivation's `installPhase` accordingly
+- verify file names in the source repository
+  - if names changed, update the derivation's accordingly (`themePath` or `defaultVariants`)
+- rebuild and verify the passthru still matches the installed filenames
+- [Commit, push, open PR][doc-contrib-gitflow].
