@@ -15,8 +15,8 @@ Please refer to the installation guides below to learn how to install NixKraken 
 
 ---
 
-- [NixKraken with Flakes][doc-flakes] \
-  _<sub>The recommended method for users with a modern, Flake-based configuration.</sub>_
+- [NixKraken with Flakes][doc-flakes] — ✨ Recommended! \
+  _<sub>For users with a modern, Flake-based configuration.</sub>_
 
 - [NixKraken without Flakes][doc-nonflakes] \
   _<sub>For users with a traditional, channel-based Home Manager setup.</sub>_
