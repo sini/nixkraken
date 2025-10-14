@@ -6,7 +6,7 @@
 [gitkraken]: https://www.gitkraken.com/git-client
 [hm-opt-homefile]: https://nix-community.github.io/home-manager/options.xhtml#opt-home.file
 [hm]: https://nix-community.github.io/home-manager
-[nix-manual]: https://nix.dev/manual/nix/stable
+[nix-manual-language]: https://nix.dev/manual/nix/stable/language/syntax.html
 [repo-login-script]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.sh
 
 # Known caveats
@@ -25,7 +25,7 @@ The security implications of using this authentication process are the same as u
 
 ## Mutability
 
-Although NixKraken allows to configure GitKraken using [Nix language][nix-manual], the resulting configuration **is not immutable**.
+Although NixKraken allows to configure GitKraken using [Nix language][nix-manual-language], the resulting configuration **is not immutable**.
 
 Contrary to lots of other application modules provided by [Home Manager][hm], NixKraken does not use Nix capabilities to write the configuration file (usually through [`home.file` option][hm-opt-homefile].
 

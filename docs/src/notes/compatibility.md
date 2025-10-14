@@ -1,6 +1,6 @@
 [doc-install-nonflake]: ../getting-started/install/non-flakes.md
 [gh-issues]: https://github.com/nicolas-goudry/nixkraken/issues
-[gh-nixpkgs-gitkraken]: https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/gi/gitkraken/package.nix#L59
+[gh-nixpkgs-gitkraken]: https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/gi/gitkraken/package.nix
 [gh-prs]: https://github.com/nicolas-goudry/nixkraken/pulls
 [gitkraken]: https://www.gitkraken.com/git-client
 [nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes

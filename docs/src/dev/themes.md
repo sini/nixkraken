@@ -121,4 +121,4 @@ When a theme releases a new version:
 - verify file names in the source repository
   - if names changed, update the derivation's accordingly (`themePath` or `defaultVariants`)
 - rebuild and verify the passthru still matches the installed filenames
-- [Commit, push, open PR][doc-contrib-gitflow].
+- [commit, push, open PR][doc-contrib-gitflow]
