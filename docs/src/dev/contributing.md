@@ -19,7 +19,7 @@
 [github]: https://github.com/nicolas-goudry/nixkraken
 [gitkraken]: https://www.gitkraken.com/git-client
 [gnu-bash]: https://www.gnu.org/software/bash
-[home-manager]: https://nix-community.github.io/home-manager/index.xhtml
+[hm]: https://nix-community.github.io/home-manager/index.xhtml
 [jq]: https://jqlang.org
 [lix]: https://lix.systems
 [lorri-github]: https://github.com/nix-community/lorri
@@ -45,7 +45,7 @@
 
 # Contributing
 
-Contributions are welcome across documentation, [module options][doc-opts-reference], [helper packages][doc-pkgs], [tests][doc-tests], compatibility work and every other aspects related to NixKraken.
+Contributions are welcome across documentation, [module options][doc-opts-reference], [helper packages][doc-pkgs], [tests][doc-tests], [themes][doc-themes], compatibility work and every other aspects related to NixKraken.
 
 Development occurs solely on the [official GitHub repository][github].
 
@@ -69,23 +69,23 @@ Additionally, we use a fair bit of [Bash scripting][gnu-bash] for [helper packag
 
 Contributors are expected to be familiar, to some varying extent, with the following languages and tools, depending on the topic involved:
 
-|                                     | Module | Tests | Packages | Caching | Documentation |
-| ----------------------------------- | :----: | :---: | :------: | :-----: | :-----------: |
-| [Nix language][nix-manual-language] |   ✅   |  ✅   |    ✅    |   ✅    |      ✅       |
-| [NixOS][nixos-manual]               |   ✅   |  ✅   |    ┊     |    ┊    |       ┊       |
-| [nixpkgs][nixpkgs-manual]           |   ✅   |  ✅   |    ✅    |   ✅    |      ✅       |
-| [Home Manager][home-manager]        |   ✅   |   ┊   |    ┊     |    ┊    |       ┊       |
-| [Bash scripting][gnu-bash]          |   ✅   |   ┊   |    ✅    |    ┊    |       ┊       |
-| [JSON][wikipedia-json]              |   ✅   |   ┊   |    ✅    |    ┊    |       ┊       |
-| [jq][jq]                            |   ✅   |   ┊   |    ┊     |    ┊    |       ┊       |
-| [GitKraken][gitkraken]              |   ✅   |  ✅   |    ✅    |    ┊    |       ┊       |
-| [Python][python]                    |   ┊    |  ✅   |    ┊     |    ┊    |       ┊       |
-| [Markdown][markdown]                |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
-| [mdBook][mdbook]                    |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
-| [HTML][mdn-html]                    |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
-| [CSS][mdn-css]                      |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
-| [JavaScript][mdn-js]                |   ┊    |   ┊   |    ┊     |    ┊    |      ✅       |
-| [Garnix][garnix]                    |   ┊    |   ┊   |    ┊     |   ✅    |       ┊       |
+|                                     | Modules | Tests | Pkgs | Themes | Caching | Docs |
+| ----------------------------------- | :-----: | :---: | :--: | :----: | :-----: | :--: |
+| [Nix language][nix-manual-language] |   ✅    |  ✅   |  ✅  |   ✅   |   ✅    |  ✅  |
+| [NixOS][nixos-manual]               |   ✅    |  ✅   |  ┊   |   ┊    |    ┊    |  ┊   |
+| [nixpkgs][nixpkgs-manual]           |   ✅    |  ✅   |  ✅  |   ✅   |   ✅    |  ✅  |
+| [Home Manager][hm]                  |   ✅    |   ┊   |  ┊   |   ┊    |    ┊    |  ┊   |
+| [Bash scripting][gnu-bash]          |   ✅    |   ┊   |  ✅  |   ┊    |    ┊    |  ┊   |
+| [JSON][wikipedia-json]              |   ✅    |   ┊   |  ✅  |   ┊    |    ┊    |  ┊   |
+| [jq][jq]                            |   ✅    |   ┊   |  ┊   |   ┊    |    ┊    |  ┊   |
+| [GitKraken][gitkraken]              |   ✅    |  ✅   |  ✅  |   ┊    |    ┊    |  ┊   |
+| [Python][python]                    |    ┊    |  ✅   |  ┊   |   ┊    |    ┊    |  ┊   |
+| [Markdown][markdown]                |    ┊    |   ┊   |  ┊   |   ┊    |    ┊    |  ✅  |
+| [mdBook][mdbook]                    |    ┊    |   ┊   |  ┊   |   ┊    |    ┊    |  ✅  |
+| [HTML][mdn-html]                    |    ┊    |   ┊   |  ┊   |   ┊    |    ┊    |  ✅  |
+| [CSS][mdn-css]                      |    ┊    |   ┊   |  ┊   |   ┊    |    ┊    |  ✅  |
+| [JavaScript][mdn-js]                |    ┊    |   ┊   |  ┊   |   ┊    |    ┊    |  ✅  |
+| [Garnix][garnix]                    |    ┊    |   ┊   |  ┊   |   ┊    |   ✅    |  ┊   |
 
 Although this list could look quite daunting, do not run away yet. You will most likely be doing great just knowing a small bit of any of these, and can only get better at them while working on NixKraken.
 
@@ -128,11 +128,12 @@ Find below a root overview of the repository:
 ├── modules        # Module sources
 ├── pkgs           # Helper packages sources
 ├── tests          # Module tests
+├── themes         # GitKraken themes
 ├── .envrc         # direnv configuration
+├── .prettierrc    # Prettier custom configuration
 ├── flake.nix      # Root Flake definition
 ├── garnix.yaml    # Garnix CI configuration
 ├── module.nix     # Module entrypoint
-├── .prettierrc    # Prettier custom configuration
 ├── shell.nix      # Nix development shell definition
 └── treefmt.nix    # Code style formatters configuration
 ```
