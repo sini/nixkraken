@@ -36,6 +36,7 @@
   - [`gk-encrypt` and `gk-decrypt`](./dev/packages/encrypt-decrypt.md)
   - [`gk-login`](./dev/packages/login.md)
   - [`gk-theme`](./dev/packages/theme.md)
+- [Themes](./dev/themes.md)
 - [Tests](./dev/tests/index.md)
   - [Running tests](./dev/tests/running.md)
   - [Writing tests](./dev/tests/writing.md)
