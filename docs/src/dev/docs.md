@@ -4,6 +4,9 @@
 [gh-pages]: https://pages.github.com
 [gitkraken]: https://www.gitkraken.com/git-client
 [hljs]: https://highlightjs.org
+[hm-nixos-opt]: https://nix-community.github.io/home-manager/nixos-options.xhtml
+[hm-opt]: https://nix-community.github.io/home-manager/options.xhtml
+[hm]: https://nix-community.github.io/home-manager/index.xhtml
 [loc-authoring]: #content-authoring
 [loc-config]: #configuration
 [loc-custom-css]: #custom-css
@@ -26,15 +29,22 @@
 [mdbook-pagetoc]: https://github.com/slowsage/mdbook-pagetoc
 [mdbook-summary]: https://rust-lang.github.io/mdBook/format/summary.html
 [mdbook]: https://rust-lang.github.io/mdBook
+[mdguide-heading-link]: https://www.markdownguide.org/extended-syntax/#linking-to-heading-ids
+[mdguide-ref-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
 [mdguide-syntax-highlight]: https://www.markdownguide.org/extended-syntax/#syntax-highlighting
 [mdn-after-pseudo]: https://developer.mozilla.org/en-US/docs/Web/CSS/::after
 [mermaid-tiny]: https://mermaid.js.org/config/usage.html#tiny-mermaid
 [mermaid]: https://mermaid.js.org
 [nix-manual-drv]: https://nix.dev/manual/nix/stable/language/derivations.html
 [nix-manual-sandbox]: https://nix.dev/manual/nix/stable/command-ref/conf-file#conf-sandbox
+[nix-manual]: https://nix.dev/manual/nix/stable
+[nixdev]: https://nix.dev
 [nixos-manual-module-opts]: https://nixos.org/manual/nixos/stable/#sec-option-declarations
+[nixos-manual]: https://nixos.org/manual/nixos/stable
+[nixos-wiki]: https://wiki.nixos.org/wiki/
 [nixpkgs-manual-evalmodules]: https://nixos.org/manual/nixpkgs/stable/#module-system-lib-evalModules
 [nixpkgs-manual-substituteinplace]: https://nixos.org/manual/nixpkgs/stable/#fun-substituteInPlace
+[nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable
 [nixpkgs-mk-opts-doc]: https://github.com/NixOS/nixpkgs/blob/02071814abd873bc55202fe0fd3d8de89225050a/nixos/lib/make-options-doc/default.nix
 [options-root-marker-usage]: https://github.com/search?q=repo%3Anicolas-goudry%2Fnixkraken+lang%3ANix+OPTIONS_ROOT+path%3A%2F%5Emodules%5C%2F%2F&type=code
 [repo-action-deploy]: https://github.com/nicolas-goudry/nixkraken/blob/main/.github/workflows/deploy-docs.yml
@@ -162,6 +172,41 @@ Here is a list of currently used markers:
 In addition to static content living in the repository, there are also dynamically generated pages for the module options reference. Those pages do not exist in the repository and are only created at build time inside the `src/options` directory.
 
 _For further details on this generation process, refer to the specific section about the [options documentation builder][loc-opts-builder]._
+
+### Conventions
+
+We try to follow the conventions below to keep the documentation homogenous, digestable _(ish)_ and maintainable, while being the most complete possible:
+
+- avoid use of contractions
+  - this is valid: `it is`
+  - this is not: `it's`
+- use [reference-style Markdown links][mdguide-ref-links]
+  - this is valid: `[some link][link-ref]`
+  - this is not: `[some link](https://example.org)`
+- store link references at the top of Markdown files
+
+  ```md
+  [link-ref]: https://example.org
+  ```
+
+- keep the list of link references alphabetically ordered
+- link to official stable documentations when relevant
+- use a consistent naming for link references
+
+  | Documentation                                        | Naming pattern             |
+  | ---------------------------------------------------- | -------------------------- |
+  | [Nix reference][nix-manual]                          | `[nix-manual<-topic?>]`    |
+  | [NixOS reference][nixos-manual]                      | `[nixos-manual<-topic?>]`  |
+  | [NixOS wiki][nixos-wiki]                             | `[nixos-wiki<-topic?>]`    |
+  | [nixpkgs reference][nixpkgs-manual]                  | `[nixpkgs-manual<-topic?]` |
+  | [Home Manager reference][hm]                         | `[hm<-topic?>]`            |
+  | [Home Manager options reference][hm-opt]             | `[hm-opt<-option?>]`       |
+  | [Home Manager NixOS options reference][hm-nixos-opt] | `[hm-nixos-opt<-option?>]` |
+  | [Nix tutorials and guides][nixdev]                   | `[nixdev<-topic?>]`        |
+
+- when [linking to heading IDs][mdguide-heading-link], start the link reference with `loc-`
+- when linking to other documentation pages, start the link reference with `doc-`
+- do not be shy on cross-reference links
 
 ### Alerts and callouts
 
