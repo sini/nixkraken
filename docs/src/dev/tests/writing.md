@@ -2,6 +2,7 @@
 [garnix]: https://garnix.io
 [gitkraken]: https://www.gitkraken.com/git-client
 [hm-nixos-sync]: https://nix-community.github.io/home-manager/index.xhtml#sec-upgrade-release-overview
+[hm]: https://nix-community.github.io/home-manager/index.xhtml
 [loc-example]: #minimal-example
 [loc-rules]: #test-rules
 [loc-shared-conf]: #shared-configuration
@@ -36,7 +37,7 @@
 
 ## Overview
 
-All tests live inside the [tests][repo-tests-root] directory and are automatically imported into the test suite using a [custom `mkTest` function][repo-mktest] which allows various ways to define the tests:
+All tests live inside the [`tests` directory][repo-tests-root] and are automatically imported into the test suite using a [custom `mkTest` function][repo-mktest] which allows various ways to define the tests:
 
 1. As a simple [attribute set][nix-manual-attrs], which will be used as the [test machine NixOS module][nixos-manual-tests-nodes]
 
@@ -46,7 +47,18 @@ All tests live inside the [tests][repo-tests-root] directory and are automatical
    }
    ```
 
-2. As an attribute set with `machine` and `extraOptions` attributes, respectively used as the test machine NixOS module and additional [test options][nixos-manual-tests-opts]
+2. As a list of attribute sets, which will be used as the test machines NixOS modules
+
+   ```nix
+   [
+     {
+       home-manager.users.root.programs.nixkraken.enable = true;
+     }
+     # ...other machines
+   ]
+   ```
+
+3. As an attribute set with `machine` and `extraOptions` attributes, respectively used as the test machine(s) NixOS module(s) and additional [test options][nixos-manual-tests-opts]
 
    ```nix
    {
@@ -54,13 +66,20 @@ All tests live inside the [tests][repo-tests-root] directory and are automatical
        home-manager.users.root.programs.nixkraken.enable = true;
      };
 
+     # Or multiple machines
+     # machine = [
+     #   {
+     #     home-manager.users.root.programs.nixkraken.enable = true;
+     #   }
+     # ]
+
      extraOptions = {
        skipTypeCheck = true;
-     };
+       extraPythonPackages = p: with p; [ numpy ]; };
    }
    ```
 
-3. As a [function][nix-manual-functions] called with the `pkgs` attribute set containing [nixpkgs][nixpkgs-manual], which can return either of the previous attribute sets
+4. As a [function][nix-manual-functions] called with the `pkgs` attribute set containing [nixpkgs][nixpkgs-manual], which can return either of the previous attribute sets
 
    ```nix
    pkgs:
@@ -85,7 +104,7 @@ All tests live inside the [tests][repo-tests-root] directory and are automatical
 
 > [!NOTE]
 >
-> - all tests use a single machine named `machine`
+> - all tests use one or more machines
 > - all tests have [OCR capabilities][nixos-manual-tests-ocr] enabled (which cannot be disabled)
 > - all [test machines share default configuration][loc-shared-conf] (which is not overwritable)
 > - using the [`test` option][nixos-manual-test-option] is disallowed in favor of `testScript` (see [test rules about files][loc-rules] below)
@@ -96,7 +115,7 @@ Tests are exposed as `legacyPackages` [Flake outputs][flakes-outputs] rather tha
 
 - they are still runnable/buildable with `nix run` and `nix build`
 - they are not validated by `nix flake check` (`.#tests` is a namespace, not a derivation)
-- they are not built by [Garnix][garnix] (avoids CI overhead and inevitable build failures)
+- they are not built by [Garnix][garnix] (avoids CI overhead and inevitable build failures due to previous point)
 
 ## Rules
 
@@ -129,7 +148,7 @@ At a minimum, each test should define two files:
 - `default.nix`: defines the [machine module][nixos-manual-tests-nodes] and, optionally, extra [test options][nixos-manual-tests-opts] beyond default ones
 - `test.py`: contains the [Python][python] test logic (automatically loaded in [`testScript` test option][nixos-manual-testscript-option] - read the [dedicated section][loc-testpy] for further details)
 
-Additional files relevant to the test can be added in the test directory. Look at the [`datetime` test][repo-datetime-test] for a real-world example.
+Additional files relevant to the test can be added in the test directory. Look at the [datetime test][repo-datetime-test] for a real-world example.
 
 ### Taking screenshots
 
@@ -137,7 +156,7 @@ When graphical output is being validated, screenshots must be produced using the
 
 ```py
 # Take a screenshot of the machine
-machine.screenshot('snapshot')
+machine1.screenshot('snapshot')
 ```
 
 The test framework will generate screenshots in PNG format in the derivation output.
@@ -157,7 +176,9 @@ See [minimal example][loc-example] for details.
 
 As previously noted, all tests must define a `test.py` file containing the [Python][python] test logic. Find below some useful details about it:
 
-- the `machine` object provides methods to interact with the test machine:
+- test machines are named `machine{id}`, where `{id}` is the machine index starting at `1`
+- each test machine is exposed as a [Machine object][nixos-manual-machine-objects] identified by its name (ie. `machine1`, `machine2`, …)
+- the Machine object provides methods to interact with the matching test machine:
   - execute shell commands
   - get a textual representation of the machine screen
   - take screenshots of the machine display
@@ -179,27 +200,27 @@ As previously noted, all tests must define a `test.py` file containing the [Pyth
 # pyright: reportUndefinedVariable=false
 
 # Wait for graphical server
-machine.wait_for_x()
+machine1.wait_for_x()
 
 with subtest("Test name"):
     # GitKraken won't launch unless '--no-sandbox' is set when running as root
     # Disable splashscreen with '--show-splashscreen' ('-s') set to false
-    machine.succeed("gitkraken --no-sandbox -s false >&2 &")
+    machine1.succeed("gitkraken --no-sandbox -s false >&2 &")
 
     # Wait for window to show up
     # WARN: for some reason, this succeeds a few seconds before the window actually
     #       shows up on screen, hence the 15 seconds sleep workaround (which is required)
-    machine.wait_for_window("GitKraken Desktop")
-    machine.sleep(15)
+    machine1.wait_for_window("GitKraken Desktop")
+    machine1.sleep(15)
 
     # Dummy test example, actual tests should go here
-    machine.succeed("true")
+    machine1.succeed("true")
 
     # Take a screenshot of GitKraken
-    machine.screenshot("snapshot")
+    machine1.screenshot("snapshot")
 
 # Exit GitKraken
-machine.succeed("pkill -f gitkraken")
+machine1.succeed("pkill -f gitkraken")
 ```
 
 ## Shared configuration
@@ -208,12 +229,42 @@ The [`_common` directory][repo-tests-common] holds [NixOS modules][nixos-manual-
 
 ```txt
 tests/_common
-├── default.nix    # imports display.nix and nixkraken.nix
-├── display.nix    # setup graphical capabilities (X11 server, IceWM, LightDM, root autologin)
-└── nixkraken.nix  # setup Home Manager and NixKraken modules
+├── base-config.nix
+├── default.nix
+├── display.nix
+└── nixkraken.nix
 ```
+
+## `default.nix`
+
+Imports the minimum required configuration to be able to use NixKraken in tests.
+
+It automatically imports `display.nix` and `nixkraken.nix`, so that tests only need to import `_common` for being able to test NixKraken.
+
+## `display.nix`
+
+Defines NixOS configuration options to enable display in tests.
+
+It configures X11 and a display/window manager, required by most tests since GitKraken is a graphical application.
+
+It should remain mostly stable, updated only for compatibility with future NixOS versions.
+
+## `nixkraken.nix`
+
+Enables both [Home Manager][hm] and NixKraken in tests.
+
+This is (obviously?) required to be able to test NixKraken.
 
 > [!IMPORTANT]
 >
-> - [`display.nix`][repo-common-display] should remain mostly stable, updated only for compatibility with future NixOS versions
-> - [due to the way Home Manager works][hm-nixos-sync], [`nixkraken.nix`][repo-common-nixkraken] must be updated to pull in a version of Home Manager matching the [nixpkgs][nixpkgs-manual] version defined in [`flake.nix`][repo-flake]
+> Whenever [nixpkgs][nixpkgs-manual] gets updated in [`flake.nix`][repo-flake], the Home Manager version defined in this file must be updated accordingly.
+>
+> This is due to the way Home Manager works: both [Home Manager and nixpkgs versions must be in sync][hm-nixos-sync].
+
+## `base-config.nix`
+
+Defines a basic working GitKraken configuration which will give a usable UI on app launch.
+
+This configuration is optional. It is useful for tests that needs a working app to perform tests.
+
+A good example of this is the [datetime test][repo-datetime-test], which needs to open the repository view to perform its tests.
