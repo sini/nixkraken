@@ -34,6 +34,12 @@
 - **Version control**: keep configuration in Git, tracking every change
 - **Automated tooling**: includes command-line tools to help manage authentication and themes
 
+## Who is this for?
+
+NixKraken is for Home Manager users who want to manage their GitKraken configuration declaratively.
+
+Whether using Flakes or channel-based setups, standalone Home Manager or NixOS-integrated configurations, NixKraken helps you maintain consistent GitKraken settings across all your systems.
+
 ## Contributing
 
 Unlike GitKraken, NixKraken is free and open source: **contributions are welcome!**
