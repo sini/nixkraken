@@ -26,6 +26,7 @@
 [markdown]: https://www.markdownguide.org
 [mdbook-alerts]: https://github.com/lambdalisue/rs-mdbook-alerts
 [mdbook-linkcheck]: https://github.com/Michael-F-Bryan/mdbook-linkcheck
+[mdbook-mermaid]: https://github.com/badboy/mdbook-mermaid
 [mdbook]: https://rust-lang.github.io/mdBook
 [mdn-css]: https://developer.mozilla.org/en-US/docs/Web/CSS
 [mdn-html]: https://developer.mozilla.org/en-US/docs/Web/HTML
@@ -150,6 +151,7 @@ Lastly, serving the documentation website locally for development purposes requi
 
 - [mdbook-alerts][mdbook-alerts]
 - [mdbook-linkcheck][mdbook-linkcheck]
+- [mdbook-mermaid][mdbook-mermaid]
 
 Building the documentation website only requires Nix.
 

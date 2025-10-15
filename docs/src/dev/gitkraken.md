@@ -63,7 +63,7 @@ Either way, the derivation source will always be [nixpkgs][gh-nixpkgs].
 
 _To learn how versions are selected, refer to the specific section about [version handling][loc-versions]._
 
-As an added nicety, and to always provide the best user experience, GitKraken is automatically added to [allowed unfree packages][nixpkgs-manual-unfree] when building, so that users don't have to do it themselves.
+As an added nicety, and to always provide the best user experience, GitKraken is automatically added to [allowed unfree packages][nixpkgs-manual-unfree] when building, so that users do not have to do it themselves.
 
 Implementation-wise, the behavior is slightly different, based on whether the `version` argument is provided or not.
 
