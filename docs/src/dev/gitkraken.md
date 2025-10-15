@@ -157,4 +157,4 @@ Adding a new GitKraken version is pretty straightforward:
 - [build GitKraken][loc-build], it will fail but output the expected `hash` value
 - set `hash` to the expected value
 - build again
-- [commit, push, open PR][doc-contrib-gitflow].
+- [commit, push, open PR][doc-contrib-gitflow]

@@ -74,8 +74,8 @@
     enable = true;
 
     ui = {
-      extraThemes = [ pkgs.gitkraken-themes.catppuccin.mocha ];
-      theme = pkgs.gitkraken-themes.catppuccin.mocha.id;
+      extraThemes = [ pkgs.gitkraken-themes.catppuccin ];
+      theme = pkgs.gitkraken-themes.catppuccin.mocha;
     };
   };
 }
