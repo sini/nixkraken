@@ -9,6 +9,7 @@
     default = "LF";
     description = ''
       End of line character to use in the editor.
+      <!-- scope: profile -->
     '';
   };
 
@@ -18,6 +19,7 @@
     example = "Liberation Mono";
     description = ''
       Font family to use in the editor.
+      <!-- scope: profile -->
     '';
   };
 
@@ -26,6 +28,7 @@
     default = 12;
     description = ''
       Font size to use in the editor.
+      <!-- scope: profile -->
     '';
   };
 
@@ -34,6 +37,7 @@
     default = true;
     description = ''
       Show line numbers in the editor.
+      <!-- scope: profile -->
     '';
   };
 
@@ -42,6 +46,7 @@
     default = true;
     description = ''
       Enable syntax highlighting in the editor.
+      <!-- scope: profile -->
     '';
   };
 
@@ -50,6 +55,7 @@
     default = 4;
     description = ''
       Size of the indentation in the editor.
+      <!-- scope: profile -->
     '';
   };
 
@@ -58,6 +64,7 @@
     default = false;
     description = ''
       Enable word wrap in the editor.
+      <!-- scope: profile -->
     '';
   };
 }

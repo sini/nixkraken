@@ -6,6 +6,7 @@
     default = false;
     description = ''
       Collapse Launchpad tab.
+      <!-- scope: profile -->
     '';
   };
 
@@ -14,6 +15,7 @@
     default = false;
     description = ''
       Enable compact Launchpad view.
+      <!-- scope: profile -->
     '';
   };
 
@@ -24,6 +26,7 @@
       Show comments.
 
       This setting is relevant in the following Launchpad views: Personal Issues, Personal all, Personal snoozed, Team issues.
+      <!-- scope: profile -->
     '';
   };
 
@@ -34,6 +37,7 @@
       Show fix versions.
 
       This setting is relevant in the following Launchpad views: Personal Issues, Personal all, Personal snoozed, Team issues.
+      <!-- scope: profile -->
     '';
   };
 
@@ -44,6 +48,7 @@
       Show labels.
 
       This setting is relevant in the following Launchpad views: Personal PR, Personal Issues, Personal all, Personal snoozed, Team PR, Team issues.
+      <!-- scope: profile -->
     '';
   };
 
@@ -52,6 +57,7 @@
     default = false;
     description = ''
       Show likes.
+      <!-- scope: profile -->
     '';
   };
 
@@ -62,6 +68,7 @@
       Show lines changed.
 
       This setting is relevant in the following Launchpad views: Personal PR, Personal all, Personal snoozed, Team PR.
+      <!-- scope: profile -->
     '';
   };
 
@@ -70,6 +77,7 @@
     default = false;
     description = ''
       Show mentions.
+      <!-- scope: profile -->
     '';
   };
 
@@ -80,6 +88,7 @@
       Show milestones.
 
       This setting is relevant in the following Launchpad views: Personal PR, Personal Issues, Personal all, Personal snoozed, Team PR, Team issues.
+      <!-- scope: profile -->
     '';
   };
 
@@ -90,6 +99,7 @@
       Show sprints.
 
       This setting is relevant in the following Launchpad views: Personal Issues, Personal all, Personal snoozed, Team issues.
+      <!-- scope: profile -->
     '';
   };
 
@@ -100,6 +110,7 @@
       Use author initials instead of avatars.
 
       This setting is relevant in the following Launchpad views: Personal PR, Personal Issues, Personal all, Personal snoozed, Team PR, Team issues.
+      <!-- scope: profile -->
     '';
   };
 }

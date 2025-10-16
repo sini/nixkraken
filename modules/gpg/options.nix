@@ -17,6 +17,7 @@
       > [!NOTE]
       >
       > When unset, GitKraken will use the [global git configuration value](https://git-scm.com/docs/git-config#Documentation/git-config.txt-gpgsshallowedSignersFile).
+      <!-- scope: profile -->
     '';
   };
 
@@ -28,6 +29,7 @@
     default = "openpgp";
     description = ''
       Format to use for commit signing.
+      <!-- scope: profile -->
     '';
   };
 
@@ -44,6 +46,7 @@
 
       - [`pkgs.gnupg`](https://search.nixos.org/packages?show=gnupg&query=gnupg) when [`gpg.format`](#gpgformat) is set to `openpgp`
       - [`pkgs.openssh`](https://search.nixos.org/packages?show=openssh&query=openssh) when [`gpg.format`](#gpgformat) is set to `ssh`
+      <!-- scope: profile -->
     '';
   };
 
@@ -66,6 +69,7 @@
       >
       > Make sure that the selected program is exposed by the [`gpg.package`](#gpgpackage), since NixKraken
       > will not validate it.
+      <!-- scope: profile -->
     '';
   };
 
@@ -75,6 +79,7 @@
     defaultText = "config.programs.git.signing.signByDefault";
     description = ''
       Enable commit signature.
+      <!-- scope: profile -->
     '';
   };
 
@@ -84,6 +89,7 @@
     defaultText = "config.programs.git.signing.signByDefault";
     description = ''
       Enable tag signature.
+      <!-- scope: profile -->
     '';
   };
 
@@ -98,6 +104,7 @@
       When [`gpg.format`](#gpgformat) is set to `openpgp`, this is the identifier of the GPG key used for signing.
 
       When [`gpg.format`](#gpgformat) is set to `ssh`, this is the path to the SSH private key used for signing.
+      <!-- scope: profile -->
     '';
   };
 }

@@ -7,6 +7,7 @@
     defaultText = "config.programs.ssh.enable";
     description = ''
       Use local SSH agent instead of defining SSH key to use.
+      <!-- scope: profile -->
     '';
   };
 
@@ -15,6 +16,7 @@
     default = null;
     description = ''
       Path to the SSH private key file to use.
+      <!-- scope: profile -->
     '';
   };
 
@@ -23,6 +25,7 @@
     default = null;
     description = ''
       Path to the SSH public key file to use.
+      <!-- scope: profile -->
     '';
   };
 }

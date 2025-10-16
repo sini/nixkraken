@@ -6,6 +6,7 @@
     default = false;
     description = ''
       Enable compact graph columns.
+      <!-- scope: profile -->
     '';
   };
 
@@ -14,6 +15,7 @@
     default = true;
     description = ''
       Highlight associated rows when hovering over a branch.
+      <!-- scope: profile -->
     '';
   };
 
@@ -22,6 +24,7 @@
     default = false;
     description = ''
       Show commit author.
+      <!-- scope: profile -->
     '';
   };
 
@@ -30,6 +33,7 @@
     default = false;
     description = ''
       Show commit date/time.
+      <!-- scope: profile -->
     '';
   };
 
@@ -44,6 +48,7 @@
     default = "always";
     description = ''
       Show commit description.
+      <!-- scope: profile -->
     '';
   };
 
@@ -52,6 +57,7 @@
     default = true;
     description = ''
       Show ghost branch/tag when hovering over or selecting a commit.
+      <!-- scope: profile -->
     '';
   };
 
@@ -60,6 +66,7 @@
     default = true;
     description = ''
       Show commit message.
+      <!-- scope: profile -->
     '';
   };
 
@@ -68,6 +75,7 @@
     default = true;
     description = ''
       Show branches and tags.
+      <!-- scope: profile -->
     '';
   };
 
@@ -76,6 +84,7 @@
     default = false;
     description = ''
       Show commit SHA.
+      <!-- scope: profile -->
     '';
   };
 
@@ -84,6 +93,7 @@
     default = true;
     description = ''
       Show commit tree.
+      <!-- scope: profile -->
     '';
   };
 
@@ -92,6 +102,7 @@
     default = false;
     description = ''
       Use author initials instead of avatars.
+      <!-- scope: profile -->
     '';
   };
 
@@ -100,6 +111,7 @@
     default = false;
     description = ''
       Use generic remote icon instead of hosting service icon.
+      <!-- scope: profile -->
     '';
   };
 }

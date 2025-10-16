@@ -48,8 +48,6 @@ in
       > [!WARNING]
       >
       > Only paid accounts can set multiple profiles beside the default one.
-
-      > [!NOTE]
       >
       > Refer to the [profiles guide](../guides/profiles.md) for further details.
     '';

@@ -1,13 +1,21 @@
 { lib, ... }:
 
 {
-  enable = lib.mkEnableOption "desktop notifications";
+  enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Whether to enable desktop notifications.
+      <!-- scope: global -->
+    '';
+  };
 
   feature = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = ''
       Receive new features notifications.
+      <!-- scope: global -->
     '';
   };
 
@@ -16,6 +24,7 @@
     default = true;
     description = ''
       Receive help notifications.
+      <!-- scope: global -->
     '';
   };
 
@@ -28,6 +37,7 @@
       > [!WARNING]
       >
       > Disabling this option without a paid subscription will have no effect.
+      <!-- scope: global -->
     '';
   };
 
@@ -41,6 +51,7 @@
     default = "bottom-left";
     description = ''
       Notification location within window.
+      <!-- scope: global -->
     '';
   };
 
@@ -49,6 +60,7 @@
     default = true;
     description = ''
       Receive system notifications.
+      <!-- scope: global -->
     '';
   };
 }

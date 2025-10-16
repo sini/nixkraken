@@ -10,6 +10,7 @@
       > [!NOTE]
       >
       > Additional commits will be loaded when reaching the earliest commit in the graph.
+      <!-- scope: global -->
     '';
   };
 
@@ -22,6 +23,7 @@
       > [!NOTE]
       >
       > Lower counts may help improve performance.
+      <!-- scope: global -->
     '';
   };
 
@@ -34,6 +36,7 @@
       > [!WARNING]
       >
       > This setting may cause performance issue with large repositories (like nixpkgs).
+      <!-- scope: global -->
     '';
   };
 }

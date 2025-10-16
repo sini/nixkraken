@@ -210,11 +210,23 @@ function generateOptionMarkdown(optionName, { description, type, default: optDef
     throw new Error('Option name is required and must be a string')
   }
 
+  // Extract option scope
+  const scopeIcon = {
+    global: '🌐',
+    profile: '👤',
+  }
+  const scope = description.match(/^<!-- scope: (?<scope>global|profile) -->$/m)?.groups?.scope
+  let scopeStr = ''
+
+  if (scope) {
+    scopeStr = `\n**Scope:** ${scope === 'global' ? '🌐' : '👤'} ${scope}\n`
+  }
+
   const content = [
     `### ${optionName}`,
     '',
     description || 'No description provided.',
-    '',
+    scopeStr,
     `**Type:** ${formatType(type)}`,
     '',
     `**Default:** ${optDefault?.text ? wrapWith(unwrap(optDefault.text, '"'), '`').replace('\\$', '$') : 'No default value'}`,

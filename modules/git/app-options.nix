@@ -3,10 +3,11 @@
 {
   package = lib.mkPackageOption pkgs "git" {
     extraDescription = ''
-      <br/><br/>
+      <br/>
       > [!NOTE]
       >
       > This is only used if [`git.useBundledGit`](#gitusebundledgit) is disabled.
+      <!-- scope: global -->
     '';
   };
 
@@ -19,6 +20,7 @@
       > [!NOTE]
       >
       > If the global Git configuration is managed through Nix, this option will not have any effect.
+      <!-- scope: global -->
     '';
   };
 
@@ -28,7 +30,8 @@
     description = ''
       When this option is enabled, GitKraken will use the bundled [NodeGit](https://www.nodegit.org/) library.
 
-      When this option is disabled, GitKraken will use the [`git.package`](#gitpackage) option is used to install Git and set it as the selected Git binary used for certain Git actions including fetching and committing. This may provide increased performance and compatibility with certain projects and development environments.
+      When this option is disabled, GitKraken will use the [`git.package`](#gitpackage) option to install Git and set it as the selected Git binary used for certain Git actions including fetching and committing. This may provide increased performance and compatibility with certain projects and development environments.
+      <!-- scope: global -->
     '';
   };
 }

@@ -156,6 +156,7 @@ in
     default = null;
     description = ''
       Date and time format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+      <!-- scope: global -->
     '';
   };
 
@@ -168,6 +169,7 @@ in
       > [!NOTE]
       >
       > Set to `null` to use default system locale.
+      <!-- scope: global -->
     '';
   };
 
@@ -176,6 +178,7 @@ in
     default = null;
     description = ''
       Date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+      <!-- scope: global -->
     '';
   };
 
@@ -184,6 +187,7 @@ in
     default = null;
     description = ''
       Date word format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+      <!-- scope: global -->
     '';
   };
 
@@ -192,6 +196,7 @@ in
     default = null;
     description = ''
       Verbose date format as [Moment.js format string](https://momentjs.com/docs/#/displaying/format/).
+      <!-- scope: global -->
     '';
   };
 }

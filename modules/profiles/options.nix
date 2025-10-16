@@ -34,6 +34,7 @@ in
     default = null;
     description = ''
       Name of this profile.
+      <!-- scope: profile -->
     '';
   };
 
@@ -42,6 +43,7 @@ in
     default = "Gravatar";
     description = ''
       Icon avatar for this profile.
+      <!-- scope: profile -->
     '';
   };
 

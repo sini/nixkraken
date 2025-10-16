@@ -7,6 +7,7 @@
       default = true;
       description = ''
         Enable autocomplete suggestions.
+        <!-- scope: profile -->
       '';
     };
 
@@ -27,6 +28,7 @@
         When set to `navigation`, the next suggestion will be selected.
 
         When set to `ignore`, the tab key will be sent to the shell.
+        <!-- scope: profile -->
       '';
     };
   };
@@ -40,6 +42,7 @@
     default = "block";
     description = ''
       Style of the cursor in the integrated terminal.
+      <!-- scope: profile -->
     '';
   };
 
@@ -49,6 +52,7 @@
     example = lib.literalExpression "\${config.home.homeDirectory}";
     description = ''
       Default directory to open terminal tabs into.
+      <!-- scope: profile -->
     '';
   };
 
@@ -58,6 +62,7 @@
     example = "Liberation Mono";
     description = ''
       Font family to use in the integrated terminal.
+      <!-- scope: profile -->
     '';
   };
 
@@ -66,6 +71,7 @@
     default = 12;
     description = ''
       Font size to use in the integrated terminal.
+      <!-- scope: profile -->
     '';
   };
 
@@ -74,6 +80,7 @@
     default = 1;
     description = ''
       Line height in the integrated terminal.
+      <!-- scope: profile -->
     '';
   };
 
@@ -87,6 +94,7 @@
         > [!NOTE]
         >
         > This setting only affects terminal tabs when the current directory is a repository.
+        <!-- scope: profile -->
       '';
     };
 
@@ -106,6 +114,7 @@
         > [!NOTE]
         >
         > This setting only affects terminal tabs when the current directory is a repository.
+        <!-- scope: profile -->
       '';
     };
   };

@@ -10,6 +10,7 @@
     default = "use-configured-merge-tool";
     description = ''
       Preferred diff tool.
+      <!-- scope: profile -->
     '';
   };
 
@@ -21,6 +22,7 @@
     default = "git-config";
     description = ''
       Preferred merge tool.
+      <!-- scope: profile -->
     '';
   };
 
@@ -37,6 +39,7 @@
       > The following variable is available:
       >
       > - `%d`: path to the repository on filesystem
+      <!-- scope: profile -->
     '';
   };
 
@@ -55,6 +58,7 @@
         >
         > - `$REPO_PATH`: path to the repository on filesystem
         > - `$FILE_PATH`: path to the file on filesystem
+        <!-- scope: profile -->
       '';
     };
 
@@ -71,6 +75,7 @@
         > The following variable is available:
         >
         > - `$REPO_PATH`: path to the repository on filesystem
+        <!-- scope: profile -->
       '';
     };
   };

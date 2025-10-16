@@ -11,6 +11,7 @@
       > [!NOTE]
       >
       > Refer to the [theming guide](../guides/theming.md) for further details.
+      <!-- scope: global -->
     '';
   };
 
@@ -19,6 +20,7 @@
     default = false;
     description = ''
       Hide Focus view related elements from status bar.
+      <!-- scope: global -->
     '';
   };
 
@@ -27,6 +29,7 @@
     default = true;
     description = ''
       Enable spell checking.
+      <!-- scope: global -->
     '';
   };
 
@@ -35,6 +38,7 @@
     default = true;
     description = ''
       Show toolbar icon labels.
+      <!-- scope: global -->
     '';
   };
 }

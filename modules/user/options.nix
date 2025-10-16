@@ -12,6 +12,7 @@
       > [!IMPORTANT]
       >
       > This option is required when [`skipTutorial`](@OPTIONS_ROOT@/nixkraken.md#skiptutorial) is enabled.
+      <!-- scope: profile -->
     '';
   };
 
@@ -26,6 +27,7 @@
       > [!IMPORTANT]
       >
       > This option is required when [`skipTutorial`](@OPTIONS_ROOT@/nixkraken.md#skiptutorial) is enabled.
+      <!-- scope: profile -->
     '';
   };
 }

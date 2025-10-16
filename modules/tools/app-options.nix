@@ -6,6 +6,7 @@
     default = null;
     description = ''
       External code/text editor.
+      <!-- scope: global -->
     '';
   };
 
@@ -17,6 +18,7 @@
       External terminal.
 
       When set to `null`, the built-in terminal will be used.
+      <!-- scope: global -->
     '';
   };
 }

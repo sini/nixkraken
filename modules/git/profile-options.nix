@@ -6,6 +6,7 @@
     default = true;
     description = ''
       Automatically remove any remote-tracking references that no longer exist on the remote.
+      <!-- scope: profile -->
     '';
   };
 
@@ -18,6 +19,7 @@
       > [!NOTE]
       >
       > When not set, the app defaults to `main`.
+      <!-- scope: profile -->
     '';
   };
 
@@ -26,6 +28,7 @@
     default = false;
     description = ''
       Automatically delete `.orig` files created by GitKraken client during a merge.
+      <!-- scope: profile -->
     '';
   };
 
@@ -34,6 +37,7 @@
     default = true;
     description = ''
       Enable proactive detection of merge conflicts with target branch.
+      <!-- scope: profile -->
     '';
   };
 
@@ -46,6 +50,7 @@
       > [!NOTE]
       >
       > All visible remotes for the repository will be fetched.
+      <!-- scope: profile -->
     '';
   };
 
@@ -54,6 +59,7 @@
     default = true;
     description = ''
       Automatically keep submodules up to date when performing Git actions.
+      <!-- scope: profile -->
     '';
   };
 
@@ -62,6 +68,7 @@
     default = false;
     description = ''
       Use the [Git credential manager](https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage) to access Git repositories.
+      <!-- scope: profile -->
     '';
   };
 }
