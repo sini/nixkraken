@@ -22,14 +22,14 @@ Additionally, groups can be found in the left navigation menu.
 
 Most options in GitKraken applies to a given [profile][doc-profiles], but some of them are global to the application and will therefore apply to all profiles.
 
-For a better discovery of options scope, we document their scope using emoji icons:
+For a better discovery of options scope, we document them using emoji icons:
 
 - 🌐: option applies globally
 - 👤: option applies to a specific profile
 
 > [!NOTE]
 >
-> Unless an option is child of the [`profiles` group][doc-opt-profiles], it will apply to the default profile.
+> Unless a 👤 option is child of the [`profiles` group][doc-opt-profiles], it will apply to the default profile.
 
 ## Root options
 
