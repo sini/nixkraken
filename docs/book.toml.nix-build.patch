@@ -1,5 +1,5 @@
 diff --git a/book.toml b/book.toml
-index 6de547a..eba7298 100644
+index 1059e62..eba7298 100644
 --- a/book.toml
 +++ b/book.toml
 @@ -31,26 +31,8 @@ enable = true
@@ -11,21 +11,21 @@ index 6de547a..eba7298 100644
  # Exclude generated content link checks
  exclude = [
    "cataas.com",
--  "../options/datetime.md",
--  "../options/git.md",
--  "../options/gpg.md",
--  "../options/graph.md",
--  "../options/notifications.md",
--  "../options/profiles.md",
--  "../options/profiles/git.md",
--  "../options/profiles/gpg.md",
--  "../options/profiles/graph.md",
--  "../options/profiles/ssh.md",
--  "../options/profiles/tools.md",
--  "../options/profiles/ui.md",
--  "../options/profiles/user.md",
--  "../options/ssh.md",
--  "../options/tools.md",
--  "../options/ui.md",
--  "../options/user.md"
+-  "profiles.md",
+-  "options/datetime.md",
+-  "options/git.md",
+-  "options/gpg.md",
+-  "options/graph.md",
+-  "options/notifications.md",
+-  "options/profiles/git.md",
+-  "options/profiles/gpg.md",
+-  "options/profiles/graph.md",
+-  "options/profiles/ssh.md",
+-  "options/profiles/tools.md",
+-  "options/profiles/ui.md",
+-  "options/profiles/user.md",
+-  "options/ssh.md",
+-  "options/tools.md",
+-  "options/ui.md",
+-  "options/user.md"
  ]
