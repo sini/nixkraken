@@ -31,6 +31,7 @@
 # Developer Guide
 
 - [Contributing](./dev/contributing.md)
+- [Modules](./dev/modules.md)
 - [Packages](./dev/packages/index.md)
   - [`gk-configure`](./dev/packages/configure.md)
   - [`gk-encrypt` and `gk-decrypt`](./dev/packages/encrypt-decrypt.md)

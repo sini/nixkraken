@@ -26,6 +26,7 @@ let
     }
     // topLevelOpts;
 
+  # ANCHOR: profiles-inheritance
   profiles = lib.attrsets.mergeAttrsList (
     lib.map profileBuilder (
       [ defaultProfile ]
@@ -33,6 +34,7 @@ let
       ++ (lib.map (profile: lib.recursiveUpdate defaultProfile profile) cfg.profiles)
     )
   );
+  # ANCHOR_END: profiles-inheritance
 in
 {
   options.programs.nixkraken.profiles = lib.mkOption {
