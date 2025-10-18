@@ -2,7 +2,7 @@
 
 let
   cfg = config.programs.nixkraken;
-  options = import ./options.nix args;
+  options = import ./profile-options.nix args;
 in
 {
   options.programs.nixkraken.user = lib.mkOption {

@@ -5,11 +5,11 @@ let
 
   graph.options = import ../graph/profile-options.nix args;
   git.options = import ../git/profile-options.nix args;
-  gpg.options = import ../gpg/options.nix args;
-  ssh.options = import ../ssh/options.nix args;
+  gpg.options = import ../gpg/profile-options.nix args;
+  ssh.options = import ../ssh/profile-options.nix args;
   tools.options = import ../tools/profile-options.nix args;
   ui.options = import ../ui/profile-options.nix args;
-  user.options = import ../user/options.nix args;
+  user.options = import ../user/profile-options.nix args;
 
   mkProfileSubmodule =
     options: description:

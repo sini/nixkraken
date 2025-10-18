@@ -6,7 +6,7 @@
 
 let
   cfg = config.programs.nixkraken;
-  options = import ./options.nix args;
+  options = import ./app-options.nix args;
 
   settings = {
     appDateFormat = cfg.datetime.dateFormat;
