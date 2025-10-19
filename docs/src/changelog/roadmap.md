@@ -6,13 +6,12 @@
 
 ## Now (current focus)
 
-- **Developer documentation:** creating comprehensive guides for contributing new module options and understanding module structure
 - **GitKraken 11.1.1+ compatibility:** ensuring full compatibility with recent GitKraken versions, particularly addressing authentication handling changes introduced in newer releases
+- **Expanded test coverage:** adding more automated tests to catch compatibility issues early and ensure module reliability
 
 ## Soon (next few months)
 
 - **Reach stable:** reaching a stable, production-ready release with comprehensive compatibility guarantees
-- **Expanded test coverage:** adding more automated tests to catch compatibility issues early and ensure module reliability
 - **Username/password authentication:** supporting traditional username/password authentication flow in `gk-login` alongside the existing OAuth providers
 
 ## Later (future ideas)
