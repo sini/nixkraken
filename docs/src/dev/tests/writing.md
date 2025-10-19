@@ -4,7 +4,7 @@
 [hm-nixos-sync]: https://nix-community.github.io/home-manager/index.xhtml#sec-upgrade-release-overview
 [hm]: https://nix-community.github.io/home-manager/index.xhtml
 [loc-example]: #minimal-example
-[loc-rules]: #test-rules
+[loc-rules]: #rules
 [loc-shared-conf]: #shared-configuration
 [loc-testpy]: #about-testpy
 [nix-manual-attrs]: https://nix.dev/manual/nix/stable/language/syntax#attrs-literal
