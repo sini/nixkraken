@@ -64,16 +64,20 @@ let
 in
 buildNpmPackage rec {
   name = "nixkraken-docs";
-  src = lib.fileset.toSource {
-    root = ./..;
+  src =
+    with lib.fileset;
+    toSource {
+      root = ../.;
 
-    # Include here, in addition to docs directory (./.), any directory needed when building
-    # This is useful if documentation is including files from the project
-    fileset = lib.fileset.unions [
-      ./.
-      ./../themes
-    ];
-  };
+      # Include here, in addition to docs directory (./.), any directory needed when building
+      # This is useful if documentation is including files from the project
+      fileset = unions [
+        ./.
+        ../themes
+        # Required to be able to get git info in VitePress builds
+        (maybeMissing ../.git)
+      ];
+    };
   sourceRoot = "${src.name}/docs";
 
   npmDepsHash = "sha256-OG1nlSWilUolmP+02Q/Jp/lg5BYHOpB7CpGuBJyzUk8=";
