@@ -25,11 +25,11 @@ export default defineConfig({
   head: [
     [
       'link',
-      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+      { rel: 'icon', type: 'image/svg+xml', href: '/nixkraken/favicon.svg' }
     ],
     [
       'link',
-      { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+      { rel: 'icon', type: 'image/png', href: '/nixkraken/favicon.png' }
     ],
     ['meta', { name: 'theme-color', content: '#42abb0' }],
     ['meta', { property: 'og:type', content: 'website' }],
