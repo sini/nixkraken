@@ -1,55 +1,39 @@
-[axosoft]: https://www.axosoft.com/
-[doc-contrib]: ./dev/contributing.md
-[gh-issues]: https://github.com/nicolas-goudry/nixkraken/issues
-[gh]: https://github.com/nicolas-goudry/nixkraken
-[gitkraken-eula]: https://www.gitkraken.com/eula
-[gitkraken-paid-feat]: https://www.gitkraken.com/pricing#tablepress-8
-[gitkraken-pricing]: https://www.gitkraken.com/pricing
-[gitkraken]: https://www.gitkraken.com/git-client
-[hm]: https://nix-community.github.io/home-manager
-[repo-license]: https://github.com/nicolas-goudry/nixkraken/blob/main/LICENSE
-
-<center>
-
-![NixKraken logo](./logo.svg)
-
 ---
+# https://vitepress.dev/reference/default-theme-home-page
+layout: home
 
-**NixKraken** provides a [Home Manager][hm] module for managing [GitKraken][gitkraken] configuration files and profiles in a declarative and reproducible way.
+hero:
+  name: NixKraken
+  text: Declarative GitKraken
+  tagline: Manage GitKraken configuration and profiles in a reproducible way using Nix & Home Manager.
+  actions:
+    - theme: brand
+      text: Getting Started
+      link: /guide/getting-started/quick-start
+    - theme: alt
+      text: Reference
+      link: /reference/nixkraken
+  image:
+    src: /nixkraken-logo.svg
+    alt: NixKraken
 
-<small>_This project is **NOT** affiliated with Axosoft (the makers of GitKraken) in any way._</small><br/>
-<small>_NixKraken is only handling GitKraken's configuration, one still needs to [purchase the product][gitkraken-pricing] to benefit paid features._</small><br/>
-<small>_**This is not a cracked GitKraken app.**_</small>
-
+features:
+  - icon: <i class="fa-solid fa-code"></i>
+    title: Declarative profiles
+    details: Manage multiple profiles using Nix.
+  - icon: <i class="fa-solid fa-palette"></i>
+    title: Builtin themes
+    details: Personalize GitKraken with pre-packaged themes.
+  - icon: <i class="fa-solid fa-bolt-lightning"></i>
+    title: Fast install
+    details: Benefit from cached artifacts, speeding installation time.
+  - icon: <i class="fa-solid fa-clone"></i>
+    title: Reproducible setup
+    details: Ensure identical configurations across several machines.
+  - icon: <i class="fa-solid fa-code-commit"></i>
+    title: Version control
+    details: Keep configuration in Git, tracking every change.
+  - icon: <i class="fa-solid fa-robot"></i>
+    title: Automated tooling
+    details: Includes command-line tools to help manage authentication and themes.
 ---
-
-</center>
-
-## Features
-
-- **Declarative profiles**: manage multiple profiles using Nix
-- **Builtin themes**: personalize GitKraken with pre-packaged themes
-- **Fast install**: benefit from cached artifacts, speeding installation time
-- **Reproducible setup**: ensure identical configurations across several machines
-- **Version control**: keep configuration in Git, tracking every change
-- **Automated tooling**: includes command-line tools to help manage authentication and themes
-
-## Who is this for?
-
-NixKraken is for Home Manager users who want to manage their GitKraken configuration declaratively.
-
-Whether using Flakes or channel-based setups, standalone Home Manager or NixOS-integrated configurations, NixKraken helps you maintain consistent GitKraken settings across all your systems.
-
-## Contributing
-
-Unlike GitKraken, NixKraken is free and open source: **contributions are welcome!**
-
-The source code can be found on [GitHub][gh] and issues and feature requests can be posted on the [GitHub issue tracker][gh-issues].
-
-To add new options, improve documentation, or fix bugs, please read the [contributing guide][doc-contrib].
-
-## Licenses
-
-The NixKraken source and documentation are released under the [MIT License][repo-license].
-
-The GitKraken software is the property of [Axosoft][axosoft] and its use is subject to the [End User License Agreement][gitkraken-eula]. Some of its features are free to use, while others require a paid subscription - [read more about this on their official website][gitkraken-paid-feat].

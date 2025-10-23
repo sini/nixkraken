@@ -4,9 +4,11 @@
   package = lib.mkPackageOption pkgs "git" {
     extraDescription = ''
       <br/>
-      > [!NOTE]
-      >
-      > This is only used if [`git.useBundledGit`](#gitusebundledgit) is disabled.
+      ::: info
+
+      This is only used if [`git.useBundledGit`](#gitusebundledgit) is disabled.
+
+      :::
       <!-- scope: global -->
     '';
   };
@@ -17,9 +19,11 @@
     description = ''
       Automatically update the global Git configuration with the name and email address of the current profile.
 
-      > [!NOTE]
-      >
-      > If the global Git configuration is managed through Nix, this option will not have any effect.
+      ::: info
+
+      If the global Git configuration is managed through Nix, this option will not have any effect.
+
+      :::
       <!-- scope: global -->
     '';
   };

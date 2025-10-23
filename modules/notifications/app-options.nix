@@ -34,9 +34,11 @@
     description = ''
       Receive marketing notifications.
 
-      > [!WARNING]
-      >
-      > Disabling this option without a paid subscription will have no effect.
+      ::: warning
+
+      Disabling this option without a paid subscription will have no effect.
+
+      :::
       <!-- scope: global -->
     '';
   };

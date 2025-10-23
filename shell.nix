@@ -13,7 +13,7 @@ pkgs.mkShellNoCC {
       mdbook-alerts
       mdbook-linkcheck
       mdbook-mermaid
-      nodejs
+      nodejs_24
       rustc
     ])
     ++ pkgs.lib.mapAttrsToList (pkg: _: localPkgs.${pkg}) localPkgs;

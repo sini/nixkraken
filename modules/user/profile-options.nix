@@ -9,9 +9,11 @@
     description = ''
       Email to use as commit author email.
 
-      > [!IMPORTANT]
-      >
-      > This option is required when [`skipTutorial`](@OPTIONS_ROOT@/nixkraken.md#skiptutorial) is enabled.
+      ::: warning
+
+      This option is required when [`skipTutorial`](/reference/root.md#skiptutorial) is enabled.
+
+      :::
       <!-- scope: profile -->
     '';
   };
@@ -24,9 +26,11 @@
     description = ''
       Name to use as commit author name.
 
-      > [!IMPORTANT]
-      >
-      > This option is required when [`skipTutorial`](@OPTIONS_ROOT@/nixkraken.md#skiptutorial) is enabled.
+      ::: warning
+
+      This option is required when [`skipTutorial`](/reference/root.md#skiptutorial) is enabled.
+
+      :::
       <!-- scope: profile -->
     '';
   };

@@ -8,9 +8,11 @@
     description = ''
       Paths to extra themes to install.
 
-      > [!NOTE]
-      >
-      > Refer to the [theming guide](../guides/theming.md) for further details.
+      ::: info
+
+      Refer to the [theming guide](../guide/user/theming.md) for further details.
+
+      :::
       <!-- scope: global -->
     '';
   };

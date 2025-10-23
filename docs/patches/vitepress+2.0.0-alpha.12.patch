@@ -1,0 +1,13 @@
+diff --git a/node_modules/vitepress/dist/node/chunk-3d7P_gGE.js b/node_modules/vitepress/dist/node/chunk-3d7P_gGE.js
+index 2970286..9996ba4 100644
+--- a/node_modules/vitepress/dist/node/chunk-3d7P_gGE.js
++++ b/node_modules/vitepress/dist/node/chunk-3d7P_gGE.js
+@@ -41796,7 +41796,7 @@ function ora(options) {
+ const okMark = "\x1B[32m\u2713\x1B[0m";
+ const failMark = "\x1B[31m\u2717\x1B[0m";
+ async function task(taskName, task2) {
+-  const spinner = ora({ discardStdin: false });
++  const spinner = ora({ discardStdin: false, isEnabled: !!process.stdin.isTTY });
+   spinner.start(taskName + "...");
+   try {
+     await task2();

@@ -55,7 +55,7 @@
         {
           inherit gitkraken;
 
-          docs = pkgs.callPackage ./docs { gitRev = self.rev or self.dirtyRev or "dirty"; };
+          docs = pkgs.callPackage ./docs { };
           gitkraken-themes = pkgs.callPackage ./themes { };
         }
         # This is used to cache GitKraken

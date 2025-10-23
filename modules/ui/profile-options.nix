@@ -64,11 +64,13 @@ in
     description = ''
       UI theme to use.
 
-      > [!NOTE]
-      >
-      > Extra themes are referenced by their filename without extension.
-      >
-      > Refer to the [theming guide](@OPTIONS_ROOT@/../guides/theming.md) for further details.
+      ::: info
+
+      Extra themes are referenced by their filename without extension.
+
+      Refer to the [theming guide](/guide/user/theming.md) for further details.
+
+      :::
       <!-- scope: profile -->
     '';
   };
@@ -88,11 +90,13 @@ in
     description = ''
       UI zoom percentage.
 
-      > [!NOTE]
-      >
-      > GitKraken only supports zoom levels in 0.1 increments (0.8, 0.9, 1.0, etc.).
-      >
-      > Values are automatically rounded down to the nearest 0.1. For example, 0.96 becomes 0.9, and 1.23 becomes 1.2.
+      ::: info
+
+      GitKraken only supports zoom levels in 0.1 increments (0.8, 0.9, 1.0, etc.).
+
+      Values are automatically rounded down to the nearest 0.1. For example, 0.96 becomes 0.9, and 1.23 becomes 1.2.
+
+      :::
       <!-- scope: profile -->
     '';
   };

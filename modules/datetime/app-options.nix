@@ -166,9 +166,11 @@ in
     description = ''
       Date/time locale.
 
-      > [!NOTE]
-      >
-      > Set to `null` to use default system locale.
+      ::: info
+
+      Set to `null` to use default system locale.
+
+      :::
       <!-- scope: global -->
     '';
   };

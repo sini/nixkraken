@@ -1,35 +1,15 @@
 {
   pkgs ? import <nixpkgs> { },
-  gitRev ? "dirty",
 }:
 
 let
   inherit (pkgs)
     lib
     callPackage
-    stdenvNoCC
-    nixosOptionsDoc
+    buildNpmPackage
     colorized-logs
-    mdbook
-    mdbook-alerts
-    mdbook-linkcheck
-    mdbook-mermaid
-    nodejs
-    rustc
+    git
     ;
-
-  # Modules reference
-  moduleEval = lib.evalModules {
-    modules = [
-      (_: {
-        imports = [ ../module.nix ];
-        config._module.check = false;
-      })
-    ];
-  };
-  optionsDoc = nixosOptionsDoc {
-    inherit (moduleEval) options;
-  };
 
   # List of cached GitKraken commits as Markdown quoted list
   # Replacement of @CACHED_COMMIT_LIST@
@@ -37,7 +17,7 @@ let
   cachedCommitsList = lib.mapAttrsToList (
     version:
     { commit, ... }:
-    "> - GitKraken v${version}: [\\`${commit}\\`](https://github.com/nixos/nixpkgs/blob/${commit})"
+    "- GitKraken v${version}: [\\`${commit}\\`](https://github.com/nixos/nixpkgs/blob/${commit})"
   ) gitkrakenVersions;
 
   # List of details about individual themes as Markdown table rows
@@ -76,76 +56,46 @@ let
         substVar = "GK_${lib.toUpper pkg}_USAGE";
       in
       ''
-        substituteInPlace src/dev/packages/${file}.md --subst-var-by ${substVar} "$(${lib.getExe localPkgs.${pkg}} --help | ansi2txt)"
+        substituteInPlace src/contrib/pkgs/${file}.md --subst-var-by ${substVar} "$(${lib.getExe localPkgs.${pkg}} --help | ansi2txt)"
       ''
     ) localPkgsNames
   );
 in
-stdenvNoCC.mkDerivation {
+buildNpmPackage rec {
   name = "nixkraken-docs";
-  src = ./.;
+  src = lib.fileset.toSource {
+    root = ./..;
+
+    # Include here, in addition to docs directory (./.), any directory needed when building
+    # This is useful if documentation is including files from the project
+    fileset = lib.fileset.unions [
+      ./.
+      ./../themes
+    ];
+  };
+  sourceRoot = "${src.name}/docs";
+
+  npmDepsHash = "sha256-OG1nlSWilUolmP+02Q/Jp/lg5BYHOpB7CpGuBJyzUk8=";
+  npmPackFlags = [ "--ignore-scripts" ]; # Prevents npm pack to build the project
 
   nativeBuildInputs = [
+    # ANSI escaped color codes to plain ASCII text, used by commandUsagesBuilder
     colorized-logs
-    nodejs
-    mdbook
-    mdbook-alerts
-    mdbook-linkcheck
-    mdbook-mermaid
+    # Required by VitePress
+    git
   ];
-
-  dontConfigure = true;
-  doCheck = true;
-  dontFixup = true;
-
-  # Patch book configuration to disable web links checking since network is not available
-  patches = [ ./book.toml.nix-build.patch ];
 
   preBuild = ''
-    # Build module reference
-    GIT_REV="${gitRev}" node build-doc.js ${optionsDoc.optionsJSON}/share/doc/nixos/options.json
-
-    # Handle OPTIONS_ROOT replacements in all option reference files
-    for f in $(find src/options -type f -name '*.md'); do
-      fdir=$(dirname $f)
-      rel_root=$(realpath --relative-to=$fdir src/options)
-      substituteInPlace $f --subst-var-by OPTIONS_ROOT $rel_root
-    done
-
-    # Handle other replacements
-    substituteInPlace src/guides/caching.md --replace-fail "> @CACHED_COMMIT_LIST@" "${lib.concatLines cachedCommitsList}"
-    substituteInPlace src/guides/theming.md --subst-var-by THEMES_LIST '${lib.concatLines themesList}'
+    # Handle replacements
+    substituteInPlace src/guide/user/caching.md --subst-var-by CACHED_COMMIT_LIST '${lib.concatLines cachedCommitsList}'
+    substituteInPlace src/guide/user/theming.md --subst-var-by THEMES_LIST '${lib.concatLines themesList}'
     ${commandUsagesBuilder}
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-
-    mdbook build
-
-    runHook postBuild
-  '';
-
-  nativeCheckInputs = [
-    mdbook
-    mdbook-alerts
-    mdbook-linkcheck
-    mdbook-mermaid
-    rustc
-  ];
-
-  checkPhase = ''
-    runHook preCheck
-
-    mdbook test
-
-    runHook postCheck
   '';
 
   installPhase = ''
     runHook preInstall
 
-    mv book/html $out
+    mv .vitepress/dist $out
 
     runHook postInstall
   '';

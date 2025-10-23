@@ -16,9 +16,11 @@
     description = ''
       Set the default name when initializing a new repo.
 
-      > [!NOTE]
-      >
-      > When not set, the app defaults to `main`.
+      ::: info
+
+      When not set, the app defaults to `main`.
+
+      :::
       <!-- scope: profile -->
     '';
   };
@@ -47,9 +49,11 @@
     description = ''
       Set the number of minutes between auto-fetches, or 0 to disable them.
 
-      > [!NOTE]
-      >
-      > All visible remotes for the repository will be fetched.
+      ::: info
+
+      All visible remotes for the repository will be fetched.
+
+      :::
       <!-- scope: profile -->
     '';
   };

@@ -14,9 +14,11 @@
 
       Unless [`gpg.format`](#gpgformat) is set to `ssh`, this will not have any effect.
 
-      > [!NOTE]
-      >
-      > When unset, GitKraken will use the [global git configuration value](https://git-scm.com/docs/git-config#Documentation/git-config.txt-gpgsshallowedSignersFile).
+      ::: info
+
+      When unset, GitKraken will use the [global git configuration value](https://git-scm.com/docs/git-config#Documentation/git-config.txt-gpgsshallowedSignersFile).
+
+      :::
       <!-- scope: profile -->
     '';
   };
@@ -65,10 +67,12 @@
       - [`gpg.package`](#gpgpackage)'s main program when [`gpg.format`](#gpgformat) is set to `openpgp`
       - `bin/ssh-keygen` when [`gpg.format`](#gpgformat) is set to `ssh`
 
-      > [!WARNING]
-      >
-      > Make sure that the selected program is exposed by the [`gpg.package`](#gpgpackage), since NixKraken
-      > will not validate it.
+      ::: warning
+
+      Make sure that the selected program is exposed by the [`gpg.package`](#gpgpackage), since NixKraken
+      will not validate it.
+
+      :::
       <!-- scope: profile -->
     '';
   };

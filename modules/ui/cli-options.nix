@@ -91,9 +91,11 @@
       description = ''
         Show graph panel by default.
 
-        > [!NOTE]
-        >
-        > This setting only affects terminal tabs when the current directory is a repository.
+        ::: info
+
+        This setting only affects terminal tabs when the current directory is a repository.
+
+        :::
         <!-- scope: profile -->
       '';
     };
@@ -111,9 +113,11 @@
       description = ''
         Default graph panel position.
 
-        > [!NOTE]
-        >
-        > This setting only affects terminal tabs when the current directory is a repository.
+        ::: info
+
+        This setting only affects terminal tabs when the current directory is a repository.
+
+        :::
         <!-- scope: profile -->
       '';
     };

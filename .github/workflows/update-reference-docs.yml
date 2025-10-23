@@ -1,0 +1,41 @@
+name: Update reference documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - modules/**/*options.nix
+
+jobs:
+  update-reference-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: holster
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Build reference documentation
+        run: |
+          cd docs
+          nix build -f options-json.nix
+          python generate_docs.py result/options.json src/reference
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'docs(reference): update'
+          branch: 'refactor/update-reference-docs'
+          delete-branch: true
+          sign-commits: true
+          title: 'docs(reference): update'
+          body: Automated update of the reference documentation pages.
+          labels: 'documentation'
+          assignees: 'nicolas-goudry'
+          reviewers: 'nicolas-goudry'

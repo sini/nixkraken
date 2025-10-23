@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - docs/**/*
-      - modules/**/*options.nix
 
 jobs:
   deploy:
@@ -23,7 +22,7 @@ jobs:
         with:
           hatchet-protocol: holster
       - uses: DeterminateSystems/nix-installer-action@main
-      - name: Build Book
+      - name: Build documentation
         run: nix build '.#docs'
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3

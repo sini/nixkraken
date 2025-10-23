@@ -10,7 +10,10 @@ _:
   programs.prettier = {
     enable = true;
 
-    excludes = [ "docs/theme/highlight.js" ];
+    excludes = [
+      "docs/src/reference/*"
+      "docs/src/reference/**/*"
+    ];
   };
 
   programs.shellcheck = {

@@ -70,16 +70,18 @@ in
     description = ''
       The GitKraken package to use.
 
-      > [!IMPORTANT]
-      >
-      > This option:
-      >
-      > - requires to allow unfree packages
-      > - is mutually exclusive with [`version`](#version)
-      >
-      > We advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../notes/compatibility.html) when it is used.
-      >
-      > Also be aware that the [binary cache](../guides/caching.html) might not apply.
+      ::: warning
+
+      This option:
+
+      - requires to allow unfree packages
+      - is mutually exclusive with [`version`](#version)
+
+      We advise users to use the [`version`](#version) option instead of this one, since we [cannot guarantee compatibility](../guide/notes/compatibility.md) when it is used.
+
+      Also be aware that the [binary cache](../guide/user/caching.md) might not apply.
+
+      :::
       <!-- scope: global -->
     '';
   };
@@ -101,11 +103,13 @@ in
     description = ''
       The GitKraken version to use.
 
-      > [!IMPORTANT]
-      >
-      > When using this option, the GitKraken package will automatically be fetched from a commit of [nixpkgs](https://github.com/nixos/nixpkgs) known to be available in the cache. To benefit from the cache, users should first [configure it](../guides/caching.md).
-      >
-      > This option is mutually exclusive with [`package`](#package).
+      ::: warning
+
+      When using this option, the GitKraken package will automatically be fetched from a commit of [nixpkgs](https://github.com/nixos/nixpkgs) known to be available in the cache. To benefit from the cache, users should first [configure it](../guide/user/caching.md).
+
+      This option is mutually exclusive with [`package`](#package).
+
+      :::
       <!-- scope: global -->
     '';
   };

@@ -7,9 +7,11 @@
     description = ''
       Enable commits lazy loading.
 
-      > [!NOTE]
-      >
-      > Additional commits will be loaded when reaching the earliest commit in the graph.
+      ::: info
+
+      Additional commits will be loaded when reaching the earliest commit in the graph.
+
+      :::
       <!-- scope: global -->
     '';
   };
@@ -20,9 +22,11 @@
     description = ''
       Maximum number of commits to show in the commit graph. **Minimum value is 500.**
 
-      > [!NOTE]
-      >
-      > Lower counts may help improve performance.
+      ::: info
+
+      Lower counts may help improve performance.
+
+      :::
       <!-- scope: global -->
     '';
   };
@@ -33,9 +37,11 @@
     description = ''
       Always show all commits in repository.
 
-      > [!WARNING]
-      >
-      > This setting may cause performance issue with large repositories (like nixpkgs).
+      ::: warning
+
+      This setting may cause performance issue with large repositories (like nixpkgs).
+
+      :::
       <!-- scope: global -->
     '';
   };

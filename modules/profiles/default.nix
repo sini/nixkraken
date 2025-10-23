@@ -47,11 +47,13 @@ in
     description = ''
       Additional profiles configuration.
 
-      > [!WARNING]
-      >
-      > Only paid accounts can set multiple profiles beside the default one.
-      >
-      > Refer to the [profiles guide](../guides/profiles.md) for further details.
+      ::: warning
+
+      Only paid accounts can set multiple profiles beside the default one.
+
+      Refer to the [profiles guide](../guide/user/profiles.md) for further details.
+
+      :::
     '';
   };
 
