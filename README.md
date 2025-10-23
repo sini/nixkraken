@@ -1,7 +1,7 @@
 # <p align="center">NixKraken</p>
 
 <p align="center">
-  <img width="500" height="500" src="https://github.com/nicolas-goudry/nixkraken/blob/main/docs/src/logo.svg">
+  <img width="500" height="500" src="https://github.com/nicolas-goudry/nixkraken/blob/main/docs/src/public/nixkraken-logo.svg">
 </p>
 
 <p align="center">
