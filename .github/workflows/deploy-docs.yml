@@ -9,7 +9,7 @@ on:
       - docs/**/*
 
 jobs:
-  deploy:
+  deploy-docs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -23,7 +23,7 @@ jobs:
           hatchet-protocol: holster
       - uses: DeterminateSystems/nix-installer-action@main
       - name: Build documentation
-        run: nix build '.#docs'
+        run: nix-build ./docs --arg isCI $CI
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:

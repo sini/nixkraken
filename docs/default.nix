@@ -1,5 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
+  isCI ? false,
 }:
 
 let
@@ -90,6 +91,9 @@ buildNpmPackage rec {
     substituteInPlace src/guide/user/caching.md --subst-var-by CACHED_COMMIT_LIST '${lib.concatLines cachedCommitsList}'
     substituteInPlace src/guide/user/theming.md --subst-var-by THEMES_LIST '${lib.concatLines themesList}'
     ${commandUsagesBuilder}
+
+    # Required to be able to detect when VitePress build is running in CI
+    export CI=${builtins.toString isCI}
   '';
 
   installPhase = ''
