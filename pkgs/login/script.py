@@ -159,7 +159,79 @@ def open_browser(provider: str) -> None:
         warn("Failed to open browser automatically, please open the URL manually")
 
 
-def set_token() -> str:
+def validate_token(token: str) -> bytes:
+    """Validate that the token is in base64 format"""
+    if not token:
+        die("Access token cannot be empty")
+
+    try:
+        return base64.b64decode(token)
+    except Exception:
+        die("Invalid access token format (expected base64 encoded string)")
+
+
+def read_token_from_file(file_path: str, debug_enabled: bool) -> str:
+    """Read token from a file path"""
+    debug(f"Reading token from file: {file_path}", debug_enabled)
+
+    path = Path(file_path)
+
+    if not path.exists():
+        die(f"Token file not found: {file_path}")
+
+    if not os.access(path, os.R_OK):
+        die(f"Token file is not readable: {file_path}")
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            token = f.read().strip()
+    except Exception as e:
+        die(f"Failed to read token from file: {e}")
+
+    return token
+
+
+def read_token_from_stdin(debug_enabled: bool) -> str:
+    """Read token from stdin"""
+    debug("Reading token from stdin", debug_enabled)
+
+    try:
+        token = sys.stdin.read().strip()
+    except Exception as e:
+        die(f"Failed to read token from stdin: {e}")
+
+    return token
+
+
+def get_token_non_interactive(
+    token_arg: Optional[str], token_file_arg: Optional[str], debug_enabled: bool
+) -> bytes:
+    """Get token from non-interactive sources (--token or --token-file)"""
+
+    # Check mutual exclusivity
+    if token_arg is not None and token_file_arg is not None:
+        die("--token and --token-file are mutually exclusive")
+
+    token = ""
+
+    if token_file_arg is not None:
+        # Read from file
+        token = read_token_from_file(token_file_arg, debug_enabled)
+    elif token_arg is not None:
+        # --token provided
+        if token_arg == "" or token_arg == "-":
+            # Read from stdin
+            token = read_token_from_stdin(debug_enabled)
+        else:
+            # Use literal value
+            debug("Using token from command line argument", debug_enabled)
+            token = token_arg.strip()
+
+    # Validate token
+    return validate_token(token)
+
+
+def set_token() -> bytes:
     """Prompt the user to enter the OAuth access token, validate it, and return it"""
     for attempt in range(TOKEN_INPUT_MAX_ATTEMPTS):
         try:
@@ -171,8 +243,7 @@ def set_token() -> str:
                 continue
 
             # Validate base64 format
-            base64.b64decode(token)
-            return token
+            return validate_token(token)
         except (ValueError, Exception):
             error("Invalid access token format (expected base64 encoded string)")
         except KeyboardInterrupt:
@@ -182,8 +253,8 @@ def set_token() -> str:
     die("Maximum token entry attempts exceeded")
 
 
-def extract_token(oauth_token: str, debug_enabled: bool) -> Tuple[str, str]:
-    """Extract API and provider tokens from the base64-encoded, zlib-compressed access token"""
+def extract_token(oauth_token: bytes, debug_enabled: bool) -> Tuple[str, str]:
+    """Extract API and provider tokens from the zlib-compressed access token"""
     debug("Extracting tokens from access token", debug_enabled)
 
     if not oauth_token:
@@ -192,9 +263,7 @@ def extract_token(oauth_token: str, debug_enabled: bool) -> Tuple[str, str]:
     debug("Expanding zlib compressed access token", debug_enabled)
 
     try:
-        # Decode base64 and decompress zlib
-        decoded = base64.b64decode(oauth_token)
-        expanded_token = zlib.decompress(decoded).decode("utf-8")
+        expanded_token = zlib.decompress(oauth_token).decode("utf-8")
     except Exception as e:
         die(f"Failed to expand access token: {e}")
 
@@ -390,6 +459,21 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--token",
+        nargs="?",
+        const="",
+        default=None,
+        metavar="TOKEN",
+        help="access token (literal string, '-' for stdin, or omit value to read from stdin)",
+    )
+
+    parser.add_argument(
+        "--token-file",
+        metavar="PATH",
+        help="path to file containing access token",
+    )
+
+    parser.add_argument(
         "--debug",
         action="store_true",
         help="output debug information",
@@ -419,8 +503,18 @@ def main() -> None:
     provider = ensure_provider(args.provider, args.debug)
     profile = ensure_profile(args.profile, args.debug)
     profile_dir = ensure_config(profile, provider, args.debug)
-    open_browser(provider)
-    oauth_token = set_token()
+
+    # Determine if we're in interactive or non-interactive mode
+    is_interactive = args.token is None and args.token_file is None
+
+    if is_interactive:
+        # Interactive mode: open browser and prompt for token
+        open_browser(provider)
+        oauth_token = set_token()
+    else:
+        # Non-interactive mode: get token from --token or --token-file
+        oauth_token = get_token_non_interactive(args.token, args.token_file, args.debug)
+
     api_token, provider_token = extract_token(oauth_token, args.debug)
     encrypt_api_token(api_token, args.debug)
     encrypt_provider_token(provider_token, profile_dir, args.debug)
