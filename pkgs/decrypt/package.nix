@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    mainProgram = name;
     description = "Decrypt GitKraken secret files";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [

@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    mainProgram = name;
     description = "Encrypt JSON data as GitKraken secret";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [

@@ -64,6 +64,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    mainProgram = name;
     description = "Login to GitKraken from command line";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
