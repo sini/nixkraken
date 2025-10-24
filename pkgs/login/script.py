@@ -249,6 +249,41 @@ complete -c gk-login -l token-file -n 'not __fish_seen_argument -l token'
 #####################
 
 
+def get_profiles() -> Dict[str, str]:
+    """Get a mapping of profile IDs to profile names"""
+    profiles_dir = CONFIG_DIR / "profiles"
+    profiles = {}
+
+    if not profiles_dir.exists():
+        return profiles
+
+    try:
+        for profile_path in profiles_dir.iterdir():
+            if not profile_path.is_dir():
+                continue
+
+            profile_id = profile_path.name
+            profile_file = profile_path / "profile"
+
+            # Special case for default profile
+            if profile_id == DEFAULT_PROFILE:
+                profiles[profile_id] = "DEFAULT"
+            elif profile_file.exists():
+                try:
+                    with open(profile_file, "r", encoding="utf-8") as f:
+                        profile_data = json.load(f)
+                        profile_name = profile_data.get("profileName", "UNNAMED")
+                        profiles[profile_id] = profile_name
+                except (json.JSONDecodeError, IOError):
+                    profiles[profile_id] = "UNKNOWN"
+            else:
+                profiles[profile_id] = "UNKNOWN"
+    except Exception:
+        pass
+
+    return profiles
+
+
 def error(message: str) -> None:
     """Print error message to stderr"""
     cprint(f" ✗ {message}", "red", file=sys.stderr)
@@ -304,6 +339,18 @@ def ensure_profile(profile: Optional[str], debug_enabled: bool) -> str:
     if not profile:
         warn("No profile ID set, using default profile ID")
         profile = DEFAULT_PROFILE
+    else:
+        profiles = get_profiles()
+        if profile not in profiles:
+            error(f"Profile '{profile}' does not exist")
+            print()
+            if profiles:
+                print("Available profiles:")
+                for profile_id, profile_name in profiles.items():
+                    print(f"  {profile_id}: {profile_name}")
+            else:
+                print("No profiles found. Is GitKraken installed?")
+            die()
 
     debug(f"Using profile: '{profile}'", debug_enabled)
     return profile
@@ -653,6 +700,17 @@ def signal_handler(sig: int, frame: Any) -> NoReturn:
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments"""
 
+    profiles = get_profiles()
+    profiles_help = "profile ID to use (defaults to default profile)"
+    if profiles:
+        profiles_list = ", ".join(
+            [
+                f"{profile_id} ({profile_name})"
+                for profile_id, profile_name in profiles.items()
+            ]
+        )
+        profiles_help += f"\n  Available: {profiles_list}"
+
     parser = argparse.ArgumentParser(
         prog=SCRIPT_NAME,
         description=DESCRIPTION,
@@ -672,7 +730,7 @@ def parse_arguments() -> argparse.Namespace:
         "-P",
         "--profile",
         metavar="PROFILE_ID",
-        help="profile ID to use (defaults to default profile)",
+        help=profiles_help,
     )
 
     parser.add_argument(
@@ -693,8 +751,8 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--generate-completion",
         metavar="SHELL",
-        choices=["bash", "zsh", "fish"],
-        help="generate shell completion script (bash, zsh, fish)",
+        choices=COMPLETION_SHELLS,
+        help=f"generate shell completion script ({', '.join(COMPLETION_SHELLS)})",
     )
 
     parser.add_argument(
