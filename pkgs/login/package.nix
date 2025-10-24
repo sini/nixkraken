@@ -3,6 +3,7 @@
   stdenv,
   callPackage,
   substitute,
+  installShellFiles,
   python3,
   xdg-utils,
 }:
@@ -29,6 +30,10 @@ stdenv.mkDerivation rec {
   };
   dontUnpack = true;
 
+  nativeBuildInputs = [
+    installShellFiles
+  ];
+
   buildInputs = [
     decrypt
     encrypt
@@ -49,6 +54,13 @@ stdenv.mkDerivation rec {
     install -Dm755 ${src} $out/bin/${name}
 
     runHook postInstall
+  '';
+
+  postFixup = ''
+    installShellCompletion --cmd ${name} \
+      --bash <($out/bin/${name} --generate-completion bash) \
+      --fish <($out/bin/${name} --generate-completion fish) \
+      --zsh <($out/bin/${name} --generate-completion zsh)
   '';
 
   meta = {
