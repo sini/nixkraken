@@ -42,47 +42,55 @@ DEFAULT_PROFILE = "d6e5a8ca26e14325a4275fc33b17e16f"
 # Maximum attempts to set token from user input
 TOKEN_INPUT_MAX_ATTEMPTS = 3
 
+# Supported shells for completion generation
+COMPLETION_SHELLS = ["bash", "zsh", "fish"]
+
 ######################
 # COMPLETION SCRIPTS #
 ######################
 
-COMPLETION_BASH = """# bash completion for gk-login
+
+def get_completion_bash() -> str:
+    """Generate Bash completion script dynamically"""
+    providers_str = " ".join(PROVIDERS)
+    shells_str = " ".join(COMPLETION_SHELLS)
+
+    return f"""# bash completion for {SCRIPT_NAME}
 # Source this file or copy it to /etc/bash_completion.d/
 
-_gk_login_completion() {
+_{SCRIPT_NAME.replace('-', '_')}_completion() {{
     local cur prev opts
     COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    cur="${{COMP_WORDS[COMP_CWORD]}}"
+    prev="${{COMP_WORDS[COMP_CWORD-1]}}"
 
     # All available options
     opts="-p --provider -P --profile --token --token-file --generate-completion --debug -v --version -h --help"
 
-    # Available providers
-    local providers="github gitlab bitbucket azure google"
-
-    # Available shells for completion generation
-    local shells="bash zsh fish"
-
     # Context-aware completion based on previous word
-    case "${prev}" in
+    case "${{prev}}" in
         -p|--provider)
             # Complete with providers
-            COMPREPLY=( $(compgen -W "${providers}" -- "${cur}") )
+            COMPREPLY=( $(compgen -W "{providers_str}" -- "${{cur}}") )
             return 0
             ;;
         -P|--profile)
             # Complete with profile IDs from ~/.gitkraken/profiles/
-            local profile_dir="${HOME}/.gitkraken/profiles"
-            if [[ -d "${profile_dir}" ]]; then
-                local profiles=$(cd "${profile_dir}" 2>/dev/null && ls -1d */ 2>/dev/null | sed 's#/##')
-                COMPREPLY=( $(compgen -W "${profiles}" -- "${cur}") )
+            local profile_dir="${{HOME}}/.gitkraken/profiles"
+            if [[ -d "${{profile_dir}}" ]]; then
+                local profiles=""
+                for profile in "${{profile_dir}}"/*; do
+                    if [[ -d "${{profile}}" ]]; then
+                        profiles="${{profiles}} $(basename "${{profile}}")"
+                    fi
+                done
+                COMPREPLY=( $(compgen -W "${{profiles}}" -- "${{cur}}") )
             fi
             return 0
             ;;
         --token-file)
             # Complete with file paths
-            COMPREPLY=( $(compgen -f -- "${cur}") )
+            COMPREPLY=( $(compgen -f -- "${{cur}}") )
             return 0
             ;;
         --token)
@@ -91,7 +99,7 @@ _gk_login_completion() {
             ;;
         --generate-completion)
             # Complete with shell names
-            COMPREPLY=( $(compgen -W "${shells}" -- "${cur}") )
+            COMPREPLY=( $(compgen -W "{shells_str}" -- "${{cur}}") )
             return 0
             ;;
         *)
@@ -102,69 +110,104 @@ _gk_login_completion() {
     local used_opts=""
     local i
     for ((i=1; i < COMP_CWORD; i++)); do
-        case "${COMP_WORDS[i]}" in
+        case "${{COMP_WORDS[i]}}" in
             -p|--provider|-P|--profile|--token|--token-file|--generate-completion|--debug|-v|--version|-h|--help)
-                used_opts="${used_opts} ${COMP_WORDS[i]}"
+                used_opts="${{used_opts}} ${{COMP_WORDS[i]}}"
                 ;;
         esac
     done
 
     # Filter out already used single-use options
     local available_opts=""
-    for opt in ${opts}; do
-        case "${opt}" in
+    for opt in ${{opts}}; do
+        case "${{opt}}" in
             -p|--provider|-P|--profile|--token|--token-file|--generate-completion|-v|--version|-h|--help)
                 # These options should only appear once
-                if [[ ! " ${used_opts} " =~ " ${opt} " ]]; then
-                    available_opts="${available_opts} ${opt}"
+                if [[ ! " ${{used_opts}} " =~ " ${{opt}} " ]]; then
+                    available_opts="${{available_opts}} ${{opt}}"
                 fi
                 ;;
             *)
                 # Other options can be repeated
-                available_opts="${available_opts} ${opt}"
+                available_opts="${{available_opts}} ${{opt}}"
                 ;;
         esac
     done
 
     # Default completion with available options
-    COMPREPLY=( $(compgen -W "${available_opts}" -- "${cur}") )
+    COMPREPLY=( $(compgen -W "${{available_opts}}" -- "${{cur}}") )
     return 0
-}
+}}
 
 # Register the completion function
-complete -F _gk_login_completion gk-login
+complete -F _{SCRIPT_NAME.replace('-', '_')}_completion {SCRIPT_NAME}
 """
 
-COMPLETION_ZSH = """#compdef gk-login
-# zsh completion for gk-login
-# Place this file in your $fpath (e.g., /usr/share/zsh/site-functions/_gk-login)
+
+def get_completion_zsh() -> str:
+    """Generate Zsh completion script dynamically"""
+    # Build provider descriptions
+    provider_descriptions = {
+        "github": "GitHub provider",
+        "gitlab": "GitLab provider",
+        "bitbucket": "Bitbucket provider",
+        "azure": "Azure DevOps provider",
+        "google": "Google provider",
+    }
+
+    providers_array = "\n".join(
+        f"        '{provider}:{provider_descriptions.get(provider, f'Login with {provider}')}'"
+        for provider in PROVIDERS
+    )
+
+    shells_array = "\n".join(
+        f"        '{shell}:Shell completion for {shell}'" for shell in COMPLETION_SHELLS
+    )
+
+    return f"""#compdef {SCRIPT_NAME}
+# zsh completion for {SCRIPT_NAME}
+# Place this file in your $fpath (e.g., /usr/share/zsh/site-functions/_{SCRIPT_NAME})
 # or source it directly in your ~/.zshrc
 
-_gk_login() {
+_{SCRIPT_NAME.replace('-', '_')}() {{
     local curcontext="$curcontext" state line
     typeset -A opt_args
 
     local -a providers
     providers=(
-        'github:GitHub provider'
-        'gitlab:GitLab provider'
-        'bitbucket:Bitbucket provider'
-        'azure:Azure DevOps provider'
-        'google:Google provider'
+{providers_array}
     )
 
     local -a shells
     shells=(
-        'bash:Bash shell completion'
-        'zsh:Zsh shell completion'
-        'fish:Fish shell completion'
+{shells_array}
     )
 
+    local -a profiles
+    local profile_dir="${{HOME}}/.gitkraken/profiles"
+    if [[ -d "${{profile_dir}}" ]]; then
+        for dir in "${{profile_dir}}"/*(/N); do
+            local profile_id="${{dir:t}}"
+            local profile_name="UNKNOWN"
+            local profile_file="${{dir}}/profile"
+
+            # Special case for default profile
+            if [[ "${{profile_id}}" == "{DEFAULT_PROFILE}" ]]; then
+                profile_name="DEFAULT"
+            elif [[ -f "${{profile_file}}" ]]; then
+                # Try to extract profile name from JSON
+                profile_name=$(jq -r '.profileName // "UNNAMED"' "${{profile_file}}" 2>/dev/null || echo "UNKNOWN")
+            fi
+
+            profiles+=("${{profile_id}}:${{profile_name}}")
+        done
+    fi
+
     _arguments -C \\
-        '(- *)'{-h,--help}'[show help message and exit]' \\
-        '(- *)'{-v,--version}'[show version and exit]' \\
-        '(-p --provider)'{-p,--provider}'[provider to login with]:provider:->providers' \\
-        '(-P --profile)'{-P,--profile}'[profile ID to use]:profile:->profiles' \\
+        '(- *)'{{-h,--help}}'[show help message and exit]' \\
+        '(- *)'{{-v,--version}}'[show version and exit]' \\
+        '(-p --provider)'{{-p,--provider}}'[provider to login with]:provider:->providers' \\
+        '(-P --profile)'{{-P,--profile}}'[profile ID to use]:profile:->profiles' \\
         '(--token --token-file)--token[access token (literal, stdin, or -)]:token:' \\
         '(--token --token-file)--token-file[path to file containing access token]:file:_files' \\
         '(- *)--generate-completion[generate shell completion script]:shell:->shells' \\
@@ -176,20 +219,10 @@ _gk_login() {
             _describe -t providers 'provider' providers
             ;;
         profiles)
-            local profile_dir="${HOME}/.gitkraken/profiles"
-            if [[ -d "${profile_dir}" ]]; then
-                local -a profiles
-                profiles=()
-                for dir in "${profile_dir}"/*(/N); do
-                    profiles+=("${dir:t}:Profile ID")
-                done
-                if (( ${#profiles[@]} > 0 )); then
-                    _describe -t profiles 'profile' profiles
-                else
-                    _message 'no profiles found'
-                fi
+            if (( ${{#profiles[@]}} > 0 )); then
+                _describe -t profiles 'profile' profiles
             else
-                _message 'profiles directory not found'
+                _message 'no profiles found'
             fi
             ;;
         shells)
@@ -198,51 +231,68 @@ _gk_login() {
     esac
 
     return 0
-}
+}}
 
-_gk_login "$@"
+_{SCRIPT_NAME.replace('-', '_')} "$@"
 """
 
-COMPLETION_FISH = """# fish completion for gk-login
-# Place this file in ~/.config/fish/completions/gk-login.fish
-# or in /usr/share/fish/vendor_completions.d/gk-login.fish
+
+def get_completion_fish() -> str:
+    """Generate Fish completion script dynamically"""
+    providers_str = " ".join(PROVIDERS)
+    shells_str = " ".join(COMPLETION_SHELLS)
+
+    return f"""# fish completion for {SCRIPT_NAME}
+# Place this file in ~/.config/fish/completions/{SCRIPT_NAME}.fish
+# or in /usr/share/fish/vendor_completions.d/{SCRIPT_NAME}.fish
 
 # Disable file completion by default
-complete -c gk-login -f
+complete -c {SCRIPT_NAME} -f
 
 # Help and version
-complete -c gk-login -s h -l help -d 'Show help message and exit'
-complete -c gk-login -s v -l version -d 'Show version and exit'
+complete -c {SCRIPT_NAME} -s h -l help -d 'Show help message and exit'
+complete -c {SCRIPT_NAME} -s v -l version -d 'Show version and exit'
 
 # Provider option
-complete -c gk-login -s p -l provider -d 'Provider to login with' -x -a 'github gitlab bitbucket azure google'
+complete -c {SCRIPT_NAME} -s p -l provider -d 'Provider to login with' -x -a '{providers_str}'
 
 # Profile option - complete with actual profile IDs
-complete -c gk-login -s P -l profile -d 'Profile ID to use' -x -a '
-    if test -d ~/.gitkraken/profiles
-        for dir in ~/.gitkraken/profiles/*/
-            basename $dir
+if test -d ~/.gitkraken/profiles
+    for dir in ~/.gitkraken/profiles/*/
+        set profile_id (basename $dir)
+        set profile_file $dir/profile
+        set profile_name "UNKNOWN"
+
+        # Special case for default profile
+        if test "$profile_id" = "{DEFAULT_PROFILE}"
+            set profile_name "DEFAULT"
+        else if test -f $profile_file
+            # Try to extract profile name from JSON
+            set profile_name (jq -r ".profileName // \\"UNNAMED\\"" $profile_file 2>/dev/null; or echo "UNKNOWN")
         end
+
+        complete -c {SCRIPT_NAME} -s P -l profile -d 'Profile ID to use' -x -a "$profile_id\\t'$profile_name'"
     end
-'
+end
 
 # Token option (no completion for security)
-complete -c gk-login -l token -d 'Access token (literal, stdin, or -)' -x
+complete -c {SCRIPT_NAME} -l token -d 'Access token (literal, stdin, or -)' -x
 
 # Token file option (enable file completion)
-complete -c gk-login -l token-file -d 'Path to file containing access token' -r
+complete -c {SCRIPT_NAME} -l token-file -d 'Path to file containing access token' -r
 
 # Generate completion option
-complete -c gk-login -l generate-completion -d 'Generate shell completion script' -x -a 'bash zsh fish'
+complete -c {SCRIPT_NAME} -l generate-completion -d 'Generate shell completion script' -x -a '{shells_str}'
 
 # Debug option
-complete -c gk-login -l debug -d 'Output debug information'
+complete -c {SCRIPT_NAME} -l debug -d 'Output debug information'
 
 # Conditional completions to prevent conflicts
 # --token and --token-file are mutually exclusive
-complete -c gk-login -l token -n 'not __fish_seen_argument -l token-file'
-complete -c gk-login -l token-file -n 'not __fish_seen_argument -l token'
+complete -c {SCRIPT_NAME} -l token -n 'not __fish_seen_argument -l token-file'
+complete -c {SCRIPT_NAME} -l token-file -n 'not __fish_seen_argument -l token'
 """
+
 
 #####################
 # UTILITY FUNCTIONS #
@@ -673,16 +723,16 @@ def cleanup() -> None:
 def generate_completion_script(shell: str) -> None:
     """Generate and output shell completion script"""
 
-    completion_scripts = {
-        "bash": COMPLETION_BASH,
-        "zsh": COMPLETION_ZSH,
-        "fish": COMPLETION_FISH,
+    completion_generators = {
+        "bash": get_completion_bash,
+        "zsh": get_completion_zsh,
+        "fish": get_completion_fish,
     }
 
-    if shell not in completion_scripts:
+    if shell not in completion_generators:
         die(f"Unsupported shell: {shell}")
 
-    print(completion_scripts[shell], end="")
+    print(completion_generators[shell](), end="")
 
 
 ########
