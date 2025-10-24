@@ -1,22 +1,50 @@
 {
-  writeShellApplication,
-  coreutils,
-  jq,
-  openssl,
-  unixtools,
+  lib,
+  stdenv,
+  substitute,
+  python3,
 }:
 
-let
-  name = builtins.baseNameOf (builtins.toString ./.);
-in
-writeShellApplication {
-  name = "gk-${name}";
-  text = builtins.readFile ./script.sh;
+stdenv.mkDerivation rec {
+  name = "gk-encrypt";
+  version = "1.0.0";
 
-  runtimeInputs = [
-    coreutils
-    jq
-    openssl
-    unixtools.column
+  src = substitute {
+    src = ./script.py;
+
+    substitutions = [
+      "--replace-fail"
+      "@version@"
+      version
+      "--replace-fail"
+      "@description@"
+      meta.description
+    ];
+  };
+  dontUnpack = true;
+
+  propagatedBuildInputs = [
+    (python3.withPackages (
+      p: with p; [
+        cryptography
+        termcolor
+      ]
+    ))
   ];
+
+  installPhase = ''
+    runHook preInstall
+
+    install -Dm755 ${src} $out/bin/${name}
+
+    runHook postInstall
+  '';
+
+  meta = {
+    description = "Encrypt JSON data as GitKraken secret";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
+      nicolas-goudry
+    ];
+  };
 }
