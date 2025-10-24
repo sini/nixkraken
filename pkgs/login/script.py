@@ -1,0 +1,437 @@
+#!/usr/bin/env python3
+
+import argparse
+import base64
+import getpass
+import json
+import os
+import signal
+import subprocess
+import sys
+import zlib
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import NoReturn, Optional, Any, Dict, Tuple
+
+try:
+    from termcolor import colored, cprint  # pyright: ignore[reportMissingImports]
+except ImportError:
+    print(
+        "Error: termcolor is not installed. Install it with: pip install termcolor",
+        file=sys.stderr,
+    )
+    sys.exit(1)
+
+####################
+# GLOBAL VARIABLES #
+####################
+
+VERSION = "@version@"
+DESCRIPTION = "@description@."
+SCRIPT_NAME = Path(__file__).name
+CONFIG_DIR = Path.home() / ".gitkraken"
+CONFIG_FILE = CONFIG_DIR / "config"
+TMP_CONFIG = CONFIG_FILE.with_name(f"{CONFIG_FILE.name}.tmp")
+
+# Available providers
+PROVIDERS = ["github", "gitlab", "bitbucket", "azure", "google"]
+
+# Default profile ID
+DEFAULT_PROFILE = "d6e5a8ca26e14325a4275fc33b17e16f"
+
+# Maximum attempts to set token from user input
+TOKEN_INPUT_MAX_ATTEMPTS = 3
+
+#####################
+# UTILITY FUNCTIONS #
+#####################
+
+
+def error(message: str) -> None:
+    """Print error message to stderr"""
+    cprint(f" ✗ {message}", "red", file=sys.stderr)
+
+
+def warn(message: str) -> None:
+    """Print warning message to stderr"""
+    cprint(f" ⚠ {message}", "yellow", file=sys.stderr)
+
+
+def debug(message: str, debug_enabled: bool = False) -> None:
+    """Print debug message to stderr if debug is enabled"""
+    if debug_enabled:
+        print(f" ▶ {message}", file=sys.stderr)
+
+
+def success(message: str) -> None:
+    """Print success message to stdout"""
+    cprint(f" ✓ {message}", "green")
+
+
+def die(message: Optional[str] = None, exit_code: int = 1) -> NoReturn:
+    """Exit script with optional error message and exit code"""
+    if message:
+        error(message)
+    sys.exit(exit_code)
+
+
+########################
+# CORE LOGIC FUNCTIONS #
+########################
+
+
+def ensure_provider(provider: Optional[str], debug_enabled: bool) -> str:
+    """Ensure a valid provider is specified and supported"""
+    debug("Checking provider", debug_enabled)
+
+    if not provider:
+        die(f"{SCRIPT_NAME} requires a provider")
+
+    if provider not in PROVIDERS:
+        error(f"Provider '{provider}' is invalid")
+        print()
+        print(f"Available providers: {','.join(PROVIDERS)}")
+        die()
+
+    debug(f"Using provider: '{provider}'", debug_enabled)
+    return provider
+
+
+def ensure_profile(profile: Optional[str], debug_enabled: bool) -> str:
+    """Ensure a profile ID is set, or use the default profile ID"""
+    if not profile:
+        warn("No profile ID set, using default profile ID")
+        profile = DEFAULT_PROFILE
+
+    debug(f"Using profile: '{profile}'", debug_enabled)
+    return profile
+
+
+def ensure_config(profile: str, provider: str, debug_enabled: bool) -> Path:
+    """Ensure the main config file exists and is readable, and the profile directory exists"""
+    debug("Checking config file", debug_enabled)
+
+    if not CONFIG_FILE.exists():
+        die("Config file not found. Is GitKraken installed?")
+
+    if not os.access(CONFIG_FILE, os.R_OK):
+        die("Config file is not readable")
+
+    debug("Config file found", debug_enabled)
+
+    profile_dir = CONFIG_DIR / "profiles" / profile / provider
+
+    # Create profile directory if it doesn't exist
+    if not profile_dir.exists():
+        try:
+            profile_dir.mkdir(parents=True, exist_ok=True)
+            debug(f"Created profile directory: {profile_dir}", debug_enabled)
+        except OSError as e:
+            die(f"Failed to create profile directory: {profile_dir}\n{e}")
+    else:
+        debug(f"Using existing profile directory: {profile_dir}", debug_enabled)
+
+    return profile_dir
+
+
+def open_browser(provider: str) -> None:
+    """Open the default web browser to the GitKraken OAuth login page for the selected provider"""
+    url = f"https://api.gitkraken.com/oauth/{provider}/login?action=login&in_app=true"
+
+    print(
+        f"{colored('Opening web browser to login to GitKraken account...', attrs=['bold'])}"
+    )
+    print(
+        colored(
+            f"If browser doesn't open automatically, use this URL: {url}",
+            attrs=["dark"],
+        )
+    )
+
+    try:
+        subprocess.run(
+            ["xdg-open", url],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+    except Exception:
+        warn("Failed to open browser automatically, please open the URL manually")
+
+
+def set_token() -> str:
+    """Prompt the user to enter the OAuth access token, validate it, and return it"""
+    for attempt in range(TOKEN_INPUT_MAX_ATTEMPTS):
+        try:
+            print("Enter access token:")
+            token = getpass.getpass("> ").strip()
+
+            if not token:
+                error("Access token cannot be empty")
+                continue
+
+            # Validate base64 format
+            base64.b64decode(token)
+            return token
+        except (ValueError, Exception):
+            error("Invalid access token format (expected base64 encoded string)")
+        except KeyboardInterrupt:
+            print()
+            die("Script interrupted")
+
+    die("Maximum token entry attempts exceeded")
+
+
+def extract_token(oauth_token: str, debug_enabled: bool) -> Tuple[str, str]:
+    """Extract API and provider tokens from the base64-encoded, zlib-compressed access token"""
+    debug("Extracting tokens from access token", debug_enabled)
+
+    if not oauth_token:
+        die("Missing access token")
+
+    debug("Expanding zlib compressed access token", debug_enabled)
+
+    try:
+        # Decode base64 and decompress zlib
+        decoded = base64.b64decode(oauth_token)
+        expanded_token = zlib.decompress(decoded).decode("utf-8")
+    except Exception as e:
+        die(f"Failed to expand access token: {e}")
+
+    debug(
+        "Extracting API and provider tokens from expanded access token", debug_enabled
+    )
+
+    try:
+        token_data = json.loads(expanded_token)
+        api_token = token_data.get("accessToken")
+        provider_token = token_data.get("providerToken", {}).get("access_token")
+    except json.JSONDecodeError as e:
+        die(f"Failed to parse expanded token as JSON: {e}")
+
+    if not api_token:
+        die("Failed to extract API token")
+
+    if not provider_token:
+        die("Failed to extract provider token")
+
+    debug("Tokens successfully extracted", debug_enabled)
+    return api_token, provider_token
+
+
+def merge_json(current: Dict[str, Any], update: Dict[str, Any]) -> Dict[str, Any]:
+    """Merge two JSON objects (update overwrites current)"""
+    result = current.copy()
+
+    # Deep merge: current is base, update overwrites
+    for key, value in update.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            result[key] = merge_json(result[key], value)
+        else:
+            result[key] = value
+
+    return result
+
+
+def encrypt_api_token(api_token: str, debug_enabled: bool) -> None:
+    """Encrypt the API token and store it in the global secret file"""
+    secret_file = CONFIG_DIR / "secFile"
+    secret_content = {}
+    update = {"GitKraken": {"api-accessToken": api_token}}
+
+    debug(f"Encrypting API token to {secret_file}", debug_enabled)
+
+    # Decrypt existing secret file if it exists
+    if secret_file.exists():
+        debug("Decrypting existing secret file", debug_enabled)
+
+        try:
+            result = subprocess.run(
+                ["gk-decrypt", str(secret_file)],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            secret_content = json.loads(result.stdout)
+        except subprocess.CalledProcessError as e:
+            # Print the original error from gk-decrypt (stderr)
+            if e.stderr:
+                print(e.stderr, file=sys.stderr, end="")
+                die(exit_code=e.returncode)
+
+            die("Failed to decrypt existing secret file")
+        except json.JSONDecodeError as e:
+            die(f"Failed to parse decrypted secret file: {e}")
+
+    debug("Merging existing secret data with new API token", debug_enabled)
+    merged_content = merge_json(secret_content, update)
+
+    debug("Saving encrypted file in place", debug_enabled)
+
+    try:
+        result = subprocess.run(
+            ["gk-encrypt", "-o", str(secret_file)],
+            input=json.dumps(merged_content),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as e:
+        if e.stderr:
+            print(e.stderr, file=sys.stderr, end="")
+            die(exit_code=e.returncode)
+
+        die("Failed to encrypt API token")
+
+
+def encrypt_provider_token(
+    provider_token: str, profile_dir: Path, debug_enabled: bool
+) -> None:
+    """Encrypt the provider token and store it in the profile-specific secret file"""
+    provider_secret_file = profile_dir / "secFile"
+    debug(f"Encrypting provider token to {provider_secret_file}", debug_enabled)
+
+    provider_data = {"GitKraken": {"accessToken": provider_token}}
+
+    try:
+        subprocess.run(
+            ["gk-encrypt", "-o", str(provider_secret_file)],
+            input=json.dumps(provider_data),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as e:
+        if e.stderr:
+            print(e.stderr, file=sys.stderr, end="")
+            die(exit_code=e.returncode)
+
+        die("Failed to encrypt provider token")
+
+
+def update_config(provider: str, debug_enabled: bool) -> None:
+    """Update the main config file with registration data"""
+    debug("Updating config file with registration data", debug_enabled)
+
+    try:
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+            current = json.load(f)
+    except (IOError, json.JSONDecodeError) as e:
+        die(f"Failed to read config file: {e}")
+
+    # Generate ISO 8601 timestamp with milliseconds
+    now = datetime.now(timezone.utc)
+    timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+
+    update = {
+        "registration": {
+            "status": "activated",
+            "loginType": provider,
+            "date": timestamp,
+        },
+        "userMilestones": {"firstLoginRegister": True},
+    }
+
+    merged = merge_json(current, update)
+
+    try:
+        with open(TMP_CONFIG, "w", encoding="utf-8") as f:
+            json.dump(merged, f, indent=2)
+
+        TMP_CONFIG.replace(CONFIG_FILE)
+    except (IOError, OSError) as e:
+        die(f"Failed to write config file: {e}")
+
+
+def cleanup() -> None:
+    """Remove temporary files on exit"""
+    try:
+        if TMP_CONFIG.exists():
+            TMP_CONFIG.unlink()
+    except Exception:
+        pass
+
+
+########
+# MAIN #
+########
+
+
+def signal_handler(sig: int, frame: Any) -> NoReturn:
+    """Handle interruptions gracefully"""
+    cleanup()
+    warn("\nScript interrupted")
+    sys.exit(130)  # Standard exit code for SIGINT
+
+
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments"""
+
+    parser = argparse.ArgumentParser(
+        prog=SCRIPT_NAME,
+        description=DESCRIPTION,
+        epilog=f"Example: {SCRIPT_NAME} --provider=github --profile=default",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+
+    parser.add_argument(
+        "-p",
+        "--provider",
+        metavar="PROVIDER",
+        required=True,
+        help=f"provider to login with (available: {','.join(PROVIDERS)})",
+    )
+
+    parser.add_argument(
+        "-P",
+        "--profile",
+        metavar="PROFILE_ID",
+        help="profile ID to use (defaults to default profile)",
+    )
+
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="output debug information",
+    )
+
+    parser.add_argument(
+        "-v", "--version", action="version", version=f"%(prog)s {VERSION}"
+    )
+
+    return parser.parse_args()
+
+
+def main() -> None:
+    """Main entry point"""
+
+    # Set up signal handlers
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
+    # Parse command-line arguments
+    args = parse_arguments()
+
+    debug(f"Starting GitKraken login process", args.debug)
+    debug(f"Using {CONFIG_DIR} as root directory", args.debug)
+
+    # Execute main logic
+    provider = ensure_provider(args.provider, args.debug)
+    profile = ensure_profile(args.profile, args.debug)
+    profile_dir = ensure_config(profile, provider, args.debug)
+    open_browser(provider)
+    oauth_token = set_token()
+    api_token, provider_token = extract_token(oauth_token, args.debug)
+    encrypt_api_token(api_token, args.debug)
+    encrypt_provider_token(provider_token, profile_dir, args.debug)
+    update_config(provider, args.debug)
+
+    success("GitKraken authentication successful!")
+    print("Please restart or start GitKraken for changes to take effect.")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    finally:
+        cleanup()
