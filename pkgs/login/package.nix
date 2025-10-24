@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
     encrypt
     xdg-utils
   ];
+
   propagatedBuildInputs = [
     (python3.withPackages (
       p: with p; [
-        cryptography
         termcolor
       ]
     ))
