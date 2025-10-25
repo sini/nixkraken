@@ -25,7 +25,7 @@ with subtest("Custom time is displayed"):
     # WARN: for some reason, this succeeds a few seconds before the window actually
     #       shows up on screen, hence the sleep delay
     machine1.wait_for_window("GitKraken Desktop")
-    machine1.sleep(15)
+    machine1.sleep(20)
 
     # Hide commit details panel (wait for UI to be updated before doing OCR)
     machine1.send_key("ctrl-k")
