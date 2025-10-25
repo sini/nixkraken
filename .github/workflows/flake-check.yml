@@ -22,5 +22,6 @@ jobs:
         with:
           hatchet-protocol: holster
       - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Check Flake
         run: nix flake check
