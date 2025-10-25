@@ -42,7 +42,7 @@ for i, machine in enumerate([machine1, machine2], start=1):
 
         # Wait for window to show up
         # WARN: for some reason, this succeeds a few seconds before the window actually
-        #       shows up on screen, hence the 15 seconds sleep
+        #       shows up on screen, hence the sleep delay
         machine.wait_for_window("GitKraken Desktop")
         machine.sleep(15)
 

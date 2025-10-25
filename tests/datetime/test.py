@@ -23,7 +23,7 @@ with subtest("Custom time is displayed"):
 
     # Wait for window to show up
     # WARN: for some reason, this succeeds a few seconds before the window actually
-    #       shows up on screen, hence the 15 seconds sleep
+    #       shows up on screen, hence the sleep delay
     machine1.wait_for_window("GitKraken Desktop")
     machine1.sleep(15)
 
