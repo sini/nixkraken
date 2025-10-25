@@ -1,6 +1,13 @@
 # pyright: reportUndefinedVariable=false
 machine1.wait_for_x()
 
+with subtest("GitKraken version matches"):
+    # GitKraken won't launch unless '--no-sandbox' is set when running as root
+    version = machine1.wait_until_succeeds(
+        "gitkraken --no-sandbox --version | tr -d '\n'"
+    )
+    t.assertEqual(version, "@version@")
+
 with subtest("GitKraken launches"):
     # GitKraken won't launch unless '--no-sandbox' is set when running as root
     # Disable splashscreen with '--show-splashscreen' ('-s') set to false

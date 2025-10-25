@@ -1,6 +1,9 @@
-# This test checks that GitKraken is correctly installed and can be launched.
-# It also tests that application and profile-specific configuration files gets written to home directory.
+# This test checks that GitKraken:
+# - GitKraken is correctly installed at expected version
+# - GitKraken can be launched
+# - application configuration file exist in home directory
+# - profile-specific configuration file exist in home directory
 
 {
-  home-manager.users.root.programs.nixkraken.enable = true;
+  # No need for any specific config
 }
