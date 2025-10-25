@@ -19,5 +19,5 @@ runCommand "extract-gitkraken-app"
   ''
     mkdir $out
     asar e ${gitkraken.src}/resources/app.asar $out
-    prettier -w $out/src/main/static/main.bundle.js
+    prettier "$out/src/**/*.js" -w
   ''
