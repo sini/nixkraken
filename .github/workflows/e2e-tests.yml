@@ -56,3 +56,9 @@ jobs:
       - name: Run test '${{ matrix.tests }}' against GitKraken version ${{ matrix.versions }}
         run: |
           nix-build ./tests -A ${{ matrix.tests }} --argstr withVersion ${{ matrix.versions }}
+      - name: Upload test results
+        if: success()
+        uses: actions/upload-artifact@v5
+        with:
+          name: test-${{ matrix.tests }}-${{ matrix.versions }}
+          path: result/
