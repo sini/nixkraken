@@ -8,7 +8,6 @@
       };
 
       nixkraken = {
-        enable = true;
         acceptEULA = true;
         skipTutorial = true;
       };

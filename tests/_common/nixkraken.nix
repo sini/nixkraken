@@ -1,4 +1,4 @@
-{ lib, ... }:
+_:
 
 let
   # WARN: this MUST be updated to match nixpkgs version defined in flake.nix
@@ -24,7 +24,6 @@ in
       (import ../../module.nix)
     ];
 
-    programs.nixkraken.version = lib.mkDefault "11.1.0";
     home.stateVersion = "25.05";
   };
 }

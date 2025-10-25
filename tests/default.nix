@@ -1,5 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
+  withVersion ? null,
   ...
 }:
 
@@ -14,10 +15,11 @@ let
 
   # Build test using common conventions
   mkTest =
-    name:
+    name: withVersion:
     let
       testImport = import (currentDir + "/${name}");
-      test = if lib.isFunction testImport then testImport pkgs else testImport;
+      test =
+        if lib.isFunction testImport then testImport (pkgs // { inherit withVersion; }) else testImport;
       machines = if test ? machine then lib.toList test.machine else lib.toList test;
       extraOpts = lib.optionalAttrs (test ? extraOpts) test.extraOpts;
     in
@@ -27,13 +29,29 @@ let
         inherit name;
 
         enableOCR = true;
-        testScript = lib.readFile ./${name}/test.py;
+        testScript =
+          lib.readFile
+            (pkgs.substitute {
+              src = ./${name}/test.py;
+
+              substitutions = [
+                "--replace-quiet"
+                "@version@"
+                withVersion
+              ];
+            }).outPath;
 
         nodes = lib.listToAttrs (
           lib.imap (
             i: machine:
             lib.nameValuePair "machine${builtins.toString i}" (
-              machine
+              {
+                home-manager.users.root.programs.nixkraken = {
+                  enable = lib.mkForce true;
+                  version = lib.mkIf (withVersion != null) withVersion;
+                };
+              }
+              // machine
               // {
                 imports = (lib.optionals (machine ? imports) machine.imports) ++ [
                   ./_common
@@ -46,7 +64,7 @@ let
     );
 
   # Import all tests in an attribute set with tests name as attributes name
-  allTests = lib.mapAttrs (name: _: mkTest name) tests;
+  allTests = lib.mapAttrs (name: _: mkTest name withVersion) tests;
 in
 # Build attribute set of all tests and additional helper custom derivations
 allTests

@@ -3,7 +3,6 @@
 
 {
   home-manager.users.root.programs.nixkraken = {
-    enable = true;
     acceptEULA = true;
 
     # In order to check for EULA acceptance, we have to skip tutorial
