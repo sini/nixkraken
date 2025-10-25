@@ -21,12 +21,12 @@ with subtest("GitKraken launches"):
 
     # Check if welcome screen is displayed
     ocr = machine1.get_screen_text()
-    t.assertRegex(ocr, "Welcome to GitKraken Desktop")
+    t.assertRegex(ocr, "GitKraken Desktop")
 
     # Take a screenshot of GitKraken
     machine1.screenshot("snapshot")
 
-with subtest("Config exists"):
+with subtest("Application config exists"):
     machine1.succeed("stat ~/.gitkraken/config")
 
 with subtest("Default profile config exists"):

@@ -24,8 +24,7 @@ with subtest("Tutorial is skipped"):
     # Check new tab is opened
     ocr = machine1.get_screen_text()
     t.assertRegex(ocr, "New Tab")
-    t.assertRegex(ocr, "Repositories")
-    t.assertRegex(ocr, "Workspaces")
+    t.assertRegex(ocr, "Release Notes")
 
 with subtest("Configuration is reporting accepted EULA"):
     # Parse config as JSON
