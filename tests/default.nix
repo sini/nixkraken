@@ -44,20 +44,18 @@ let
         nodes = lib.listToAttrs (
           lib.imap (
             i: machine:
-            lib.nameValuePair "machine${builtins.toString i}" (
-              {
-                home-manager.users.root.programs.nixkraken = {
-                  enable = lib.mkForce true;
-                  version = lib.mkIf (withVersion != null) withVersion;
-                };
-              }
-              // machine
-              // {
-                imports = (lib.optionals (machine ? imports) machine.imports) ++ [
-                  ./_common
-                ];
-              }
-            )
+            lib.nameValuePair "machine${builtins.toString i}" {
+              imports = [
+                ./_common
+                machine
+                {
+                  home-manager.users.root.programs.nixkraken = {
+                    enable = lib.mkForce true;
+                    version = lib.mkIf (withVersion != null) withVersion;
+                  };
+                }
+              ];
+            }
           ) machines
         );
       }
