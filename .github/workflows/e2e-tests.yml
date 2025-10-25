@@ -1,0 +1,58 @@
+name: End-to-end tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - gitkraken/versions.nix
+      - module.nix
+      - modules/**/*
+      - pkgs/configure/*
+      - pkgs/theme/*
+      - tests/**/*
+
+jobs:
+  generate-test-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      test-matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: holster
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Generate test matrix
+        id: set-matrix
+        run: |
+          tests=$(nix eval \
+            --impure \
+            --json \
+            --expr 'let pkgs = (builtins.getFlake "nixpkgs").legacyPackages.${builtins.currentSystem}; in pkgs.lib.filter (t: t != "all" && t != "override" && t != "overrideDerivation" && t != "show") (pkgs.lib.attrNames (pkgs.callPackage ./tests {}))' \
+            | jq -r '{ tests: . }')
+          versions=$(nix eval -f ./gitkraken/versions.nix --json | jq -r '{ versions: . | keys }')
+          matrix=$(echo "$tests" "$versions" | jq -cs '.[0] * .[1]')
+          echo "Generated matrix: $matrix"
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+
+  run-tests:
+    needs: generate-test-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: holster
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Run test '${{ matrix.tests }}' against GitKraken version ${{ matrix.versions }}
+        run: |
+          nix-build ./tests -A ${{ matrix.tests }} --argstr withVersion ${{ matrix.versions }}
