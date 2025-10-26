@@ -239,13 +239,13 @@ tests/_common
 └── nixkraken.nix
 ```
 
-## `default.nix`
+### `default.nix`
 
 Imports the minimum required configuration to be able to use NixKraken in tests.
 
 It automatically imports `display.nix` and `nixkraken.nix`, so that tests only need to import `_common` for being able to test NixKraken.
 
-## `display.nix`
+### `display.nix`
 
 Defines NixOS configuration options to enable display in tests.
 
@@ -253,7 +253,7 @@ It configures X11 and a display/window manager, required by most tests since Git
 
 It should remain mostly stable, updated only for compatibility with future NixOS versions.
 
-## `nixkraken.nix`
+### `nixkraken.nix`
 
 Enables both [Home Manager][hm] and NixKraken in tests.
 
@@ -267,7 +267,7 @@ This is due to the way Home Manager works: both [Home Manager and nixpkgs versio
 
 :::
 
-## `base-config.nix`
+### `base-config.nix`
 
 Defines a basic working GitKraken configuration which will give a usable UI on app launch.
 
