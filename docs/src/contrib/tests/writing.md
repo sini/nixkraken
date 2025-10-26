@@ -1,3 +1,5 @@
+[doc-opt-enabled]: ../../reference/root.md#enabled
+[doc-running-tests-gk-version]: ./running.md#set-gitkraken-version
 [flakes-outputs]: https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/outputs
 [garnix]: https://garnix.io
 [gitkraken]: https://www.gitkraken.com/git-client
@@ -239,11 +241,19 @@ tests/_common
 └── nixkraken.nix
 ```
 
+Additionally, all tests have NixKraken force-enabled ([with `enabled` option][doc-opt-enabled]) and are using the latest GitKraken version available, unless [stated otherwise][doc-running-tests-gk-version].
+
 ### `default.nix`
 
 Imports the minimum required configuration to be able to use NixKraken in tests.
 
 It automatically imports `display.nix` and `nixkraken.nix`, so that tests only need to import `_common` for being able to test NixKraken.
+
+::: info
+
+The `_common` directory is imported by default in all tests.
+
+:::
 
 ### `display.nix`
 

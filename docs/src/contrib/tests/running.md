@@ -1,7 +1,10 @@
-[hm]: https://nix-community.github.io/home-manager
 [doc-sync-nixpkgs-hm]: ./writing.md#nixkrakennix
+[gh-issue-flake-args]: https://github.com/NixOS/nix/issues/2861
+[gitkraken]: https://www.gitkraken.com/git-client
+[hm]: https://nix-community.github.io/home-manager
 [nix-manual-lookup-path]: https://nix.dev/manual/nix/stable/language/constructs/lookup-path
 [nixos-wiki-flakes]: https://wiki.nixos.org/wiki/Flakes
+[repo-action-e2e]: https://github.com/nicolas-goudry/nixkraken/blob/main/.github/workflows/e2e-tests.yml
 
 # Running Tests
 
@@ -54,6 +57,29 @@ $ ./result/bin/show-tests
 # Run interactive test
 $ ./result/bin/nixos-test-driver
 ```
+
+### Set GitKraken Version
+
+All tests, by default, are run against the latest [GitKraken][gitkraken] version supported by NixKraken.
+
+If needed, tests can be run against a different version of GitKraken by providing the `withVersion` argument.
+
+Since [Flakes do not allow overriding derivation arguments][gh-issue-flake-args], only classic Nix commands can be used to benefit from this feature:
+
+```sh
+$ nix-build ./tests \
+  -I nixpkgs=https://github.com/nixos/nixpkgs/archive/nixos-25.05.tar.gz \
+  -A '<test-name>' \
+  --argstr withVersion <version>
+```
+
+::: info
+
+This method of running tests is currently used to perform automated CI tests against all supported GitKraken versions.
+
+See the [`e2e-tests.yml` workflow][repo-action-e2e] for real-world usage.
+
+:::
 
 ## Test Results
 
