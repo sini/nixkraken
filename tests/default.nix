@@ -13,6 +13,12 @@ let
     builtins.readDir currentDir
   );
 
+  # Get default version of GitKraken
+  gitkrakenVersions = import ../gitkraken/versions.nix;
+  defaultVersion = lib.elemAt (lib.attrNames (
+    lib.filterAttrs (version: spec: spec.latest or false) gitkrakenVersions
+  )) 0;
+
   # Build test using common conventions
   mkTest =
     name: withVersion:
@@ -37,7 +43,7 @@ let
               substitutions = [
                 "--replace-quiet"
                 "@version@"
-                withVersion
+                (if withVersion != null then withVersion else defaultVersion)
               ];
             }).outPath;
 
