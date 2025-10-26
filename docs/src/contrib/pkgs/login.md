@@ -1,6 +1,6 @@
 [gitkraken]: https://www.gitkraken.com/git-client
 [oauth-tokens]: https://www.oauth.com/oauth2-servers/access-tokens
-[pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.sh
+[pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.py
 
 # `gk-login`
 
@@ -44,4 +44,4 @@ $ nix-build ./pkgs -A login && ./result/bin/gk-login
 $ gk-login
 ```
 
-The script is extensively documented through comments in [the source file itself][pkg-source].
+For further details, refer to the [actual script code][pkg-source].

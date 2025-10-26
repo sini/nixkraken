@@ -1,6 +1,6 @@
 [gitkraken]: https://www.gitkraken.com/git-client
 [hm-activation]: https://nix-community.github.io/home-manager/index.xhtml#sec-internals-activation
-[pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/theme/script.sh
+[pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/theme/script.py
 
 # `gk-theme`
 
@@ -45,4 +45,4 @@ Since the package is typically run during [Home Manager activation][hm-activatio
 - `DRY_RUN`: if set, commands are not executed, only logged
 - `VERBOSE`: if set, logs are enabled
 
-The script itself is extensively documented through comments in [the source file itself][pkg-source].
+For further details, refer to the [actual script code][pkg-source].

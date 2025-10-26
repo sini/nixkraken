@@ -14,16 +14,14 @@
 
 NixKraken uses several packages to perform actions related to [GitKraken][gitkraken] configuration handling. Because GitKraken's configuration files also store mutable application state, they cannot be written directly by [Nix][nix-manual]. Instead, these packages are used to safely read, modify, and write to the JSON configuration files without destroying the state.
 
-These packages are actually Bash scripts bundled using Nix's [`writeShellApplication`][nixpkgs-manual-writeshellapp], which allows to define their runtime dependencies. This approach enables the scripts to be used as [Nix packages][nixpkgs-manual] while also being executable directly, provided all their dependencies are available in the shell environment.
-
-Packages are dynamically exported by using the [`packagesFromDirectoryRecursive` function][nixpkgs-manual-pkgsdirrec]. Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
+Packages are written in Python and are dynamically exported using the [`packagesFromDirectoryRecursive` function][nixpkgs-manual-pkgsdirrec]. Adding a directory under `pkgs` with a `package.nix` will automatically make a package (named after the directory) available for use.
 
 ::: tip
 
 When you enter a [Nix development shell][nixdev-shell], the packages are available as their `gk-`-prefixed counterparts:
 
 ```sh
-$ nix develop
+$ nix develop  # ...or nix-shell
 $ gk-configure # pkgs/configure/default.nix
 $ gk-decrypt   # pkgs/decrypt/default.nix
 $ gk-encrypt   # pkgs/encrypt/default.nix

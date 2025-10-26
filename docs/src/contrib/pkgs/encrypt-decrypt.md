@@ -1,6 +1,6 @@
-[decrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/decrypt/script.sh
+[decrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/decrypt/script.py
 [doc-login]: ./login.md
-[encrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.sh
+[encrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.py
 [gitkraken]: https://www.gitkraken.com/git-client
 
 # `gk-encrypt` and `gk-decrypt`
@@ -51,7 +51,7 @@ $ gk-encrypt
 $ gk-decrypt
 ```
 
-The scripts are extensively documented through comments in the source files themselves:
+For further details, refer to the actual scripts code:
 
 - [`gk-decrypt` source][decrypt-pkg-source]
 - [`gk-encrypt` source][encrypt-pkg-source]
