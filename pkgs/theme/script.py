@@ -216,7 +216,7 @@ def parse_arguments() -> Tuple[argparse.Namespace, argparse.ArgumentParser]:
         "--install",
         type=str,
         metavar="PATHS",
-        help="Install themes (comma-separated list of absolute paths to lookup for JSONC theme files)",
+        help="install themes (comma-separated list of absolute paths to lookup for JSONC theme files)",
     )
 
     parser.add_argument(
@@ -229,7 +229,7 @@ def parse_arguments() -> Tuple[argparse.Namespace, argparse.ArgumentParser]:
         "-v",
         "--verbose",
         action="store_true",
-        help="only print what would be done",
+        help="enable verbose output",
     )
 
     parser.add_argument(

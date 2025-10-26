@@ -746,7 +746,7 @@ def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments"""
 
     profiles = get_profiles()
-    profiles_help = "profile ID to use (defaults to default profile)"
+    profiles_help = "profile ID to use"
     if profiles:
         profiles_list = ", ".join(
             [

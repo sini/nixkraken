@@ -1,30 +1,50 @@
 {
-  writeShellApplication,
-  coreutils,
-  gawk,
-  gnugrep,
-  iproute2,
-  jq,
-  openssl,
-  unixtools,
-  util-linux,
+  lib,
+  stdenv,
+  substitute,
+  python3,
 }:
 
-let
-  name = builtins.baseNameOf (builtins.toString ./.);
-in
-writeShellApplication {
-  name = "gk-${name}";
-  text = builtins.readFile ./script.sh;
+stdenv.mkDerivation rec {
+  name = "gk-configure";
+  version = "1.0.0";
 
-  runtimeInputs = [
-    coreutils
-    gawk
-    gnugrep
-    iproute2
-    jq
-    openssl
-    unixtools.column
-    util-linux
+  src = substitute {
+    src = ./script.py;
+
+    substitutions = [
+      "--replace-fail"
+      "@version@"
+      version
+      "--replace-fail"
+      "@description@"
+      meta.description
+    ];
+  };
+  dontUnpack = true;
+
+  propagatedBuildInputs = [
+    (python3.withPackages (
+      p: with p; [
+        termcolor
+      ]
+    ))
   ];
+
+  installPhase = ''
+    runHook preInstall
+
+    install -Dm755 ${src} $out/bin/${name}
+
+    runHook postInstall
+  '';
+
+  meta = {
+    mainProgram = name;
+    description = "GitKraken configuration generator";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
+      nicolas-goudry
+    ];
+  };
 }
