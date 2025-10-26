@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import NoReturn, Optional, Any, Dict, Tuple
 
 try:
-    from termcolor import colored, cprint  # pyright: ignore[reportMissingImports]
+    from termcolor import cprint  # pyright: ignore[reportMissingImports]
 except ImportError:
     print(
         "Error: termcolor is not installed. Install it with: pip install termcolor",
@@ -437,14 +437,9 @@ def open_browser(provider: str) -> None:
     """Open the default web browser to the GitKraken OAuth login page for the selected provider"""
     url = f"https://api.gitkraken.com/oauth/{provider}/login?action=login&in_app=true"
 
-    print(
-        f"{colored('Opening web browser to login to GitKraken account...', attrs=['bold'])}"
-    )
-    print(
-        colored(
-            f"If browser doesn't open automatically, use this URL: {url}",
-            attrs=["dark"],
-        )
+    cprint("Opening web browser to login to GitKraken account...", attrs=["bold"])
+    cprint(
+        f"If browser doesn't open automatically, use this URL: {url}", attrs=["dark"]
     )
 
     try:
