@@ -83,7 +83,7 @@ If `version` is omitted, the function:
 
 ::: info About `passthru`
 
-The Flake uses derivations exposed by the `passthru` attribute to surface them as [Flake outputs][flakes-outputs] (eg. `gitkraken-v<dashed-version>`), which [Garnix CI][garnix] can target to build and populate the [binary cache][doc-cache].
+The Flake uses derivations exposed by the `passthru` attribute to surface them as [Flake outputs][flakes-outputs] (e.g., `gitkraken-v<dashed-version>`), which [Garnix CI][garnix] can target to build and populate the [binary cache][doc-cache].
 
 :::
 
@@ -124,7 +124,7 @@ Below are the steps required to add a new version of GitKraken to redistribute:
 
 **1. Add a new attribute for version**
 
-Use the dotted version as key (eg. `"11.2.0" = { ... }`) and set:
+Use the dotted version as key (e.g., `"11.2.0" = { ... }`) and set:
 
 - `commit` to the nixpkgs commit SHA where the GitKraken package was updated
 - `hash` temporarily to the empty string `""`

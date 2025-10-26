@@ -84,7 +84,7 @@ The [`profiles` module][loc-profiles] is an intentional exception to this patter
 
 :::
 
-This design lets you define global and default-profile behavior in top-level modules (eg. `nixkraken.gpg`, `nixkraken.user`, etc.) and reuse per-profile options for additional profiles under `nixkraken.profiles.*`.
+This design lets you define global and default-profile behavior in top-level modules (e.g., `nixkraken.gpg`, `nixkraken.user`, etc.) and reuse per-profile options for additional profiles under `nixkraken.profiles.*`.
 
 Example structure of the [`git` module][repo-git-module]:
 
@@ -134,7 +134,7 @@ flowchart TD
 
 ::: info
 
-Some modules (eg. the `ui` module) split options across multiple files for maintainability due to the large number of options.
+Some modules (e.g., the `ui` module) split options across multiple files for maintainability due to the large number of options.
 
 They still adhere to the global vs. profile option boundaries via `app-options.nix` and `profile-options.nix`.
 
@@ -146,7 +146,7 @@ This may evolve into nested submodules.
 
 To centralize application of GitKraken configuration, each submodule writes its evaluated global settings as an [attribute set][nix-manual-attrs] to an internal option `_submoduleSettings.<moduleName>`.
 
-The top-level module merges all entries in `_submoduleSettings` to form the final GitKraken configuration and serializes it to JSON before passing it to the [gk-configure package][doc-pkg-configure], which writes to the location expected by GitKraken (ie. `~/.gitkraken/config`).
+The top-level module merges all entries in `_submoduleSettings` to form the final GitKraken configuration and serializes it to JSON before passing it to the [gk-configure package][doc-pkg-configure], which writes to the location expected by GitKraken (i.e., `~/.gitkraken/config`).
 
 The following diagram illustrates the flow:
 
@@ -170,7 +170,7 @@ flowchart TB
 
 As noted earlier, most GitKraken settings are per-profile. The [`profiles` module][repo-profiles-module] manages both the default profile and additional profiles.
 
-The default profile is identified via an internal option `isDefault`. It uses GitKraken’s fixed identifier and sources its name and avatar from the root options `defaultProfile.name` and `defaultProfile.icon`.
+The default profile is identified via an internal option `isDefault`. It uses GitKraken's fixed identifier and sources its name and avatar from the root options `defaultProfile.name` and `defaultProfile.icon`.
 
 ::: info **About profile identifiers**
 

@@ -10,7 +10,7 @@ This section provides a complete reference for every available option. For pract
 
 ## Groups
 
-Options are organized into logical groups exposed as children attributes to `programs.nixkraken` (ie. the `graph` options are available at `programs.nixkraken.graph`).
+Options are organized into logical groups exposed as children attributes to `programs.nixkraken` (i.e., the `graph` options are available at `programs.nixkraken.graph`).
 
 Find below the list of available groups:
 

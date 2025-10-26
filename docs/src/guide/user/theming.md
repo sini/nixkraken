@@ -80,7 +80,7 @@ To install themes for GitKraken, add them to [`ui.extraThemes`][doc-opt-extrathe
 
 ::: info
 
-When adding a theme to `ui.extraThemes`, every variant of the theme is installed (eg. "frappe", "latte", "macchiato" and "mocha" for catppuccin theme).
+When adding a theme to `ui.extraThemes`, every variant of the theme is installed (e.g., "frappe", "latte", "macchiato" and "mocha" for catppuccin theme).
 
 Although the theme files are lightweight, you may not want to have all variants available in GitKraken. Therefore, we provide the following way to only select some variants:
 

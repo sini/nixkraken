@@ -17,7 +17,7 @@ Additionally, the Git references mentioned in this document may or may not exist
 
 Since [GitKraken][gitkraken] is a **proprietary** and **unfree** software (to some extent), various aspects of this module's development rely on interacting with minified JavaScript code that may change between releases. As a result, **compatibility cannot be guaranteed**, and the module is likely to break with each new GitKraken update.
 
-When the module is confirmed to work with a specific GitKraken version, a release branch matching this version will be created (ie. branch `v11.1.0` is expected to be fully compatible with GitKraken 11.1.0). Although release branches will most likely be considered feature-complete once created and will not see any further development, they still could introduce backports from newer versions (where relevant) as well as bug fixes.
+When the module is confirmed to work with a specific GitKraken version, a release branch matching this version will be created (i.e., branch `v11.1.0` is expected to be fully compatible with GitKraken 11.1.0). Although release branches will most likely be considered feature-complete once created and will not see any further development, they still could introduce backports from newer versions (where relevant) as well as bug fixes.
 
 Additionally, users should be aware that **NixKraken will only actively support GitKraken versions present in current stable and unstable branches of nixpkgs**. For example, at the time of writing (Oct. 2025), [nixpkgs 25.05 has GitKraken 11.1.0][gh-nixpkgs-gitkraken], meaning that earlier versions will not be supported.
 

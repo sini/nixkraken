@@ -181,7 +181,7 @@ See [minimal example][loc-example] for details.
 As previously noted, all tests must define a `test.py` file containing the [Python][python] test logic. Find below some useful details about it:
 
 - test machines are named `machine{id}`, where `{id}` is the machine index starting at `1`
-- each test machine is exposed as a [Machine object][nixos-manual-machine-objects] identified by its name (ie. `machine1`, `machine2`, …)
+- each test machine is exposed as a [Machine object][nixos-manual-machine-objects] identified by its name (i.e., `machine1`, `machine2`, …)
 - the Machine object provides methods to interact with the matching test machine:
   - execute shell commands
   - get a textual representation of the machine screen
