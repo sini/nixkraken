@@ -4,6 +4,7 @@
   callPackage,
   substitute,
   installShellFiles,
+  makeWrapper,
   python3,
   xdg-utils,
 }:
@@ -32,12 +33,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     installShellFiles
-  ];
-
-  buildInputs = [
-    decrypt
-    encrypt
-    xdg-utils
+    makeWrapper
   ];
 
   propagatedBuildInputs = [
@@ -54,6 +50,17 @@ stdenv.mkDerivation rec {
     install -Dm755 ${src} $out/bin/${name}
 
     runHook postInstall
+  '';
+
+  postInstall = ''
+    wrapProgram $out/bin/${name} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          decrypt
+          encrypt
+          xdg-utils
+        ]
+      }
   '';
 
   postFixup = ''
