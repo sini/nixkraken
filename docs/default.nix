@@ -28,7 +28,7 @@ let
     lib.mapAttrs (
       theme: drv:
       let
-        src = drv.src.gitRepoUrl or drv.src.url;
+        src = drv.src.gitRepoUrl or drv.src.url or drv.meta.homepage;
         # To Title Case
         prettyName = lib.concatStringsSep " " (
           lib.map (word: lib.toSentenceCase word) (lib.splitString "-" theme)
