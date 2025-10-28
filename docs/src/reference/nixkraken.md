@@ -6,30 +6,26 @@
 
 All NixKraken options are available under the `programs.nixkraken` attribute.
 
-This section provides a complete reference for every available option. For practical, real-world examples, refer to the [configuration examples][doc-examples].
+This documentation provides a complete reference for every available option. For practical, real-world examples, refer to the [configuration examples][doc-examples].
 
 ## Groups
 
-Options are organized into logical groups exposed as children attributes to `programs.nixkraken` (i.e., the `graph` options are available at `programs.nixkraken.graph`).
+Options are organized into logical groups exposed as children attributes to `programs.nixkraken`.
 
-Find below the list of available groups:
-
-<!-- GROUPS_GEN -->
-
-Additionally, groups can be found in the sidebar.
+For example, options from the [`graph` group](./graph.md) are available at `programs.nixkraken.graph`.
 
 ## Scopes
 
 Most options in GitKraken applies to a given profile, but some of them are global to the application and will therefore apply to all profiles.
 
-For a better discovery of options scope, we document them using emoji icons:
+For a better discovery of options scope, we document them using the following badges:
 
-- 🌐 options apply globally
-- 👤 options apply to a specific profile
+- <Badge type="tip"><i class="fa-solid fa-globe"></i> Global</Badge> options apply globally
+- <Badge type="tip"><i class="fa-solid fa-users"></i> Profile</Badge> options apply to a specific profile
 
-::: info
+::: tip
 
-Unless a 👤 option is child of the [`profiles` group][doc-opt-profiles], it will apply to the default profile and additional profiles, unless overridden.
+Profile options outside the [`profiles` group][doc-opt-profiles] apply to the default profile **and** additional profiles, unless overridden.
 
 Refer to the [profiles guide][doc-profiles] for further details on profile inheritance.
 
