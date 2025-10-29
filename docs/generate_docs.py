@@ -139,7 +139,9 @@ def extract_scope(description: str) -> tuple[str, Optional[str]]:
     return description, None
 
 
-def render_option(option_name: str, option_data: Dict, is_group: bool = False) -> str:
+def render_option(
+    option_name: str, option_data: Dict, is_group: bool = False, is_root: bool = False
+) -> str:
     """
     Render an option as markdown.
 
@@ -154,8 +156,12 @@ def render_option(option_name: str, option_data: Dict, is_group: bool = False) -
     # Strip 'programs.nixkraken.' prefix
     display_name = option_name.replace("programs.nixkraken.", "")
 
-    # Use level 1 header for group options, level 2 for child options
-    header_level = "#" if is_group else "##"
+    if is_root:
+        header_level = "###"
+    else:
+        # Use level 1 header for group options, level 2 for child options
+        header_level = "#" if is_group else "##"
+
     lines = [f"{header_level} {display_name}", ""]
 
     # Description and scope detection
@@ -252,8 +258,10 @@ def generate_documentation(json_file: str, output_dir: Optional[Path] = None) ->
 
     # Generate markdown files
     for group_key, options_list in grouped_options.items():
+        is_root = group_key == "root"
+
         # Determine filename
-        filename = "root.md" if group_key == "root" else group_to_filename(group_key)
+        filename = "root.md" if is_root else group_to_filename(group_key)
 
         # Create full filepath with output directory
         filepath = output_dir / filename
@@ -263,13 +271,13 @@ def generate_documentation(json_file: str, output_dir: Optional[Path] = None) ->
         content = []
 
         # Add virtual header for root group
-        if group_key == "root":
-            content.append("# Root options\n")
+        if is_root:
+            content.append("## Root options\n")
 
         for option_name, option_data in options_list:
             # Check if this option is the group itself
             is_group = option_name == group_key
-            content.append(render_option(option_name, option_data, is_group))
+            content.append(render_option(option_name, option_data, is_group, is_root))
 
         # Write file with frontmatter
         with filepath.open("w", encoding="utf-8") as f:
