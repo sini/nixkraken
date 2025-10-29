@@ -1,12 +1,9 @@
-[doc-cache]: ../guide/user/caching.md
-[doc-contrib-gitflow]: ./contributing.md#get-familiar-with-our-git-workflow
-[doc-opt-version]: ../reference/nixkraken.md#version
-[doc-pkg-install-gitkraken]: ../guide/getting-started/packages.md#gitkraken-package
-[doc-pkg-login]: ./pkgs/login.md
-[electron]: https://www.electronjs.org
+[doc-cache]: ../../guide/user/caching.md
+[doc-contrib-gitflow]: ../contributing.md#get-familiar-with-our-git-workflow
+[doc-opt-version]: ../../reference/nixkraken.md#version
+[doc-pkg-install-gitkraken]: ../../guide/getting-started/packages.md#gitkraken-package
 [flakes-outputs]: https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/outputs
 [garnix]: https://garnix.io
-[gh-asar]: https://github.com/electron/asar
 [gh-nixpkgs-gitkraken-commits]: https://github.com/NixOS/nixpkgs/commits/master/pkgs/by-name/gi/gitkraken/package.nix
 [gh-nixpkgs]: https://github.com/nixos/nixpkgs
 [gitkraken]: https://www.gitkraken.com/git-client
@@ -18,12 +15,10 @@
 [nixpkgs-manual-overrideattrs]: https://nixos.org/manual/nixpkgs/stable/#sec-pkg-overrideAttrs
 [nixpkgs-manual-passthru]: https://nixos.org/manual/nixpkgs/stable/#chap-passthru
 [nixpkgs-manual-unfree]: https://nixos.org/manual/nixpkgs/stable/#sec-allow-unfree
-[prettier]: https://prettier.io
-[repo-gitkraken-extract]: https://github.com/nicolas-goudry/nixkraken/blob/main/gitkraken/extract.nix
 [repo-gitkraken-versions]: https://github.com/nicolas-goudry/nixkraken/blob/main/gitkraken/versions.nix
 [repo-gitkraken]: https://github.com/nicolas-goudry/nixkraken/blob/main/gitkraken/default.nix
 
-# GitKraken
+# Redistributing GitKraken
 
 This page explains how NixKraken redistributes specific [GitKraken][gitkraken] versions by importing matching commits from [nixpkgs][gh-nixpkgs].
 
@@ -156,24 +151,3 @@ Ensure only one entry has `latest = true`.
 :::
 
 **4. Commit, push and open a PR following the [contribution workflow][doc-contrib-gitflow]**
-
-## Extracting GitKraken Application Code
-
-GitKraken is packaged as an [Electron][electron] application which bundles JavaScript in an <abbr title="Atom Shell Archive Format">ASAR</abbr> archive. Electron provides an official [CLI to work on ASAR archives][gh-asar].
-
-We provide a small [Nix derivation that extracts the ASAR][repo-gitkraken-extract] and prettifies the JavaScript (using [Prettier][prettier]) for easier inspection. This is useful when maintaining the [`gk-login` package][doc-pkg-login].
-
-We only provide classic Nix commands for this, to avoid having to distribute this derivation through NixKraken's Flake:
-
-```sh
-# Extract the specified GitKraken version
-$ nix-build ./gitkraken/extract.nix --argstr version 11.1.0
-```
-
-The command outputs the ASAR content in `result`, with all GitKraken source code files prettified.
-
-::: info
-
-The extracted files are the bundled sources and may be harder to read than original source files.
-
-:::

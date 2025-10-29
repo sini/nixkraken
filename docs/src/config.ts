@@ -96,7 +96,24 @@ function sidebarContrib(): DefaultTheme.SidebarItem[] {
         { text: 'How To', link: 'contributing' },
         { text: 'Modules', link: 'modules' },
         { text: 'Themes', link: 'themes' },
-        { text: 'GitKraken', link: 'gitkraken' },
+        {
+          text: 'GitKraken',
+          base: '/contrib/gitkraken/',
+          collapsed: true,
+          items: [
+            { text: 'Redistribution', link: 'redistribution' },
+            {
+              text: 'Utilities',
+              base: '/contrib/gitkraken/utils/',
+              collapsed: true,
+              items: [
+                { text: 'App Extractor', link: 'app-extractor' },
+                { text: 'Deep JSON Differ', link: 'deep-json-differ' },
+                { text: 'Config Discovery', link: 'config-discovery' },
+              ],
+            },
+          ],
+        },
         {
           text: 'Helper Packages',
           base: '/contrib/pkgs/',
