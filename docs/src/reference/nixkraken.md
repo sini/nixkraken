@@ -2,7 +2,7 @@
 [doc-profiles]: ../guide/user/profiles.md
 [doc-opt-profiles]: ./profiles.md
 
-# Options Reference
+# Module Options
 
 All NixKraken options are available under the `programs.nixkraken` attribute.
 
@@ -30,3 +30,5 @@ Profile options outside the [`profiles` group][doc-opt-profiles] apply to the de
 Refer to the [profiles guide][doc-profiles] for further details on profile inheritance.
 
 :::
+
+<!-- @include: ./root.md -->
