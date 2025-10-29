@@ -74,6 +74,8 @@
         # - they are not checked by 'nix flake check'
         # - they are not built by Garnix
         tests = import ./tests pkgs;
+        # Output treefmt wrapped with config file
+        treefmt = treefmt-nix.lib.mkWrapper pkgs ./treefmt.nix;
       });
     };
 }
