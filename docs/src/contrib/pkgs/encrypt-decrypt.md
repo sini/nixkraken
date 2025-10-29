@@ -1,4 +1,5 @@
 [decrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/decrypt/script.py
+[doc-app-extractor]: ../gitkraken/utils/app-extractor.md
 [doc-login]: ./login.md
 [encrypt-pkg-source]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/encrypt/script.py
 [gitkraken]: https://www.gitkraken.com/git-client
@@ -58,53 +59,79 @@ For further details, refer to the actual scripts code:
 
 ## Encryption / Decryption Methods
 
-The encryption and decryption methods are adapted from [GitKraken][gitkraken]'s original code, reimplemented using Unix tools. The reference implementation below is prettified from `main.bundle.js` with comments manually added:
+The encryption and decryption methods are adapted from [GitKraken][gitkraken]'s original code, reimplemented using Python modules.
+
+The reference implementation below is stripped from irrelevant code, prettified from `main.bundle.js` and enhanced with comments.
+
+::: tip TL;DR
+
+The secrets are JSON data encrypted with the `appId` as the passphrase.
+
+:::
 
 ```js
-// Arguments:
-// - I: path to secFile
-// - re: appId
-// - ne: input encoding
-//
-// External variables
-// - le: path module
-// - ae: crypto module
-// - ce: logging library
-// - se: seems to be a wrapper around fs module and fs-extra library
-I.exports = (I, re, ne) => {
-  const pe = re || "",
-    Ee = ne || "aes256",
-    ge = le.resolve(I),
-    doCrypto = (I, re) => {
-      ce("doing crypto: %s", re ? "decrypting" : "encrypting");
-      const ne = re ? "binary" : "utf8",
-        se = re ? ae.createDecipher(Ee, pe) : ae.createCipher(Ee, pe),
-        le = [new Buffer(se.update(I, ne)), new Buffer(se.final())],
-        ge = Buffer.concat(le);
-      return ce("done doing crypto"), ge;
-    };
-  return {
-    load: () => (
-      ce("attempting to load"),
-      Promise.resolve()
-        .then(() => se.readFileAsync(ge))
-        .then((I) => doCrypto(I, !0).toString())
-        .then((I) => JSON.parse(I))
-        .catch((I) => (ce("failed to load:"), ce(I), {}))
-    ),
-    save: (I) => (
-      ce("attempting to save"),
-      Promise.resolve()
-        .then(() => se.ensureFileAsync(ge))
-        .then(() => JSON.stringify(I, null, 2))
-        .then((I) => doCrypto(I, !1))
-        .then((I) => se.writeFileAsync(ge, I))
-        .catch((I) => {
-          throw (ce("failed to save:"), ce(I), I);
-        })
-    ),
-  };
-};
+class Ae {
+  data = {};
+
+  /**
+   * Represents secure data.
+   * @param {string} re - Path to secret file
+   * @param {string} ne - Secret file password (appId)
+   * @param {string} se - Cryptography algorithm
+   */
+  constructor(re, ne, se) {
+    (this.secPath = re),
+      (this.password = ne),
+      (this.algorithm = se),
+      (this.cryptoHack = le.default), // This is Node's crypto module
+      this.loadData();
+  }
+
+  /**
+   * Loads data from a secret file (decryption).
+   */
+  async loadData() {
+    try {
+      // Create a decipher with the password key
+      const re = this.cryptoHack.createDecipher(
+          this.algorithm,
+          this.password,
+        ),
+        // Read the entire secret file as a Buffer
+        ne = await pe.promises.readFile(this.secPath),
+        // Decrypt data, verify authentication tag and convert decrypted Buffer to string
+        se = Buffer.concat([re.update(ne), re.final()]).toString();
+      // Parse decrypted data as JSON
+      this.data = JSON.parse(se);
+    } catch {
+      this.data = {};
+    }
+  }
+
+  /**
+   * Saves data into a secret file (encryption).
+   */
+  async saveData() {
+    try {
+      // Create a cipher with the password key
+      const re = this.cryptoHack.createCipher(
+          this.algorithm,
+          this.password,
+        ),
+        // Encrypt JSON data as string with authentication tag into a Buffer
+        ne = Buffer.concat([
+          re.update(Buffer.from(JSON.stringify(this.data))),
+          re.final(),
+        ]);
+      // Replace entire content of secret file with encrypted data
+      await pe.promises.writeFile(this.secPath, ne);
+    } catch {}
+  }
+}
 ```
 
-In summary, the secrets are JSON data encrypted with the `appId` as the passphrase.
+<center>
+
+_[Extracted][doc-app-extractor] from version GitKraken 11.5.0._
+
+</center>
