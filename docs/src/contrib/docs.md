@@ -384,13 +384,13 @@ $ nix-build -f docs/options-json.nix
 This command will generate an `options.json` file in the `result` directory, which we can use as input to the builder script:
 
 ```sh
-$ ./docs/generate_docs.py result/options.json
+$ ./docs/generate_docs.py result/options.json docs/src/reference
 ```
 
-By default, the script will generate the Markdown files in the current directory. To generate files in a different directory, a second argument specifying the output path can be provided.
+::: info
 
-::: warning
-Any pull request updating the reference pages will be denied.
+`docs/src/reference` is the output directory.
+
 :::
 
 ## Nix Derivation
@@ -412,6 +412,7 @@ $ nix-build ./docs
 ```
 
 ::: tip
+
 If using classic Nix commands, make sure to use at least nixpkgs 25.05:
 
 ```sh
