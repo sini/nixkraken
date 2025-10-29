@@ -7,7 +7,6 @@
 [hm-opt-homefile]: https://nix-community.github.io/home-manager/options.xhtml#opt-home.file
 [hm]: https://nix-community.github.io/home-manager
 [nix-manual-language]: https://nix.dev/manual/nix/stable/language/syntax.html
-[repo-login-script]: https://github.com/nicolas-goudry/nixkraken/blob/main/pkgs/login/script.sh
 
 # Known caveats
 
@@ -17,7 +16,7 @@ There have been reports of paid features configuration being reverted by the app
 
 Although users can login to their [GitKraken][gitkraken] account from within the application, **we recommend [using the dedicated process][doc-auth] to sign in with GitKraken** using the [`gk-login` package][doc-pkg-login].
 
-The security implications of using this authentication process are the same as using those available within the application, since it is replicating the code used by GitKraken. Also, the [code can easily be reviewed][repo-login-script] and is thoroughly documented.
+The security implications of using this authentication process are the same as using those available within the application, since it is replicating the code used by GitKraken.
 
 ::: tip **Key takeaway**
 

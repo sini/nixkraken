@@ -27,7 +27,7 @@
 [nixpkgs-manual]: https://nixos.org/manual/nixpkgs/stable
 [nixpkgs-mk-opts-doc]: https://github.com/NixOS/nixpkgs/blob/02071814abd873bc55202fe0fd3d8de89225050a/nixos/lib/make-options-doc/default.nix
 [nodejs]: https://nodejs.org
-[repo-action-deploy]: https://github.com/nicolas-goudry/nixkraken/blob/main/.github/workflows/deploy-docs.yml
+[repo-action-deploy]: https://github.com/nicolas-goudry/nixkraken/blob/main/.github/workflows/docs.yml
 [repo-docs-drv]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/default.nix
 [repo-docs-root]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs
 [repo-generate-docs-script]: https://github.com/nicolas-goudry/nixkraken/blob/main/docs/generate_docs.py

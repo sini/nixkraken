@@ -1,5 +1,5 @@
 [doc-caveats]: ../notes/caveats.md#reverted-paid-features
-[doc-opt-enable]: https://nicolas-goudry.github.io/nixkraken/options/nixkraken.html#enable
+[doc-opt-enable]: https://nicolas-goudry.github.io/nixkraken/reference/nixkraken.html#enable
 [gitkraken]: https://www.gitkraken.com/git-client
 [hm-opt-home-pkgs]: https://nix-community.github.io/home-manager/options.xhtml#opt-home.packages
 [oauth]: https://www.oauth.com
