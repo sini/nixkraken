@@ -52,7 +52,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'Getting Started',
       base: '/guide/getting-started/',
-      collapsed: false,
       items: [
         { text: 'Quick Start', link: 'quick-start' },
         {
@@ -70,7 +69,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'Important Notes',
       base: '/guide/notes/',
-      collapsed: false,
       items: [
         { text: 'Known Caveats', link: 'caveats' },
         { text: 'Compatibility', link: 'compatibility' },
@@ -79,7 +77,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'User Guides',
       base: '/guide/user/',
-      collapsed: false,
       items: [
         { text: 'Binary Cache', link: 'caching' },
         { text: 'Authentication', link: 'auth' },
@@ -93,31 +90,36 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 
 function sidebarContrib(): DefaultTheme.SidebarItem[] {
   return [
-    { text: 'How to Contribute', link: 'contributing' },
-    { text: 'Modules', link: 'modules' },
-    { text: 'Themes', link: 'themes' },
-    { text: 'GitKraken', link: 'gitkraken' },
-    { text: 'Documentation', link: 'docs' },
     {
-      text: 'Helper Packages',
-      base: '/contrib/pkgs/',
-      collapsed: true,
+      text: 'Contributing',
       items: [
-        { text: 'Introduction', link: 'intro' },
-        { text: 'gk-configure', link: 'configure' },
-        { text: 'gk-encrypt and gk-decrypt', link: 'encrypt-decrypt' },
-        { text: 'gk-login', link: 'login' },
-        { text: 'gk-theme', link: 'theme' },
-      ],
-    },
-    {
-      text: 'Tests',
-      base: '/contrib/tests/',
-      collapsed: true,
-      items: [
-        { text: 'Introduction', link: 'intro' },
-        { text: 'Running Tests', link: 'running' },
-        { text: 'Writing Tests', link: 'writing' },
+        { text: 'How To', link: 'contributing' },
+        { text: 'Modules', link: 'modules' },
+        { text: 'Themes', link: 'themes' },
+        { text: 'GitKraken', link: 'gitkraken' },
+        {
+          text: 'Helper Packages',
+          base: '/contrib/pkgs/',
+          collapsed: true,
+          items: [
+            { text: 'Introduction', link: 'intro' },
+            { text: 'gk-configure', link: 'configure' },
+            { text: 'gk-encrypt and gk-decrypt', link: 'encrypt-decrypt' },
+            { text: 'gk-login', link: 'login' },
+            { text: 'gk-theme', link: 'theme' },
+          ],
+        },
+        {
+          text: 'Tests',
+          base: '/contrib/tests/',
+          collapsed: true,
+          items: [
+            { text: 'Introduction', link: 'intro' },
+            { text: 'Running Tests', link: 'running' },
+            { text: 'Writing Tests', link: 'writing' },
+          ],
+        },
+        { text: 'Documentation', link: 'docs' },
       ],
     },
   ]
