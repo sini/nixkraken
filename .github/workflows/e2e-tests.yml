@@ -30,8 +30,6 @@ jobs:
       test-matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: wimpysworld/nothing-but-nix@main
         with:
           hatchet-protocol: holster
@@ -58,8 +56,6 @@ jobs:
       matrix: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: wimpysworld/nothing-but-nix@main
         with:
           hatchet-protocol: holster
