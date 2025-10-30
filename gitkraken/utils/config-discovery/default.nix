@@ -15,8 +15,12 @@ let
   deep-json-diff = pkgs.callPackage ../deep-json-diff { };
 in
 writeShellApplication {
-  name = "gitkraken-config-discovery";
+  name = "gk-config-discovery";
   text = ./script.sh;
+
+  derivationArgs = {
+    version = "1.0.0";
+  };
 
   runtimeInputs = [
     coreutils

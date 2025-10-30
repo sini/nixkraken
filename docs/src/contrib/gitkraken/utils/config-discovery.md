@@ -51,14 +51,14 @@ nix-build ./gitkraken/utils/config-discovery --argstr version 11.1.0
 By default, the utility watches the main application configuration file (i.e., `~/.gitkraken/config`):
 
 ```sh
-./result/bin/gitkraken-config-discovery
+./result/bin/gk-config-discovery
 ```
 
 Additionally, passing a profile identifier as argument allows to watch for this profile-specific configuration (i.e., `~/.gitkraken/profiles/<profileId>/profile`):
 
 ```sh
 # Default profile
-./result/bin/gitkraken-config-discovery d6e5a8ca26e14325a4275fc33b17e16f
+./result/bin/gk-config-discovery d6e5a8ca26e14325a4275fc33b17e16f
 ```
 
 ::: warning
