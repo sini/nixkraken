@@ -1,0 +1,16 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^#gpg(format|package)$"
+    },
+    {
+      "pattern": "https://www.gnu.org/software/bash"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^/",
+      "replacement": "{{BASEURL}}/src/"
+    }
+  ]
+}

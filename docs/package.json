@@ -6,7 +6,7 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "linkcheck": "markdown-link-check -pi node_modules ./",
+    "linkcheck": "markdown-link-check -pi node_modules -c .linkcheck.config.json",
     "postinstall": "patch-package"
   },
   "devDependencies": {
