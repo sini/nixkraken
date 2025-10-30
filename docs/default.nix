@@ -64,6 +64,7 @@ let
 in
 buildNpmPackage rec {
   name = "nixkraken-docs";
+  version = "1.0.0";
   src =
     with lib.fileset;
     toSource {
