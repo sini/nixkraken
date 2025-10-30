@@ -77,7 +77,7 @@ There are two common patterns, depending on whether the theme has a [single vari
 
 For single variant themes, the derivation is straightforward:
 
-<<< ../../../themes/sets/tokyo-night.nix
+<<< ../../../themes/sets/tokyo-night/package.nix
 
 ### Multiple Variants
 
@@ -85,7 +85,7 @@ Multi-variant themes typically accept an optional `withVariants` argument, valid
 
 Example (Catppuccin):
 
-<<< ../../../themes/sets/catppuccin.nix
+<<< ../../../themes/sets/catppuccin/package.nix
 
 ## Maintenance
 
