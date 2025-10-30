@@ -12,8 +12,10 @@ let
     ;
   gitkraken = callPackage ../../. { inherit version; };
 in
-runCommand "extract-gitkraken-app"
+runCommand "gk-app-extractor"
   {
+    version = "1.0.0";
+
     buildInputs = [
       asar
       nodePackages.prettier
