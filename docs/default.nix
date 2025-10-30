@@ -80,7 +80,7 @@ buildNpmPackage rec {
     };
   sourceRoot = "${src.name}/docs";
 
-  npmDepsHash = "sha256-OG1nlSWilUolmP+02Q/Jp/lg5BYHOpB7CpGuBJyzUk8=";
+  npmDepsHash = "sha256-NSzOUSJ05C3NWxYt3yllXtl2JI5VvY6cYNvQCJAUHFA=";
   npmPackFlags = [ "--ignore-scripts" ]; # Prevents npm pack to build the project
 
   nativeBuildInputs = [
@@ -97,6 +97,7 @@ buildNpmPackage rec {
     ${commandUsagesBuilder}
 
     # Required to be able to detect when VitePress build is running in CI
+    # Also unexpectedly fixes build hang due to ora spinner (see https://github.com/vuejs/vitepress/pull/5002)
     export CI=${builtins.toString isCI}
   '';
 

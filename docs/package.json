@@ -6,15 +6,13 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "linkcheck": "markdown-link-check -pi node_modules -c .linkcheck.config.json",
-    "postinstall": "patch-package"
+    "linkcheck": "markdown-link-check -pi node_modules -c .linkcheck.config.json"
   },
   "devDependencies": {
     "@types/node": "24.9.0",
     "markdown-it-implicit-figures": "0.12.0",
     "markdown-link-check": "3.14.1",
     "mermaid": "11.12.0",
-    "patch-package": "8.0.1",
     "vitepress": "2.0.0-alpha.12"
   },
   "dependencies": {
